@@ -8,6 +8,7 @@ const links = [
   { href: "/journal", label: "Journal de bord" },
   { href: "/ressources", label: "Ressources" },
   { href: "/a-propos", label: "À propos" },
+  { href: "/compte", label: "Mon compte" },
 ];
 
 export default function Nav() {
