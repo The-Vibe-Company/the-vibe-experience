@@ -256,6 +256,45 @@ a { color: inherit; text-decoration: none; }
 .compte-row:first-of-type { border-top: none; }
 .compte-row .v { font-weight: 600; }
 
+/* MODULE DÉTAILLÉ — familles + étapes */
+.families { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.family { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.6rem; }
+.family > .label { margin-bottom: 1rem; }
+.mrow { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 0; border-top: 1px solid var(--border); }
+.mrow:first-of-type { border-top: none; }
+.mrow .mn { font-weight: 700; font-size: 1rem; }
+.mrow .ms { font-size: .82rem; color: var(--muted-2); }
+.mrow .badge { font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; padding: .25rem .5rem; border-radius: 100px; white-space: nowrap; }
+.badge-ok { background: #e1f5ee; color: #0f6e56; }
+.badge-soon { background: #f1efe8; color: #5f5e5a; }
+.mtotal { display: flex; gap: 1.5rem; flex-wrap: wrap; font-family: var(--font-geist-mono), monospace; font-size: .8rem; color: var(--muted-2); margin-top: 1rem; }
+.toolbox { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: .8rem; margin: 1rem 0 2.5rem; }
+.tool { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; }
+.tool h4 { font-size: .95rem; font-weight: 700; margin-bottom: .2rem; }
+.tool p { font-size: .84rem; color: var(--muted); line-height: 1.4; }
+.etape { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.8rem; margin-bottom: 1.2rem; }
+.etape-head { display: flex; align-items: center; gap: 1rem; margin-bottom: .9rem; flex-wrap: wrap; }
+.etape-num { font-family: var(--font-geist-mono), monospace; font-weight: 600; font-size: 1.1rem; width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--orange-bg); color: var(--orange); display: flex; align-items: center; justify-content: center; }
+.etape-head h3 { font-size: 1.3rem; letter-spacing: -0.02em; font-weight: 800; flex: 1; min-width: 200px; }
+.etape-dur { font-family: var(--font-geist-mono), monospace; font-size: .75rem; color: var(--muted-2); white-space: nowrap; }
+.etape-obj { color: var(--muted); font-size: 1rem; margin-bottom: 1rem; line-height: 1.55; }
+.sub { list-style: none; counter-reset: s; padding: 0; margin: 0 0 1rem; display: flex; flex-direction: column; gap: .55rem; }
+.sub li { counter-increment: s; position: relative; padding-left: 1.9rem; font-size: .95rem; }
+.sub li::before { content: counter(s); position: absolute; left: 0; top: -1px; font-family: var(--font-geist-mono), monospace; font-size: .72rem; color: var(--orange); background: var(--orange-bg); width: 1.35rem; height: 1.35rem; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+.fiches { display: flex; flex-wrap: wrap; gap: .5rem; margin: .4rem 0 1rem; }
+.fiche { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; padding: .55rem .8rem; max-width: 320px; display: flex; flex-direction: column; gap: .12rem; }
+.fiche .fn, .fiche .fd { display: block; }
+.fiche .fn { font-size: .82rem; font-weight: 700; }
+.fiche .fd { font-size: .77rem; color: var(--muted); line-height: 1.35; }
+.choix { display: flex; flex-wrap: wrap; gap: .5rem; margin: .2rem 0 1rem; }
+.reussite { background: #e1f5ee; border: 1px solid #b7e3d2; border-radius: 10px; padding: .7rem .9rem; font-size: .88rem; color: #0f6e56; margin-top: .8rem; }
+.livrable-line { font-size: .9rem; color: var(--muted); margin-top: .7rem; }
+.callout-auto { background: var(--orange-bg); border: 1px solid #eaccae; border-radius: 12px; padding: 1rem 1.2rem; margin: .6rem 0 0; font-size: .92rem; color: var(--orange-ink); }
+.after { background: radial-gradient(120% 150% at 50% -10%, #3a2314 0%, #201510 60%); color: #f8efe4; border-radius: 16px; padding: 2rem; margin-top: 1.5rem; }
+.after .label { color: #ff8a3d; }
+.after h3 { font-size: 1.3rem; font-weight: 800; margin: .6rem 0 .4rem; }
+.after p { color: #c9b6a3; font-size: .97rem; }
+
 @media (max-width: 860px) {
   .rgrid { grid-template-columns: 1fr; }
   .jentry { grid-template-columns: 1fr; gap: .4rem; }

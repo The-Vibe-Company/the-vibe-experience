@@ -1,6 +1,125 @@
 import Link from "next/link";
 
-export const metadata = { title: "Module 01 · Construis ta première page — The Vibe Experience" };
+export const metadata = { title: "Module · Faire un site — The Vibe Experience" };
+
+const toolbox = [
+  { n: "Éditeur IA (Claude Code / Cursor)", d: "Ton atelier. Tu construis en parlant à l'IA, elle écrit le code." },
+  { n: "Homebrew", d: "L'installateur du terminal. Une commande pour installer ce qu'il te faut." },
+  { n: "GitHub", d: "Le coffre-fort de ton code. Il sauvegarde ton projet et son historique." },
+  { n: "Vercel", d: "L'hébergeur. Il met ton site en ligne en un clic." },
+  { n: "SuperWhisper (option)", d: "Pour parler à l'IA au lieu de tout taper." },
+];
+
+type Etape = {
+  num: string;
+  titre: string;
+  tag: [string, string];
+  dur: string;
+  obj: string;
+  sub: string[];
+  prompt?: { label: string; text: string };
+  fiches?: { n: string; d: string }[];
+  choix?: string[];
+  auto?: string;
+  livrable: string;
+  reussite: string;
+};
+
+const etapes: Etape[] = [
+  {
+    num: "1",
+    titre: "Ton idée devient une page",
+    tag: ["Build", "t-build"],
+    dur: "≈ 45 min · en local",
+    obj: "Passer de ton idée à une vraie page qui tourne sur ta machine.",
+    sub: [
+      "Trouve ton sujet, et garde-le simple.",
+      "Explique ta page à l'IA en une phrase (prompt fourni).",
+      "Regarde-la tourner en local, dans ton navigateur. C'est normal que ce soit brut.",
+      "Ajuste par petites touches, une demande à la fois.",
+    ],
+    prompt: {
+      label: "Prompt de démarrage",
+      text: "Crée une page d'accueil pour [ton sujet], avec un grand titre, un sous-titre et un bouton.",
+    },
+    livrable: "Une page qui tourne en local.",
+    reussite: "Elle s'affiche avec un titre et un bouton.",
+  },
+  {
+    num: "2",
+    titre: "Pose ton projet sur GitHub",
+    tag: ["Build", "t-build"],
+    dur: "≈ 1 h · en local",
+    obj: "Sauvegarder ton code et l'automatiser, pour ne plus jamais perdre ton travail.",
+    sub: [
+      "Installe ce qu'il te manque via le terminal (on t'accompagne).",
+      "Connecte GitHub pour sauvegarder ton code.",
+      "Automatise : branche Claude à GitHub pour qu'il pousse tes modifs tout seul.",
+    ],
+    fiches: [
+      { n: "Homebrew", d: "L'installateur du terminal, sans galérer." },
+      { n: "GitHub", d: "Le coffre-fort de ton code et de son historique." },
+    ],
+    auto: "Le réflexe clé : dès que tu ajoutes un outil, tu le connectes et tu l'automatises. Un petit effort une fois, un temps fou gagné ensuite.",
+    livrable: "Ton projet sauvegardé sur GitHub, en automatique.",
+    reussite: "Tes changements se sauvegardent sans que tu y penses.",
+  },
+  {
+    num: "3",
+    titre: "Rends ton site à ton image",
+    tag: ["Build", "t-build"],
+    dur: "≈ 1 h 30 · en local",
+    obj: "Fais que ton site te ressemble et te plaise, et rends-le propre. (Plusieurs pages = optionnel, une seule page est très bien.)",
+    sub: [
+      "Travaille l'apparence : couleurs, style, ton, ta DA.",
+      "Si tu veux, ajoute des pages et un menu.",
+      "Soigne le design avec Impeccable.",
+      "Teste avec Agent Browser et corrige ce qu'il remonte.",
+    ],
+    fiches: [
+      { n: "Impeccable", d: "Un skill qui rend ton interface propre et pro, sans être designer." },
+      { n: "Agent Browser", d: "L'IA parcourt ton site comme un visiteur et repère ce qui cloche." },
+    ],
+    livrable: "Un site à ton image, propre, en local.",
+    reussite: "Le rendu est propre, les boutons et liens marchent, mobile et desktop.",
+  },
+  {
+    num: "4",
+    titre: "Ajoute une ou plusieurs fonctionnalités",
+    tag: ["Produit", "t-product"],
+    dur: "≈ 1 h 30 à 2 h · en local",
+    obj: "Donne des super-pouvoirs à ton site. Tu choisis dans un menu de valeurs sûres, une seule ou plusieurs, on ne limite pas.",
+    sub: [
+      "Choisis ta ou tes fonctionnalités.",
+      "Implémente-la avec l'IA, qui t'accompagne.",
+      "Teste de bout en bout (crée un compte test, soumets le formulaire…).",
+    ],
+    choix: ["Comptes utilisateurs", "Multilingue", "Formulaire de contact"],
+    fiches: [
+      { n: "Supabase", d: "Les comptes + la base de données de tes utilisateurs." },
+      { n: "API", d: "Un branchement vers un service extérieur (traduction, paiement…)." },
+    ],
+    livrable: "La ou les fonctionnalité(s) qui marchent, en local.",
+    reussite: "Chaque fonctionnalité choisie fonctionne.",
+  },
+  {
+    num: "5",
+    titre: "Mets-le en ligne et partage",
+    tag: ["Ship", "t-ship"],
+    dur: "≈ 1 h",
+    obj: "Rends ton site officiel. C'est ici que le juge valide ton travail.",
+    sub: [
+      "Connecte Vercel et déploie.",
+      "En option, ajoute un nom de domaine.",
+      "Vérifie le mobile et la vitesse.",
+      "Le juge visite ton site et coche la checklist. S'il manque un critère, il te renvoie précisément à l'étape à reprendre.",
+      "Partage ton lien.",
+    ],
+    fiches: [{ n: "Vercel", d: "Héberge ton site et le met en ligne en un clic." }],
+    livrable: "Ton site en ligne, partagé.",
+    reussite: "Le juge valide toute la checklist du module.",
+  },
+];
 
 export default function Module() {
   return (
@@ -10,162 +129,114 @@ export default function Module() {
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
-            <Link href="/parcours">Parcours</Link>
+            <Link href="/parcours">Modules</Link>
             <span className="sep">/</span>
-            <span>Module 01</span>
+            <span>Faire un site</span>
           </div>
           <div className="label" style={{ marginTop: "1rem" }}>
-            Module 01 · Build
+            Module · Produit
           </div>
           <h1>
-            Construis ta première page, <em>du prompt à l&apos;écran</em>.
+            Faire un site, <em>de ton idée à en ligne</em>.
           </h1>
           <p>
-            Tu pars de ton idée, tu la gardes simple, et tu en fais une vraie page que tu peux voir
-            dans ton navigateur. Pas une copie d&apos;un site existant, la tienne. On la construit
-            ensemble, étape par étape.
+            Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la
+            mise en ligne, en apprenant les vrais outils au passage. On ne t&apos;impose rien, on
+            t&apos;accompagne pas à pas.
           </p>
+          <div className="mtotal">
+            <span>5 étapes</span>
+            <span>≈ 5 à 6 h au total</span>
+            <span>Niveau : débutant</span>
+          </div>
         </div>
       </header>
 
       <section className="block" style={{ paddingTop: "1.5rem" }}>
-        <div className="wrap mdetail">
-          <div className="mbody">
-            <h2>Ce que tu vas construire</h2>
-            <p>
-              La première page de ton propre projet : un titre qui accroche, un sous-titre, un
-              bouton, et quelques blocs de contenu. Tu décris ce que tu veux en langage normal,
-              l&apos;IA le construit, tu ajustes jusqu&apos;à ce que ça te ressemble. Pour te montrer
-              le principe, je te partage comment j&apos;ai fait le mien, mais c&apos;est bien ta page
-              à toi que tu construis ici.
-            </p>
-
-            <h2 id="etapes">Les étapes</h2>
-            <ol className="steps">
-              <li>
-                <h4>Choisis et cadre ton idée</h4>
-                <p>
-                  Décide quoi construire et garde-le simple. Une idée claire et réalisable vaut mieux
-                  qu&apos;un projet énorme jamais fini.
-                </p>
-              </li>
-              <li>
-                <h4>Décris ta page en langage normal</h4>
-                <p>
-                  Explique à l&apos;IA ce que tu veux voir, comme si tu parlais à un développeur en
-                  face de toi.
-                </p>
-              </li>
-              <li>
-                <h4>Génère la première version</h4>
-                <p>Laisse l&apos;IA produire ta page, puis regarde le résultat en vrai dans ton navigateur.</p>
-              </li>
-              <li>
-                <h4>Ajuste par petites touches</h4>
-                <p>
-                  Change les textes, les couleurs, la mise en page, une demande à la fois, jusqu&apos;à
-                  ce que ça te plaise.
-                </p>
-              </li>
-              <li>
-                <h4>Vérifie que ça tient</h4>
-                <p>
-                  Regarde ta page sur ordinateur et sur mobile, corrige ce qui dépasse. Ta première
-                  page est prête.
-                </p>
-              </li>
-            </ol>
-
-            <h2>L&apos;exercice</h2>
-            <div className="box accent">
-              <div className="box-label">À toi de jouer</div>
-              <h3>Construis la première page de ton idée.</h3>
-              <p>
-                Prends ton idée et fais-en une vraie page à l&apos;écran. Pas la copie d&apos;un site
-                existant, la tienne. L&apos;objectif n&apos;est pas la perfection, c&apos;est
-                d&apos;avoir une page qui te ressemble et que tu es fier de montrer.
-              </p>
-            </div>
-
-            <h2>Le livrable</h2>
-            <div className="box">
-              <div className="box-label">Ce que tu obtiens</div>
-              <h3>La première page de ton projet, en vrai.</h3>
-              <p>
-                Ta propre idée, devenue une page que tu peux montrer. C&apos;est le premier vrai
-                morceau de ton produit. On la mettra en ligne et on la fera grandir dans les modules
-                suivants.
-              </p>
-            </div>
-
-            <h2>Les prompts réutilisables</h2>
-            <div className="prompt">
-              <span className="plabel">Prompt de démarrage</span>
-              Crée la page d&apos;accueil de mon projet : [décris ton idée en une phrase]. Une section
-              héro avec un grand titre, un sous-titre et un bouton, puis trois blocs en dessous. Style
-              [deux mots], couleurs chaudes et lisibles.
-            </div>
-            <div className="prompt">
-              <span className="plabel">Prompt d&apos;ajustement</span>
-              Sur cette page, rends le titre plus gros, change le bouton en orange, et remplace le
-              texte du héro par [ton texte]. Garde le reste identique.
-            </div>
-
-            <div className="pager">
-              <Link href="/parcours">
-                <div className="dir">← Module précédent</div>
-                <div className="pt">00 · Prends en main tes outils</div>
-              </Link>
-              <Link href="/parcours" className="next">
-                <div className="dir">Module suivant →</div>
-                <div className="pt">02 · Structure ton site</div>
-              </Link>
-            </div>
+        <div className="wrap-narrow">
+          <h2 style={{ fontSize: "1.3rem", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: ".4rem" }}>
+            Ta boîte à outils
+          </h2>
+          <p style={{ color: "var(--muted)", fontSize: ".97rem", marginBottom: "0" }}>
+            À installer une fois, avant tout. Ça te resservira pour tous tes projets.
+          </p>
+          <div className="toolbox">
+            {toolbox.map((t) => (
+              <div className="tool" key={t.n}>
+                <h4>{t.n}</h4>
+                <p>{t.d}</p>
+              </div>
+            ))}
           </div>
 
-          <aside className="mside">
-            <div className="mside-card">
-              <span className="k">Infos du module</span>
-              <div className="mside-row">
-                <span>Durée</span>
-                <span className="v">≈ 3 h</span>
+          <h2 style={{ fontSize: "1.3rem", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "1.2rem" }}>
+            Les étapes
+          </h2>
+
+          {etapes.map((e) => (
+            <div className="etape" key={e.num}>
+              <div className="etape-head">
+                <span className="etape-num">{e.num}</span>
+                <h3>{e.titre}</h3>
+                <span className={`tag ${e.tag[1]}`}>{e.tag[0]}</span>
+                <span className="etape-dur">{e.dur}</span>
               </div>
-              <div className="mside-row">
-                <span>Niveau</span>
-                <span className="v">Débutant</span>
+              <p className="etape-obj">{e.obj}</p>
+              <ol className="sub">
+                {e.sub.map((s, i) => (
+                  <li key={i}>{s}</li>
+                ))}
+              </ol>
+
+              {e.choix && (
+                <div className="choix">
+                  {e.choix.map((c) => (
+                    <span className="chip" key={c}>
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {e.prompt && (
+                <div className="prompt">
+                  <span className="plabel">{e.prompt.label}</span>
+                  {e.prompt.text}
+                </div>
+              )}
+
+              {e.fiches && (
+                <div className="fiches">
+                  {e.fiches.map((f) => (
+                    <div className="fiche" key={f.n}>
+                      <span className="fn">{f.n}</span>
+                      <span className="fd">{f.d}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {e.auto && <div className="callout-auto">⚡ {e.auto}</div>}
+
+              <div className="livrable-line">
+                <strong>Livrable :</strong> {e.livrable}
               </div>
-              <div className="mside-row">
-                <span>Prérequis</span>
-                <span className="v">Module 00</span>
-              </div>
-              <div className="mside-row">
-                <span>Livrable</span>
-                <span className="v">Ta première page</span>
-              </div>
-              <div className="mside-row">
-                <span>Outils</span>
-                <span className="v">Éditeur IA + hébergement</span>
+              <div className="reussite">
+                <strong>Réussite :</strong> {e.reussite}
               </div>
             </div>
-            <div className="mside-card">
-              <span className="k">Dans ce module</span>
-              <div className="mside-row">
-                <a href="#etapes">Les étapes</a>
-              </div>
-              <div className="mside-row">
-                <span>L&apos;exercice</span>
-              </div>
-              <div className="mside-row">
-                <span>Le livrable</span>
-              </div>
-              <div className="mside-row">
-                <span>Les prompts</span>
-              </div>
-            </div>
-            <a href="#etapes" className="btn" style={{ justifyContent: "center" }}>
-              Commencer le module
-            </a>
-          </aside>
+          ))}
+
+          <div className="after">
+            <div className="label">Et après ?</div>
+            <h3>Créer ton premier skill</h3>
+            <p>
+              Tu viens d&apos;utiliser des skills tout faits (Impeccable, Agent Browser). Le module
+              suivant, un savoir-faire, t&apos;apprend à fabriquer le tien, que tu réutiliseras dans
+              ton prochain produit. C&apos;est l&apos;alternance : un produit, un savoir-faire, et on
+              recommence.
+            </p>
+          </div>
         </div>
       </section>
     </>
