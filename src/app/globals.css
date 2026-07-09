@@ -327,10 +327,6 @@ a { color: inherit; text-decoration: none; }
 .tool h4 { font-size: .95rem; font-weight: 700; margin-bottom: 0; }
 .tool p { font-size: .84rem; color: var(--muted); line-height: 1.4; }
 .tool-costnote { margin-top: .35rem; font-size: .76rem !important; color: var(--muted-2) !important; font-style: italic; }
-.cost { font-family: var(--font-geist-mono), monospace; font-size: .6rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; padding: .2rem .45rem; border-radius: 100px; white-space: nowrap; }
-.cost-gratuit { background: #e1f5ee; color: #0f6e56; }
-.cost-gratuit-debut { background: #e7f0fb; color: #1f5aa8; }
-.cost-payant { background: var(--orange-bg); color: var(--orange-ink); }
 .cost-recap { background: var(--bg-2); border: 1px solid var(--border); border-radius: 14px; padding: 1.3rem 1.4rem; margin: 0 0 2.5rem; }
 .cost-recap p { font-size: .92rem; color: var(--muted); line-height: 1.55; margin: .6rem 0 0; }
 .cost-recap p strong { color: var(--fg); }
@@ -420,9 +416,8 @@ a { color: inherit; text-decoration: none; }
 .mov-meta { font-family: var(--font-geist-mono), monospace; font-size: .78rem; color: var(--muted-2); margin: 0 0 1rem; }
 .mov-sec { margin: 2.6rem 0 .2rem; }
 .mov-toolintro { font-size: .95rem; color: var(--muted); line-height: 1.55; margin: .5rem 0 1rem; max-width: 42rem; }
-.cost { font-family: var(--font-geist-mono), monospace; font-size: .6rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; }
-.cost-gratuit, .cost-gratuit-debut { color: #3f8a72; }
-.cost-payant { color: var(--orange-ink); background: none; padding: 0; }
+.cost { font-family: var(--font-geist-mono), monospace; font-size: .6rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; color: var(--muted-2); background: none; padding: 0; border: none; border-radius: 0; }
+.cost-gratuit, .cost-gratuit-debut, .cost-payant { color: var(--muted-2); background: none; }
 
 .metapes { display: flex; flex-direction: column; }
 .met-row { display: grid; grid-template-columns: 2.6rem 1fr auto; gap: 1.1rem; align-items: center; padding: 1rem 0; border-top: 1px solid var(--border); color: inherit; position: relative; }
