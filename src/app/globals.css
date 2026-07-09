@@ -369,7 +369,7 @@ a { color: inherit; text-decoration: none; }
 
 /* SOUS-ÉTAPES — accordéon (design 2a) */
 @keyframes rise { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
-.se-list { display: flex; flex-direction: column; }
+.se-list { display: flex; flex-direction: column; border-bottom: 1px solid var(--border); }
 .se-item { border-top: 1px solid var(--border); position: relative; }
 .se-item:first-child { border-top: none; }
 .se-item.open::before { content: ""; position: absolute; left: -24px; top: 1.15rem; bottom: 1.2rem; width: 2px; background: var(--orange); border-radius: 2px; }
@@ -409,7 +409,7 @@ a { color: inherit; text-decoration: none; }
 .se-quote cite { display: block; margin-top: .5rem; font-family: var(--font-geist-mono), monospace; font-size: .66rem; font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--muted-2); }
 .se-done { align-self: flex-start; margin-top: .4rem; }
 .se-todo { font-size: .93rem; color: var(--muted); font-style: italic; }
-.livret { display: flex; flex-direction: column; gap: .9rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.livret { display: flex; flex-direction: column; gap: .9rem; margin-top: 1.7rem; padding-top: 0; border-top: none; }
 .livret-row { display: grid; grid-template-columns: 110px 1fr; gap: 1rem; align-items: baseline; }
 .livret-row .se-l { margin: 0; }
 .livret-row p { margin: 0; font-size: .95rem; line-height: 1.55; color: var(--muted); }
