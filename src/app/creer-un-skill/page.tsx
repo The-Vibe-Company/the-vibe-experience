@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { etapesDetailSkill, skillToolbox, skillGifts } from "@/lib/module-creer-un-skill";
+import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
+import ModuleEtapes from "@/components/ModuleEtapes";
 
 export const metadata = { title: "Module · Créer ton premier skill — The Vibe Experience" };
 
@@ -11,10 +13,27 @@ const costLabel: Record<string, string> = {
 };
 
 export default function ModuleSkill() {
+  const cards = etapesDetailSkill.map((e) => ({
+    slug: e.slug,
+    num: e.num,
+    titre: e.titre,
+    obj: e.obj,
+    tagLabel: e.tag[0],
+    dur: e.dur,
+    sousCount: e.sous.length,
+  }));
+
   return (
-    <>
-      <header className="phead">
-        <div className="wrap">
+    <section className="etape-section">
+      <div className="etape-shell">
+        <ModuleRail
+          etapes={etapesDetailSkill}
+          currentSlug=""
+          basePath="/creer-un-skill"
+          moduleLabel="Créer ton premier skill"
+        />
+
+        <div className="ecol">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -22,122 +41,86 @@ export default function ModuleSkill() {
             <span className="sep">/</span>
             <span>Créer ton premier skill</span>
           </div>
-          <div className="label" style={{ marginTop: "1rem" }}>
+
+          <div className="label" style={{ marginTop: "1.1rem" }}>
             Module · Savoir-faire
           </div>
-          <h1>
+          <h1 className="mov-h1">
             Créer ton premier skill, <em>construit une fois, réutilisé partout</em>.
           </h1>
-          <p>
+          <p className="mov-meta">5 étapes · ≈ 1 h 30 · Débutant</p>
+          <p className="etape-obj">
             Tu viens d&apos;utiliser des skills tout faits (Impeccable, Agent Browser). Là, tu
             fabriques le tien : une compétence que tu apprends une fois à l&apos;IA et qu&apos;elle
             réutilise ensuite toute seule, sur tous tes projets.
           </p>
-          <div className="mtotal">
-            <span>5 étapes (avec l&apos;étape 0)</span>
-            <span>≈ 1 h 30, en une ou deux sessions</span>
-            <span>Niveau : débutant</span>
-          </div>
-        </div>
-      </header>
-
-      <section className="block" style={{ paddingTop: "1.5rem" }}>
-        <div className="wrap-narrow">
-          <h2 style={{ fontSize: "1.3rem", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: ".4rem" }}>
-            Ta boîte à outils
-          </h2>
-          <p style={{ color: "var(--muted)", fontSize: ".97rem", marginBottom: 0 }}>
-            Rien de neuf à installer : tu réutilises l&apos;outil de ton premier projet.
-          </p>
-          <div className="toolbox">
-            {skillToolbox.map((t) => (
-              <div className="tool" key={t.n}>
-                <div className="tool-head">
-                  <h4>{t.n}</h4>
-                  <span className={`cost cost-${t.cost}`}>{costLabel[t.cost]}</span>
-                </div>
-                <p>{t.d}</p>
-                {t.costNote && <p className="tool-costnote">{t.costNote}</p>}
-              </div>
-            ))}
-          </div>
-
-          <div className="gifts">
-            <div className="label">Les skills qu&apos;on t&apos;offre</div>
-            <p className="gifts-intro">
-              Tu peux très bien créer un skill juste en le demandant à Claude Code, sans rien de
-              plus. Mais pour t&apos;aider à le faire nickel, on te donne nos deux vrais outils, en
-              option : le premier crée un skill au bon format, le second le passe en revue et propose
-              des améliorations. Un plus, surtout si tu n&apos;es pas technique. Tu les télécharges,
-              tu les déposes dans tes skills, et tu t&apos;en sers aux étapes 2 et 3.
-            </p>
-            <div className="gifts-grid">
-              {skillGifts.map((g) => (
-                <div className="gift" key={g.slug}>
-                  <h4>{g.n}</h4>
-                  <p>{g.d}</p>
-                  <a className="btn btn-ghost" href={g.href} download>
-                    Télécharger ({g.slug})
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <h2 style={{ fontSize: "1.3rem", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "1.2rem" }}>
-            Les étapes
-          </h2>
 
           <ModuleProgress
             moduleKey="/creer-un-skill"
             basePath="/creer-un-skill"
-            etapes={etapesDetailSkill.map((e) => ({ slug: e.slug, num: e.num, titre: e.titre, sousCount: e.sous.length }))}
+            etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
           />
 
-          <div className="path">
-            {etapesDetailSkill.map((e) => (
-              <Link className="mcard" href={`/creer-un-skill/${e.slug}`} key={e.slug}>
-                <div className="mcard-idx">{e.num}</div>
-                <div className="mcard-body">
-                  <h3>
-                    {e.titre} <span className={`tag ${e.tag[1]}`}>{e.tag[0]}</span>
-                  </h3>
-                </div>
-                <div className="mcard-meta">
-                  <span className="dur">{e.dur}</span>
-                  <span className="mcard-cta">Ouvrir l&apos;étape →</span>
-                </div>
-              </Link>
+          <div className="label mov-sec">Les étapes</div>
+          <ModuleEtapes moduleKey="/creer-un-skill" basePath="/creer-un-skill" etapes={cards} />
+
+          <div className="label mov-sec">Ta boîte à outils</div>
+          <p className="mov-toolintro">
+            Rien de neuf à installer : tu réutilises l&apos;outil de ton premier projet.
+          </p>
+          <div className="tfilets">
+            {skillToolbox.map((t) => (
+              <div className="tfilet" key={t.n}>
+                <span className="tfilet-name">
+                  {t.n}
+                  <span className={`cost cost-${t.cost}`}>{costLabel[t.cost]}</span>
+                </span>
+                <span className="tfilet-desc">{t.d}</span>
+              </div>
             ))}
           </div>
 
-          <Link href="/juge-skill" className="juge-cta">
-            <div>
-              <div className="label">La validation</div>
-              <h3>Ton skill est prêt ? Fais-le lire par le juge.</h3>
-              <p>
-                Tu colles ton fichier SKILL.md, il vérifie qu&apos;il est bien formé (un nom, une
-                description qui dit quand l&apos;utiliser, des instructions) et te dit ce qui manque.
-                Sans jugement de goût.
-              </p>
-            </div>
-            <span className="juge-cta-arrow" aria-hidden>
-              →
+          <div className="label mov-sec">Les skills qu&apos;on t&apos;offre</div>
+          <p className="mov-toolintro">
+            Tu peux créer un skill juste en le demandant à Claude Code. Mais pour t&apos;aider à le
+            faire nickel, on te donne nos deux vrais outils, en option : le premier crée un skill au
+            bon format, le second le passe en revue. Tu les télécharges et tu t&apos;en sers aux
+            étapes 2 et 3.
+          </p>
+          <div className="gfilets">
+            {skillGifts.map((g) => (
+              <div className="gfilet" key={g.slug}>
+                <span className="gfilet-body">
+                  <span className="gfilet-name">{g.n}</span>
+                  <span className="gfilet-desc">{g.d}</span>
+                </span>
+                <a className="btn btn-ghost gfilet-btn" href={g.href} download>
+                  Télécharger
+                </a>
+              </div>
+            ))}
+          </div>
+
+          <Link href="/juge-skill" className="mov-cta">
+            <span className="label">La validation</span>
+            <span className="mov-cta-title">Ton skill est prêt ? Fais-le lire par le juge. →</span>
+            <span className="mov-cta-desc">
+              Tu colles ton fichier SKILL.md, il vérifie qu&apos;il est bien formé et te dit ce qui
+              manque. Sans jugement de goût.
             </span>
           </Link>
 
-          <div className="after">
-            <div className="label">Et après ?</div>
-            <h3>Ton prochain produit</h3>
+          <div className="mov-after">
+            <span className="label">Et après ?</span>
+            <span className="mov-after-title">Ton prochain produit</span>
             <p>
-              Tu viens de fabriquer un savoir-faire, et surtout d&apos;acquérir le réflexe. Le
-              module suivant est un produit : tu y créeras les skills dont tu as besoin, maintenant
-              que tu sais faire. C&apos;est l&apos;alternance : un produit, un savoir-faire, et on
-              recommence.
+              Tu viens de fabriquer un savoir-faire, et surtout d&apos;acquérir le réflexe. Le module
+              suivant est un produit : tu y créeras les skills dont tu as besoin, maintenant que tu
+              sais faire. C&apos;est l&apos;alternance : un produit, un savoir-faire, et on recommence.
             </p>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

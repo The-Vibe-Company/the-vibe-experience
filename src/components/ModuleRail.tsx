@@ -22,6 +22,9 @@ export default function ModuleRail({
   const stats = computeStats(lite, mounted ? done : []);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
 
+  // Sur une page d'étape, on surligne cette étape. Sur l'accueil (currentSlug vide), on surligne l'étape courante.
+  const highlightSlug = currentSlug || stats.current?.etapeSlug || etapes[0]?.slug;
+
   const t = stats.current;
   let cta: string | null = null;
   let ctaHref = `${basePath}/${etapes[0].slug}`;
@@ -62,7 +65,7 @@ export default function ModuleRail({
 
       <ol className="erail-list">
         {stats.etapes.map((es, idx) => {
-          const cur = es.slug === currentSlug;
+          const cur = es.slug === highlightSlug;
           const etape = etapes[idx];
           const curSub = etape.sous.findIndex((_, i) => mounted && !isDone(sousId(es.slug, i)));
           return (
