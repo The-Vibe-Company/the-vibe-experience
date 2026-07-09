@@ -525,10 +525,18 @@ a { color: inherit; text-decoration: none; }
 .jrow { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 1.2rem; padding: 1.3rem 0; border-top: 1px solid var(--border); color: inherit; align-items: start; }
 .jrow:first-child { border-top: none; }
 .jrow-date { font-family: var(--font-geist-mono), monospace; font-size: .72rem; color: var(--faint); padding-top: .2rem; }
-.jrow-title { font-size: 1.08rem; font-weight: 700; letter-spacing: -.015em; transition: color .15s; }
+.jrow-title { display: block; font-size: 1.08rem; font-weight: 700; letter-spacing: -.015em; transition: color .15s; }
 .jrow:hover .jrow-title { color: var(--orange); }
-.jrow-text { font-size: .9rem; line-height: 1.5; color: var(--muted); margin-top: .3rem; max-width: 58ch; }
+.jrow-text { display: block; font-size: .9rem; line-height: 1.5; color: var(--muted); margin-top: .3rem; max-width: 58ch; }
 .jrow-read { font-family: var(--font-geist-mono), monospace; font-size: .68rem; color: var(--faint); padding-top: .25rem; white-space: nowrap; }
+.jrow.soon { cursor: default; }
+.jrow.soon .jrow-title, .jrow.soon:hover .jrow-title { color: var(--muted-2); }
+.jart { max-width: 680px; margin-top: 1.6rem; }
+.jart-recul { border-left: 2px solid var(--fg); padding: .2rem 0 .2rem 1.1rem; margin: 0 0 2.2rem; }
+.jart-recul .label { color: var(--muted-2); }
+.jart-recul p { font-style: italic; color: var(--quote); font-size: 1.02rem; line-height: 1.62; margin: .5rem 0 0; }
+.jart-body p { font-size: 1.05rem; line-height: 1.75; color: var(--fg); margin: 0 0 1.15rem; }
+.jart-back { margin-top: 2.4rem; border-top: 1px solid var(--border); padding-top: 1.3rem; }
 
 /* Ressources */
 .rfilters { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.8rem 0 .5rem; }
