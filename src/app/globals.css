@@ -369,7 +369,7 @@ a { color: inherit; text-decoration: none; }
 
 /* SOUS-ÉTAPES — accordéon (design 2a) */
 @keyframes rise { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
-.se-list { display: flex; flex-direction: column; border-bottom: 1px solid var(--border); }
+.se-list { display: flex; flex-direction: column; }
 .se-item { border-top: 1px solid var(--border); position: relative; }
 .se-item:first-child { border-top: none; }
 .se-item.open::before { content: ""; position: absolute; left: -24px; top: 1.15rem; bottom: 1.2rem; width: 2px; background: var(--orange); border-radius: 2px; }
