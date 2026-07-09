@@ -1,102 +1,61 @@
 import Link from "next/link";
+import ParcoursModule1 from "@/components/ParcoursModule1";
 
-export const metadata = { title: "Les modules — The Vibe Experience" };
+export const metadata = { title: "Le parcours — The Vibe Experience" };
 
 export default function Parcours() {
   return (
-    <div className="pgwrap">
+    <div className="nwrap">
       <div className="crumb">
         <Link href="/">Accueil</Link>
         <span className="sep">/</span>
-        <span>Modules</span>
+        <span>Parcours</span>
       </div>
       <div className="label" style={{ marginTop: "1.1rem" }}>
-        Les modules
+        Le parcours
       </div>
       <h1 className="pg-h1">
         Choisis <em>ce que tu veux créer</em>.
       </h1>
       <p className="pg-lead">
-        Deux familles de modules. Les produits, ce que tu construis (un site, une app, un jeu). Les
-        savoir-faire, les briques réutilisables (créer un skill, automatiser) qui te servent dans tes
-        produits. On alterne : tu apprends une brique, tu l&apos;appliques tout de suite.
+        Un produit, puis un savoir-faire, et on recommence. Rien n&apos;est verrouillé : commence par
+        le module qui te donne envie.
       </p>
 
-      <div className="fam-grid">
-        <div>
-          <div className="label">Produits · ce que tu crées</div>
-          <div className="fam-list">
-            <Link className="frow" href="/module">
-              <span>
-                <span className="frow-n">Faire un site</span>
-                <span className="frow-s">De ton idée à en ligne · 6 étapes</span>
-              </span>
-              <span className="frow-badge ok">Disponible</span>
-            </Link>
-            <div className="frow">
-              <span>
-                <span className="frow-n">Faire une app</span>
-                <span className="frow-s">Comptes, données, vraies fonctionnalités</span>
-              </span>
-              <span className="frow-badge">À venir</span>
-            </div>
-            <div className="frow">
-              <span>
-                <span className="frow-n">Faire un jeu</span>
-                <span className="frow-s">Simple, rapide, très ludique</span>
-              </span>
-              <span className="frow-badge">À venir</span>
-            </div>
-            <div className="frow">
-              <span>
-                <span className="frow-n">Faire ta DA</span>
-                <span className="frow-s">Ton identité visuelle, ta mascotte</span>
-              </span>
-              <span className="frow-badge">À venir</span>
-            </div>
-          </div>
-        </div>
+      <ParcoursModule1 />
 
-        <div>
-          <div className="label">Savoir-faire · tes briques réutilisables</div>
-          <div className="fam-list">
-            <Link className="frow" href="/creer-un-skill">
-              <span>
-                <span className="frow-n">Créer ton premier skill</span>
-                <span className="frow-s">Le fabriquer, le tester, le réutiliser · 5 étapes</span>
+      <div className="pc-suite">
+        <div className="label">La suite</div>
+        <div className="pc-suite-list">
+          <Link className="pc-srow" href="/creer-un-skill">
+            <span className="pc-srow-n">02</span>
+            <span>
+              <span className="pc-srow-title">Créer ton premier skill</span>
+              <span className="pc-srow-desc">
+                Tu as utilisé des skills tout faits ; celui-ci t&apos;apprend à fabriquer le tien,
+                réutilisable dans ton prochain produit.
               </span>
-              <span className="frow-badge ok">Disponible</span>
-            </Link>
-            <div className="frow">
-              <span>
-                <span className="frow-n">Automatiser une tâche</span>
-                <span className="frow-s">Faire faire à l&apos;IA ce qui se répète</span>
-              </span>
-              <span className="frow-badge">À venir</span>
-            </div>
-            <div className="frow">
-              <span>
-                <span className="frow-n">Bien prompter</span>
-                <span className="frow-s">Obtenir de bien meilleurs résultats</span>
-              </span>
-              <span className="frow-badge">À venir</span>
-            </div>
+              <span className="pc-srow-meta">Savoir-faire · après le module 1</span>
+            </span>
+            <span className="pc-srow-status">Disponible →</span>
+          </Link>
+          <div className="pc-srow pc-srow-dots">
+            <span className="pc-srow-n">…</span>
+            <span className="pc-srow-tail">
+              Et on recommence : un produit, un savoir-faire, un produit. La suite s&apos;écrit en
+              public.
+            </span>
           </div>
         </div>
       </div>
 
-      <p style={{ color: "var(--muted-2)", fontSize: ".9rem", marginTop: "1.8rem" }}>
-        La liste grandit au fil de l&apos;aventure. On commence par « Faire un site », le module
-        fondateur.
-      </p>
-
-      <div className="pg-fin">
-        <h2>
-          On commence par <em>ton premier site</em> ?
-        </h2>
-        <p>De ton idée à un site en ligne, pas à pas. C&apos;est là que tout démarre.</p>
-        <Link href="/module" className="btn">
-          Ouvrir « Faire un site »
+      <div className="pc-orient">
+        <div>
+          <span className="pc-orient-t">Tu ne sais pas par où commencer ?</span>
+          <p>Sept petites questions, deux minutes : on te recommande ton point de départ.</p>
+        </div>
+        <Link href="/demarrer" className="btn btn-ghost">
+          On t&apos;oriente →
         </Link>
       </div>
     </div>

@@ -85,30 +85,43 @@ export default function JugeForm() {
       {res && (
         <div className="juge-result">
           <div className={`juge-verdict ${res.valide ? "ok" : "ko"}`}>
-            <span className="juge-verdict-tag">{res.valide ? "Validé" : "Presque"}</span>
+            <span className="juge-verdict-tag">{res.valide ? "Validé ✓" : "Presque"}</span>
             <p>{res.message}</p>
           </div>
 
           <ul className="juge-checklist">
-            {res.criteres.map((c) => (
-              <li key={c.key} className={c.ok ? "ok" : "ko"}>
-                <span className="juge-mark" aria-hidden>
-                  {c.ok ? "✓" : "✗"}
-                </span>
-                <span className="juge-label">
-                  {c.label}
-                  {!c.ok && (
+            {res.criteres.map((c) =>
+              c.ok ? (
+                <li key={c.key} className="ok">
+                  <span className="juge-mark" aria-hidden>
+                    ✓
+                  </span>
+                  <span className="juge-label">{c.label}</span>
+                  {c.detail && <span className="juge-detail">{c.detail}</span>}
+                </li>
+              ) : (
+                <li key={c.key} className="ko">
+                  <span className="juge-mark" aria-hidden>
+                    ✗
+                  </span>
+                  <span className="juge-label">
+                    <span className="juge-label-line">
+                      {c.label}
+                      {c.detail && <span className="juge-detail"> · {c.detail}</span>}
+                    </span>
                     <Link href={`/module/${c.etape}`} className="juge-etape">
                       Reprendre l&apos;étape {c.etape} →
                     </Link>
-                  )}
-                  {c.detail && <span className="juge-detail">{c.detail}</span>}
-                </span>
-              </li>
-            ))}
+                  </span>
+                </li>
+              ),
+            )}
           </ul>
 
-          <p className="juge-note">{res.aTesterToiMeme}</p>
+          <div className="juge-note">
+            <div className="label">À tester toi-même</div>
+            <p>{res.aTesterToiMeme}</p>
+          </div>
         </div>
       )}
     </div>

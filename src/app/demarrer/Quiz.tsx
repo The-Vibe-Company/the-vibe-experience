@@ -58,7 +58,7 @@ export default function Quiz() {
     const reco = computeReco(answers);
     return (
       <div className="quiz-result">
-        <div className="label">Ta recommandation</div>
+        <div className="reco-tag">Ta recommandation</div>
         <h2>
           Tu es plutôt <em>{reco.niveau}</em>.
         </h2>
@@ -67,8 +67,8 @@ export default function Quiz() {
           meilleur point de départ, {reco.ton}, {reco.rythme}.
         </p>
 
-        <div className="reco-card reco-main">
-          <div className="reco-tag">On commence ici</div>
+        <div className="reco-main">
+          <div className="reco-tag hot">On commence ici</div>
           <h3>{reco.moduleDepart.titre}</h3>
           <p>{reco.moduleDepart.note}</p>
           <Link href={reco.moduleDepart.href} className="btn">
@@ -77,14 +77,14 @@ export default function Quiz() {
         </div>
 
         <div className="reco-grid">
-          <div className="reco-card">
+          <div>
             <div className="reco-tag">Ton projet</div>
             <p>
               Tu veux créer {reco.projetLabel}. Les exercices s&apos;appliqueront à ton idée à toi,
               pas à un exemple imposé.
             </p>
           </div>
-          <div className="reco-card">
+          <div>
             <div className="reco-tag">Les skills</div>
             <p>{reco.skills}</p>
           </div>
@@ -94,12 +94,12 @@ export default function Quiz() {
           <p className="quiz-saved">✓ Ton parcours est enregistré sur ton compte.</p>
         )}
         {saveState === "anon" && (
-          <div className="reco-card quiz-anon">
+          <div className="quiz-anon">
             <div className="reco-tag">Garde ta progression</div>
             <p>
               Crée ton compte pour sauvegarder ton parcours et reprendre là où tu t&apos;arrêtes.
             </p>
-            <Link href="/inscription" className="btn">
+            <Link href="/inscription" className="btn btn-ghost">
               Créer mon compte
             </Link>
           </div>
@@ -110,7 +110,7 @@ export default function Quiz() {
           </p>
         )}
 
-        <button className="btn-ghost quiz-restart" onClick={restart}>
+        <button className="quiz-restart" onClick={restart}>
           Refaire le test
         </button>
       </div>
@@ -139,7 +139,8 @@ export default function Quiz() {
             className={`quiz-option ${current === o.value ? "selected" : ""}`}
             onClick={() => choose(q.id, o.value)}
           >
-            {o.label}
+            <span>{o.label}</span>
+            {current === o.value && <span className="quiz-opt-dot" aria-hidden />}
           </button>
         ))}
       </div>
