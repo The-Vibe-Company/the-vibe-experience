@@ -38,6 +38,9 @@ export default function SousEtapes({
   const { isDone, setDone, mounted } = useModuleProgress(moduleKey);
   const [open, setOpen] = useState<number | null>(0);
 
+  // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
+  const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
+
   // Par défaut, on ouvre la première sous-étape non faite de cette étape.
   useEffect(() => {
     if (!mounted) return;
@@ -56,7 +59,10 @@ export default function SousEtapes({
         const isLast = i === sous.length - 1;
 
         return (
-          <div className={`se-item ${isOpen ? "open" : ""}`} key={i}>
+          <div
+            className={`se-item ${isOpen ? "open" : ""} ${open === null && i === currentIdx ? "active-collapsed" : ""}`}
+            key={i}
+          >
             <div className="se-row">
               <button
                 type="button"
