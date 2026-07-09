@@ -19,10 +19,9 @@ export const questions: QuizQuestion[] = [
     role: "Motivation",
     question: "C'est pour quoi, avant tout ?",
     options: [
-      { value: "pro", label: "Pour mon activité pro" },
+      { value: "pro", label: "Pour mon activité, mon travail" },
       { value: "passion", label: "Un projet perso, une passion" },
-      { value: "montee", label: "Monter en compétence pour le travail" },
-      { value: "curiosite", label: "Tester par curiosité" },
+      { value: "curiosite", label: "Par curiosité, pour découvrir" },
     ],
   },
   {
@@ -30,7 +29,7 @@ export const questions: QuizQuestion[] = [
     role: "Rythme",
     question: "Combien de temps tu peux y consacrer ?",
     options: [
-      { value: "ponctuel", label: "Quelques heures, une fois" },
+      { value: "ponctuel", label: "Par sessions courtes, quand j'ai un moment" },
       { value: "hebdo", label: "Un créneau régulier chaque semaine" },
       { value: "intensif", label: "À fond, tous les jours" },
     ],
@@ -63,9 +62,9 @@ export const questions: QuizQuestion[] = [
     question: "As-tu déjà mis un site ou une app en ligne ?",
     options: [
       { value: "jamais", label: "Jamais, je pars vraiment de zéro", points: 0 },
-      { value: "guide", label: "Une fois, mais en étant guidé pas à pas", points: 1 },
-      { value: "seul", label: "Oui, quelques fois par moi-même", points: 2 },
-      { value: "code", label: "J'ai déjà des bases en code", points: 3 },
+      { value: "guide", label: "Une fois, en étant guidé pas à pas", points: 1 },
+      { value: "seul", label: "Quelques fois, par moi-même", points: 2 },
+      { value: "souvent", label: "Oui, souvent, je suis à l'aise", points: 3 },
     ],
   },
   {
@@ -173,7 +172,6 @@ export function computeReco(answers: Answers): Reco {
   const tonLabels: Record<string, string> = {
     pro: "orienté ton activité pro",
     passion: "autour de ta passion",
-    montee: "pour monter en compétence",
     curiosite: "en mode découverte",
   };
 
