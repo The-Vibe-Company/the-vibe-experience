@@ -92,7 +92,7 @@ export default function Module() {
           <ModuleProgress
             moduleKey="/module"
             basePath="/module"
-            etapes={etapesDetail.map((e) => ({ slug: e.slug, num: e.num }))}
+            etapes={etapesDetail.map((e) => ({ slug: e.slug, num: e.num, titre: e.titre, sousCount: e.sous.length }))}
           />
 
           <div className="path">

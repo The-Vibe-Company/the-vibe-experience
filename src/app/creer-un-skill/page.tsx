@@ -91,7 +91,7 @@ export default function ModuleSkill() {
           <ModuleProgress
             moduleKey="/creer-un-skill"
             basePath="/creer-un-skill"
-            etapes={etapesDetailSkill.map((e) => ({ slug: e.slug, num: e.num }))}
+            etapes={etapesDetailSkill.map((e) => ({ slug: e.slug, num: e.num, titre: e.titre, sousCount: e.sous.length }))}
           />
 
           <div className="path">

@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { etapesDetail } from "@/lib/module-faire-un-site";
 import SousEtapes from "./SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import EtapeDone from "@/components/EtapeDone";
 
 export function generateStaticParams() {
   return etapesDetail.map((e) => ({ etape: e.slug }));
@@ -58,21 +57,24 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
             Les sous-étapes
           </div>
 
-          <SousEtapes sous={e.sous} detailPret={e.detailPret} />
-
-          <div className="livrable-line" style={{ marginTop: "1.5rem" }}>
-            <strong>Livrable :</strong> {e.livrable}
-          </div>
-          <div className="reussite">
-            <strong>Réussite :</strong> {e.reussite}
-          </div>
-
-          <EtapeDone
+          <SousEtapes
+            sous={e.sous}
+            detailPret={e.detailPret}
             moduleKey="/module"
-            slug={e.slug}
-            nextHref={next ? `/module/${next.slug}` : undefined}
-            nextLabel={next ? `${next.num} · ${next.titre}` : undefined}
+            etapeSlug={e.slug}
+            etapeNum={e.num}
           />
+
+          <div className="livret">
+            <div className="livret-row">
+              <span className="se-l">Livrable</span>
+              <p>{e.livrable}</p>
+            </div>
+            <div className="livret-row">
+              <span className="se-l">Réussite</span>
+              <p>{e.reussite}</p>
+            </div>
+          </div>
 
           <div className="pager">
             {prev ? (
