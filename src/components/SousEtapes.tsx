@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { SousEtape } from "@/lib/module-faire-un-site";
 import { useModuleProgress, sousId } from "@/lib/progress";
 
@@ -36,18 +36,10 @@ export default function SousEtapes({
   etapeNum: string;
 }) {
   const { isDone, setDone, mounted } = useModuleProgress(moduleKey);
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null); // tout fermé au départ
 
   // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
   const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
-
-  // Par défaut, on ouvre la première sous-étape non faite de cette étape.
-  useEffect(() => {
-    if (!mounted) return;
-    const first = sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i)));
-    setOpen(first === -1 ? 0 : first);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mounted]);
 
   return (
     <div className="se-list">
@@ -75,10 +67,7 @@ export default function SousEtapes({
               </button>
               <button className="se-head" onClick={() => setOpen(isOpen ? null : i)}>
                 <span className="se-num">{label}</span>
-                <span className="se-title">
-                  {s.titre}
-                  {s.duree && <span className="se-dur">{s.duree}</span>}
-                </span>
+                <span className="se-title">{s.titre}</span>
                 <span className="se-tog" aria-hidden>
                   {isOpen ? "−" : "+"}
                 </span>
@@ -87,6 +76,7 @@ export default function SousEtapes({
 
             {isOpen && (
               <div className="se-panel">
+                {s.duree && <div className="se-pdur">{s.duree}</div>}
                 {!detailPret ? (
                   <p className="se-todo">
                     Le détail accompagné de cette sous-étape arrive bientôt.
