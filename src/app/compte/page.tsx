@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "./LogoutButton";
 import ApplyPendingReco from "./ApplyPendingReco";
+import CompteProgress from "@/components/CompteProgress";
 
 export const metadata = { title: "Mon compte — The Vibe Experience" };
 
@@ -23,52 +23,49 @@ export default async function Compte() {
     .single();
 
   return (
-    <>
+    <div className="nwrap">
       <ApplyPendingReco hasProfile={!!profile?.niveau} />
-      <header className="phead">
-        <div className="wrap">
-          <div className="label">Mon compte</div>
-          <h1>Ton espace, <em>ta progression</em>.</h1>
-          <p>
-            Ici, on garde ton parcours et où tu en es. Bientôt : un onboarding qui construit ton
-            parcours sur-mesure selon ce que tu veux créer.
-          </p>
-        </div>
-      </header>
+      <div className="label">Mon compte</div>
+      <h1 className="pg-h1">
+        Reprends <em>où tu t&apos;es arrêté</em>.
+      </h1>
 
-      <section className="block" style={{ paddingTop: "1.5rem" }}>
-        <div className="wrap-narrow">
-          <div className="compte-card">
-            <div className="compte-row">
-              <span>Email</span>
-              <span className="v">{user.email}</span>
-            </div>
-            <div className="compte-row">
-              <span>Niveau</span>
-              <span className="v">{profile?.niveau ?? "à définir"}</span>
-            </div>
-            <div className="compte-row">
-              <span>Objectif</span>
-              <span className="v">{profile?.objectif ?? "à définir"}</span>
-            </div>
+      <CompteProgress />
+
+      <div className="acct-sec">
+        <div className="label">Ton profil de départ</div>
+        <div className="acct-card" style={{ marginTop: "1rem" }}>
+          <div className="acct-row">
+            <span className="acct-k">Niveau</span>
+            <span className="acct-v">{profile?.niveau ?? "à définir"}</span>
           </div>
-
-          <div className="compte-card">
-            <div className="label">Ta progression</div>
-            <p style={{ color: "var(--muted)", margin: ".8rem 0 1.2rem", fontSize: ".97rem" }}>
-              Tu n&apos;as pas encore de parcours. L&apos;onboarding arrive pour le générer selon ton
-              objectif.
-            </p>
-            <Link href="/parcours" className="btn">
-              Voir le parcours
-            </Link>
-          </div>
-
-          <div style={{ marginTop: "1.5rem" }}>
-            <LogoutButton />
+          <div className="acct-row">
+            <span className="acct-k">Premier projet</span>
+            <span className="acct-v">{profile?.objectif ?? "à définir"}</span>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+
+      <div className="acct-sec">
+        <div className="label">Compte</div>
+        <div className="acct-card" style={{ marginTop: "1rem" }}>
+          <div className="acct-row">
+            <span className="acct-k">E-mail</span>
+            <span className="acct-v" style={{ fontWeight: 500, fontFamily: "var(--font-geist-mono), monospace", fontSize: ".88rem" }}>
+              {user.email}
+            </span>
+          </div>
+          <div className="acct-row">
+            <span className="acct-k">Accès</span>
+            <span className="acct-v" style={{ fontWeight: 400, color: "var(--muted)" }}>
+              Gratuit et ouvert — tout le parcours est inclus.
+            </span>
+          </div>
+        </div>
+        <div style={{ marginTop: "1.2rem" }}>
+          <LogoutButton />
+        </div>
+      </div>
+    </div>
   );
 }
