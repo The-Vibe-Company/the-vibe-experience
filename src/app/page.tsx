@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import ParcoursCta from "@/components/ParcoursCta";
 
 export default function Home() {
   return (
@@ -15,9 +16,7 @@ export default function Home() {
             produit avec l&apos;IA, et te montre exactement comment refaire la même chose.
           </p>
           <div className="hcta">
-            <Link href="/demarrer" className="btn">
-              Commence le parcours
-            </Link>
+            <ParcoursCta />
             <a href="#parcours" className="hcta-link">
               Voir les modules ↓
             </a>
@@ -143,9 +142,7 @@ export default function Home() {
           Commence maintenant. Dans une heure ou deux, tu as quelque chose qui tourne sur ta
           machine.
         </p>
-        <Link href="/demarrer" className="btn">
-          Commence le parcours
-        </Link>
+        <ParcoursCta newHref="/module" />
       </section>
     </div>
   );

@@ -31,9 +31,6 @@ export default function Nav() {
               </Link>
             );
           })}
-          <Link href="/demarrer" className="btn">
-            Commence le parcours
-          </Link>
         </div>
       </div>
     </nav>

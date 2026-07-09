@@ -584,6 +584,17 @@ a.frow:hover .frow-n { color: var(--orange); }
 .acct-k { font-family: var(--font-geist-mono), monospace; font-size: .66rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-2); padding-top: .15rem; }
 .acct-v { font-weight: 600; }
 .acct-sec { margin-top: 2.4rem; }
+.acct-pw-v { display: inline-flex; align-items: center; gap: .8rem; font-weight: 500; }
+.acct-dots { letter-spacing: .12em; color: var(--muted-2); }
+.acct-link { background: none; border: none; padding: 0; cursor: pointer; font-family: var(--font-geist-mono), monospace; font-size: .74rem; color: var(--orange-ink); transition: color .15s; }
+.acct-link:hover { color: var(--orange); }
+.acct-pwform { display: flex; flex-wrap: wrap; gap: .6rem; padding: .3rem 0 .7rem; }
+.acct-pwform input { padding: .55rem .8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); font-size: .9rem; color: var(--fg); }
+.acct-pwform input:focus { outline: none; border-color: var(--orange); }
+.acct-pwform .btn { margin: 0; }
+.acct-pwmsg { font-size: .85rem; margin: 0 0 .4rem; }
+.acct-pwmsg.err { color: var(--orange-ink); }
+.acct-pwmsg.ok { color: var(--muted); }
 
 @media (max-width: 900px) {
   .nwrap, .pgwrap { padding: 2rem 1.4rem 3rem; }

@@ -1,8 +1,9 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "./LogoutButton";
 import ApplyPendingReco from "./ApplyPendingReco";
-import CompteProgress from "@/components/CompteProgress";
+import ChangePassword from "./ChangePassword";
 
 export const metadata = { title: "Mon compte — The Vibe Experience" };
 
@@ -26,15 +27,44 @@ export default async function Compte() {
     <div className="nwrap">
       <ApplyPendingReco hasProfile={!!profile?.niveau} />
       <div className="label">Mon compte</div>
-      <h1 className="pg-h1">
-        Reprends <em>où tu t&apos;es arrêté</em>.
-      </h1>
+      <h1 className="pg-h1">Ton compte.</h1>
+      <p className="pg-lead">
+        Tes infos, ton profil, ta connexion. Le parcours, lui, se reprend depuis l&apos;accueil ou la
+        page Parcours.
+      </p>
 
-      <CompteProgress />
+      <div className="acct-sec">
+        <div className="label">Compte</div>
+        <div className="acct-card">
+          <div className="acct-row">
+            <span className="acct-k">E-mail</span>
+            <span
+              className="acct-v"
+              style={{
+                fontWeight: 500,
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: ".88rem",
+              }}
+            >
+              {user.email}
+            </span>
+          </div>
+          <ChangePassword />
+          <div className="acct-row">
+            <span className="acct-k">Accès</span>
+            <span className="acct-v" style={{ fontWeight: 400, color: "var(--muted)" }}>
+              Gratuit et ouvert, tout le parcours est inclus.
+            </span>
+          </div>
+        </div>
+        <div style={{ marginTop: "1.2rem" }}>
+          <LogoutButton />
+        </div>
+      </div>
 
       <div className="acct-sec">
         <div className="label">Ton profil de départ</div>
-        <div className="acct-card" style={{ marginTop: "1rem" }}>
+        <div className="acct-card">
           <div className="acct-row">
             <span className="acct-k">Niveau</span>
             <span className="acct-v">{profile?.niveau ?? "à définir"}</span>
@@ -43,27 +73,14 @@ export default async function Compte() {
             <span className="acct-k">Premier projet</span>
             <span className="acct-v">{profile?.objectif ?? "à définir"}</span>
           </div>
-        </div>
-      </div>
-
-      <div className="acct-sec">
-        <div className="label">Compte</div>
-        <div className="acct-card" style={{ marginTop: "1rem" }}>
           <div className="acct-row">
-            <span className="acct-k">E-mail</span>
-            <span className="acct-v" style={{ fontWeight: 500, fontFamily: "var(--font-geist-mono), monospace", fontSize: ".88rem" }}>
-              {user.email}
+            <span className="acct-k">Le test</span>
+            <span className="acct-v" style={{ fontWeight: 400 }}>
+              <Link href="/demarrer" style={{ color: "var(--orange-ink)", fontWeight: 600 }}>
+                Refaire le quiz →
+              </Link>
             </span>
           </div>
-          <div className="acct-row">
-            <span className="acct-k">Accès</span>
-            <span className="acct-v" style={{ fontWeight: 400, color: "var(--muted)" }}>
-              Gratuit et ouvert — tout le parcours est inclus.
-            </span>
-          </div>
-        </div>
-        <div style={{ marginTop: "1.2rem" }}>
-          <LogoutButton />
         </div>
       </div>
     </div>
