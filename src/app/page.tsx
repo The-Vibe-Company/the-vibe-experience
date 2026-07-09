@@ -16,7 +16,7 @@ export default function Home() {
               vrai produit avec l&apos;IA, et te montre exactement comment refaire la même chose.
             </p>
             <div className="hero-cta">
-              <Link href="/parcours" className="btn">
+              <Link href="/demarrer" className="btn">
                 Commence le parcours
               </Link>
               <Link href="/parcours" className="btn btn-ghost">
@@ -174,7 +174,7 @@ export default function Home() {
               Prêt à builder ton <em>premier produit</em> ?
             </h2>
             <p>Commence le Module 0 maintenant. Dans une heure, tu as quelque chose en ligne.</p>
-            <Link href="/parcours" className="btn btn-inv">
+            <Link href="/demarrer" className="btn btn-inv">
               Commence le parcours
             </Link>
           </div>

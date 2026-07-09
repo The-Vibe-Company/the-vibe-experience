@@ -64,13 +64,13 @@ export default function Parcours() {
 
             <div className="family">
               <div className="label">Savoir-faire · tes briques réutilisables</div>
-              <div className="mrow">
+              <Link className="mrow" href="/creer-un-skill">
                 <div>
                   <div className="mn">Créer ton premier skill</div>
-                  <div className="ms">Le fabriquer, le tester, le réutiliser</div>
+                  <div className="ms">Le fabriquer, le tester, le réutiliser · 5 étapes</div>
                 </div>
-                <span className="badge badge-soon">À venir</span>
-              </div>
+                <span className="badge badge-ok">Disponible</span>
+              </Link>
               <div className="mrow">
                 <div>
                   <div className="mn">Automatiser une tâche</div>
