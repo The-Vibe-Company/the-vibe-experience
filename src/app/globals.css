@@ -382,6 +382,8 @@ a { color: inherit; text-decoration: none; }
 .se-num { font-family: var(--font-geist-mono), monospace; font-size: .75rem; color: var(--muted-2); width: 1.9rem; flex: none; }
 .se-title { flex: 1; min-width: 0; font-size: 1.02rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; transition: color .15s; }
 .se-item:not(.open) .se-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se-item:not(.open) .se-head { align-items: center; height: 3.15rem; padding: 0; }
+.se-item:not(.open) .se-row { align-items: center; }
 .se-pdur { font-family: var(--font-geist-mono), monospace; font-size: .72rem; font-weight: 500; color: var(--faint); }
 .se-head:hover .se-title { color: var(--orange); }
 .se-tog { font-family: var(--font-geist-mono), monospace; font-size: 1rem; color: var(--muted-2); flex: none; }
