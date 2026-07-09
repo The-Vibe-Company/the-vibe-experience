@@ -44,13 +44,7 @@ export default function ModuleEtapes({
             <span className="met-num" aria-hidden>
               {es.complete ? "✓" : e.num}
             </span>
-            <span className="met-body">
-              <span className="met-title">{e.titre}</span>
-              <span className="met-desc">{e.obj}</span>
-              <span className="met-meta">
-                {e.tagLabel} · {e.dur} · {e.sousCount} sous-étape{e.sousCount > 1 ? "s" : ""}
-              </span>
-            </span>
+            <span className="met-title">{e.titre}</span>
             <span className="met-status">
               {mounted && es.complete && <span className="met-done">✓ Terminée</span>}
               {mounted && isCurrent && !es.complete && (
