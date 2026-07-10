@@ -25,10 +25,17 @@ export type Ressource = {
 };
 
 // Les prompts affichés sont ceux des modules, pas des copies : si un module
-// change son prompt, la page Ressources suit.
-function promptDuParcours(etapes: EtapeDetail[], slug: string, sousIndex: number): string {
+// change son prompt, la page Ressources suit. Le paramètre debut ancre le
+// lookup au contenu : si les sous-étapes sont réordonnées, le build casse au
+// lieu d'afficher le mauvais prompt sous un titre devenu faux.
+function promptDuParcours(etapes: EtapeDetail[], slug: string, sousIndex: number, debut: string): string {
   const p = etapes.find((e) => e.slug === slug)?.sous[sousIndex]?.prompt;
   if (!p) throw new Error(`Prompt introuvable dans le parcours : étape ${slug}, sous-étape ${sousIndex + 1}`);
+  if (!p.startsWith(debut)) {
+    throw new Error(
+      `Le prompt de l'étape ${slug}, sous-étape ${sousIndex + 1} ne commence plus par « ${debut} » : mettre à jour la page Ressources (titre, texte, index).`
+    );
+  }
   return p;
 }
 
@@ -136,7 +143,7 @@ export const ressources: Ressource[] = [
     type: "Prompt",
     title: "Démarrer ton site",
     text: "Le prompt de l'étape 1.2 du module Faire un site, celui qui m'a donné mon premier site, une liste d'animés. Il te fait un premier site de débutant pour te lancer, pas un site pro.",
-    prompt: promptDuParcours(etapesDetail, "1", 1),
+    prompt: promptDuParcours(etapesDetail, "1", 1, "Fais-moi un site pour"),
     action: { kind: "copier" },
   },
   {
@@ -144,7 +151,7 @@ export const ressources: Ressource[] = [
     type: "Prompt",
     title: "Voir ton site en local",
     text: "Le prompt de l'étape 1.3, pour lancer ton site sur ta machine et l'ouvrir dans ton navigateur.",
-    prompt: promptDuParcours(etapesDetail, "1", 2),
+    prompt: promptDuParcours(etapesDetail, "1", 2, "Lance mon site en local"),
     action: { kind: "copier" },
   },
   {
@@ -152,7 +159,7 @@ export const ressources: Ressource[] = [
     type: "Prompt",
     title: "Automatiser tes sauvegardes GitHub",
     text: "Le prompt de l'étape 2.3. Tu le donnes une fois, et tes changements partent tout seuls sur GitHub.",
-    prompt: promptDuParcours(etapesDetail, "2", 2),
+    prompt: promptDuParcours(etapesDetail, "2", 2, "À partir de maintenant"),
     action: { kind: "copier" },
   },
   {
@@ -160,7 +167,7 @@ export const ressources: Ressource[] = [
     type: "Prompt",
     title: "Ta première loop : Impeccable + Agent Browser",
     text: "Le prompt de l'étape 3.4. Tes deux skills s'enchaînent tout seuls, vérif, test, correction, jusqu'à ce que tout soit propre.",
-    prompt: promptDuParcours(etapesDetail, "3", 3),
+    prompt: promptDuParcours(etapesDetail, "3", 3, "Fais travailler tes deux skills"),
     action: { kind: "copier" },
   },
   {
@@ -168,7 +175,7 @@ export const ressources: Ressource[] = [
     type: "Prompt",
     title: "Ajouter une fonctionnalité en étant guidé",
     text: "Le prompt de l'étape 4.2, écrit pour les débutants : l'IA s'arrête et t'attend à chaque fois qu'il faut créer un compte ou copier une clé.",
-    prompt: promptDuParcours(etapesDetail, "4", 1),
+    prompt: promptDuParcours(etapesDetail, "4", 1, "Je veux ajouter"),
     action: { kind: "copier" },
   },
   {
@@ -176,7 +183,7 @@ export const ressources: Ressource[] = [
     type: "Prompt",
     title: "Créer un skill avec un simple prompt",
     text: "Celui de l'étape 2.1 du module Créer ton premier skill. Tu décris ce que tu répètes, quand ça doit se déclencher, ce que ça doit faire. Pas besoin d'outil en plus.",
-    prompt: promptDuParcours(etapesDetailSkill, "2", 0),
+    prompt: promptDuParcours(etapesDetailSkill, "2", 0, "Crée-moi un skill"),
     action: { kind: "copier" },
   },
 ];

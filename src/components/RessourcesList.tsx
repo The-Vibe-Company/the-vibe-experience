@@ -17,6 +17,7 @@ function CopyButton({ text }: { text: string }) {
     <button
       type="button"
       className="se-copy"
+      aria-live="polite"
       onClick={() => {
         navigator.clipboard
           ?.writeText(text)
@@ -42,6 +43,7 @@ export default function RessourcesList() {
           <button
             key={f.key}
             className={`rfilter ${active === f.key ? "active" : ""}`}
+            aria-pressed={active === f.key}
             onClick={() => setActive(f.key)}
           >
             {f.label}
