@@ -564,6 +564,8 @@ a { color: inherit; text-decoration: none; }
 .rrow-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -.015em; margin: .2rem 0; }
 .rrow-text { font-size: .9rem; line-height: 1.5; color: var(--muted); max-width: 64ch; }
 .rrow-action { font-size: .85rem; font-weight: 600; color: var(--orange-ink); white-space: nowrap; }
+.rrow-type .cost { margin-left: .6rem; }
+.rrow-prompt { margin-top: .8rem; max-width: 64ch; }
 
 /* Parcours (familles) */
 .fam-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 2rem; }
@@ -612,6 +614,8 @@ a.frow:hover .frow-n { color: var(--orange); }
 @media (max-width: 900px) {
   .nwrap, .pgwrap { padding: 2rem 1.4rem 3rem; }
   .fam-grid, .ap-hero { grid-template-columns: 1fr; gap: 2.4rem; }
+  .rrow { grid-template-columns: 1fr; gap: .7rem; align-items: start; }
+  .rrow-action { justify-self: start; }
 }
 
 /* QUIZ */
