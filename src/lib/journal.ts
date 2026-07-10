@@ -5,17 +5,11 @@
 const SITE = "https://www.thevibecompany.co";
 const REVALIDATE = 1800; // 30 min : nouvel article visible dans la demi-heure
 
-// Calque « Avec le recul » : ton regard d'aujourd'hui sur un article, par slug.
-// À remplir quand tu veux ; s'affiche au-dessus de l'article.
-// Brouillons ci-dessous à relire et corriger dans ta voix (sélection d'articles fondateurs).
-const RECUL: Record<string, string> = {
-  "je-mappelle-victor":
-    "Ce qui me gênait le plus au début, c'était de dire que je ne venais pas de la tech. Aujourd'hui je le vois autrement : ne rien connaître, c'était surtout ne rien avoir à désapprendre. Si tu débutes vraiment, ne cache pas ton point de départ, c'est ton meilleur atout.",
-  "premier-site":
-    "Avec le recul, j'ai voulu comprendre chaque outil avant de m'en servir, et c'était l'inverse du bon ordre. GitHub, Vercel, Supabase, ça devient clair en les utilisant, pas en les étudiant. Si c'était à refaire, je lancerais le site d'abord, et je comprendrais les outils au fur et à mesure qu'ils me servent.",
-  "premier-blocage-terminal":
-    "Le terminal m'a bloqué plus que le site lui-même, parce que je collais des commandes sans rien voir bouger. Ce que je sais maintenant : c'est normal de ne pas tout comprendre, et mieux vaut demander à l'IA de m'expliquer ce que fait chaque commande que de l'exécuter à l'aveugle. Le déclic, c'est de reprendre la main, pas de subir.",
-};
+// Calque « Avec le recul » : ce que Victor sait AUJOURD'HUI que l'article ne
+// pouvait pas dire (ce qui a évolué depuis, si la leçon a tenu, une correction,
+// un lien vers ce qui est venu après). PAS un résumé de l'article : s'il n'y a
+// rien de neuf à ajouter, on laisse vide. Par slug.
+const RECUL: Record<string, string> = {};
 
 export type JournalEntry = {
   slug: string;
