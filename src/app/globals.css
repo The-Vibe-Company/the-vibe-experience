@@ -537,6 +537,14 @@ a { color: inherit; text-decoration: none; }
 .jart-recul .label { color: var(--muted-2); }
 .jart-recul p { font-style: italic; color: var(--quote); font-size: 1.02rem; line-height: 1.62; margin: .5rem 0 0; }
 .jart-body p { font-size: 1.05rem; line-height: 1.75; color: var(--fg); margin: 0 0 1.15rem; }
+.jart-body h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; margin: 2.2rem 0 .9rem; }
+.jart-body h3 { font-size: 1.12rem; font-weight: 700; letter-spacing: -0.015em; margin: 1.8rem 0 .7rem; }
+.jart-body ul, .jart-body ol { margin: 0 0 1.15rem; padding-left: 1.3rem; }
+.jart-body li { font-size: 1.05rem; line-height: 1.7; color: var(--fg); margin: 0 0 .5rem; }
+.jart-body a { color: var(--orange-ink); text-decoration: underline; text-underline-offset: 2px; }
+.jart-body a:hover { color: var(--orange); }
+.jart-body blockquote { margin: 1.4rem 0; border-left: 2px solid var(--fg); padding-left: 1.1rem; font-style: italic; color: var(--quote); }
+.jart-body strong, .jart-body b { font-weight: 700; }
 .jart-lead p { font-size: 1.08rem; line-height: 1.7; color: var(--fg); margin: 0 0 1.2rem; }
 .jart-read { display: inline-block; font-size: .95rem; font-weight: 600; color: var(--orange-ink); transition: color .15s; }
 .jart-read:hover { color: var(--orange); }

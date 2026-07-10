@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { entries, liveEntries } from "@/lib/journal";
+import { getJournalEntries } from "@/lib/journal";
 
 export const metadata = { title: "Journal de bord — The Vibe Experience" };
+export const revalidate = 1800;
 
-export default function Journal() {
-  const feat = liveEntries[0];
-  const rest = entries.filter((e) => e.slug !== feat?.slug);
+export default async function Journal() {
+  const entries = await getJournalEntries();
+  const feat = entries[0];
+  const rest = entries.slice(1);
 
   return (
     <div className="nwrap">
@@ -25,9 +27,15 @@ export default function Journal() {
         et ce que j&apos;en retiens avec le recul.
       </p>
 
+      {!feat && (
+        <p className="pg-lead" style={{ marginTop: "2.5rem", color: "var(--muted-2)" }}>
+          Les entrées se chargent depuis le site. Reviens dans un instant.
+        </p>
+      )}
+
       {feat && (
         <Link href={`/journal/${feat.slug}`} className="jfeat">
-          <span className="jfeat-cap">À la une · {feat.date}</span>
+          <span className="jfeat-cap">À la une · {feat.dateLabel}</span>
           <span className="jfeat-title">{feat.title}</span>
           <span className="jfeat-text">{feat.lead}</span>
           <span className="jfeat-link">Lire l&apos;entrée →</span>
@@ -37,7 +45,7 @@ export default function Journal() {
       <div className="jfil">
         {rest.map((e) => (
           <Link className="jrow" href={`/journal/${e.slug}`} key={e.slug}>
-            <span className="jrow-date">{e.date}</span>
+            <span className="jrow-date">{e.dateLabel}</span>
             <span>
               <span className="jrow-title">{e.title}</span>
               <span className="jrow-text">{e.lead}</span>
