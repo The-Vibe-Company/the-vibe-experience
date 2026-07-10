@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { questions, computeReco, type Answers } from "@/lib/quiz";
+import { questionFlow, computeReco, type Answers } from "@/lib/quiz";
 import { createClient } from "@/lib/supabase/client";
 
 type SaveState = "idle" | "saving" | "saved" | "anon" | "error";
@@ -13,13 +13,11 @@ export default function Quiz() {
   const [done, setDone] = useState(false);
   const [saveState, setSaveState] = useState<SaveState>("idle");
 
-  const total = questions.length;
-
   useEffect(() => {
     if (!done) return;
     (async () => {
       const reco = computeReco(answers);
-      const record = { niveau: reco.niveau, objectif: reco.projetLabel };
+      const record = { niveau: reco.niveau, objectif: reco.cible };
       const supabase = createClient();
       const {
         data: { user },
@@ -42,7 +40,8 @@ export default function Quiz() {
     setAnswers(next);
     // petit délai pour que la sélection se voie avant de passer à la suite
     setTimeout(() => {
-      if (step < total - 1) setStep(step + 1);
+      const nextFlow = questionFlow(next);
+      if (step < nextFlow.length - 1) setStep(step + 1);
       else setDone(true);
     }, 180);
   }
@@ -60,34 +59,35 @@ export default function Quiz() {
       <div className="quiz-result">
         <div className="reco-tag">Ta recommandation</div>
         <h2>
-          Tu es plutôt <em>{reco.niveau}</em>.
+          On te met sur <em>{reco.hero.famille}</em>.
         </h2>
         <p className="quiz-result-sub">
-          Rien n&apos;est verrouillé : tous les modules restent accessibles. On te propose juste le
-          meilleur point de départ, {reco.ton}, {reco.rythme}.
+          D&apos;après tes réponses, c&apos;est là que tu vas le plus avancer. L&apos;autre voie reste
+          juste à côté, tu peux basculer quand tu veux.
         </p>
 
-        <div className="reco-main">
-          <div className="reco-tag hot">On commence ici</div>
-          <h3>{reco.moduleDepart.titre}</h3>
-          <p>{reco.moduleDepart.note}</p>
-          <Link href={reco.moduleDepart.href} className="btn">
-            Ouvrir « {reco.moduleDepart.titre} »
-          </Link>
-        </div>
+        <div className="quiz-res-cols">
+          <div className="quiz-res-hero">
+            <div className="reco-tag hot">On commence ici</div>
+            <h3>{reco.hero.titre}</h3>
+            <p>{reco.hero.note}</p>
+            {reco.hero.cta ? (
+              <Link href={reco.hero.cta.href} className="btn">
+                {reco.hero.cta.label}
+              </Link>
+            ) : (
+              <div className="quiz-soon">En préparation. On te prévient dès que c&apos;est prêt.</div>
+            )}
+          </div>
 
-        <div className="reco-grid">
-          <div>
-            <div className="reco-tag">Ton projet</div>
-            <p>
-              Tu veux créer {reco.projetLabel}. Les exercices s&apos;appliqueront à ton idée à toi,
-              pas à un exemple imposé.
-            </p>
-          </div>
-          <div>
-            <div className="reco-tag">Les skills</div>
-            <p>{reco.skills}</p>
-          </div>
+          <aside className="quiz-res-aside">
+            <div className="reco-tag">Et aussi</div>
+            <div className="quiz-aside-fam">{reco.autre.famille}</div>
+            <p>{reco.autre.teaser}</p>
+            <Link href="/parcours" className="quiz-aside-link">
+              Voir le parcours →
+            </Link>
+          </aside>
         </div>
 
         {saveState === "saved" && (
@@ -96,9 +96,7 @@ export default function Quiz() {
         {saveState === "anon" && (
           <div className="quiz-anon">
             <div className="reco-tag">Garde ta progression</div>
-            <p>
-              Crée ton compte pour sauvegarder ton parcours et reprendre là où tu t&apos;arrêtes.
-            </p>
+            <p>Crée ton compte pour sauvegarder ton parcours et reprendre là où tu t&apos;arrêtes.</p>
             <Link href="/inscription" className="btn btn-ghost">
               Créer mon compte
             </Link>
@@ -117,16 +115,19 @@ export default function Quiz() {
     );
   }
 
-  const q = questions[step];
+  const flow = questionFlow(answers);
+  const idx = Math.min(step, flow.length - 1);
+  const q = flow[idx];
   const current = answers[q.id];
+  const displayTotal = branchDone(answers) ? flow.length : 6;
 
   return (
     <div className="quiz">
       <div className="quiz-progress">
-        <div className="quiz-progress-bar" style={{ width: `${(step / total) * 100}%` }} />
+        <div className="quiz-progress-bar" style={{ width: `${(idx / displayTotal) * 100}%` }} />
       </div>
       <div className="quiz-count">
-        Question {step + 1} sur {total} · {q.role}
+        Question {idx + 1} sur {displayTotal} · {q.role}
       </div>
 
       <h2 className="quiz-question">{q.question}</h2>
@@ -145,11 +146,15 @@ export default function Quiz() {
         ))}
       </div>
 
-      {step > 0 && (
-        <button className="quiz-back" onClick={() => setStep(step - 1)}>
+      {idx > 0 && (
+        <button className="quiz-back" onClick={() => setStep(idx - 1)}>
           ← Revenir
         </button>
       )}
     </div>
   );
+}
+
+function branchDone(answers: Answers): boolean {
+  return ["envie", "facon", "vision"].every((id) => answers[id]);
 }

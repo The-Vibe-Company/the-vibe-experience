@@ -1,188 +1,237 @@
+export type Branche = "construire" | "automatiser";
+
 export type QuizOption = {
   value: string;
   label: string;
-  points?: number; // seulement pour les questions de niveau
+  lean?: Branche; // phase 1 : vers quelle branche cette réponse penche
+  points?: number; // phase 2 : niveau
 };
 
 export type QuizQuestion = {
   id: string;
-  role: string; // petit tag affiché (Motivation, Rythme…)
+  role: string;
   question: string;
   hint?: string;
   options: QuizOption[];
 };
 
-// Ordre validé : envie et intention d'abord, technique ensuite.
-export const questions: QuizQuestion[] = [
+// PHASE 1 — 3 questions mélangées. Le classement se fait sur l'ensemble des
+// réponses (majorité), jamais sur une seule : si on se trompe sur une, ce n'est
+// pas grave.
+export const branchQuestions: QuizQuestion[] = [
   {
-    id: "motivation",
-    role: "Motivation",
-    question: "C'est pour quoi, avant tout ?",
+    id: "envie",
+    role: "Ton envie",
+    question: "Qu'est-ce que tu as le plus envie de faire ?",
     options: [
-      { value: "pro", label: "Pour mon activité, mon travail" },
-      { value: "passion", label: "Un projet perso, une passion" },
-      { value: "curiosite", label: "Par curiosité, pour découvrir" },
+      { value: "produit", label: "Créer mon propre produit (un site, une app, un jeu...)", lean: "construire" },
+      { value: "competence", label: "Monter en compétence avec l'IA et ses outils", lean: "construire" },
+      { value: "taches", label: "Automatiser des tâches précises qui me prennent du temps (devis, compta, mails...)", lean: "automatiser" },
+      { value: "temps", label: "Gagner du temps sur mon travail", lean: "automatiser" },
     ],
   },
   {
-    id: "rythme",
-    role: "Rythme",
-    question: "Combien de temps tu peux y consacrer ?",
+    id: "facon",
+    role: "Ta façon",
+    question: "Tu préfères...",
     options: [
-      { value: "ponctuel", label: "Par sessions courtes, quand j'ai un moment" },
-      { value: "hebdo", label: "Un créneau régulier chaque semaine" },
-      { value: "intensif", label: "À fond, tous les jours" },
+      { value: "comprendre", label: "Prendre le temps de comprendre comment ça marche, pour être vraiment autonome", lean: "construire" },
+      { value: "resultat", label: "Aller droit au résultat, en comprenant juste ce qu'il faut pour que ça tourne", lean: "automatiser" },
     ],
   },
+  {
+    id: "vision",
+    role: "L'IA pour toi",
+    question: "L'IA, pour toi, ce serait plutôt...",
+    options: [
+      { value: "maitriser", label: "Un truc à apprendre et à maîtriser", lean: "construire" },
+      { value: "executant", label: "Un exécutant qui te débarrasse des corvées", lean: "automatiser" },
+    ],
+  },
+];
+
+// PHASE 2 — question de base, partagée par les deux branches.
+export const baseQuestion: QuizQuestion = {
+  id: "base",
+  role: "Tes bases",
+  question: "Tes connaissances de base avec l'IA et les skills ?",
+  options: [
+    { value: "zero", label: "Je débute complètement, je ne sais même pas ce qu'est un skill", points: 0 },
+    { value: "utilise", label: "J'utilise déjà l'IA, mais je n'ai jamais rien construit ni automatisé", points: 1 },
+    { value: "alaise", label: "Je suis à l'aise, j'utilise déjà des skills ou j'ai mis des trucs en place", points: 3 },
+  ],
+};
+
+// PHASE 2 — spécifique à la branche « construire ».
+export const construireQuestions: QuizQuestion[] = [
   {
     id: "projet",
     role: "Ton projet",
-    question: "Qu'est-ce que tu as le plus envie de créer en premier ?",
+    question: "Qu'est-ce que tu veux créer en premier ?",
     options: [
-      { value: "site", label: "Un site (vitrine, perso, une idée qui me tient à cœur)" },
+      { value: "site", label: "Un site" },
       { value: "app", label: "Une app avec de vraies fonctionnalités" },
       { value: "jeu", label: "Un jeu" },
-      { value: "da", label: "Une identité visuelle / une mascotte" },
+      { value: "da", label: "Une identité visuelle, une mascotte" },
       { value: "indecis", label: "Je ne sais pas encore" },
     ],
   },
   {
-    id: "autoeval",
-    role: "Auto-évaluation",
-    question: "Comment tu te situes, toi ?",
-    options: [
-      { value: "neophyte", label: "Complètement néophyte, je n'ai jamais touché à ça", points: 0 },
-      { value: "debutant", label: "Débutant, j'ai bricolé un peu", points: 2 },
-      { value: "intermediaire", label: "Intermédiaire, je me débrouille", points: 3 },
-    ],
-  },
-  {
     id: "enligne",
-    role: "Niveau",
+    role: "Ton expérience",
     question: "As-tu déjà mis un site ou une app en ligne ?",
     options: [
-      { value: "jamais", label: "Jamais, je pars vraiment de zéro", points: 0 },
-      { value: "guide", label: "Une fois, en étant guidé pas à pas", points: 1 },
+      { value: "jamais", label: "Jamais, je pars de zéro", points: 0 },
+      { value: "guide", label: "Une fois, en étant guidé", points: 1 },
       { value: "seul", label: "Quelques fois, par moi-même", points: 2 },
       { value: "souvent", label: "Oui, souvent, je suis à l'aise", points: 3 },
     ],
   },
+];
+
+// PHASE 2 — spécifique à la branche « automatiser ».
+export const automatiserQuestions: QuizQuestion[] = [
   {
-    id: "terminal",
-    role: "Niveau",
-    question: "Le terminal et GitHub, ça te parle ?",
+    id: "tache",
+    role: "Ta tâche",
+    question: "Quelle tâche te fait perdre le plus de temps ?",
     options: [
-      { value: "cestquoi", label: "C'est quoi ?", points: 0 },
-      { value: "entendu", label: "J'en ai entendu parler, sans m'en servir", points: 1 },
-      { value: "unpeu", label: "Je m'en sers un peu", points: 2 },
-      { value: "alaise", label: "Je suis à l'aise avec", points: 3 },
-    ],
-  },
-  {
-    id: "skills",
-    role: "Les skills",
-    question: "Les skills, où tu en es ?",
-    hint: "Un skill, c'est une compétence qu'on donne à l'IA pour qu'elle fasse mieux une tâche.",
-    options: [
-      { value: "inconnu", label: "Je ne sais pas ce que c'est" },
-      { value: "entendu", label: "J'en ai entendu parler" },
-      { value: "utilise", label: "J'utilise des skills tout faits" },
-      { value: "cree", label: "J'ai déjà créé les miens" },
+      { value: "devis", label: "Mes devis" },
+      { value: "factures", label: "Mes factures" },
+      { value: "compta", label: "Ma compta" },
+      { value: "mails", label: "Mes mails" },
+      { value: "agenda", label: "Mon agenda" },
+      { value: "autre", label: "Autre chose" },
     ],
   },
 ];
 
 export type Answers = Record<string, string>;
-
 export type Niveau = "Néophyte" | "Débutant" | "Intermédiaire";
 
-export type Reco = {
-  niveau: Niveau;
-  score: number;
-  gardeFou: boolean; // le garde-fou terminal a joué
-  projetLabel: string;
-  moduleDepart: { titre: string; href: string; note: string };
-  skills: string;
-  rythme: string;
-  ton: string;
-};
+function optPts(q: QuizQuestion, val: string | undefined): number {
+  return q.options.find((o) => o.value === val)?.points ?? 0;
+}
 
-function pts(answers: Answers, id: string): number {
-  const q = questions.find((x) => x.id === id);
-  const opt = q?.options.find((o) => o.value === answers[id]);
-  return opt?.points ?? 0;
+export function computeBranche(answers: Answers): Branche {
+  let c = 0;
+  let a = 0;
+  for (const q of branchQuestions) {
+    const lean = q.options.find((o) => o.value === answers[q.id])?.lean;
+    if (lean === "construire") c++;
+    else if (lean === "automatiser") a++;
+  }
+  return a > c ? "automatiser" : "construire";
+}
+
+// La liste des questions à poser, selon l'avancée. Tant que la phase 1 n'est pas
+// finie, on ne connaît pas la branche, donc on ne montre que les 3 premières.
+export function questionFlow(answers: Answers): QuizQuestion[] {
+  const phase1Done = branchQuestions.every((q) => answers[q.id]);
+  if (!phase1Done) return branchQuestions;
+  const branche = computeBranche(answers);
+  const extras = branche === "automatiser" ? automatiserQuestions : construireQuestions;
+  return [...branchQuestions, baseQuestion, ...extras];
 }
 
 const projetLabels: Record<string, string> = {
   site: "un site",
   app: "une app",
   jeu: "un jeu",
-  da: "une identité visuelle / une mascotte",
-  indecis: "ton projet (à préciser en cours de route)",
+  da: "une identité visuelle",
+  indecis: "ton projet",
+};
+const tacheLabels: Record<string, string> = {
+  devis: "tes devis",
+  factures: "tes factures",
+  compta: "ta compta",
+  mails: "tes mails",
+  agenda: "ton agenda",
+  autre: "ta tâche",
+};
+
+export type Reco = {
+  branche: Branche;
+  niveau: Niveau;
+  cible: string; // « un site » ou « tes devis »
+  hero: {
+    famille: string;
+    titre: string;
+    note: string;
+    cta: { label: string; href: string } | null; // null = module en préparation
+    enPreparation: boolean;
+  };
+  autre: { famille: string; teaser: string };
 };
 
 export function computeReco(answers: Answers): Reco {
-  const score = pts(answers, "autoeval") + pts(answers, "enligne") + pts(answers, "terminal");
+  const branche = computeBranche(answers);
+  const basePts = optPts(baseQuestion, answers["base"]);
 
-  let niveau: Niveau = score <= 2 ? "Néophyte" : score <= 5 ? "Débutant" : "Intermédiaire";
+  if (branche === "automatiser") {
+    const cible = tacheLabels[answers["tache"] ?? "autre"] ?? tacheLabels.autre;
+    const niveau: Niveau = basePts >= 3 ? "Intermédiaire" : basePts >= 1 ? "Débutant" : "Néophyte";
+    const note =
+      `On prépare un module pour automatiser ${cible}. ` +
+      (basePts === 0
+        ? "Comme tu débutes, il commencera par les bases : c'est quoi un skill, comment s'en servir."
+        : "Tu as déjà les bases, tu iras droit au but.");
+    return {
+      branche,
+      niveau,
+      cible,
+      hero: {
+        famille: "Automatiser ton business",
+        titre: `Automatiser ${cible}`,
+        note,
+        cta: null,
+        enPreparation: true,
+      },
+      autre: {
+        famille: "Apprendre à construire",
+        teaser:
+          "Envie de fabriquer tes propres produits ? Tu peux aussi apprendre à construire un site ou tes propres skills.",
+      },
+    };
+  }
 
-  // Garde-fou : jamais au-dessus de Débutant si le terminal est totalement inconnu.
-  const gardeFou = answers["terminal"] === "cestquoi" && niveau === "Intermédiaire";
-  if (gardeFou) niveau = "Débutant";
+  // Branche « construire »
+  const enlignePts = optPts(construireQuestions[1], answers["enligne"]);
+  const score = basePts + enlignePts;
+  let niveau: Niveau = score <= 1 ? "Néophyte" : score <= 3 ? "Débutant" : "Intermédiaire";
+  // Garde-fou : si tu débutes complètement, jamais au-dessus de Débutant.
+  if (basePts === 0 && niveau === "Intermédiaire") niveau = "Débutant";
 
-  // Module de départ : tout le monde passe par « Faire un site », le module fondateur.
   const projet = answers["projet"] ?? "indecis";
-  const projetLabel = projetLabels[projet] ?? projetLabels.indecis;
+  const cible = projetLabels[projet] ?? projetLabels.indecis;
 
-  let moduleNote: string;
+  let note: string;
   if (niveau === "Intermédiaire") {
-    moduleNote =
-      "Tu peux survoler les premières étapes et avancer plus vite. Tous les modules restent accessibles si tu veux revenir en arrière.";
+    note = "Tu peux survoler les premières étapes et avancer plus vite.";
   } else if (niveau === "Débutant") {
-    moduleNote = "On démarre au début, mais tu pourras accélérer sur les toutes premières bases.";
+    note = "On démarre au début, mais tu accélères vite sur les toutes premières bases.";
   } else {
-    moduleNote = "On démarre tranquillement au tout début, pas à pas, rien d'intimidant.";
+    note = "On démarre tranquillement au tout début, pas à pas, rien d'intimidant.";
   }
   if (projet !== "site" && projet !== "indecis") {
-    moduleNote += ` C'est le socle qui te servira pour ${projetLabel}.`;
+    note += ` C'est le socle qui te servira pour ${cible}.`;
   }
-
-  const moduleDepart = {
-    titre: "Faire un site",
-    href: "/module",
-    note: moduleNote,
-  };
-
-  // Module skills (question hors niveau)
-  const skillsAns = answers["skills"];
-  let skills: string;
-  if (skillsAns === "cree") {
-    skills = "Tu crées déjà tes skills : tu pourras survoler le module « Créer un skill ».";
-  } else if (skillsAns === "utilise") {
-    skills = "Tu utilises déjà des skills : le module « Créer un skill » te fera passer au niveau au-dessus, tu iras vite.";
-  } else {
-    skills = "On te conseille le module « Créer un skill » : c'est un vrai déclic, et il n'est pas encore acquis pour toi.";
-  }
-
-  const rythmeLabels: Record<string, string> = {
-    ponctuel: "à ton rythme, par sessions courtes",
-    hebdo: "un créneau régulier chaque semaine",
-    intensif: "en intensif, tous les jours",
-  };
-  const tonLabels: Record<string, string> = {
-    pro: "orienté ton activité pro",
-    passion: "autour de ta passion",
-    curiosite: "en mode découverte",
-  };
 
   return {
+    branche,
     niveau,
-    score,
-    gardeFou,
-    projetLabel,
-    moduleDepart,
-    skills,
-    rythme: rythmeLabels[answers["rythme"]] ?? rythmeLabels.ponctuel,
-    ton: tonLabels[answers["motivation"]] ?? tonLabels.curiosite,
+    cible,
+    hero: {
+      famille: "Apprendre à construire",
+      titre: "Faire un site",
+      note,
+      cta: { label: "Ouvrir « Faire un site »", href: "/module" },
+      enPreparation: false,
+    },
+    autre: {
+      famille: "Automatiser ton business",
+      teaser:
+        "Tu as aussi des tâches qui te font perdre du temps ? Devis, compta, mails... des modules arrivent pour les automatiser.",
+    },
   };
 }
