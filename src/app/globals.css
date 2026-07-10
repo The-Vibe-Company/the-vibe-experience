@@ -719,6 +719,24 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-fam-intro { font-size: .95rem; line-height: 1.55; color: var(--muted); margin: .5rem 0 0; max-width: 56ch; }
 .pc-srow-soon { grid-template-columns: 1fr auto; }
 .pc-srow-soon .pc-srow-title { color: var(--muted-2); }
+/* Parcours en deux familles côte à côte */
+.pc-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; margin-top: 2.4rem; align-items: start; }
+.pc-col-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.pc-col-intro { font-size: .92rem; line-height: 1.55; color: var(--muted); margin: .5rem 0 0; }
+.pc-col-list { margin-top: 1.4rem; border-bottom: 1px solid var(--border); }
+.pc-mc { display: block; position: relative; border-top: 1px solid var(--border); padding: 1.3rem 0; color: inherit; }
+.pc-mc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.pc-mc-title { display: block; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; margin: .5rem 0 0; transition: color .15s; color: var(--fg); }
+.pc-mc-title:hover { color: var(--orange); }
+a.pc-mc:hover .pc-mc-title { color: var(--orange); }
+.pc-mc-desc { font-size: .9rem; line-height: 1.55; color: var(--muted); margin: .5rem 0 0; }
+.pc-mc-meta { display: block; margin-top: .6rem; font-family: var(--font-geist-mono), monospace; font-size: .64rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted-2); }
+.pc-mc-status { font-family: var(--font-geist-mono), monospace; font-size: .72rem; color: var(--faint); white-space: nowrap; transition: color .15s; }
+a.pc-mc:hover .pc-mc-status { color: var(--orange); }
+.pc-mc-prog { margin-top: 1rem; }
+.pc-mc-cta { margin-top: 1rem; }
+.pc-mc-soon .pc-mc-title { color: var(--muted-2); }
+.pc-mc-lead.cur { border-left: 2px solid var(--orange); padding-left: 1.1rem; margin-left: -1.1rem; }
 .pc-suite { margin-top: 2.75rem; }
 .pc-suite-list { margin-top: .55rem; border-bottom: 1px solid var(--border); }
 .pc-srow { display: grid; grid-template-columns: 52px 1fr auto; gap: 1.1rem; padding: 1.25rem 0; border-top: 1px solid var(--border); color: inherit; align-items: start; }
@@ -738,6 +756,7 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
 .pc-orient .btn-ghost { flex: none; }
 @media (max-width: 860px) {
   .pc-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .pc-cols { grid-template-columns: 1fr; gap: 2.5rem; }
   .pc-orient { flex-direction: column; align-items: flex-start; gap: 1rem; }
 }
 

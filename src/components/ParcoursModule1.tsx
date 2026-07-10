@@ -4,6 +4,7 @@ import Link from "next/link";
 import { etapesDetail } from "@/lib/module-faire-un-site";
 import { useModuleProgress, computeStats } from "@/lib/progress";
 
+// Carte compacte du module 01 pour la colonne « Apprendre à construire » du parcours.
 export default function ParcoursModule1() {
   const { done, mounted } = useModuleProgress("/module");
   const lite = etapesDetail.map((e) => ({
@@ -29,8 +30,8 @@ export default function ParcoursModule1() {
   }
 
   return (
-    <div className={`pc-mod${cur ? " cur" : ""}`}>
-      <div className="pc-modhead">
+    <div className={`pc-mc pc-mc-lead${cur ? " cur" : ""}`}>
+      <div className="pc-mc-head">
         <span className="label">Module 01 · Produit</span>
         {mounted &&
           (stats.allDone ? (
@@ -42,33 +43,29 @@ export default function ParcoursModule1() {
             </span>
           ) : null)}
       </div>
-      <div className="pc-grid">
-        <div>
-          <Link href="/module" className="pc-title">
-            Faire un site
-          </Link>
-          <p className="pc-desc">
-            De ton idée à en ligne : tu construis TON site en apprenant les vrais outils au passage.
-          </p>
-          <span className="pc-meta">Produit · 6 étapes · ≈ 4 à 5 h</span>
+      <Link href="/module" className="pc-mc-title">
+        Faire un site
+      </Link>
+      <p className="pc-mc-desc">
+        De ton idée à en ligne : tu construis TON site en apprenant les vrais outils au passage.
+      </p>
+      <span className="pc-mc-meta">Produit · 6 étapes · ≈ 4 à 5 h</span>
+      <div className="pc-mc-prog">
+        <div className="pc-prog-head">
+          <span className="label">Progression</span>
+          {mounted && (
+            <span className="pc-count">
+              {stats.doneCount}/{stats.total}
+            </span>
+          )}
         </div>
-        <div className="pc-right">
-          <div className="pc-prog-head">
-            <span className="label">Progression</span>
-            {mounted && (
-              <span className="pc-count">
-                {stats.doneCount}/{stats.total}
-              </span>
-            )}
-          </div>
-          <div className="mprogress-bar" aria-hidden>
-            <div className="mprogress-fill" style={{ width: `${pct}%` }} />
-          </div>
-          <Link href={href} className="btn btn-full pc-cta">
-            {cta} →
-          </Link>
+        <div className="mprogress-bar" aria-hidden>
+          <div className="mprogress-fill" style={{ width: `${pct}%` }} />
         </div>
       </div>
+      <Link href={href} className="btn btn-full pc-mc-cta">
+        {cta} →
+      </Link>
     </div>
   );
 }

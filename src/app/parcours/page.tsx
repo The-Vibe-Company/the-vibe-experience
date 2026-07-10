@@ -30,7 +30,7 @@ const businessSoon = [
 
 export default function Parcours() {
   return (
-    <div className="nwrap">
+    <div className="pgwrap">
       <div className="crumb">
         <Link href="/">Accueil</Link>
         <span className="sep">/</span>
@@ -43,60 +43,62 @@ export default function Parcours() {
         Choisis <em>ce que tu veux faire</em>.
       </h1>
       <p className="pg-lead">
-        Deux familles. Apprendre à construire tes propres produits, ou automatiser les tâches qui te
-        bouffent du temps. Commence par celle qui te parle.
+        Deux façons d&apos;avancer. Apprendre à construire tes propres produits, ou automatiser les
+        tâches qui te bouffent du temps. Commence par celle qui te parle.
       </p>
 
-      {/* Famille 1 : Apprendre à construire */}
-      <div className="pc-fam">
-        <div className="pc-fam-head">
-          <span className="label">Apprendre à construire</span>
-        </div>
-        <p className="pc-fam-intro">
-          Tu apprends à fabriquer tes propres trucs, pas à pas, et tu montes en compétence. Le chemin
-          fait partie de la valeur.
-        </p>
+      <div className="pc-cols">
+        {/* Famille 1 : Apprendre à construire */}
+        <div className="pc-col">
+          <div className="pc-col-head">
+            <span className="label">Apprendre à construire</span>
+          </div>
+          <p className="pc-col-intro">
+            Tu apprends à fabriquer tes propres trucs, pas à pas, et tu montes en compétence. Le
+            chemin fait partie de la valeur.
+          </p>
 
-        <ParcoursModule1 />
+          <div className="pc-col-list">
+            <ParcoursModule1 />
 
-        <div className="pc-suite-list">
-          <Link className="pc-srow" href="/creer-un-skill">
-            <span className="pc-srow-n">02</span>
-            <span>
-              <span className="pc-srow-title">Créer ton premier skill</span>
-              <span className="pc-srow-desc">
+            <Link className="pc-mc" href="/creer-un-skill">
+              <div className="pc-mc-head">
+                <span className="label">Module 02 · Savoir-faire</span>
+                <span className="pc-mc-status">Disponible →</span>
+              </div>
+              <span className="pc-mc-title">Créer ton premier skill</span>
+              <p className="pc-mc-desc">
                 Tu as utilisé des skills tout faits ; celui-ci t&apos;apprend à fabriquer le tien,
                 réutilisable dans ton prochain produit.
-              </span>
-              <span className="pc-srow-meta">Savoir-faire · après le module 1</span>
-            </span>
-            <span className="pc-srow-status">Disponible →</span>
-          </Link>
+              </p>
+              <span className="pc-mc-meta">Savoir-faire · après le module 1</span>
+            </Link>
+          </div>
         </div>
-      </div>
 
-      {/* Famille 2 : Automatiser ton business */}
-      <div className="pc-fam">
-        <div className="pc-fam-head">
-          <span className="label">Automatiser ton business</span>
-          <span className="pc-fam-soon">En préparation</span>
-        </div>
-        <p className="pc-fam-intro">
-          Tu mets l&apos;IA au travail sur les tâches qui te font perdre du temps. Des skills prêts à
-          l&apos;emploi, tu apprends juste à t&apos;en servir. Pour ceux qui veulent un résultat, pas
-          forcément apprendre à tout construire.
-        </p>
+        {/* Famille 2 : Automatiser ton business */}
+        <div className="pc-col">
+          <div className="pc-col-head">
+            <span className="label">Automatiser ton business</span>
+            <span className="pc-fam-soon">En préparation</span>
+          </div>
+          <p className="pc-col-intro">
+            Tu mets l&apos;IA au travail sur les tâches qui te font perdre du temps. Des skills prêts à
+            l&apos;emploi, tu apprends juste à t&apos;en servir. Pour ceux qui veulent un résultat, pas
+            forcément apprendre à tout construire.
+          </p>
 
-        <div className="pc-suite-list">
-          {businessSoon.map((m) => (
-            <div className="pc-srow pc-srow-soon" key={m.titre}>
-              <span>
-                <span className="pc-srow-title">{m.titre}</span>
-                <span className="pc-srow-desc">{m.desc}</span>
-              </span>
-              <span className="pc-srow-status">Bientôt</span>
-            </div>
-          ))}
+          <div className="pc-col-list">
+            {businessSoon.map((m) => (
+              <div className="pc-mc pc-mc-soon" key={m.titre}>
+                <div className="pc-mc-head">
+                  <span className="pc-mc-status">Bientôt</span>
+                </div>
+                <span className="pc-mc-title">{m.titre}</span>
+                <p className="pc-mc-desc">{m.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
