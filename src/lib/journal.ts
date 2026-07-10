@@ -7,7 +7,15 @@ const REVALIDATE = 1800; // 30 min : nouvel article visible dans la demi-heure
 
 // Calque « Avec le recul » : ton regard d'aujourd'hui sur un article, par slug.
 // À remplir quand tu veux ; s'affiche au-dessus de l'article.
-const RECUL: Record<string, string> = {};
+// Brouillons ci-dessous à relire et corriger dans ta voix (sélection d'articles fondateurs).
+const RECUL: Record<string, string> = {
+  "je-mappelle-victor":
+    "Ce qui me gênait le plus au début, c'était de dire que je ne venais pas de la tech. Aujourd'hui je le vois autrement : ne rien connaître, c'était surtout ne rien avoir à désapprendre. Si tu débutes vraiment, ne cache pas ton point de départ, c'est ton meilleur atout.",
+  "premier-site":
+    "Avec le recul, j'ai voulu comprendre chaque outil avant de m'en servir, et c'était l'inverse du bon ordre. GitHub, Vercel, Supabase, ça devient clair en les utilisant, pas en les étudiant. Si c'était à refaire, je lancerais le site d'abord, et je comprendrais les outils au fur et à mesure qu'ils me servent.",
+  "premier-blocage-terminal":
+    "Le terminal m'a bloqué plus que le site lui-même, parce que je collais des commandes sans rien voir bouger. Ce que je sais maintenant : c'est normal de ne pas tout comprendre, et mieux vaut demander à l'IA de m'expliquer ce que fait chaque commande que de l'exécuter à l'aveugle. Le déclic, c'est de reprendre la main, pas de subir.",
+};
 
 export type JournalEntry = {
   slug: string;
@@ -16,6 +24,7 @@ export type JournalEntry = {
   dateLabel: string; // « 9 juil. »
   lead: string;
   bodyHtml: string;
+  image?: string;
   recul?: string;
 };
 
@@ -118,7 +127,10 @@ async function fetchArticle(slug: string): Promise<JournalEntry | null> {
   const descM = html.match(/(?:og:description"\s+content|name="description"\s+content)="([^"]*)"/);
   const lead = descM ? decodeEntities(descM[1]) : firstParagraph(bodyHtml);
 
-  return { slug, title, date, dateLabel: frDate(date), lead, bodyHtml, recul: RECUL[slug] };
+  const imgM = html.match(/og:image"\s+content="([^"]*)"/);
+  const image = imgM ? imgM[1] : undefined;
+
+  return { slug, title, date, dateLabel: frDate(date), lead, bodyHtml, image, recul: RECUL[slug] };
 }
 
 async function fetchSlugs(): Promise<string[]> {

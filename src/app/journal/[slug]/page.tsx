@@ -37,6 +37,11 @@ export default async function JournalEntryPage({
       </div>
       <h1 className="pg-h1">{entry.title}</h1>
 
+      {entry.image && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className="jart-cover" src={entry.image} alt="" />
+      )}
+
       <div className="jart">
         {entry.recul && (
           <div className="jart-recul">

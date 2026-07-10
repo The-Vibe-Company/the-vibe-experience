@@ -532,7 +532,8 @@ a { color: inherit; text-decoration: none; }
 .jrow-read { font-family: var(--font-geist-mono), monospace; font-size: .68rem; color: var(--faint); padding-top: .25rem; white-space: nowrap; }
 .jrow.soon { cursor: default; }
 .jrow.soon .jrow-title, .jrow.soon:hover .jrow-title { color: var(--muted-2); }
-.jart { max-width: 680px; margin-top: 1.6rem; }
+.jart-cover { display: block; width: 100%; max-width: 680px; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--border); border-radius: 10px; margin-top: 1.8rem; }
+.jart { max-width: 680px; margin-top: 1.8rem; }
 .jart-recul { border-left: 2px solid var(--fg); padding: .2rem 0 .2rem 1.1rem; margin: 0 0 2.2rem; }
 .jart-recul .label { color: var(--muted-2); }
 .jart-recul p { font-style: italic; color: var(--quote); font-size: 1.02rem; line-height: 1.62; margin: .5rem 0 0; }
