@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { costLabel, ressources } from "@/lib/ressources";
+import CopyButton from "@/components/CopyButton";
 
 const filters = [
   { key: "all", label: "Tout" },
@@ -10,28 +11,6 @@ const filters = [
   { key: "skills", label: "Skills" },
   { key: "prompts", label: "Prompts" },
 ];
-
-function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-  return (
-    <button
-      type="button"
-      className="se-copy"
-      aria-live="polite"
-      onClick={() => {
-        navigator.clipboard
-          ?.writeText(text)
-          .then(() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1600);
-          })
-          .catch(() => {});
-      }}
-    >
-      {copied ? "Copié ✓" : "Copier"}
-    </button>
-  );
-}
 
 export default function RessourcesList() {
   const [active, setActive] = useState("all");
@@ -60,6 +39,7 @@ export default function RessourcesList() {
                 <div className="rrow-type">
                   {r.type}
                   {r.cost && <span className={`cost cost-${r.cost}`}>{costLabel[r.cost]}</span>}
+                  {r.optionnel && <span className="cost">Optionnel</span>}
                 </div>
                 <div className="rrow-title">{r.title}</div>
                 <div className="rrow-text">{r.text}</div>

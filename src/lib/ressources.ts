@@ -20,6 +20,7 @@ export type Ressource = {
   title: string;
   text: string;
   cost?: Cost;
+  optionnel?: boolean;
   prompt?: string;
   action: ActionRessource;
 };
@@ -104,6 +105,7 @@ export const ressources: Ressource[] = [
     title: "SuperWhisper",
     text: "Pour parler à l'IA au lieu de tout taper. Purement optionnel : c'est du confort et du temps gagné, ça ne change rien aux modules ni au résultat.",
     cost: "payant",
+    optionnel: true,
     action: { kind: "parcours", href: "/module" },
   },
 
