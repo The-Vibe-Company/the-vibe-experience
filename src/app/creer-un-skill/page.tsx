@@ -48,7 +48,7 @@ export default function ModuleSkill() {
           <h1 className="mov-h1">
             Créer ton premier skill, <em>construit une fois, réutilisé partout</em>.
           </h1>
-          <p className="mov-meta">5 étapes · ≈ 1 h 30 · Débutant</p>
+          <p className="mov-meta">5 étapes · ≈ 1 h 40 · Débutant</p>
           <p className="etape-obj">
             Tu viens d&apos;utiliser des skills tout faits (Impeccable, Agent Browser). Là, tu
             fabriques le tien : une compétence que tu apprends une fois à l&apos;IA et qu&apos;elle
