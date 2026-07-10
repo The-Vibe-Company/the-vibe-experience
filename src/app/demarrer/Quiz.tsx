@@ -60,6 +60,20 @@ export default function Quiz() {
     setSaveState("idle");
   }
 
+  // « Non » : on oublie la reco de branche et on va au parcours neutre, pour
+  // choisir soi-même son module (repasser le quiz n'a pas d'intérêt).
+  function chooseMyself() {
+    try {
+      const raw = localStorage.getItem("tve_quiz_reco");
+      if (raw) {
+        const r = JSON.parse(raw);
+        delete r.branche;
+        localStorage.setItem("tve_quiz_reco", JSON.stringify(r));
+      }
+    } catch {}
+    window.location.assign("/parcours");
+  }
+
   if (done) {
     const reco = computeReco(answers);
     return (
@@ -87,6 +101,9 @@ export default function Quiz() {
           <Link href="/parcours" className="btn">
             Oui, voir mon parcours →
           </Link>
+          <button type="button" className="quiz-choose" onClick={chooseMyself}>
+            Non, je choisis moi-même →
+          </button>
         </div>
 
         {saveState === "saved" && (
