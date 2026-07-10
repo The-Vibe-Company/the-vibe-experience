@@ -21,7 +21,6 @@ export default function Home() {
               Voir les modules ↓
             </a>
           </div>
-          <p className="hnote">Gratuit et ouvert. On construit en public, erreurs comprises.</p>
         </div>
         <div className="hhero-right">
           <div className="hart">

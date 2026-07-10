@@ -3,73 +3,65 @@ export type JournalEntry = {
   date: string;
   title: string;
   lead: string;
-  read?: string;
-  // La couche « journal » : ton regard d'aujourd'hui sur l'article.
+  // L'article publié (Victor's Story sur thevibecompany.co).
+  source?: string;
+  // La couche « journal » : ton regard d'aujourd'hui sur l'article. À écrire par toi.
   recul?: string;
-  // Le corps de l'article, un paragraphe par entrée. Vide = pas encore écrit.
+  // Le texte complet de l'article, hébergé sur TVE. Vide = on renvoie vers `source`.
   body?: string[];
 };
 
-// Ordre du plus récent au plus ancien. Une entrée devient vivante dès qu'elle a
-// un `body`. Tant que `body` est vide, elle s'affiche en « bientôt » (pas de lien mort).
+// Du plus récent au plus ancien. Les entrées reprennent les vrais articles de
+// Victor's Story. Tant que `body` est vide, l'entrée mène à l'article publié
+// (`source`) ; dès que tu colles le texte, il s'affiche directement sur TVE.
 export const entries: JournalEntry[] = [
   {
-    slug: "poser-les-bases",
-    date: "Sem. 12",
-    title: "Comment j'ai posé les bases du fil rouge",
+    slug: "comment-j-ecris-ces-articles",
+    date: "9 juil.",
+    title: "Je veux que mes relecteurs n'aient plus rien à corriger",
     lead:
-      "Définir le public, la promesse et le parcours avant d'écrire une ligne. Pourquoi ce cadrage m'a évité de partir dans tous les sens.",
-    read: "6 min",
+      "Quatre articles par semaine sur mon apprentissage avec l'IA, et l'idée un peu folle d'une relecture par l'IA aussi exigeante que celle de mes relecteurs.",
+    source: "https://www.thevibecompany.co/resources/articles/comment-j-ecris-ces-articles",
   },
   {
-    slug: "premier-site",
-    date: "Sem. 10",
-    title: "Mon premier site, du prompt à la mise en ligne",
+    slug: "focus-skill-logo-svg",
+    date: "7 juil.",
+    title: "Comment créer un logo épuré avec l'IA",
     lead:
-      "Le récit complet de mon tout premier site, celui sur les animés. Ce qui a marché du premier coup, et ce qui m'a fait galérer.",
-    read: "9 min",
+      "Fabriquer un skill qui génère des logos simples et nets, en extrayant le principe d'un logo réussi plutôt qu'en copiant sa forme.",
+    source: "https://www.thevibecompany.co/resources/articles/focus-skill-logo-svg",
   },
   {
-    slug: "mes-outils",
-    date: "Sem. 08",
-    title: "Les outils que j'utilise pour builder sans savoir coder",
+    slug: "l-outil-qui-me-fait-gagner-du-temps",
+    date: "6 juil.",
+    title: "L'outil qui me fait vraiment gagner du temps : Superwhisper",
     lead:
-      "Ma stack du moment et pourquoi je l'ai choisie. Comment je parle à l'IA pour qu'elle produise ce que j'ai en tête.",
-    read: "7 min",
+      "Mon vrai gain de temps, c'est la dictée vocale. Et parler à l'IA au lieu de tout taper donne souvent de meilleurs résultats.",
+    source: "https://www.thevibecompany.co/resources/articles/l-outil-qui-me-fait-gagner-du-temps",
   },
   {
-    slug: "casser-reparer-mon-site",
-    date: "Sem. 06",
-    title: "Le jour où j'ai cassé mon site (et comment je l'ai réparé)",
+    slug: "mon-travail-se-documente-tout-seul",
+    date: "3 juil.",
+    title: "Comment mon travail se documente tout seul",
     lead:
-      "Un vrai blocage, la panique, puis la méthode pour s'en sortir avec l'IA sans tout comprendre du code.",
-    read: "5 min",
+      "Un système qui documente mon travail à ma place, en captant les décisions au fil des conversations, sans effort manuel.",
+    source: "https://www.thevibecompany.co/resources/articles/mon-travail-se-documente-tout-seul",
   },
   {
-    slug: "premieres-erreurs",
-    date: "Sem. 04",
-    title: "Mes premières erreurs de débutant, assumées",
+    slug: "veille-ia-automatique",
+    date: "2 juil.",
+    title: "J'ai monté une veille qui suit l'actu IA à ma place",
     lead:
-      "Les réflexes que je n'avais pas, les pièges où je suis tombé, et ce que je ferais différemment aujourd'hui.",
-    read: "6 min",
+      "Monter une veille automatique qui suit l'actualité de l'IA, filtre le bruit et me remonte ce qui compte vraiment.",
+    source: "https://www.thevibecompany.co/resources/articles/veille-ia-automatique",
   },
   {
-    slug: "jour-zero",
-    date: "Sem. 01",
-    title: "J'arrive chez The Vibe Company, je n'ai jamais codé",
+    slug: "focus-skill-images",
+    date: "1er juil.",
+    title: "Comment on a généré des visuels consistants grâce aux skills",
     lead:
-      "Le point de départ. Pourquoi je me lance, ce que je vise, et à quoi ressemble le zéro absolu.",
-    read: "4 min",
-    // BROUILLON D'EXEMPLE, à remplacer par ton vrai texte et ta vraie note.
-    recul:
-      "Ce que je referais autrement ? Ne pas attendre de tout comprendre avant de me lancer. J'ai perdu mes premiers jours à vouloir saisir chaque mot technique. En vrai, on apprend en construisant, pas en lisant. Si je repartais de zéro, j'ouvrirais l'éditeur dès le premier jour.",
-    body: [
-      "Je suis arrivé chez The Vibe Company sans avoir jamais écrit une ligne de code. Zéro. Je savais utiliser un ordinateur, envoyer un mail, faire une présentation, rien de plus.",
-      "L'idée du fil rouge était simple sur le papier : partir de mon niveau réel, construire de vrais produits avec l'IA, et tout documenter en public. Les réussites comme les galères.",
-      "Les premiers jours, j'ai eu le réflexe de vouloir tout comprendre avant de toucher à quoi que ce soit. C'était une erreur. Chaque heure passée à lire de la documentation, c'était une heure où je ne construisais pas.",
-      "Ce qui a débloqué la suite, c'est d'accepter de ne pas tout maîtriser et de demander à l'IA de m'accompagner pas à pas. Le jour où j'ai lancé ma première page dans mon navigateur, tout a changé.",
-      "C'est là que ce journal commence. La suite, tu la lis ici, semaine après semaine.",
-    ],
+      "Garder une direction visuelle cohérente et générer des images sans savoir dessiner ni coder, grâce aux skills.",
+    source: "https://www.thevibecompany.co/resources/articles/focus-skill-images",
   },
 ];
 
@@ -77,5 +69,8 @@ export function getEntry(slug: string): JournalEntry | undefined {
   return entries.find((e) => e.slug === slug);
 }
 
-export const liveEntries = entries.filter((e) => e.body && e.body.length > 0);
-export const upcomingEntries = entries.filter((e) => !e.body || e.body.length === 0);
+// Une entrée est « lisible » dès qu'elle a un article : soit hébergé (`body`),
+// soit publié ailleurs (`source`).
+export const liveEntries = entries.filter(
+  (e) => (e.body && e.body.length > 0) || e.source,
+);

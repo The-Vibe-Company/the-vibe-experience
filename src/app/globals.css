@@ -519,7 +519,8 @@ a { color: inherit; text-decoration: none; }
 .jfeat-cap { font-family: var(--font-geist-mono), monospace; font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .14em; color: var(--orange-ink); }
 .jfeat-title { display: block; font-size: 1.4rem; font-weight: 700; letter-spacing: -.02em; margin: .6rem 0 0; transition: color .15s; }
 .jfeat:hover .jfeat-title { color: var(--orange); }
-.jfeat-text { font-size: .95rem; line-height: 1.55; color: var(--muted); margin: .5rem 0 0; max-width: 60ch; }
+.jfeat-cap { display: block; }
+.jfeat-text { display: block; font-size: .95rem; line-height: 1.55; color: var(--muted); margin: .5rem 0 0; max-width: 60ch; }
 .jfeat-link, .jfeat-link { display: inline-block; margin-top: .6rem; font-size: .9rem; font-weight: 600; color: var(--orange-ink); }
 .jfil { margin-top: 2.2rem; display: flex; flex-direction: column; }
 .jrow { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 1.2rem; padding: 1.3rem 0; border-top: 1px solid var(--border); color: inherit; align-items: start; }
@@ -536,6 +537,9 @@ a { color: inherit; text-decoration: none; }
 .jart-recul .label { color: var(--muted-2); }
 .jart-recul p { font-style: italic; color: var(--quote); font-size: 1.02rem; line-height: 1.62; margin: .5rem 0 0; }
 .jart-body p { font-size: 1.05rem; line-height: 1.75; color: var(--fg); margin: 0 0 1.15rem; }
+.jart-lead p { font-size: 1.08rem; line-height: 1.7; color: var(--fg); margin: 0 0 1.2rem; }
+.jart-read { display: inline-block; font-size: .95rem; font-weight: 600; color: var(--orange-ink); transition: color .15s; }
+.jart-read:hover { color: var(--orange); }
 .jart-back { margin-top: 2.4rem; border-top: 1px solid var(--border); padding-top: 1.3rem; }
 
 /* Ressources */

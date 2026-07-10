@@ -19,7 +19,9 @@ export default async function JournalEntryPage({
 }) {
   const { slug } = await params;
   const entry = getEntry(slug);
-  if (!entry || !entry.body || entry.body.length === 0) notFound();
+  if (!entry) notFound();
+
+  const hosted = entry.body && entry.body.length > 0;
 
   return (
     <div className="nwrap">
@@ -30,7 +32,6 @@ export default async function JournalEntryPage({
       </div>
       <div className="label" style={{ marginTop: "1.1rem" }}>
         {entry.date}
-        {entry.read ? ` · ${entry.read}` : ""}
       </div>
       <h1 className="pg-h1">{entry.title}</h1>
 
@@ -41,11 +42,28 @@ export default async function JournalEntryPage({
             <p>{entry.recul}</p>
           </div>
         )}
-        <div className="jart-body">
-          {entry.body.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
+
+        {hosted ? (
+          <div className="jart-body">
+            {entry.body!.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        ) : (
+          <div className="jart-lead">
+            <p>{entry.lead}</p>
+            {entry.source && (
+              <a
+                href={entry.source}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="jart-read"
+              >
+                Lire l&apos;article complet →
+              </a>
+            )}
+          </div>
+        )}
 
         <div className="jart-back">
           <Link href="/journal" className="jrow-read" style={{ color: "var(--orange-ink)" }}>

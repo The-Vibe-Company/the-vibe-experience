@@ -22,13 +22,12 @@ export default function Journal() {
       </h1>
       <p className="pg-lead">
         Mes articles, du parcours réel. Chaque entrée, c&apos;est l&apos;article que j&apos;ai écrit,
-        et surtout ce que j&apos;en retiens avec le recul. Rien n&apos;est lissé, les erreurs sont
-        dedans aussi.
+        et ce que j&apos;en retiens avec le recul.
       </p>
 
       {feat && (
         <Link href={`/journal/${feat.slug}`} className="jfeat">
-          <span className="jfeat-cap">À la une</span>
+          <span className="jfeat-cap">À la une · {feat.date}</span>
           <span className="jfeat-title">{feat.title}</span>
           <span className="jfeat-text">{feat.lead}</span>
           <span className="jfeat-link">Lire l&apos;entrée →</span>
@@ -36,27 +35,16 @@ export default function Journal() {
       )}
 
       <div className="jfil">
-        {rest.map((e) =>
-          e.body && e.body.length > 0 ? (
-            <Link className="jrow" href={`/journal/${e.slug}`} key={e.slug}>
-              <span className="jrow-date">{e.date}</span>
-              <span>
-                <span className="jrow-title">{e.title}</span>
-                <span className="jrow-text">{e.lead}</span>
-              </span>
-              <span className="jrow-read">{e.read}</span>
-            </Link>
-          ) : (
-            <div className="jrow soon" key={e.slug}>
-              <span className="jrow-date">{e.date}</span>
-              <span>
-                <span className="jrow-title">{e.title}</span>
-                <span className="jrow-text">{e.lead}</span>
-              </span>
-              <span className="jrow-read">Bientôt</span>
-            </div>
-          ),
-        )}
+        {rest.map((e) => (
+          <Link className="jrow" href={`/journal/${e.slug}`} key={e.slug}>
+            <span className="jrow-date">{e.date}</span>
+            <span>
+              <span className="jrow-title">{e.title}</span>
+              <span className="jrow-text">{e.lead}</span>
+            </span>
+            <span className="jrow-read">Lire →</span>
+          </Link>
+        ))}
       </div>
     </div>
   );
