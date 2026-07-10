@@ -736,6 +736,7 @@ a.pc-mc:hover .pc-mc-status { color: var(--orange); }
 .pc-mc-prog { margin-top: 1rem; }
 .pc-mc-cta { margin-top: 1rem; }
 .pc-mc-soon .pc-mc-title { color: var(--muted-2); }
+.pc-soon-bar { display: block; text-align: center; margin-top: 1rem; padding: .65rem 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-2); font-size: .82rem; font-weight: 600; color: var(--faint); cursor: default; }
 .pc-mc-lead.cur { border-left: 2px solid var(--orange); padding-left: 1.1rem; margin-left: -1.1rem; }
 .pc-suite { margin-top: 2.75rem; }
 .pc-suite-list { margin-top: .55rem; border-bottom: 1px solid var(--border); }

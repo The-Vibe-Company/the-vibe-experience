@@ -96,6 +96,9 @@ export default function Parcours() {
                 </div>
                 <span className="pc-mc-title">{m.titre}</span>
                 <p className="pc-mc-desc">{m.desc}</p>
+                <div className="pc-soon-bar" aria-disabled="true">
+                  Bientôt disponible
+                </div>
               </div>
             ))}
           </div>
