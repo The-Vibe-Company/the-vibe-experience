@@ -19,7 +19,7 @@ export default function Demarrer() {
       </h1>
       <p className="pg-lead">
         Sept petites questions pour comprendre ton envie, ton objectif et ton niveau. À la fin, on te
-        recommande par où commencer. Tu restes libre : rien n&apos;est verrouillé.
+        recommande par où commencer. Tu restes libre.
       </p>
       <div style={{ marginTop: "2.4rem" }}>
         <Quiz />

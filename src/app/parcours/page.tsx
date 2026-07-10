@@ -18,8 +18,8 @@ export default function Parcours() {
         Choisis <em>ce que tu veux créer</em>.
       </h1>
       <p className="pg-lead">
-        Un produit, puis un savoir-faire, et on recommence. Rien n&apos;est verrouillé : commence par
-        le module qui te donne envie.
+        Un produit, puis un savoir-faire, et on recommence. Commence par le module qui te donne
+        envie.
       </p>
 
       <ParcoursModule1 />
