@@ -17,20 +17,27 @@ export default function Quiz() {
     if (!done) return;
     (async () => {
       const reco = computeReco(answers);
-      const record = { niveau: reco.niveau, objectif: reco.cible };
+      // On garde toujours la branche en local pour personnaliser le parcours,
+      // que la personne soit connectée ou non.
+      try {
+        localStorage.setItem(
+          "tve_quiz_reco",
+          JSON.stringify({ niveau: reco.niveau, objectif: reco.cible, branche: reco.branche }),
+        );
+      } catch {}
       const supabase = createClient();
       const {
         data: { user },
       } = await supabase.auth.getUser();
       if (!user) {
-        try {
-          localStorage.setItem("tve_quiz_reco", JSON.stringify(record));
-        } catch {}
         setSaveState("anon");
         return;
       }
       setSaveState("saving");
-      const { error } = await supabase.from("profiles").update(record).eq("id", user.id);
+      const { error } = await supabase
+        .from("profiles")
+        .update({ niveau: reco.niveau, objectif: reco.cible })
+        .eq("id", user.id);
       setSaveState(error ? "error" : "saved");
     })();
   }, [done, answers]);
@@ -59,35 +66,27 @@ export default function Quiz() {
       <div className="quiz-result">
         <div className="reco-tag">Ta recommandation</div>
         <h2>
-          On te met sur <em>{reco.hero.famille}</em>.
+          Tu serais dans <em>{reco.hero.famille}</em>.
         </h2>
         <p className="quiz-result-sub">
-          D&apos;après tes réponses, c&apos;est là que tu vas le plus avancer. L&apos;autre voie reste
-          juste à côté, tu peux basculer quand tu veux.
+          À ton niveau ({reco.niveau}), tu commencerais par « {reco.hero.titre} ». {reco.hero.note}
         </p>
 
-        <div className="quiz-res-cols">
-          <div className="quiz-res-hero">
-            <div className="reco-tag hot">On commence ici</div>
-            <h3>{reco.hero.titre}</h3>
-            <p>{reco.hero.note}</p>
-            {reco.hero.cta ? (
-              <Link href={reco.hero.cta.href} className="btn">
-                {reco.hero.cta.label}
-              </Link>
-            ) : (
-              <div className="quiz-soon">En préparation. On te prévient dès que c&apos;est prêt.</div>
-            )}
-          </div>
+        <div className="reco-main">
+          <div className="reco-tag hot">On commence ici</div>
+          <h3>{reco.hero.titre}</h3>
+          <p>
+            {reco.hero.enPreparation
+              ? "Ce module est en préparation, on te prévient dès qu'il est prêt."
+              : "C'est ton point de départ. Tu verras tout le parcours juste après, l'autre famille comprise."}
+          </p>
+        </div>
 
-          <aside className="quiz-res-aside">
-            <div className="reco-tag">Et aussi</div>
-            <div className="quiz-aside-fam">{reco.autre.famille}</div>
-            <p>{reco.autre.teaser}</p>
-            <Link href="/parcours" className="quiz-aside-link">
-              Voir le parcours →
-            </Link>
-          </aside>
+        <div className="quiz-confirm">
+          <span className="quiz-confirm-q">Ça te va ?</span>
+          <Link href="/parcours" className="btn">
+            Oui, voir mon parcours →
+          </Link>
         </div>
 
         {saveState === "saved" && (

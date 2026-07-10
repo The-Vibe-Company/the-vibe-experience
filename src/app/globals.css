@@ -666,6 +666,8 @@ a.frow:hover .frow-n { color: var(--orange); }
 .reco-main .btn { margin-top: 1rem; }
 .reco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 1.75rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
 .reco-grid p { color: var(--muted); font-size: .9rem; line-height: 1.6; margin: .45rem 0 0; }
+.quiz-confirm { margin-top: 1.75rem; display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+.quiz-confirm-q { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
 .quiz-anon { margin-top: 1.75rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
 .quiz-anon p { color: var(--muted); font-size: .9rem; line-height: 1.6; margin: .45rem 0 .95rem; max-width: 52ch; }
 .quiz-restart { margin-top: 1.6rem; background: none; border: none; padding: 0; cursor: pointer; font-family: var(--font-geist-mono), monospace; font-size: .8rem; color: var(--muted-2); transition: color .15s; }
@@ -733,6 +735,8 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-srow-soon .pc-srow-title { color: var(--muted-2); }
 /* Parcours en deux familles côte à côte */
 .pc-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; margin-top: 2.4rem; align-items: start; }
+.pc-cols-reco { grid-template-columns: 3fr 1fr; }
+.pc-fam-reco { font-family: var(--font-geist-mono), monospace; font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; color: var(--orange); white-space: nowrap; }
 .pc-col-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .pc-col-intro { font-size: .92rem; line-height: 1.55; color: var(--muted); margin: .5rem 0 0; }
 .pc-col-list { margin-top: 1.4rem; border-bottom: 1px solid var(--border); }
@@ -769,7 +773,7 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
 .pc-orient .btn-ghost { flex: none; }
 @media (max-width: 860px) {
   .pc-grid { grid-template-columns: 1fr; gap: 1.4rem; }
-  .pc-cols { grid-template-columns: 1fr; gap: 2.5rem; }
+  .pc-cols, .pc-cols-reco { grid-template-columns: 1fr; gap: 2.5rem; }
   .pc-orient { flex-direction: column; align-items: flex-start; gap: 1rem; }
 }
 
