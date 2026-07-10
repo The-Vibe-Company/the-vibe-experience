@@ -713,6 +713,12 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-prog-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .55rem; }
 .pc-count { font-family: var(--font-geist-mono), monospace; font-size: .72rem; color: var(--fg); }
 .pc-cta { margin-top: 1.1rem; }
+.pc-fam { margin-top: 3rem; }
+.pc-fam-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.pc-fam-soon { font-family: var(--font-geist-mono), monospace; font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; color: var(--faint); white-space: nowrap; }
+.pc-fam-intro { font-size: .95rem; line-height: 1.55; color: var(--muted); margin: .5rem 0 0; max-width: 56ch; }
+.pc-srow-soon { grid-template-columns: 1fr auto; }
+.pc-srow-soon .pc-srow-title { color: var(--muted-2); }
 .pc-suite { margin-top: 2.75rem; }
 .pc-suite-list { margin-top: .55rem; border-bottom: 1px solid var(--border); }
 .pc-srow { display: grid; grid-template-columns: 52px 1fr auto; gap: 1.1rem; padding: 1.25rem 0; border-top: 1px solid var(--border); color: inherit; align-items: start; }
