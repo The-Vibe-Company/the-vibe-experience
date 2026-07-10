@@ -34,7 +34,7 @@ export default function RessourcesList() {
         {ressources
           .filter((r) => active === "all" || r.cat === active)
           .map((r) => (
-            <div className="rrow" key={r.title}>
+            <div className={`rrow${r.prompt ? " rrow-prompt-row" : ""}`} key={r.title}>
               <div className="rrow-body">
                 <div className="rrow-type">
                   {r.type}
@@ -43,16 +43,16 @@ export default function RessourcesList() {
                 </div>
                 <div className="rrow-title">{r.title}</div>
                 <div className="rrow-text">{r.text}</div>
-                {r.prompt && (
-                  <div className="se-prompt rrow-prompt">
-                    <div className="se-prompt-head">
-                      <span className="se-l">Le prompt</span>
-                      <CopyButton text={r.prompt} />
-                    </div>
-                    <div className="se-prompt-body">{r.prompt}</div>
-                  </div>
-                )}
               </div>
+              {r.prompt && (
+                <div className="se-prompt rrow-prompt">
+                  <div className="se-prompt-head">
+                    <span className="se-l">Le prompt</span>
+                    <CopyButton text={r.prompt} />
+                  </div>
+                  <div className="se-prompt-body">{r.prompt}</div>
+                </div>
+              )}
               {r.action.kind === "parcours" && (
                 <Link href={r.action.href} className="rrow-action">
                   Voir dans le parcours →
