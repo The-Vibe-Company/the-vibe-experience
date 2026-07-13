@@ -1,5 +1,9 @@
 "$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
 
+[[preview_urls]]
+name = "WEB"
+url = "http://localhost:$CONDUCTOR_PORT"
+
 [scripts]
 setup = "npm ci"
 archive = "true"
