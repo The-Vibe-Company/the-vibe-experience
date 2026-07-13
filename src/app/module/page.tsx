@@ -1,0 +1,113 @@
+import Link from "next/link";
+import { etapesDetail } from "@/lib/module-faire-un-site";
+import ModuleRail from "@/components/ModuleRail";
+import ModuleProgress from "@/components/ModuleProgress";
+import ModuleEtapes from "@/components/ModuleEtapes";
+
+export const metadata = { title: "Module · Faire un site — The Vibe Experience" };
+
+type Cost = "gratuit" | "gratuit-debut" | "payant";
+const costLabel: Record<Cost, string> = {
+  gratuit: "Gratuit",
+  "gratuit-debut": "Gratuit pour commencer",
+  payant: "Payant",
+};
+
+const toolbox: { n: string; d: string; cost: Cost }[] = [
+  { n: "Claude Code", d: "Ton atelier. Tu construis en parlant à l'IA, elle écrit le code pour toi.", cost: "payant" },
+  { n: "Homebrew", d: "L'installateur du terminal. Une commande pour installer ce qu'il te faut.", cost: "gratuit" },
+  { n: "GitHub", d: "Le coffre-fort de ton code. Il sauvegarde ton projet et son historique.", cost: "gratuit-debut" },
+  { n: "Vercel", d: "L'hébergeur. Il met ton site en ligne en un clic.", cost: "gratuit-debut" },
+  { n: "SuperWhisper (option)", d: "Pour parler à l'IA au lieu de tout taper.", cost: "payant" },
+];
+
+export default function Module() {
+  const cards = etapesDetail.map((e) => ({
+    slug: e.slug,
+    num: e.num,
+    titre: e.titre,
+    obj: e.obj,
+    tagLabel: e.tag[0],
+    dur: e.dur,
+    sousCount: e.sous.length,
+  }));
+
+  return (
+    <section className="etape-section">
+      <div className="etape-shell">
+        <ModuleRail etapes={etapesDetail} currentSlug="" basePath="/module" moduleLabel="Faire un site" />
+
+        <div className="ecol">
+          <div className="crumb">
+            <Link href="/">Accueil</Link>
+            <span className="sep">/</span>
+            <Link href="/parcours">Modules</Link>
+            <span className="sep">/</span>
+            <span>Faire un site</span>
+          </div>
+
+          <div className="label" style={{ marginTop: "1.1rem" }}>
+            Module · Produit
+          </div>
+          <h1 className="mov-h1">
+            Faire un site, <em>de ton idée à en ligne</em>.
+          </h1>
+          <p className="mov-meta">6 étapes · ≈ 4 à 5 h au total · Débutant</p>
+          <p className="etape-obj">
+            Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la
+            mise en ligne, en apprenant les vrais outils au passage. On ne t&apos;impose rien, on
+            t&apos;accompagne pas à pas.
+          </p>
+
+          <ModuleProgress
+            moduleKey="/module"
+            basePath="/module"
+            etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+          />
+
+          <div className="label mov-sec">Les étapes</div>
+          <ModuleEtapes moduleKey="/module" basePath="/module" etapes={cards} />
+
+          <div className="label mov-sec">Ta boîte à outils</div>
+          <p className="mov-toolintro">
+            Pour commencer, il te faut surtout Claude Pro, environ 20 $/mois. GitHub, Vercel et le
+            reste sont gratuits pour débuter.
+          </p>
+          <div className="tfilets">
+            {toolbox.map((t) => (
+              <div className="tfilet" key={t.n}>
+                <span className="tfilet-name">
+                  {t.n}
+                  <span className={`cost cost-${t.cost}`}>{costLabel[t.cost]}</span>
+                </span>
+                <span className="tfilet-desc">{t.d}</span>
+              </div>
+            ))}
+          </div>
+
+          <Link href="/juge" className="mov-cta">
+            <span className="label">La validation</span>
+            <span className="mov-cta-title">Ton site est en ligne ? Fais-le évaluer par le juge. →</span>
+            <span className="mov-cta-desc">
+              Il visite ton site, vérifie la checklist technique du module, et te dit ce qui manque.
+              Sans jugement de goût.
+            </span>
+          </Link>
+
+          <div className="mov-after">
+            <span className="label">Et après ?</span>
+            <Link href="/creer-un-skill" className="mov-after-title">
+              Créer ton premier skill →
+            </Link>
+            <p>
+              Tu viens d&apos;utiliser des skills tout faits (Impeccable, Agent Browser). Le module
+              suivant, un savoir-faire, t&apos;apprend à fabriquer le tien, que tu réutiliseras dans
+              ton prochain produit. C&apos;est l&apos;alternance : un produit, un savoir-faire, et on
+              recommence.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
