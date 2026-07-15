@@ -749,7 +749,20 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-srow-soon { grid-template-columns: 1fr auto; }
 .pc-srow-soon .pc-srow-title { color: var(--muted-2); }
 /* Parcours en deux familles côte à côte */
-.pc-cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: 3.5rem; row-gap: 2.5rem; margin-top: 2.4rem; align-items: start; }
+.pc-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  column-gap: 3.5rem;
+  row-gap: 0;
+  margin-top: 2.4rem;
+  align-items: stretch;
+}
+.pc-col {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+}
 .pc-cols-hasreco .pc-col { padding: 1.6rem 1.5rem 1.7rem; border: 1px solid transparent; }
 .pc-cols-hasreco .pc-col-reco { position: relative; border-color: var(--orange); border-radius: var(--radius); }
 .pc-reco-tag { position: absolute; top: 0; left: 1.2rem; transform: translateY(-50%); background: var(--bg); padding: 0 .55rem; font-family: var(--font-geist-mono), monospace; font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; color: var(--orange); white-space: nowrap; }
@@ -757,7 +770,7 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-col-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .pc-col-intro { font-size: .92rem; line-height: 1.55; color: var(--muted); margin: .5rem 0 0; }
 .pc-col-list { margin-top: 1.4rem; border-bottom: 1px solid var(--border); }
-.pc-cols:not(.pc-cols-hasreco) .pc-col-list { display: flex; flex-direction: column; }
+.pc-cols:not(.pc-cols-hasreco) .pc-col-list { display: flex; flex-direction: column; min-height: 100%; }
 .pc-cols:not(.pc-cols-hasreco) .pc-mc-soon { display: flex; flex-direction: column; flex: 1; }
 .pc-cols:not(.pc-cols-hasreco) .pc-mc-soon .pc-soon-bar { margin-top: auto; }
 .pc-mc { display: block; position: relative; border-top: 1px solid var(--border); padding: 1.3rem 0; color: inherit; }
@@ -793,7 +806,8 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
 .pc-orient .btn-ghost { flex: none; }
 @media (max-width: 860px) {
   .pc-grid { grid-template-columns: 1fr; gap: 1.4rem; }
-  .pc-cols { grid-template-columns: 1fr; gap: 2.5rem; }
+  .pc-cols { grid-template-columns: 1fr; grid-template-rows: none; gap: 2.5rem; }
+  .pc-col { display: block; grid-row: auto; }
   .pc-orient { flex-direction: column; align-items: flex-start; gap: 1rem; }
 }
 
