@@ -62,7 +62,8 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Claude Code s'ouvre et tu retrouves la zone où tu écris tes messages, exactement comme au module précédent. Si l'app te redemande de te connecter, fais-le, c'est normal après une fermeture. Dès que tu vois la zone de discussion, tu es prêt.",
         siCaBloque:
           "Tu ne sais plus comment rouvrir Claude Code ? Clique sur son icône comme n'importe quelle app (elle est dans tes Applications, ou tape son nom avec cmd + espace). Elle refuse de s'ouvrir ou te déconnecte ? Rouvre-la une fois et reconnecte-toi, il n'y a rien de cassé.",
-        // [TON VÉCU] Victor : rien réinstallé entre le module 1 et le 2, même app, même façon de parler ; la seule nouveauté c'est ce qu'on apprend à l'IA.
+        monExemple:
+          "Ce qui me plaît, c'est d'avoir un seul outil qui gère tout, très complet, et qui s'adapte à ce que tu veux faire. Rien d'autre à payer, rien d'autre à installer : tu commences tout de suite. Et comme il sait presque tout faire, tu évites d'empiler plusieurs produits différents.",
         conseil:
           "Si tu as sauté le module « Faire un site », installe d'abord Claude Code (son étape 0). Tout part de là.",
       },
@@ -202,10 +203,15 @@ export const etapesDetailSkill: EtapeDetail[] = [
         prompt: "Montre-moi le contenu de mon skill et explique-moi sa description en français simple.",
         ceQueTuDoisVoir:
           "Claude Code te montre ton fichier SKILL.md : en haut, entre deux lignes de tirets, le nom et la description ; en dessous, les instructions. Tu n'as pas besoin d'aller le chercher toi-même, il te l'affiche. Pas besoin de tout comprendre : vérifie surtout que la description dit bien quand l'utiliser.",
-        // [CAPTURE] Un SKILL.md ouvert : les deux lignes de tirets en haut, le nom, la description, puis les instructions. La capture qui manque le plus.
+        visuel: {
+          src: "/module/skill-2-3-skillmd.png",
+          alt: "Le haut d'un SKILL.md ouvert dans Claude Code : le nom du skill, puis sa longue description qui explique quand l'utiliser.",
+          legende: "Un de mes vrais SKILL.md : le nom en haut, puis la description. C'est elle que tu relis en priorité, elle dit à l'IA quand utiliser ton skill.",
+        },
         siCaBloque:
           "Tu ne retrouves pas le dossier ? Demande à Claude Code « où as-tu créé mon skill, montre-moi le fichier ».",
-        // [TON VÉCU] Victor : la 1re fois qu'il a ouvert un de ses SKILL.md, ça ressemble à un fichier technique, mais en vrai seule la description compte, le reste ce sont ses instructions écrites noir sur blanc.
+        monExemple:
+          "La première fois que j'ai ouvert un de mes SKILL.md, ça ressemblait à un fichier technique. En vrai, j'ai compris que la description est essentielle : c'est elle qui te dit ce que fait ton skill, et le reste, ce sont tes instructions écrites noir sur blanc. Mes premiers skills, justement, manquaient de descriptions.",
         conseil: "Une bonne relecture, c'est surtout vérifier la description : c'est elle qui décide quand ton skill se déclenche.",
       },
     ],
@@ -233,10 +239,15 @@ export const etapesDetailSkill: EtapeDetail[] = [
         ],
         ceQueTuDoisVoir:
           "Dès que tu tapes la barre oblique /, une petite liste de noms s'ouvre au-dessus de la zone d'écriture. Ton skill doit y figurer : le fait qu'il soit dans la liste, c'est déjà la preuve qu'il est installé. Choisis-le, ou finis de taper son nom, puis envoie. Quand le skill part, une ligne à son nom s'affiche (du genre « Skill : mon-style »), et l'IA enchaîne en suivant tes instructions au lieu de te reposer les mêmes questions. Pour le déclenchement tout seul, c'est le même repère : sans que tu aies tapé le moindre /, cette ligne au nom de ton skill apparaît. Si elle est là, il s'est vraiment lancé de lui-même.",
-        // [CAPTURE] Un skill qui se déclenche dans Claude Code (la ligne au nom du skill bien visible), et le menu « / » ouvert avec le skill de l'utilisateur dans la liste.
+        visuel: {
+          src: "/module/skill-3-1-slash-menu.png",
+          alt: "Le menu « / » de Claude Code : le nom du skill s'affiche dans la liste pendant la frappe, avec sa description au-dessus.",
+          legende: "Chez moi : je tape / et mon skill apparaît dans la liste, avec sa description. S'il est là, il est installé.",
+        },
         siCaBloque:
           "Tu tapes /nom et il ne se passe rien ? Vérifie le nom exact (c'est le nom du dossier). Pas sûr du nom ? Demande à Claude Code « quel est le nom exact pour appeler mon skill ? ». L'IA ne le déclenche pas toute seule alors que la situation s'y prête ? C'est presque toujours la description qui n'est pas assez claire : passe à la sous-étape suivante.",
-        // [TON VÉCU] Victor : la 1re fois qu'un de ses skills s'est déclenché tout seul, l'effet que ça lui a fait (il n'avait rien réexpliqué et pourtant tout était repris comme il fallait).
+        monExemple:
+          "Mes premiers skills, c'étaient Impeccable et Agent Browser. La toute première fois, je n'étais même pas sûr que ça avait marché : Impeccable travaille le code, le changement ne se voyait presque pas à l'écran. D'où l'importance de ce repère : la ligne au nom du skill, c'est elle qui te dit qu'il est bien parti.",
         conseil: "Teste-le sur un vrai cas, celui qui t'a donné l'idée du skill. C'est le meilleur test.",
       },
       {
@@ -275,7 +286,11 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Utilise le skill improve-skill-tools pour passer mon skill [nom] en revue et propose-moi des améliorations, sur le fond et sur la technique.",
         ceQueTuDoisVoir:
           "L'Improve lit ton skill et te répond une liste de remarques, souvent numérotées : ce qui est déjà bien, et ce qui gagnerait à être plus clair, comme la description, le format ou une instruction floue. Il ne change rien tout seul, il propose. À toi de lui dire lesquelles appliquer, par exemple « applique les points 1 et 3 ». Tu n'es pas obligé de tout prendre.",
-        // [CAPTURE] La sortie de l'Improve : la liste de suggestions numérotées.
+        visuel: {
+          src: "/module/skill-3-3-improve.png",
+          alt: "La sortie de l'Improve : un tableau de constats numérotés avec pour chacun une catégorie, un impact, un effort et une preuve.",
+          legende: "Une vraie revue de l'Improve sur un de mes skills : chaque remarque est numérotée, avec son impact. Tu choisis celles que tu appliques.",
+        },
         siCaBloque:
           "L'Improve te propose plein de choses et tu ne sais pas quoi en faire ? Prends-en une seule pour commencer, dis-lui « applique juste la première » et regarde le résultat. Et s'il ne se trouve pas après l'install, ferme et rouvre Claude Code : un nouveau skill n'est parfois pris en compte qu'au redémarrage.",
         monExemple:
