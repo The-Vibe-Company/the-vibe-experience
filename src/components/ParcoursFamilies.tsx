@@ -50,13 +50,15 @@ export default function ParcoursFamilies() {
       key="construire"
     >
       {branche === "construire" && <span className="pc-reco-tag">Parcours conseillé</span>}
-      <div className="pc-col-head">
-        <h2 className="pc-family-title">Apprendre à construire</h2>
+      <div className="pc-col-summary">
+        <div className="pc-col-head">
+          <h2 className="pc-family-title">Apprendre à construire</h2>
+        </div>
+        <p className="pc-col-intro">
+          Tu apprends à fabriquer tes propres trucs, pas à pas, et tu montes en compétence. Le chemin
+          fait partie de la valeur.
+        </p>
       </div>
-      <p className="pc-col-intro">
-        Tu apprends à fabriquer tes propres trucs, pas à pas, et tu montes en compétence. Le chemin
-        fait partie de la valeur.
-      </p>
       <div className="pc-col-list">
         <ParcoursModule1 />
         <Link className="pc-mc" href="/creer-un-skill">
@@ -81,15 +83,17 @@ export default function ParcoursFamilies() {
       key="automatiser"
     >
       {branche === "automatiser" && <span className="pc-reco-tag">Parcours conseillé</span>}
-      <div className="pc-col-head">
-        <h2 className="pc-family-title">Automatiser ton business</h2>
-        <span className="pc-fam-soon">En préparation</span>
+      <div className="pc-col-summary">
+        <div className="pc-col-head">
+          <h2 className="pc-family-title">Automatiser ton business</h2>
+          <span className="pc-fam-soon">En préparation</span>
+        </div>
+        <p className="pc-col-intro">
+          Tu mets l&apos;IA au travail sur les tâches qui te font perdre du temps. Des skills prêts à
+          l&apos;emploi, tu apprends juste à t&apos;en servir. Pour ceux qui veulent un résultat, pas
+          forcément apprendre à tout construire.
+        </p>
       </div>
-      <p className="pc-col-intro">
-        Tu mets l&apos;IA au travail sur les tâches qui te font perdre du temps. Des skills prêts à
-        l&apos;emploi, tu apprends juste à t&apos;en servir. Pour ceux qui veulent un résultat, pas
-        forcément apprendre à tout construire.
-      </p>
       <div className="pc-col-list">
         {businessSoon.map((m) => (
           <div className="pc-mc pc-mc-soon" key={m.titre}>
