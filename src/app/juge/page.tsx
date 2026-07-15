@@ -12,7 +12,7 @@ export default function Juge() {
         <span>Le juge</span>
       </div>
       <div className="label" style={{ marginTop: "1.1rem" }}>
-        Validation
+        Le juge
       </div>
       <h1 className="pg-h1">
         Le juge <em>visite ton site</em>.

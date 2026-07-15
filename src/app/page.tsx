@@ -141,7 +141,7 @@ export default function Home() {
           Commence maintenant. Dans une heure ou deux, tu as quelque chose qui tourne sur ta
           machine.
         </p>
-        <ParcoursCta newHref="/module" />
+        <ParcoursCta newHref="/module" newLabel="Commencer le module" />
       </section>
     </div>
   );

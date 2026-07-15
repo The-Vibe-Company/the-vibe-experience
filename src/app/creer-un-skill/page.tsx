@@ -3,6 +3,7 @@ import { etapesDetailSkill, skillToolbox, skillGifts } from "@/lib/module-creer-
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Créer ton premier skill — The Vibe Experience" };
 
@@ -25,6 +26,7 @@ export default function ModuleSkill() {
 
   return (
     <section className="etape-section">
+      <MarkSelectedPath path="construire" />
       <div className="etape-shell">
         <ModuleRail
           etapes={etapesDetailSkill}
@@ -102,7 +104,7 @@ export default function ModuleSkill() {
           </div>
 
           <Link href="/juge-skill" className="mov-cta">
-            <span className="label">La validation</span>
+            <span className="label">Le juge des skills</span>
             <span className="mov-cta-title">Ton skill est prêt ? Fais-le lire par le juge. →</span>
             <span className="mov-cta-desc">
               Tu colles ton fichier SKILL.md, il vérifie qu&apos;il est bien formé et te dit ce qui

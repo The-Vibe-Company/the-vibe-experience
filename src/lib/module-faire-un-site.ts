@@ -49,18 +49,19 @@ export const etapesDetail: EtapeDetail[] = [
     titre: "Prépare ta machine",
     tag: ["Setup", "t-build"],
     dur: "≈ 20 à 30 min · une seule fois",
-    obj: "Avant de créer quoi que ce soit, on installe l'outil principal : l'app Claude Code. Tu ne vas pas coder, tu vas lui parler en français. C'est à faire une fois, elle te ressert pour tous tes projets. Ce parcours est écrit pour Mac.",
+    obj: "Ce parcours est écrit pour Mac : si tu es sur Windows, certaines manipulations seront un peu différentes. Avant de créer quoi que ce soit, on installe l'outil principal : l'app Claude Code. Tu ne vas pas coder, tu vas lui parler en français. C'est à faire une fois, elle te ressert pour tous tes projets.",
     detailPret: true,
     sous: [
       {
         titre: "Installe l'app Claude Code.",
         duree: "≈ 10 min",
         cestquoi:
-          "Claude Code, c'est une application que tu télécharges et installes en cliquant, comme n'importe quelle app. Pas de commande, pas de terminal. Il te faut un compte Claude avec un abonnement (Pro ou Max) : le plan gratuit ne donne pas accès à Claude Code, c'est ce compte payant qui la fait marcher.",
+          "Claude Code, c'est une application que tu télécharges et installes en cliquant, comme n'importe quelle app. Pas de commande, pas de terminal. Il te faut un compte Claude avec un abonnement payant : l'offre Pro, autour de 20 € par mois, suffit largement. Le plan gratuit ne donne pas accès à Claude Code, c'est cet abonnement qui la fait marcher.",
         attendu: "L'app Claude Code installée et ouverte, connectée à ton compte.",
         outils: [F.claudecode],
         exemples: [
           "Crée d'abord ton compte Claude si tu n'en as pas.",
+          "Prends l'abonnement Pro sur ton compte Claude : c'est le moins cher qui donne accès à Claude Code, autour de 20 € par mois.",
           "Va sur le site officiel de Claude Code et suis leurs indications pour installer l'app sur Mac, puis ouvre-la et connecte-toi.",
         ],
         ceQueTuDoisVoir:
@@ -161,7 +162,7 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "L'IA te répond avec une adresse qui commence par « localhost » ou « 127.0.0.1 » (par exemple http://localhost:3000). Tu la copies, tu l'ouvres dans Chrome ou Safari, et ta page s'affiche. C'est ça, « en local » : elle vit sur ta machine, personne d'autre ne la voit encore. Ensuite, quand tu demandes une modif, la page se met à jour presque tout de suite en revenant sur l'onglet.",
         siCaBloque:
-          "La page ne s'ouvre pas, ou le navigateur dit « impossible de se connecter » ? Ça veut juste dire que le site n'est pas en train de tourner. Retourne dans Claude Code et écris « mon site ne s'ouvre pas sur localhost, peux-tu le relancer et vérifier ? ». Souvent, c'est qu'on a fermé le terminal : tant que le site tourne, laisse cette fenêtre ouverte.",
+          "La page ne s'ouvre pas, ou le navigateur dit « impossible de se connecter » ? Ça veut juste dire que le site n'est pas en train de tourner. Retourne dans Claude Code et écris « mon site ne s'ouvre pas sur localhost, peux-tu le relancer et vérifier ? ». Souvent, c'est simplement que la fenêtre de Claude Code a été fermée : tant que ton site tourne, laisse-la ouverte. Et si Claude Code te dit qu'il lui manque un outil pour lancer ton site (par exemple Node), pas de panique : réponds-lui « installe ce qu'il faut pour lancer mon site et guide-moi étape par étape », il s'en occupe.",
         monExemple:
           "Le vrai déclic, c'est quand j'ai commencé à bidouiller : je changeais un bouton, une couleur, et je voyais le résultat tout de suite. Là j'ai compris que c'était moi qui pilotais.",
         conseil: "Une demande à la fois, et regarde le résultat en direct. C'est le meilleur moyen d'apprendre ce qui marche.",
@@ -302,7 +303,7 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Souvent, presque aucune différence à l'écran, et c'est normal. Le travail se passe dans les coulisses, sur le code.",
         siCaBloque:
-          "Claude Code te répond qu'il ne connaît pas Impeccable ? C'est juste que le skill n'est pas encore installé chez toi. Écris-lui « je veux utiliser le skill Impeccable mais tu ne l'as pas, guide-moi pour l'installer étape par étape ». Un skill, c'est une compétence en plus qu'on ajoute une fois, et ensuite l'IA la garde.",
+          "Claude Code te répond qu'il ne connaît pas Impeccable ? C'est juste que le skill n'est pas encore installé chez toi. Télécharge-le sur la page du module (section « Les skills qu'on t'offre »), puis glisse le fichier téléchargé dans la fenêtre de Claude Code et dis-lui « installe ce skill pour moi » : il le range au bon endroit. Un skill, c'est une compétence en plus qu'on ajoute une fois, et ensuite l'IA la garde.",
         monExemple: "Honnêtement, à l'écran il n'y avait pas une grande différence avant/après. Ce que ça a fait, c'est nettoyer et trier le code : tu ne le vois pas forcément, mais c'est plus propre.",
         conseil: "Ne t'attends pas à un choc visuel. Impeccable travaille surtout les coulisses, et c'est très utile pour la suite. Une fois installé, un skill se déclenche juste en le demandant en français.",
       },
@@ -322,7 +323,7 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Ça va enchaîner tout seul pendant plusieurs minutes : du texte défile, l'IA teste, corrige, re-teste. Tu sauras que c'est fini quand le texte arrête de défiler et que l'IA te fait un petit résumé du genre « tout est propre et fonctionnel ». À ce moment-là, la main te revient et tu peux réécrire dans la fenêtre. Tant que ça défile, c'est qu'elle travaille encore, laisse-la.",
         siCaBloque:
-          "Si Agent Browser dit qu'il n'arrive pas à ouvrir ton site ou reste bloqué à « j'attends la page », c'est presque toujours que ton site ne tourne plus en local : écris « relance mon site en local avant de tester avec Agent Browser », puis redemande la boucle. Si Claude Code ne connaît pas encore le skill Agent Browser (ou Impeccable), demande-lui de t'aider à l'installer, tant que les deux ne sont pas là la boucle ne peut pas tourner. Et si ça tourne en rond trop longtemps (plus de 10 minutes), arrête avec Échap (ou Ctrl+C) puis écris « fais un dernier passage et arrête-toi, dis-moi ce qui reste ».",
+          "Si Agent Browser dit qu'il n'arrive pas à ouvrir ton site ou reste bloqué à « j'attends la page », c'est presque toujours que ton site ne tourne plus en local : écris « relance mon site en local avant de tester avec Agent Browser », puis redemande la boucle. Si Claude Code ne connaît pas encore le skill Agent Browser (ou Impeccable), installe-le : les deux se téléchargent sur la page du module. Tu glisses le fichier dans Claude Code et tu lui dis « installe ce skill pour moi ». Pour Agent Browser, il finit son installation tout seul au premier usage (il a besoin de Node, déjà là depuis l'étape 1). Tant que les deux ne sont pas là, la boucle ne peut pas tourner. Et si ça tourne en rond trop longtemps (plus de 10 minutes), arrête avec Échap (ou Ctrl+C) puis écris « fais un dernier passage et arrête-toi, dis-moi ce qui reste ». Une boucle consomme pas mal : si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, ce n'est pas un bug. Attends qu'elle se réinitialise (l'app te dit quand) et reprends là où tu en étais. Pas besoin de passer à l'offre Max juste pour cet exercice.",
         monExemple: "C'était ma toute première loop, et franchement c'était cool. Tu expliques à Claude Code de faire tourner les deux skills ensemble, et il enchaîne vérif, test et correction tout seul. Là tu comprends la puissance du truc.",
         conseil: "Copie-colle le prompt ci-dessus tel quel dans Claude Code : tu n'as plus qu'à le laisser boucler.",
       },
@@ -373,7 +374,7 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Pour certaines fonctionnalités (comptes, paiement…), l'IA va te demander d'aller créer un compte sur un service comme Supabase et de copier des « clés » (des sortes de mots de passe pour brancher le service). Deux gestes qui bloquent souvent : va confirmer ton adresse en cliquant le lien reçu par mail, sinon tu restes bloqué à l'entrée. Et après avoir créé ton projet, Supabase affiche « Setting up your project » une à deux minutes : c'est normal, il prépare ta base, ne recharge pas la page.",
         siCaBloque:
-          "« L'IA me demande une clé et je ne sais pas où la trouver » ? Redemande-lui « guide-moi clic par clic pour créer le compte et récupérer la clé, je n'ai jamais fait ça ». Elle sait faire. Tes clés se rangent dans un fichier caché appelé .env.local, sur ta machine uniquement : ne les colle jamais dans un message public ni une capture, et demande à Claude Code « confirme-moi que mes clés secrètes sont bien ignorées par Git et ne partiront pas sur GitHub ». Retiens que ces clés restent sur ton ordi pour l'instant : quand tu mettras ton site en ligne à l'étape 5, il faudra les redonner à l'hébergeur, mais on verra ça là-bas.",
+          "« L'IA me demande une clé et je ne sais pas où la trouver » ? Redemande-lui « guide-moi clic par clic pour créer le compte et récupérer la clé, je n'ai jamais fait ça ». Elle sait faire. Tes clés se rangent dans un fichier caché appelé .env.local, sur ta machine uniquement : ne les colle jamais dans un message public ni une capture, et demande à Claude Code « confirme-moi que mes clés secrètes sont bien ignorées par Git et ne partiront pas sur GitHub ». Retiens que ces clés restent sur ton ordi pour l'instant : quand tu mettras ton site en ligne à l'étape 5, il faudra les redonner à l'hébergeur, mais on verra ça là-bas. Cette étape est longue : si Claude Code s'interrompt en disant que tu as atteint ta limite d'utilisation, attends simplement qu'elle se réinitialise puis reprends. Ne passe pas à l'offre Max juste pour finir l'exercice.",
         monExemple: "Je ne savais pas ce qu'était une base de données. L'IA m'a branché Supabase et m'a expliqué au fur et à mesure.",
         conseil: "Demande à l'IA de t'expliquer ce qu'elle fait : c'est le moment d'apprendre.",
       },

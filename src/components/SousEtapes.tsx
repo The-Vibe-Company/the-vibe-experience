@@ -113,6 +113,12 @@ export default function SousEtapes({
                           <CopyButton text={s.prompt} />
                         </div>
                         <div className="se-prompt-body">{s.prompt}</div>
+                        {s.prompt.includes("[") && (
+                          <p className="se-prompt-note">
+                            Remplace ce qui est entre crochets [ ] par tes propres mots avant
+                            d&apos;envoyer.
+                          </p>
+                        )}
                       </div>
                     )}
                     {(s.ceQueTuDoisVoir || s.visuel) && (

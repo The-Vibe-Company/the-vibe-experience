@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "./LogoutButton";
 import ApplyPendingReco from "./ApplyPendingReco";
 import ChangePassword from "./ChangePassword";
+import AccountPathActions from "@/components/AccountPathActions";
 
 export const metadata = { title: "Mon compte — The Vibe Experience" };
 
@@ -29,8 +30,8 @@ export default async function Compte() {
       <div className="label">Mon compte</div>
       <h1 className="pg-h1">Ton compte.</h1>
       <p className="pg-lead">
-        Tes infos, ton profil, ta connexion. Le parcours, lui, se reprend depuis l&apos;accueil ou la
-        page Parcours.
+        Tes infos, ton profil, ta connexion. Le quiz est optionnel : tu peux choisir ton parcours
+        directement ou le faire pour être orienté.
       </p>
 
       <div className="acct-sec">
@@ -77,9 +78,25 @@ export default async function Compte() {
             <span className="acct-k">Le test</span>
             <span className="acct-v" style={{ fontWeight: 400 }}>
               <Link href="/demarrer" style={{ color: "var(--orange-ink)", fontWeight: 600 }}>
-                Refaire le quiz →
+                {profile?.niveau ? "Refaire le quiz →" : "Faire le quiz →"}
               </Link>
             </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="acct-sec">
+        <div className="label">Ton parcours</div>
+        <div className="acct-card acct-choice">
+          <div>
+            <div className="acct-mtitle">Tu peux commencer sans attendre.</div>
+            <p>
+              Choisis une famille de modules maintenant. Si tu hésites, le quiz reste disponible
+              quand tu veux.
+            </p>
+          </div>
+          <div className="acct-choice-actions">
+            <AccountPathActions hasProfile={!!profile?.niveau} />
           </div>
         </div>
       </div>
