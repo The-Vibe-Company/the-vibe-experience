@@ -1,4 +1,4 @@
-import type { Fiche, EtapeDetail } from "./module-faire-un-site";
+import type { EtapeDetail } from "./module-faire-un-site";
 
 const F = {
   claudecode: {

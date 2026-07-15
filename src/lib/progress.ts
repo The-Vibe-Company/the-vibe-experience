@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 // Progression d'un module, au niveau SOUS-étape, stockée en local (pas besoin de compte).
 // Objectif : l'utilisateur ne se souvient plus d'où il en est, le site le sait pour lui.
@@ -33,21 +33,29 @@ function write(s: Store) {
   }
 }
 
-export function useModuleProgress(moduleKey: string) {
-  const [done, setDone] = useState<string[]>([]);
-  const [mounted, setMounted] = useState(false);
+function subscribeProgress(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("storage", callback);
+  window.addEventListener(EVT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(EVT, callback);
+  };
+}
 
-  useEffect(() => {
-    const refresh = () => setDone(read()[moduleKey]?.done ?? []);
-    refresh();
-    setMounted(true);
-    window.addEventListener("storage", refresh);
-    window.addEventListener(EVT, refresh);
-    return () => {
-      window.removeEventListener("storage", refresh);
-      window.removeEventListener(EVT, refresh);
-    };
-  }, [moduleKey]);
+function readDoneSnapshot(moduleKey: string) {
+  if (typeof window === "undefined") return "";
+  return JSON.stringify(read()[moduleKey]?.done ?? []);
+}
+
+export function useModuleProgress(moduleKey: string) {
+  const doneSnapshot = useSyncExternalStore(
+    subscribeProgress,
+    () => readDoneSnapshot(moduleKey),
+    () => "",
+  );
+  const done = doneSnapshot ? (JSON.parse(doneSnapshot) as string[]) : [];
+  const mounted = doneSnapshot !== "";
 
   const setDoneState = useCallback(
     (id: string, value: boolean) => {
@@ -57,7 +65,6 @@ export function useModuleProgress(moduleKey: string) {
       else cur.delete(id);
       s[moduleKey] = { done: [...cur] };
       write(s);
-      setDone([...cur]);
     },
     [moduleKey],
   );
