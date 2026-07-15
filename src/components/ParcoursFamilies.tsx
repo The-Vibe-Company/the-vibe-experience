@@ -46,7 +46,7 @@ export default function ParcoursFamilies() {
 
   const construireCol = (
     <div
-      className={branche === "construire" ? "pc-col pc-col-reco" : "pc-col"}
+      className={branche === "construire" ? "pc-col pc-col-build pc-col-reco" : "pc-col pc-col-build"}
       key="construire"
     >
       {branche === "construire" && <span className="pc-reco-tag">Parcours conseillé</span>}
@@ -79,7 +79,9 @@ export default function ParcoursFamilies() {
 
   const automatiserCol = (
     <div
-      className={branche === "automatiser" ? "pc-col pc-col-reco" : "pc-col"}
+      className={
+        branche === "automatiser" ? "pc-col pc-col-business pc-col-reco" : "pc-col pc-col-business"
+      }
       key="automatiser"
     >
       {branche === "automatiser" && <span className="pc-reco-tag">Parcours conseillé</span>}
