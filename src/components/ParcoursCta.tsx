@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { etapesDetail } from "@/lib/module-faire-un-site";
 import { useModuleProgress, computeStats } from "@/lib/progress";
+import SkipQuizLink from "@/components/SkipQuizLink";
 
 // Bouton d'entrée du parcours, conscient de l'état :
 // - rien de commencé  → « Commence le parcours » (vers newHref)
@@ -10,8 +11,8 @@ import { useModuleProgress, computeStats } from "@/lib/progress";
 // - terminé           → « Revois le parcours → »
 export default function ParcoursCta({
   className = "btn",
-  newLabel = "Commence le parcours",
-  newHref = "/demarrer",
+  newLabel = "Choisis ton parcours",
+  newHref = "/parcours",
 }: {
   className?: string;
   newLabel?: string;
@@ -35,6 +36,14 @@ export default function ParcoursCta({
   } else if (mounted && stats.started && t) {
     label = "Reprends le parcours →";
     href = `/module/${t.etapeSlug}`;
+  }
+
+  if (href === "/parcours") {
+    return (
+      <SkipQuizLink className={className}>
+        {label}
+      </SkipQuizLink>
+    );
   }
 
   return (

@@ -19,15 +19,16 @@ export default function Parcours() {
       </h1>
       <p className="pg-lead">
         Deux façons d&apos;avancer. Apprendre à construire tes propres produits, ou automatiser les
-        tâches qui te bouffent du temps. Commence par celle qui te parle.
+        tâches qui te bouffent du temps. Commence par celle qui te parle. Le quiz peut t&apos;aider,
+        mais il n&apos;est pas obligatoire.
       </p>
 
       <ParcoursFamilies />
 
       <div className="pc-orient">
         <div>
-          <span className="pc-orient-t">Tu ne sais pas par où commencer ?</span>
-          <p>Quelques questions, deux minutes : on te dit par où démarrer, selon ce que tu veux.</p>
+          <span className="pc-orient-t">Tu veux être orienté ?</span>
+          <p>Quelques questions, deux minutes. Sinon, choisis directement le parcours qui te parle.</p>
         </div>
         <Link href="/demarrer" className="btn btn-ghost">
           On t&apos;oriente →
