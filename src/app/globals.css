@@ -453,13 +453,6 @@ a { color: inherit; text-decoration: none; }
 .gfilet-name { font-size: 1.02rem; font-weight: 700; letter-spacing: -.01em; }
 .gfilet-desc { font-size: .9rem; line-height: 1.5; color: var(--muted); max-width: 60ch; }
 .gfilet-btn { flex: none; margin: 0; }
-.gfilet-cmd { display: inline-flex; align-items: center; gap: .5rem; flex: none; }
-.gfilet-cmd code { font-family: var(--font-geist-mono), monospace; font-size: .72rem; background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px; padding: .38rem .55rem; color: var(--fg); white-space: nowrap; }
-@media (max-width: 560px) {
-  .gfilet { grid-template-columns: 1fr; }
-  .gfilet-cmd { flex-wrap: wrap; }
-  .gfilet-cmd code { white-space: normal; word-break: break-word; }
-}
 
 /* HOME (design 4a) */
 .hwrap { max-width: 1200px; margin: 0 auto; padding: 0 3rem 5rem; }
