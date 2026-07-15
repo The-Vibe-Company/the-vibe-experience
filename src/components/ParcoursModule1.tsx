@@ -33,15 +33,18 @@ export default function ParcoursModule1() {
     <div className={`pc-mc pc-mc-lead${cur ? " cur" : ""}`}>
       <div className="pc-mc-head">
         <span className="label">Module 01 · Produit</span>
-        {mounted &&
-          (stats.allDone ? (
-            <span className="pc-status done">✓ Terminé</span>
-          ) : cur ? (
-            <span className="pc-status cur">
-              <span className="pc-dot" aria-hidden />
-              En cours · {stats.doneCount}/{stats.total}
-            </span>
-          ) : null)}
+        <span className="pc-mc-head-side">
+          <span className="pc-mc-time">≈ 4 à 5 h</span>
+          {mounted &&
+            (stats.allDone ? (
+              <span className="pc-status done">✓ Terminé</span>
+            ) : cur ? (
+              <span className="pc-status cur">
+                <span className="pc-dot" aria-hidden />
+                En cours · {stats.doneCount}/{stats.total}
+              </span>
+            ) : null)}
+        </span>
       </div>
       <Link href="/module" className="pc-mc-title">
         Faire un site
@@ -49,7 +52,6 @@ export default function ParcoursModule1() {
       <p className="pc-mc-desc">
         De ton idée à en ligne : tu construis TON site en apprenant les vrais outils au passage.
       </p>
-      <span className="pc-mc-meta">Produit · 6 étapes · ≈ 4 à 5 h</span>
       <div className="pc-mc-prog">
         <div className="pc-prog-head">
           <span className="label">Progression</span>

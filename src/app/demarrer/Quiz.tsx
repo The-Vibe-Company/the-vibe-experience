@@ -24,6 +24,7 @@ export default function Quiz() {
           "tve_quiz_reco",
           JSON.stringify({ niveau: reco.niveau, objectif: reco.cible, branche: reco.branche }),
         );
+        window.dispatchEvent(new CustomEvent("tve-path-choice"));
       } catch {}
       const supabase = createClient();
       const {

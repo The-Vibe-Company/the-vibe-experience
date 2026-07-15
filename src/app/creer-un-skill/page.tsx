@@ -3,6 +3,7 @@ import { etapesDetailSkill, skillToolbox, skillGifts } from "@/lib/module-creer-
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Créer ton premier skill — The Vibe Experience" };
 
@@ -25,6 +26,7 @@ export default function ModuleSkill() {
 
   return (
     <section className="etape-section">
+      <MarkSelectedPath path="construire" />
       <div className="etape-shell">
         <ModuleRail
           etapes={etapesDetailSkill}

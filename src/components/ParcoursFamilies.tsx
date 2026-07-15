@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import ParcoursModule1 from "@/components/ParcoursModule1";
 
@@ -23,30 +23,42 @@ const businessSoon = [
   { titre: "Gérer mon agenda", desc: "Tes rendez-vous et tes rappels organisés à ta place." },
 ];
 
+function readRecoBranch(): Branche | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem("tve_quiz_reco");
+    if (!raw) return null;
+    const r = JSON.parse(raw);
+    return r.branche === "construire" || r.branche === "automatiser" ? r.branche : null;
+  } catch {
+    return null;
+  }
+}
+
+function subscribeReco(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
 export default function ParcoursFamilies() {
-  const [branche, setBranche] = useState<Branche | null>(null);
+  const branche = useSyncExternalStore(subscribeReco, readRecoBranch, () => null);
 
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem("tve_quiz_reco");
-      if (raw) {
-        const r = JSON.parse(raw);
-        if (r.branche === "construire" || r.branche === "automatiser") setBranche(r.branche);
-      }
-    } catch {}
-  }, []);
-
-  // Version complète (colonne large) : cartes de modules détaillées.
-  const construireFull = (
-    <div className="pc-col" key="construire">
-      <div className="pc-col-head">
-        <span className="label">Apprendre à construire</span>
-        {branche === "construire" && <span className="pc-fam-reco">Ta reco</span>}
+  const construireCol = (
+    <div
+      className={branche === "construire" ? "pc-col pc-col-build pc-col-reco" : "pc-col pc-col-build"}
+      key="construire"
+    >
+      {branche === "construire" && <span className="pc-reco-tag">Parcours conseillé</span>}
+      <div className="pc-col-summary">
+        <div className="pc-col-head">
+          <h2 className="pc-family-title">Apprendre à construire</h2>
+        </div>
+        <p className="pc-col-intro">
+          Tu apprends à fabriquer tes propres trucs, pas à pas, et tu montes en compétence. Le chemin
+          fait partie de la valeur.
+        </p>
       </div>
-      <p className="pc-col-intro">
-        Tu apprends à fabriquer tes propres trucs, pas à pas, et tu montes en compétence. Le chemin
-        fait partie de la valeur.
-      </p>
       <div className="pc-col-list">
         <ParcoursModule1 />
         <Link className="pc-mc" href="/creer-un-skill">
@@ -65,21 +77,25 @@ export default function ParcoursFamilies() {
     </div>
   );
 
-  const automatiserFull = (
-    <div className="pc-col" key="automatiser">
-      <div className="pc-col-head">
-        <span className="label">Automatiser ton business</span>
-        {branche === "automatiser" ? (
-          <span className="pc-fam-reco">Ta reco</span>
-        ) : (
+  const automatiserCol = (
+    <div
+      className={
+        branche === "automatiser" ? "pc-col pc-col-business pc-col-reco" : "pc-col pc-col-business"
+      }
+      key="automatiser"
+    >
+      {branche === "automatiser" && <span className="pc-reco-tag">Parcours conseillé</span>}
+      <div className="pc-col-summary">
+        <div className="pc-col-head">
+          <h2 className="pc-family-title">Automatiser ton business</h2>
           <span className="pc-fam-soon">En préparation</span>
-        )}
+        </div>
+        <p className="pc-col-intro">
+          Tu mets l&apos;IA au travail sur les tâches qui te font perdre du temps. Des skills prêts à
+          l&apos;emploi, tu apprends juste à t&apos;en servir. Pour ceux qui veulent un résultat, pas
+          forcément apprendre à tout construire.
+        </p>
       </div>
-      <p className="pc-col-intro">
-        Tu mets l&apos;IA au travail sur les tâches qui te font perdre du temps. Des skills prêts à
-        l&apos;emploi, tu apprends juste à t&apos;en servir. Pour ceux qui veulent un résultat, pas
-        forcément apprendre à tout construire.
-      </p>
       <div className="pc-col-list">
         {businessSoon.map((m) => (
           <div className="pc-mc pc-mc-soon" key={m.titre}>
@@ -97,49 +113,8 @@ export default function ParcoursFamilies() {
     </div>
   );
 
-  // Version aperçu (colonne étroite) : juste la famille et la liste des modules.
-  const construireTeaser = (
-    <div className="pc-col pc-teaser" key="construire-t">
-      <div className="pc-col-head">
-        <span className="label">Apprendre à construire</span>
-      </div>
-      <p className="pc-teaser-intro">
-        Apprends à fabriquer tes propres produits, pas à pas.
-      </p>
-      <div className="pc-teaser-list">
-        <Link href="/module" className="pc-teaser-item">
-          Faire un site
-        </Link>
-        <Link href="/creer-un-skill" className="pc-teaser-item">
-          Créer ton premier skill
-        </Link>
-      </div>
-    </div>
-  );
+  const cols =
+    branche === "automatiser" ? [automatiserCol, construireCol] : [construireCol, automatiserCol];
 
-  const automatiserTeaser = (
-    <div className="pc-col pc-teaser" key="automatiser-t">
-      <div className="pc-col-head">
-        <span className="label">Automatiser ton business</span>
-        <span className="pc-fam-soon">En préparation</span>
-      </div>
-      <p className="pc-teaser-intro">
-        Des skills prêts à l&apos;emploi pour les tâches qui te prennent du temps.
-      </p>
-      <div className="pc-teaser-list">
-        {businessSoon.map((m) => (
-          <span className="pc-teaser-item soon" key={m.titre}>
-            {m.titre}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-
-  let cols: React.ReactNode[];
-  if (!branche) cols = [construireFull, automatiserFull];
-  else if (branche === "automatiser") cols = [automatiserFull, construireTeaser];
-  else cols = [construireFull, automatiserTeaser];
-
-  return <div className={branche ? "pc-cols pc-cols-reco" : "pc-cols"}>{cols}</div>;
+  return <div className={branche ? "pc-cols pc-cols-hasreco" : "pc-cols"}>{cols}</div>;
 }
