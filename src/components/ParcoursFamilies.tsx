@@ -5,6 +5,8 @@ import Link from "next/link";
 import ParcoursModule1 from "@/components/ParcoursModule1";
 
 type Branche = "construire" | "automatiser";
+const RECO_KEY = "tve_quiz_reco";
+const RECO_EVENT = "tve-quiz-reco";
 
 const businessSoon = [
   {
@@ -26,7 +28,7 @@ const businessSoon = [
 function readRecoBranch(): Branche | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem("tve_quiz_reco");
+    const raw = localStorage.getItem(RECO_KEY);
     if (!raw) return null;
     const r = JSON.parse(raw);
     return r.branche === "construire" || r.branche === "automatiser" ? r.branche : null;
@@ -38,7 +40,25 @@ function readRecoBranch(): Branche | null {
 function subscribeReco(callback: () => void) {
   if (typeof window === "undefined") return () => {};
   window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
+  window.addEventListener(RECO_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(RECO_EVENT, callback);
+  };
+}
+
+function clearRecommendedBranch() {
+  try {
+    const raw = localStorage.getItem(RECO_KEY);
+    if (!raw) return;
+    const record = JSON.parse(raw);
+    if (!record?.branche) return;
+    delete record.branche;
+    localStorage.setItem(RECO_KEY, JSON.stringify(record));
+    window.dispatchEvent(new CustomEvent(RECO_EVENT));
+  } catch {
+    // La recommandation est un confort d'affichage, pas un état critique.
+  }
 }
 
 export default function ParcoursFamilies() {
@@ -58,8 +78,8 @@ export default function ParcoursFamilies() {
         fait partie de la valeur.
       </p>
       <div className="pc-col-list">
-        <ParcoursModule1 />
-        <Link className="pc-mc" href="/creer-un-skill">
+        <ParcoursModule1 onChooseModule={clearRecommendedBranch} />
+        <Link className="pc-mc" href="/creer-un-skill" onClick={clearRecommendedBranch}>
           <div className="pc-mc-head">
             <span className="label">Module 02 · Savoir-faire</span>
             <span className="pc-mc-status">Disponible →</span>

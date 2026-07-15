@@ -5,7 +5,7 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import { useModuleProgress, computeStats } from "@/lib/progress";
 
 // Carte compacte du module 01 pour la colonne « Apprendre à construire » du parcours.
-export default function ParcoursModule1() {
+export default function ParcoursModule1({ onChooseModule }: { onChooseModule?: () => void }) {
   const { done, mounted } = useModuleProgress("/module");
   const lite = etapesDetail.map((e) => ({
     slug: e.slug,
@@ -43,7 +43,7 @@ export default function ParcoursModule1() {
             </span>
           ) : null)}
       </div>
-      <Link href="/module" className="pc-mc-title">
+      <Link href="/module" className="pc-mc-title" onClick={onChooseModule}>
         Faire un site
       </Link>
       <p className="pc-mc-desc">
@@ -63,7 +63,7 @@ export default function ParcoursModule1() {
           <div className="mprogress-fill" style={{ width: `${pct}%` }} />
         </div>
       </div>
-      <Link href={href} className="btn btn-full pc-mc-cta">
+      <Link href={href} className="btn btn-full pc-mc-cta" onClick={onChooseModule}>
         {cta} →
       </Link>
     </div>
