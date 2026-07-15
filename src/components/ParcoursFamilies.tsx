@@ -27,13 +27,15 @@ export default function ParcoursFamilies() {
   const [branche, setBranche] = useState<Branche | null>(null);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("tve_quiz_reco");
-      if (raw) {
-        const r = JSON.parse(raw);
-        if (r.branche === "construire" || r.branche === "automatiser") setBranche(r.branche);
-      }
-    } catch {}
+    queueMicrotask(() => {
+      try {
+        const raw = localStorage.getItem("tve_quiz_reco");
+        if (raw) {
+          const r = JSON.parse(raw);
+          if (r.branche === "construire" || r.branche === "automatiser") setBranche(r.branche);
+        }
+      } catch {}
+    });
   }, []);
 
   // Version complète (colonne large) : cartes de modules détaillées.

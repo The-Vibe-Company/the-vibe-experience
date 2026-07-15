@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,9 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Vibe Experience — Deviens builder avec l'IA",
-  description:
-    "Le parcours réel de quelqu'un qui n'avait jamais codé, qui construit un vrai produit avec l'IA, et te montre comment refaire la même chose.",
+  title: "The Vibe Experience - Site en preparation",
+  description: "The Vibe Experience arrive bientot.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
@@ -28,9 +29,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <Nav />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );

@@ -39,8 +39,10 @@ export function useModuleProgress(moduleKey: string) {
 
   useEffect(() => {
     const refresh = () => setDone(read()[moduleKey]?.done ?? []);
-    refresh();
-    setMounted(true);
+    queueMicrotask(() => {
+      refresh();
+      setMounted(true);
+    });
     window.addEventListener("storage", refresh);
     window.addEventListener(EVT, refresh);
     return () => {
