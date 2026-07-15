@@ -104,7 +104,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         titre: "Repère ce que tu réexpliques tout le temps.",
         duree: "≈ 5 min",
         cestquoi:
-          "Un bon skill part d'une répétition : une consigne, une vérif, une façon de faire que tu redonnes à l'IA à chaque fois. Tu sors d'un seul projet et tu n'as pas encore l'impression de te répéter ? C'est le cas normal ici, pas un problème. Pars alors d'une répétition que tu sais à venir : ton style visuel, pour ne plus le redécrire à chaque fois, ou ta vérif avant de mettre en ligne.",
+          "Un bon skill part d'une répétition : une consigne, une vérif, une façon de faire que tu redonnes à l'IA à chaque fois. Tu sors d'un seul projet et tu n'as pas encore l'impression de te répéter ? C'est le cas normal ici, pas un problème. Pars alors d'une répétition que tu sais à venir : ton style visuel, pour ne plus le redécrire à chaque fois, ou ta vérif avant de mettre en ligne. Petit truc à savoir : Claude Code ne se souvient pas de vos conversations passées, il regarde seulement les fichiers de ton projet. Ouvre donc ton dossier de site avant de lui demander.",
         attendu: "Une répétition identifiée, écrite en une phrase quelque part.",
         exemples: [
           "« À chaque fois, je réexplique mon style visuel. »",
@@ -112,7 +112,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "« Je réécris toujours mes textes de la même façon. »",
         ],
         prompt:
-          "Regarde ce qu'on a fait sur mon projet. Qu'est-ce que je t'ai réexpliqué ou redemandé plusieurs fois ? Aide-moi à en faire une phrase courte.",
+          "Regarde les fichiers de mon projet. D'après ce que tu vois, qu'est-ce que j'ai sans doute dû te réexpliquer plusieurs fois, par exemple mon style ou ma façon de vérifier ? Aide-moi à en faire une phrase courte.",
         ceQueTuDoisVoir:
           "Tu as une phrase écrite quelque part, qui nomme une action précise (par exemple « je réexplique mon style visuel à chaque image »), pas un vague objectif (« je veux que ce soit beau »). Si ta phrase pourrait s'appliquer à n'importe quoi, resserre-la sur le geste exact que tu répètes.",
         siCaBloque:
@@ -164,7 +164,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Concrètement, ça donne : « Crée-moi un skill à partir de ça : je réexplique tout le temps mon style visuel (fond crème, titres en gros, ton chaleureux). Il doit se déclencher quand je demande de créer ou refaire une page, et faire en sorte que la page respecte ce style. Explique-moi en français simple ce que tu as mis dedans. »",
         ],
         ceQueTuDoisVoir:
-          "Claude Code crée un dossier avec un SKILL.md (un nom, une description, tes instructions) et te montre ce qu'il a fait. Il le range tout seul chez toi, tu n'as rien à déplacer ni à valider.",
+          "Claude Code crée un dossier avec un SKILL.md (un nom, une description, tes instructions) et te montre ce qu'il a fait. Il le range tout seul chez toi, tu n'as rien à déplacer toi-même. S'il te demande l'autorisation de créer un fichier, dis oui, c'est juste lui qui range ton skill.",
         siCaBloque:
           "Claude Code te dit qu'il a créé le skill mais tu ne vois aucun dossier apparaître ? C'est normal, les skills sont rangés dans un dossier système que tu n'as pas à ouvrir. Pour le voir quand même, demande-lui « montre-moi le fichier de mon skill ». Et s'il te demande l'autorisation de créer un fichier, dis oui : c'est juste lui qui range ton skill.",
         monExemple:
@@ -179,8 +179,8 @@ export const etapesDetailSkill: EtapeDetail[] = [
         attendu: "Un skill créé avec le Skill Creator, encore plus carré.",
         outils: [F.skillcreator],
         exemples: [
-          "Sur cette page, repère le bloc « Skill Creator » et clique sur télécharger : un fichier create-skill-tools.zip arrive dans ton dossier Téléchargements. Ne le décompresse pas, ne double-clique pas dessus, laisse-le tel quel.",
-          "Ouvre ton dossier Téléchargements, attrape ce fichier .zip avec la souris et fais-le glisser jusque dans la zone où tu écris tes messages à Claude Code, puis lâche. Une pastille avec le nom du fichier apparaît. Écris alors « installe ce skill ». Tu ne fais ça qu'une seule fois, il reste disponible ensuite.",
+          "Retourne sur la page du module (celle qui liste les étapes). Tout en bas, dans « Les skills qu'on t'offre », repère « Skill Creator » et clique sur Télécharger. Un fichier create-skill-tools.zip arrive dans ton dossier Téléchargements. Ne double-clique pas dessus, ne le décompresse pas, laisse-le tel quel.",
+          "Mets la fenêtre de Claude Code et la fenêtre de tes Téléchargements côte à côte, pour bien voir les deux en même temps. Attrape le fichier .zip avec la souris, garde le clic enfoncé, amène-le jusque dans la zone où tu écris tes messages à Claude Code, puis relâche. Une pastille au nom du fichier apparaît dans la zone de message. Écris alors « installe ce skill » et envoie. Si Claude Code te demande l'autorisation de lancer une action pour ranger le skill, dis oui, c'est juste lui qui l'installe. Tu ne fais ça qu'une seule fois, il reste disponible ensuite.",
           "Ensuite, sers-toi du Skill Creator à la place du simple prompt : pas besoin de recréer un deuxième skill, tu peux refaire le même en mieux, ou en créer un nouveau.",
         ],
         prompt:
@@ -188,7 +188,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Quand tu lâches le .zip dans la fenêtre, Claude Code affiche le nom du fichier. Après « installe ce skill », il te confirme que le skill est installé et disponible. Ensuite, quand tu l'utilises, le Skill Creator crée le skill, vérifie le format et te montre ce qu'il a fait. C'est plus carré que le simple prompt, surtout si tu n'es pas à l'aise avec la technique.",
         siCaBloque:
-          "Le glisser-déposer n'a rien fait, ou tu te retrouves avec un dossier au lieu d'un .zip parce que tu as double-cliqué ? Récupère le fichier .zip d'origine (retélécharge-le au besoin) et glisse-le sans l'ouvrir. Claude Code ne trouve pas le skill juste après l'install ? Ferme et rouvre-le : un nouveau skill n'est parfois pris en compte qu'au redémarrage.",
+          "Tu te retrouves avec un dossier au lieu d'un .zip ? Sur Safari, le téléchargement peut se décompresser tout seul, même sans double-clic : reprends le fichier qui finit par .zip (retélécharge-le au besoin, sans l'ouvrir) et glisse celui-là. Les deux fenêtres se cachent l'une l'autre ? Réduis-les pour les voir côte à côte avant de glisser. Le glisser-déposer n'a rien fait ? Recommence doucement, en relâchant bien à l'intérieur de la zone de message. Claude Code ne trouve pas le skill juste après l'install ? Ferme et rouvre-le : un nouveau skill n'est parfois pris en compte qu'au redémarrage.",
         monExemple:
           "Aujourd'hui, j'utilise notre Skill Creator pour que mes skills soient nickel sans que j'y pense. Mais au début, un simple prompt suffisait déjà, et c'est très bien pour commencer.",
         conseil: "Optionnel, mais recommandé dès que tu veux des skills vraiment propres. À toi de voir.",
@@ -317,7 +317,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Comme pour ton site au module précédent, on te donne un juge, mais pour les skills. Il lit ton fichier SKILL.md et vérifie qu'il est bien formé : un nom, une description qui dit quand l'utiliser, et des instructions. Ce n'est pas une note, juste un coup de main pour finir proprement.",
         attendu: "Ton skill passé au juge, et les points qu'il signale corrigés si besoin.",
         exemples: [
-          "Ouvre « Le juge des skills » depuis la page du module.",
+          "Sur la page du module, tout en bas, ouvre l'encadré « Le juge des skills » et clique dessus.",
           "Demande à Claude Code « montre-moi le contenu de mon skill », copie tout, colle-le dans le juge, et lance l'évaluation.",
         ],
         ceQueTuDoisVoir:

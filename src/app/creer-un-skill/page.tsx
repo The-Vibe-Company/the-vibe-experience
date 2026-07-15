@@ -102,7 +102,7 @@ export default function ModuleSkill() {
           </div>
 
           <Link href="/juge-skill" className="mov-cta">
-            <span className="label">La validation</span>
+            <span className="label">Le juge des skills</span>
             <span className="mov-cta-title">Ton skill est prêt ? Fais-le lire par le juge. →</span>
             <span className="mov-cta-desc">
               Tu colles ton fichier SKILL.md, il vérifie qu&apos;il est bien formé et te dit ce qui
