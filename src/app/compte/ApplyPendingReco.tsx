@@ -14,7 +14,11 @@ export default function ApplyPendingReco({ hasProfile }: { hasProfile: boolean }
     if (!raw) return;
     (async () => {
       try {
-        const record = JSON.parse(raw) as { niveau?: string; objectif?: string };
+        const record = JSON.parse(raw) as {
+          niveau?: string;
+          objectif?: string;
+          branche?: "construire" | "automatiser";
+        };
         if (!record?.niveau) return;
         const supabase = createClient();
         const {
@@ -26,6 +30,10 @@ export default function ApplyPendingReco({ hasProfile }: { hasProfile: boolean }
           .update({ niveau: record.niveau, objectif: record.objectif })
           .eq("id", user.id);
         if (!error) {
+          if (record.branche === "construire" || record.branche === "automatiser") {
+            localStorage.setItem("tve_selected_path", record.branche);
+            window.dispatchEvent(new CustomEvent("tve-path-choice"));
+          }
           localStorage.removeItem("tve_quiz_reco");
           router.refresh();
         }

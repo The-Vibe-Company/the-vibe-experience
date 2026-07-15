@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "./LogoutButton";
 import ApplyPendingReco from "./ApplyPendingReco";
 import ChangePassword from "./ChangePassword";
-import SkipQuizLink from "@/components/SkipQuizLink";
+import AccountPathActions from "@/components/AccountPathActions";
 
 export const metadata = { title: "Mon compte — The Vibe Experience" };
 
@@ -96,12 +96,7 @@ export default async function Compte() {
             </p>
           </div>
           <div className="acct-choice-actions">
-            <SkipQuizLink className="btn">
-              Choisir mon parcours →
-            </SkipQuizLink>
-            <Link href="/demarrer" className="btn btn-ghost">
-              Faire le quiz →
-            </Link>
+            <AccountPathActions hasProfile={!!profile?.niveau} />
           </div>
         </div>
       </div>

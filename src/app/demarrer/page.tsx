@@ -22,17 +22,14 @@ export default function Demarrer() {
         Sept petites questions pour comprendre ton envie, ton objectif et ton niveau. À la fin, on te
         recommande par où commencer. Le quiz est optionnel, tu peux aussi choisir directement.
       </p>
-      <div className="quiz-skip">
-        <div>
-          <span className="quiz-skip-title">Tu veux aller plus vite ?</span>
-          <p>Va directement aux parcours. Tu pourras revenir faire le quiz plus tard.</p>
-        </div>
-        <SkipQuizLink className="btn btn-ghost">
-          Passer le quiz →
-        </SkipQuizLink>
-      </div>
       <div style={{ marginTop: "2.4rem" }}>
         <Quiz />
+      </div>
+      <div className="quiz-skip-mini">
+        <span>Tu veux choisir directement ?</span>
+        <SkipQuizLink className="quiz-choose">
+          Passer le quiz →
+        </SkipQuizLink>
       </div>
     </div>
   );

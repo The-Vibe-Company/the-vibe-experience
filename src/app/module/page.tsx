@@ -3,6 +3,7 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Faire un site — The Vibe Experience" };
 
@@ -34,6 +35,7 @@ export default function Module() {
 
   return (
     <section className="etape-section">
+      <MarkSelectedPath path="construire" />
       <div className="etape-shell">
         <ModuleRail etapes={etapesDetail} currentSlug="" basePath="/module" moduleLabel="Faire un site" />
 
