@@ -50,6 +50,41 @@ body {
 .wrap-narrow { max-width: 980px; margin: 0 auto; padding: 0 2rem; }
 a { color: inherit; text-decoration: none; }
 
+/* TEMPORARY PUBLIC HOLDING PAGE */
+.maintenance {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: var(--bg);
+}
+.maintenance-inner {
+  max-width: 680px;
+  text-align: center;
+}
+.maintenance-kicker {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: var(--orange);
+}
+.maintenance h1 {
+  margin: 1rem 0 0;
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  line-height: .98;
+  font-weight: 800;
+  letter-spacing: -.04em;
+}
+.maintenance p {
+  max-width: 34rem;
+  margin: 1.2rem auto 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
 /* NAV */
 .nav {
   position: sticky; top: 0; z-index: 50;

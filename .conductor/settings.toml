@@ -13,3 +13,7 @@ run_mode = "concurrent"
 command = "npm run dev -- --port \"$CONDUCTOR_PORT\""
 default = true
 icon = "play"
+
+[prompts]
+general = "Treat main as the public production branch. Work on feature/workspace branches. Do not push, open PRs, or merge into main unless Victor explicitly approves a production release. Use preview/all-current-work as the integration branch for combining agent work."
+create_pr = "Create draft PRs against preview/all-current-work by default, not main. If the requested base is main, stop and ask Victor for explicit production approval because main can deploy publicly through Vercel."
