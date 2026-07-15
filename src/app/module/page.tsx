@@ -3,6 +3,7 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import CopyButton from "@/components/CopyButton";
 
 export const metadata = { title: "Module · Faire un site — The Vibe Experience" };
 
@@ -19,6 +20,25 @@ const toolbox: { n: string; d: string; cost: Cost }[] = [
   { n: "GitHub", d: "Le coffre-fort de ton code. Il sauvegarde ton projet et son historique.", cost: "gratuit-debut" },
   { n: "Vercel", d: "L'hébergeur. Il met ton site en ligne en un clic.", cost: "gratuit-debut" },
   { n: "SuperWhisper (option)", d: "Pour parler à l'IA au lieu de tout taper.", cost: "payant" },
+];
+
+type Gift =
+  | { n: string; d: string; kind: "download"; href: string }
+  | { n: string; d: string; kind: "command"; cmd: string };
+
+const skillGifts: Gift[] = [
+  {
+    n: "Impeccable",
+    d: "Rend ton interface propre et pro, et nettoie le code derrière. Tu t'en sers à l'étape 3.",
+    kind: "download",
+    href: "/skills/impeccable.zip",
+  },
+  {
+    n: "Agent Browser",
+    d: "Parcourt ton site comme un vrai visiteur et repère ce qui cloche. Tu le fais boucler avec Impeccable à l'étape 3.",
+    kind: "command",
+    cmd: "npx skills add vercel-labs/agent-browser",
+  },
 ];
 
 export default function Module() {
@@ -85,8 +105,35 @@ export default function Module() {
             ))}
           </div>
 
+          <div className="label mov-sec">Les skills qu&apos;on t&apos;offre</div>
+          <p className="mov-toolintro">
+            À l&apos;étape 3, tu rends ton site propre avec deux skills. On te les donne : Impeccable
+            se télécharge, Agent Browser s&apos;installe en une commande. Les deux sont publics et
+            gratuits, et Claude Code t&apos;aide à les mettre en place si tu bloques.
+          </p>
+          <div className="gfilets">
+            {skillGifts.map((g) => (
+              <div className="gfilet" key={g.n}>
+                <span className="gfilet-body">
+                  <span className="gfilet-name">{g.n}</span>
+                  <span className="gfilet-desc">{g.d}</span>
+                </span>
+                {g.kind === "download" ? (
+                  <a className="btn btn-ghost gfilet-btn" href={g.href} download>
+                    Télécharger
+                  </a>
+                ) : (
+                  <span className="gfilet-cmd">
+                    <code>{g.cmd}</code>
+                    <CopyButton text={g.cmd} />
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+
           <Link href="/juge" className="mov-cta">
-            <span className="label">La validation</span>
+            <span className="label">Le juge</span>
             <span className="mov-cta-title">Ton site est en ligne ? Fais-le évaluer par le juge. →</span>
             <span className="mov-cta-desc">
               Il visite ton site, vérifie la checklist technique du module, et te dit ce qui manque.
