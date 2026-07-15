@@ -18,7 +18,7 @@ export default function Demarrer() {
         On t&apos;oriente vers <em>ton point de départ</em>.
       </h1>
       <p className="pg-lead">
-        Sept petites questions pour comprendre ton envie, ton objectif et ton niveau. À la fin, on te
+        Six petites questions pour comprendre ton envie, ton objectif et ton niveau. À la fin, on te
         recommande par où commencer. Tu restes libre.
       </p>
       <div style={{ marginTop: "2.4rem" }}>
