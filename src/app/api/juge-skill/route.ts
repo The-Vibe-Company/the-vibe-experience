@@ -62,6 +62,16 @@ function extractField(fm: string, key: string): string | null {
         else break;
       }
       val = collected.join(" ").trim();
+    } else {
+      // Scalaire "plain" replié sur plusieurs lignes (style généré par les sérialiseurs
+      // YAML) : les lignes indentées qui suivent, tant qu'elles ne sont pas une nouvelle
+      // clé, font partie de la même valeur. Sans ça, on ne lirait que la première ligne
+      // d'une longue description et on recalerait des skills parfaitement bons.
+      for (let j = i + 1; j < lines.length; j++) {
+        if (/^\s+\S/.test(lines[j]) && !/^\s*[\w-]+\s*:(\s|$)/.test(lines[j])) {
+          val += " " + lines[j].trim();
+        } else break;
+      }
     }
     return val.replace(/^["']|["']$/g, "").trim();
   }

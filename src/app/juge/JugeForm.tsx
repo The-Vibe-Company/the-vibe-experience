@@ -58,7 +58,7 @@ export default function JugeForm() {
           />
         </label>
         <label className="juge-field">
-          <span>Ton sujet, en une phrase</span>
+          <span>Ton sujet, en une phrase (optionnel)</span>
           <input
             type="text"
             value={sujet}

@@ -240,6 +240,9 @@ export async function POST(request: Request) {
       label: "Ton code est sauvegardé sur GitHub",
       ok: repoOk,
       etape: "2",
+      detail: repoOk
+        ? undefined
+        : "repo introuvable, ou privé (le juge ne voit que les repos publics). Passe-le en public sur GitHub, ou laisse ce champ vide : il est optionnel, ton code peut très bien être à l'abri en privé",
     });
   }
 
