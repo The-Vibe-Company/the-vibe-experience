@@ -180,57 +180,54 @@ export const etapesDetail: EtapeDetail[] = [
     titre: "Pose ton projet sur GitHub",
     tag: ["Build", "t-build"],
     dur: "≈ 30 à 45 min · en local",
-    obj: "Sauvegarder ton code et l'automatiser, pour ne plus jamais perdre ton travail.",
+    obj: "Sauvegarder ton code et l'automatiser, pour ne plus jamais perdre ton travail. C'est aussi ici que tu croises le Terminal, une seule fois, pour connecter GitHub : Claude Code te donne tout, tu colles, c'est fait.",
     detailPret: true,
     sous: [
       {
-        titre: "Installe ce qu'il te faut (Claude Code t'accompagne).",
-        duree: "≈ 10 à 30 min (selon ce que ta machine doit télécharger)",
+        titre: "Laisse Claude Code installer Git.",
+        duree: "≈ 5 à 15 min",
         cestquoi:
-          "Pour sauvegarder ton code, il faut l'outil Git. C'est le premier moment où tu vas ouvrir le Terminal du Mac : Claude Code te donne la commande à coller, et c'est toi qui la colles dans le Terminal (elle ne peut pas le faire à ta place pour cette install). Le Terminal, c'est une fenêtre où on écrit du texte à l'ordinateur au lieu de cliquer.",
-        attendu: "Avoir Git prêt. Et avoir apprivoisé le Terminal, tu t'en resserviras.",
-        outils: [F.terminal, F.homebrew],
+          "Pour sauvegarder ton code, il faut l'outil Git. Bonne nouvelle : tu n'as rien à installer toi-même, et pas besoin du Terminal ici. Tu demandes à Claude Code, il s'en occupe, et ta seule mission est de cliquer « Installer » si une fenêtre d'Apple apparaît.",
+        attendu: "Git prêt sur ta machine, sans avoir rien installé à la main.",
+        prompt:
+          "Vérifie si Git est installé sur ma machine. S'il ne l'est pas, installe-le, et dis-moi exactement quoi faire si tu as besoin de moi.",
+        ceQueTuDoisVoir:
+          "Claude Code vérifie et te dit où il en est. Si Git manque, une fenêtre grise d'Apple peut s'ouvrir toute seule pour installer les « command line developer tools » : clique « Installer » et laisse-la finir (plusieurs minutes, selon ta connexion, c'est prévu). À la fin, demande « est-ce que Git est bien installé ? » : il te répond un numéro de version, par exemple « git version 2.39 ». Ce numéro, c'est ta preuve.",
+        siCaBloque:
+          "L'installation Apple échoue, ou Claude Code te propose de passer par Homebrew (un installateur d'outils) ? Laisse-le te guider : au pire, il te donnera une commande à coller dans le Terminal, la fenêtre qu'on apprivoise justement à la sous-étape suivante (colle avec cmd + V, puis Entrée ; si on te demande ton mot de passe Mac, rien ne s'affiche quand tu tapes, c'est voulu, tape à l'aveugle). Et si quelque chose finit en rouge, copie tout et colle-le à Claude Code : il te donne la suite.",
+        monExemple:
+          "Au début, je ne comprenais même pas à quoi servait GitHub. Une fois qu'on m'a expliqué que c'était pour ne rien perdre et pouvoir mettre en ligne, ça a fait sens.",
+        conseil:
+          "Regarde-le faire : tu viens de déléguer ta première installation. C'est exactement comme ça qu'on travaille avec lui, il fait, tu valides.",
+      },
+      {
+        titre: "Connecte GitHub et envoie ton code (ta première fois dans le Terminal).",
+        duree: "≈ 20 à 30 min",
+        cestquoi:
+          "GitHub, c'est un service en ligne où tu ranges ton code. Ça sert à deux choses : ne jamais perdre ton travail (tout est sauvegardé, avec l'historique) et pouvoir mettre ton site en ligne ensuite, l'étape 5 déploie depuis GitHub. Un « repo », c'est le dossier de ton projet là-bas. Et c'est ici que tu ouvres le Terminal pour la première fois : connecter ta machine à ton compte GitHub se fait dedans, une seule fois. Le Terminal, c'est juste une fenêtre où on écrit du texte à l'ordinateur au lieu de cliquer, et Claude Code te donne tout ce qu'il faut y coller. C'est la seule chose pour laquelle ce parcours en a besoin.",
+        attendu: "Ta machine connectée à GitHub, ton code copié dessus, avec un premier enregistrement. Et le Terminal apprivoisé au passage.",
+        lien: { label: "Créer mon compte sur github.com", href: "https://github.com" },
+        outils: [F.github, F.terminal],
+        exemples: [
+          "Crée d'abord ton compte gratuit sur github.com (bouton juste au-dessus).",
+          "Ouvre le Terminal du Mac : appuie sur cmd + espace, tape « Terminal », puis Entrée. Une fenêtre presque vide s'ouvre, avec un curseur qui clignote (capture ci-dessous) : c'est normal, tu n'as rien cassé.",
+          "Reviens dans Claude Code et envoie le prompt ci-dessous. Quand il te donne une commande, colle-la dans le Terminal (cmd + V), fais Entrée, et suis le déroulé décrit dans « Ce que tu dois voir ».",
+        ],
+        prompt:
+          "Connecte ma machine à mon compte GitHub, puis envoie mon projet dessus. Quand tu as besoin de moi, donne-moi la commande exacte à coller dans le Terminal, et dis-moi quoi répondre aux questions qu'il me posera.",
+        ceQueTuDoisVoir:
+          "Juste après avoir créé ton compte, GitHub t'envoie un email pour vérifier ton adresse : va dans ta boîte mail, ouvre-le et clique sur le lien, sinon l'envoi peut être bloqué. Ensuite, pour relier ta machine à ton compte, Claude Code lance souvent un petit assistant DANS le Terminal, en anglais : des questions avec des choix à sélectionner avec les FLÈCHES du clavier (haut et bas, puis Entrée), pas avec la souris. Réponds « GitHub.com », puis « HTTPS », puis « Login with a web browser » : il t'affiche alors un code à 8 caractères (du genre XXXX-XXXX). Appuie sur Entrée, une page GitHub s'ouvre dans ton navigateur, tape ce code et clique le bouton vert « Authorize ». Si la fenêtre semble figée sans rien afficher, clique dedans puis appuie sur Entrée. On va aussi peut-être te demander si ton projet doit être « public » (visible par tout le monde) ou « private » (visible par toi seul) : dans le doute, choisis « private », tu pourras changer plus tard en deux clics. Un détail à retenir pour la fin du parcours : le juge de l'étape 5 ne sait vérifier que les repos publics. Si le tien est privé, tu laisseras simplement le champ « repo » du juge vide, il est optionnel. Quand c'est bon, va sur github.com : ton dossier de projet (ton « repo ») apparaît avec tes fichiers dedans. C'est la preuve que ton travail est en sécurité en ligne.",
         visuel: {
           src: "/module/2-1-terminal.png",
           alt: "Le Terminal du Mac à l'ouverture : une fenêtre au fond sombre, une ligne « Last login », un prompt et un curseur.",
           legende: "Le Terminal à l'ouverture : une fenêtre presque vide, une ligne, un curseur qui clignote. C'est tout, et c'est normal.",
         },
-        exemples: [
-          "Ouvre le Terminal du Mac : appuie sur cmd + espace, tape « Terminal », puis Entrée.",
-          "Demande à Claude Code « aide-moi à installer Git », copie la commande qu'elle te donne, colle-la dans le Terminal (cmd + V) et fais Entrée.",
-        ],
-        ceQueTuDoisVoir:
-          "Le Terminal, c'est une fenêtre au fond uni avec un curseur qui clignote : c'est normal que ce soit vide et austère, tu n'as rien cassé. Quand tu colles la commande, beaucoup de lignes défilent, parfois plusieurs minutes (plus long la première fois, le temps que tout se télécharge). Pour vérifier que c'est bon, demande à Claude Code « est-ce que Git est bien installé ? » : elle te répond un numéro de version, par exemple « git version 2.39 ». Ce numéro, c'est ta preuve que Git est prêt.",
         siCaBloque:
-          "Pour coller dans le Terminal, c'est cmd + V (la touche Command, pas Ctrl). Si tu vois « command not found », l'ordinateur ne connaît pas encore ce mot : vérifie que tu as collé la commande en entier. Si une fenêtre grise d'Apple s'ouvre et te propose d'installer les « command line developer tools », clique sur « Install » et laisse-la finir. Si tu vois « command not found: brew », dis à Claude Code « installe-moi Homebrew d'abord, puis Git ». Le Terminal peut aussi te demander ton mot de passe Mac : quand tu le tapes, rien ne s'affiche, pas même des points, c'est voulu, tape-le à l'aveugle et fais Entrée. À la fin de l'installation de Homebrew, le Terminal affiche parfois deux commandes sous « Next steps » : colle-les aussi, l'une après l'autre, sinon tu verras « command not found: brew » juste après une installation pourtant réussie (si ça t'arrive, demande à Claude Code « Homebrew est installé mais brew reste introuvable, donne-moi les commandes à coller »). Et si une commande finit en rouge, copie tout et colle-le à Claude Code : elle te donne la version corrigée.",
+          "Pour coller dans le Terminal, c'est cmd + V (la touche Command, pas Ctrl). Si le Terminal demande ton mot de passe Mac, rien ne s'affiche quand tu tapes, pas même des points : c'est voulu, tape à l'aveugle et fais Entrée. Si une installation d'outil passe par Homebrew et que le Terminal affiche à la fin deux commandes sous « Next steps », colle-les aussi, l'une après l'autre. Une page va peut-être s'ouvrir dans ton navigateur pour demander « oui, j'autorise » : c'est normal et attendu, ce n'est pas une arnaque. Si tu vois « authentication failed » ou « permission denied », dis à Claude Code « je n'arrive pas à me connecter à GitHub, aide-moi à m'authentifier étape par étape » : c'est le blocage numéro un des débutants, il est prévu. Si tu vois « please tell me who you are » ou « Author identity unknown », c'est juste que Git ne sait pas encore qui tu es : dis à Claude Code « configure mon identité Git avec mon nom et mon email GitHub », donne-lui les deux, tu ne le refais qu'une seule fois. Et si une commande finit en rouge, copie tout et colle-le à Claude Code : il te donne la version corrigée.",
         monExemple:
           "Au début, le terminal me faisait peur, comme à tout le monde. La première fois que j'ai collé une ligne et que ça a marché, la peur est tombée d'un coup. Depuis, ce n'est plus un obstacle.",
-        conseil: "C'est ta première fois dans le Terminal, et c'est un vrai cap. C'est normal que ça impressionne. Tu vas juste coller une ligne et regarder. Une fois que c'est fait, tu sais que cette fenêtre n'a rien de magique : c'est une zone de texte, les erreurs rouges ne cassent rien, et tu peux y aller. Voilà, le terminal est démystifié, tu es passé de l'autre côté.",
-      },
-      {
-        titre: "Sauvegarde ton code sur GitHub.",
-        duree: "≈ 15 à 20 min",
-        cestquoi:
-          "GitHub, c'est un service en ligne où tu ranges ton code. Ça sert à deux choses : ne jamais perdre ton travail (tout est sauvegardé, avec l'historique) et pouvoir mettre ton site en ligne ensuite. Un « repo », c'est le dossier de ton projet là-bas.",
-        attendu: "Ton code copié sur GitHub, avec un premier enregistrement.",
-        lien: { label: "Créer mon compte sur github.com", href: "https://github.com" },
-        outils: [F.github],
-        exemples: [
-          "Crée d'abord ton compte gratuit sur github.com (bouton juste au-dessus).",
-          "Puis reviens dans Claude Code et demande-lui d'envoyer ton projet sur GitHub.",
-        ],
-        ceQueTuDoisVoir:
-          "Juste après avoir créé ton compte, GitHub t'envoie un email pour vérifier ton adresse : va dans ta boîte mail, ouvre-le et clique sur le lien, sinon l'envoi peut être bloqué. Ensuite, pour relier ta machine à ton compte, Claude Code lance souvent un petit assistant DANS le Terminal, en anglais : des questions avec des choix à sélectionner avec les FLÈCHES du clavier (haut et bas, puis Entrée), pas avec la souris. Réponds « GitHub.com », puis « HTTPS », puis « Login with a web browser » : il t'affiche alors un code à 8 caractères (du genre XXXX-XXXX). Appuie sur Entrée, une page GitHub s'ouvre dans ton navigateur, tape ce code et clique le bouton vert « Authorize ». Si la fenêtre semble figée sans rien afficher, clique dedans puis appuie sur Entrée. On va aussi peut-être te demander si ton projet doit être « public » (visible par tout le monde) ou « private » (visible par toi seul) : dans le doute, choisis « private », tu pourras changer plus tard en deux clics. Un détail à retenir pour la fin du parcours : le juge de l'étape 5 ne sait vérifier que les repos publics. Si le tien est privé, tu laisseras simplement le champ « repo » du juge vide, il est optionnel. Quand c'est bon, va sur github.com : ton dossier de projet (ton « repo ») apparaît avec tes fichiers dedans. C'est la preuve que ton travail est en sécurité en ligne.",
-        visuel: {
-          src: "/module/2-2-github.png",
-          alt: "Un repo de projet sur GitHub, avec ses fichiers, le premier commit et le README.",
-          legende: "Ton repo sur GitHub : tes fichiers sont là, en sécurité, avec l'historique. (Exemple avec le repo de ce parcours.)",
-        },
-        siCaBloque:
-          "Pour relier ta machine à GitHub, une page va peut-être s'ouvrir dans ton navigateur pour demander « oui, j'autorise ». C'est normal et attendu, ce n'est pas une arnaque. Si tu vois « authentication failed » ou « permission denied », dis à Claude Code « je n'arrive pas à me connecter à GitHub, aide-moi à m'authentifier étape par étape » : c'est le blocage numéro un des débutants, il est prévu. Et si tu vois « please tell me who you are » ou « Author identity unknown », c'est juste que Git ne sait pas encore qui tu es : dis à Claude Code « configure mon identité Git avec mon nom et mon email GitHub », donne-lui les deux, tu ne le refais qu'une seule fois.",
-        monExemple:
-          "Au début, je ne comprenais même pas à quoi servait GitHub. Une fois qu'on m'a expliqué que c'était pour ne rien perdre et pouvoir mettre en ligne, ça a fait sens.",
-        conseil: "Fais-le tôt : c'est ta sécurité contre la perte de travail.",
+        conseil:
+          "C'est ta première fois dans le Terminal, et c'est un vrai cap, c'est normal que ça impressionne. Tu vas juste coller ce qu'on te donne et regarder. Une fois que c'est fait, tu sais que cette fenêtre n'a rien de magique : une zone de texte, des erreurs rouges qui ne cassent rien. Te voilà passé de l'autre côté, et dans ce parcours, le Terminal ne sert qu'à ça : connecter GitHub, une fois.",
       },
       {
         titre: "Automatise les sauvegardes.",
