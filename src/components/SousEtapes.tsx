@@ -78,6 +78,18 @@ export default function SousEtapes({
                         <p>{s.attendu}</p>
                       </div>
                     )}
+                    {s.telechargements && s.telechargements.length > 0 && (
+                      <div className="se-block">
+                        <span className="se-l">À télécharger</span>
+                        <div className="se-dl">
+                          {s.telechargements.map((t) => (
+                            <a key={t.href} className="btn btn-ghost se-dl-btn" href={t.href} download>
+                              Télécharger {t.n} ↓
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                     {s.exemples && s.exemples.length > 0 && (
                       <div className="se-block">
                         <span className="se-l">Exemples</span>

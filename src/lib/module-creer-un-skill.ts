@@ -178,9 +178,10 @@ export const etapesDetailSkill: EtapeDetail[] = [
         cestquoi:
           "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools), c'est notre vrai outil de travail, celui qu'on utilise nous-mêmes tous les jours, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Mais c'est un vrai plus : il crée le skill en suivant la bonne méthode, au bon format, et s'assure qu'il est propre et fonctionnel. C'est un outil de pro : il sait faire beaucoup plus que ce qu'on utilise ici (des tests, des mesures), et il est écrit en anglais à l'intérieur. Aucun souci : tu lui parles en français, et on lui demande la version simple. C'est aussi la première fois que tu installes un skill toi-même, on y va pas à pas.",
         attendu: "Un skill créé avec le Skill Creator, encore plus carré.",
+        telechargements: [{ n: "le Skill Creator", href: "/skills/create-skill-tools.zip" }],
         outils: [F.skillcreator],
         exemples: [
-          "Retourne sur la page du module (celle qui liste les étapes). Tout en bas, dans « Les skills qu'on t'offre », repère « Skill Creator » et clique sur Télécharger. Un fichier create-skill-tools.zip arrive dans ton dossier Téléchargements. Ne double-clique pas dessus, ne le décompresse pas, laisse-le tel quel.",
+          "Clique sur le bouton « Télécharger le Skill Creator » juste au-dessus. Un fichier create-skill-tools.zip arrive dans ton dossier Téléchargements. Ne double-clique pas dessus, ne le décompresse pas, laisse-le tel quel.",
           "Mets la fenêtre de Claude Code et la fenêtre de tes Téléchargements côte à côte, pour bien voir les deux en même temps. Attrape le fichier .zip avec la souris, garde le clic enfoncé, amène-le jusque dans la zone où tu écris tes messages à Claude Code, puis relâche. Une pastille au nom du fichier apparaît dans la zone de message. Écris alors « installe ce skill » et envoie. Si Claude Code te demande l'autorisation de lancer une action pour ranger le skill, dis oui, c'est juste lui qui l'installe. Tu ne fais ça qu'une seule fois, il reste disponible ensuite.",
           "Ensuite, sers-toi du Skill Creator à la place du simple prompt : pas besoin de recréer un deuxième skill, tu peux refaire le même en mieux, ou en créer un nouveau.",
         ],
@@ -277,9 +278,10 @@ export const etapesDetailSkill: EtapeDetail[] = [
         cestquoi:
           "L'Improve (vrai nom : improve-skill-tools), c'est notre deuxième vrai outil, offert lui aussi. Il lit ton fichier SKILL.md, celui-là même que l'IA regarde pour décider quand lancer ton skill, et il le passe en revue comme un relecteur expert. Il te propose des améliorations, sur le fond (est-ce clair, utile) et sur la technique (le format, la description). Un point important sur sa façon de travailler : l'Improve RELIT, il ne modifie jamais rien lui-même, c'est voulu (un relecteur ne touche pas au texte). Pour appliquer ses remarques, c'est à Claude Code que tu le demandes ensuite.",
         attendu: "Une revue de ton skill avec des pistes concrètes d'amélioration.",
+        telechargements: [{ n: "l'Improve", href: "/skills/improve-skill-tools.zip" }],
         outils: [F.improve],
         exemples: [
-          "Télécharge l'Improve sur la page du module (un .zip), fais-le glisser dans la fenêtre de Claude Code et écris « installe ce skill ». C'est la même manip que le Skill Creator.",
+          "Télécharge l'Improve avec le bouton juste au-dessus (un .zip), fais-le glisser dans la fenêtre de Claude Code et écris « installe ce skill ». C'est la même manip que le Skill Creator.",
           "Demande-lui de passer ton skill en revue, puis applique ce qui te parle.",
         ],
         prompt:
