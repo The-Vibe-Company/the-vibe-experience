@@ -11,6 +11,9 @@ export type SousEtape = {
   telechargements?: { n: string; href: string }[];
   // Lien direct vers la page dont la sous-étape a besoin (ex. le juge) : zéro détour.
   lien?: { label: string; href: string };
+  // Procédure numérotée (« Comment faire ») : des actions à suivre dans l'ordre.
+  // À ne pas confondre avec exemples, qui illustre sans prescrire.
+  pasAPas?: string[];
   exemples?: string[];
   outils?: Fiche[];
   prompt?: string;
@@ -64,10 +67,10 @@ export const etapesDetail: EtapeDetail[] = [
         attendu: "L'app Claude Code installée et ouverte, connectée à ton compte.",
         lien: { label: "Ouvrir claude.com/claude-code", href: "https://claude.com/claude-code" },
         outils: [F.claudecode],
-        exemples: [
+        pasAPas: [
           "Crée d'abord ton compte Claude si tu n'en as pas : va sur claude.ai et inscris-toi.",
           "Prends l'abonnement Pro : sur claude.ai, ouvre les réglages de ton compte (ton initiale, en bas à gauche), rubrique abonnement, et choisis Pro. C'est le moins cher qui donne accès à Claude Code, autour de 20 € par mois.",
-          "Va sur claude.com/claude-code, clique « Download for macOS », puis ouvre l'app installée et connecte-toi.",
+          "Va sur claude.com/claude-code (bouton juste au-dessus), clique « Download for macOS », puis ouvre l'app installée et connecte-toi.",
         ],
         ceQueTuDoisVoir:
           "Au premier lancement, l'app te demande de te connecter à ton compte Claude : une page s'ouvre, tu te connectes, tu reviens. Elle peut te poser une question ou deux (thème clair ou sombre…), réponds, il n'y a pas de mauvais choix. Quand tu arrives sur une zone où écrire ton message, tu es prêt.",
@@ -208,7 +211,7 @@ export const etapesDetail: EtapeDetail[] = [
         attendu: "Ta machine connectée à GitHub, ton code copié dessus, avec un premier enregistrement. Et le Terminal apprivoisé au passage.",
         lien: { label: "Créer mon compte sur github.com", href: "https://github.com" },
         outils: [F.github, F.terminal],
-        exemples: [
+        pasAPas: [
           "Crée d'abord ton compte gratuit sur github.com (bouton juste au-dessus).",
           "Ouvre le Terminal du Mac : appuie sur cmd + espace, tape « Terminal », puis Entrée. Une fenêtre presque vide s'ouvre, avec un curseur qui clignote (capture ci-dessous) : c'est normal, tu n'as rien cassé.",
           "Reviens dans Claude Code et envoie le prompt ci-dessous. Quand il te donne une commande, colle-la dans le Terminal (cmd + V), fais Entrée, et suis le déroulé décrit dans « Ce que tu dois voir ».",
@@ -306,7 +309,7 @@ export const etapesDetail: EtapeDetail[] = [
         attendu: "Un code plus propre et mieux rangé. Tu ne le vois pas forcément à l'écran, mais ça pose des bases saines pour la suite.",
         telechargements: [{ n: "Impeccable", href: "/skills/impeccable.zip" }],
         outils: [F.impeccable],
-        exemples: [
+        pasAPas: [
           "C'est ta première installation de skill, on y va pas à pas. Clique sur « Télécharger Impeccable » juste au-dessus : un fichier impeccable.zip arrive dans ton dossier Téléchargements. Ne l'ouvre pas, laisse-le tel quel.",
           "Mets la fenêtre de Claude Code et celle de tes Téléchargements côte à côte. Attrape le fichier avec la souris, garde le clic enfoncé, amène-le dans la zone où tu écris tes messages, et relâche : une pastille au nom du fichier apparaît.",
           "Écris alors « installe ce skill » et envoie. Claude Code le range au bon endroit et te confirme. Tu ne fais ça qu'une fois : ensuite, le skill reste disponible, ici et sur tous tes prochains projets.",
@@ -386,7 +389,7 @@ export const etapesDetail: EtapeDetail[] = [
           "Tu demandes à Claude Code de construire la fonctionnalité choisie, en te guidant. Pour beaucoup de fonctionnalités (comptes, formulaire dont tu gardes les messages), il branche Supabase : c'est le service qui garde les comptes et les données de tes utilisateurs. Ton site en ligne a besoin d'un endroit où ranger tout ça, et c'est lui. Gratuit pour commencer.",
         attendu: "La fonctionnalité en place dans ton code, expliquée au passage.",
         lien: { label: "Créer mon compte sur supabase.com", href: "https://supabase.com" },
-        exemples: [
+        pasAPas: [
           "Si ta fonctionnalité utilise Supabase, crée d'abord ton compte : bouton juste au-dessus, puis « Sign in with GitHub », le plus simple, tu as déjà ton compte GitHub depuis l'étape 2.",
           "Crée ensuite un projet (bouton « New project ») : donne-lui un nom, note quelque part le mot de passe de base de données qu'il te demande, et choisis une région en Europe. L'écran « Setting up your project » tourne une à deux minutes, c'est normal, ne recharge pas la page.",
           "Puis reviens dans Claude Code et envoie le prompt ci-dessous : c'est lui qui te guide pour brancher ton site, écran par écran, y compris pour retrouver les clés.",
@@ -439,7 +442,7 @@ export const etapesDetail: EtapeDetail[] = [
         attendu: "Ton site en ligne, avec un lien qui marche.",
         lien: { label: "Créer mon compte sur vercel.com", href: "https://vercel.com" },
         outils: [F.vercel],
-        exemples: [
+        pasAPas: [
           "Crée un compte Vercel (bouton juste au-dessus) en te connectant AVEC ton compte GitHub (le plus simple). S'il te demande un nom et un type de compte, choisis « Hobby », le plan gratuit.",
           "Importe ton projet depuis la liste de tes repos, puis clique sur Deploy.",
         ],
@@ -480,7 +483,7 @@ export const etapesDetail: EtapeDetail[] = [
           "Le juge, c'est une IA qui regarde ton site fini et vérifie les critères techniques du module : il répond en ligne, il a un vrai titre et du contenu, des boutons ou des liens, et il est prêt pour le mobile. Ta fonctionnalité (comptes, formulaire…), lui ne peut pas la tester : c'est toi qui l'as vérifiée à l'étape 4, et il te le rappellera.",
         attendu: "Un verdict clair : réussi, ou ce qui manque avec l'étape à reprendre.",
         lien: { label: "Ouvrir la page du juge", href: "/juge" },
-        exemples: [
+        pasAPas: [
           "Ouvre la page du juge avec le bouton juste au-dessus.",
           "Colle l'adresse de ton site en ligne (ton lien .vercel.app, celui qui marche pour tout le monde, pas celui en localhost) et lance. C'est de là qu'il fait le tour de ta checklist.",
         ],

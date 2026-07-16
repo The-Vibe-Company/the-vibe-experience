@@ -106,6 +106,18 @@ export default function SousEtapes({
                         </div>
                       </div>
                     )}
+                    {s.pasAPas && s.pasAPas.length > 0 && (
+                      <div className="se-block">
+                        <span className="se-l">Comment faire</span>
+                        <ol className="se-steps">
+                          {s.pasAPas.map((p, j) => (
+                            <li key={j}>
+                              <span>{p}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    )}
                     {s.exemples && s.exemples.length > 0 && (
                       <div className="se-block">
                         <span className="se-l">Exemples</span>

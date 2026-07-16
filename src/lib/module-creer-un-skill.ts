@@ -180,7 +180,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         attendu: "Un skill créé avec le Skill Creator, encore plus carré.",
         telechargements: [{ n: "le Skill Creator", href: "/skills/create-skill-tools.zip" }],
         outils: [F.skillcreator],
-        exemples: [
+        pasAPas: [
           "Clique sur le bouton « Télécharger le Skill Creator » juste au-dessus. Un fichier create-skill-tools.zip arrive dans ton dossier Téléchargements. Ne double-clique pas dessus, ne le décompresse pas, laisse-le tel quel.",
           "Mets la fenêtre de Claude Code et la fenêtre de tes Téléchargements côte à côte, pour bien voir les deux en même temps. Attrape le fichier .zip avec la souris, garde le clic enfoncé, amène-le jusque dans la zone où tu écris tes messages à Claude Code, puis relâche. Une pastille au nom du fichier apparaît dans la zone de message. Écris alors « installe ce skill » et envoie. Si Claude Code te demande l'autorisation de lancer une action pour ranger le skill, dis oui, c'est juste lui qui l'installe. Tu ne fais ça qu'une seule fois, il reste disponible ensuite.",
           "Ensuite, sers-toi du Skill Creator à la place du simple prompt : pas besoin de recréer un deuxième skill, tu peux refaire le même en mieux, ou en créer un nouveau.",
@@ -280,9 +280,9 @@ export const etapesDetailSkill: EtapeDetail[] = [
         attendu: "Une revue de ton skill avec des pistes concrètes d'amélioration.",
         telechargements: [{ n: "l'Improve", href: "/skills/improve-skill-tools.zip" }],
         outils: [F.improve],
-        exemples: [
+        pasAPas: [
           "Télécharge l'Improve avec le bouton juste au-dessus (un .zip), fais-le glisser dans la fenêtre de Claude Code et écris « installe ce skill ». C'est la même manip que le Skill Creator.",
-          "Demande-lui de passer ton skill en revue, puis applique ce qui te parle.",
+          "Demande-lui de passer ton skill en revue avec le prompt ci-dessous, puis applique ce qui te parle.",
         ],
         prompt:
           "Utilise le skill improve-skill-tools pour passer mon skill [nom] en revue et propose-moi des améliorations, sur le fond et sur la technique. Résume-moi la revue en français simple.",
@@ -334,7 +334,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Comme pour ton site au module précédent, on te donne un juge, mais pour les skills. Il lit ton fichier SKILL.md et vérifie qu'il est bien formé : un nom, une description qui dit quand l'utiliser, et des instructions. Ce n'est pas une note, juste un coup de main pour finir proprement.",
         attendu: "Ton skill passé au juge, et les points qu'il signale corrigés si besoin.",
         lien: { label: "Ouvrir le juge des skills", href: "/juge-skill" },
-        exemples: [
+        pasAPas: [
           "Ouvre le juge des skills avec le bouton juste au-dessus.",
           "Demande à Claude Code « montre-moi uniquement le contenu de mon fichier SKILL.md, en entier », copie tout, colle-le dans le juge, et lance l'évaluation.",
         ],
