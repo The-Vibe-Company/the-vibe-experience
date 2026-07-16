@@ -62,6 +62,7 @@ export const etapesDetail: EtapeDetail[] = [
         cestquoi:
           "Claude Code, c'est une application que tu télécharges et installes en cliquant, comme n'importe quelle app. Pas de commande, pas de terminal. Il te faut un compte Claude avec un abonnement payant : l'offre Pro, autour de 20 € par mois, suffit largement. Le plan gratuit ne donne pas accès à Claude Code, c'est cet abonnement qui la fait marcher.",
         attendu: "L'app Claude Code installée et ouverte, connectée à ton compte.",
+        lien: { label: "Ouvrir claude.com/claude-code", href: "https://claude.com/claude-code" },
         outils: [F.claudecode],
         exemples: [
           "Crée d'abord ton compte Claude si tu n'en as pas : va sur claude.ai et inscris-toi.",
@@ -82,19 +83,17 @@ export const etapesDetail: EtapeDetail[] = [
         conseil: "Prends deux minutes pour te connecter tranquillement. Une fois l'app ouverte, tout le reste se passe en lui parlant.",
       },
       {
-        titre: "Ouvre ton dossier de projet dans Claude Code.",
+        titre: "Fais créer ton dossier de projet par Claude Code.",
         duree: "≈ 5 min",
         cestquoi:
-          "Tu crées un dossier vide pour ton site, et tu l'ouvres dans Claude Code. C'est dans ce dossier qu'elle va créer et ranger tout ton projet.",
-        attendu: "Un dossier à toi, ouvert dans Claude Code, prêt à recevoir ton site.",
-        exemples: [
-          "Crée un dossier « mon-site » sur ton Bureau : clic droit sur le Bureau, « Nouveau dossier », et nomme-le.",
-          "Dans Claude Code, ouvre ce dossier. Tu ne trouves pas où ? Écris-lui simplement « je veux travailler dans le dossier mon-site qui est sur mon Bureau » : il sait s'y mettre tout seul ou te dire exactement où cliquer.",
-        ],
+          "Ton site va vivre dans un dossier à lui. Pas besoin de le créer toi-même : tu ouvres Claude Code, et tu lui demandes de le créer et de travailler dedans. C'est ta toute première demande, et elle donne le ton : c'est lui qui fait, toi tu diriges.",
+        attendu: "Un dossier « mon-site » créé par Claude Code, dans lequel il travaille.",
+        prompt:
+          "Crée un dossier « mon-site » sur mon Bureau pour notre projet, et travaille dedans à partir de maintenant.",
         ceQueTuDoisVoir:
-          "Une fois le dossier ouvert, Claude Code sait où travailler. Tu vois la zone de discussion : c'est là que tu taperas ta première demande à l'étape 1.",
+          "Claude Code crée le dossier et te confirme qu'il travaille dedans. Si l'app te demande d'abord de choisir un dossier au lancement, choisis ton Bureau (ou ton dossier personnel), puis envoie le prompt : il crée mon-site et s'y met. Ensuite, tu vois la zone de discussion : c'est là que tu taperas ta première vraie demande à l'étape 1.",
         siCaBloque:
-          "Tu ne sais pas si le bon dossier est ouvert ? Demande-lui simplement « dans quel dossier es-tu en train de travailler ? ». Elle te répond, et tu vérifies que c'est bien ton dossier « mon-site ».",
+          "Il te répond qu'il ne peut pas changer de dossier ? Pas grave, fais-le à la main une fois : crée un dossier « mon-site » sur ton Bureau (clic droit, « Nouveau dossier »), puis ouvre-le dans Claude Code (son bouton d'ouverture de dossier). Et pour vérifier où il en est, demande-lui simplement « dans quel dossier es-tu en train de travailler ? ».",
         monExemple:
           "La première fois, je ne savais pas trop ce que « ouvrir un dossier » voulait dire. En vrai, c'est juste lui montrer où ranger le travail. Après, elle s'occupe de tout dedans.",
         conseil: "Un dossier vide au départ, c'est normal. C'est Claude Code qui va le remplir à l'étape suivante.",
@@ -191,6 +190,11 @@ export const etapesDetail: EtapeDetail[] = [
           "Pour sauvegarder ton code, il faut l'outil Git. C'est le premier moment où tu vas ouvrir le Terminal du Mac : Claude Code te donne la commande à coller, et c'est toi qui la colles dans le Terminal (elle ne peut pas le faire à ta place pour cette install). Le Terminal, c'est une fenêtre où on écrit du texte à l'ordinateur au lieu de cliquer.",
         attendu: "Avoir Git prêt. Et avoir apprivoisé le Terminal, tu t'en resserviras.",
         outils: [F.terminal, F.homebrew],
+        visuel: {
+          src: "/module/2-1-terminal.png",
+          alt: "Le Terminal du Mac à l'ouverture : une fenêtre au fond sombre, une ligne « Last login », un prompt et un curseur.",
+          legende: "Le Terminal à l'ouverture : une fenêtre presque vide, une ligne, un curseur qui clignote. C'est tout, et c'est normal.",
+        },
         exemples: [
           "Ouvre le Terminal du Mac : appuie sur cmd + espace, tape « Terminal », puis Entrée.",
           "Demande à Claude Code « aide-moi à installer Git », copie la commande qu'elle te donne, colle-la dans le Terminal (cmd + V) et fais Entrée.",
@@ -209,9 +213,10 @@ export const etapesDetail: EtapeDetail[] = [
         cestquoi:
           "GitHub, c'est un service en ligne où tu ranges ton code. Ça sert à deux choses : ne jamais perdre ton travail (tout est sauvegardé, avec l'historique) et pouvoir mettre ton site en ligne ensuite. Un « repo », c'est le dossier de ton projet là-bas.",
         attendu: "Ton code copié sur GitHub, avec un premier enregistrement.",
+        lien: { label: "Créer mon compte sur github.com", href: "https://github.com" },
         outils: [F.github],
         exemples: [
-          "Crée d'abord ton compte gratuit sur github.com dans ton navigateur.",
+          "Crée d'abord ton compte gratuit sur github.com (bouton juste au-dessus).",
           "Puis reviens dans Claude Code et demande-lui d'envoyer ton projet sur GitHub.",
         ],
         ceQueTuDoisVoir:
@@ -304,11 +309,17 @@ export const etapesDetail: EtapeDetail[] = [
         attendu: "Un code plus propre et mieux rangé. Tu ne le vois pas forcément à l'écran, mais ça pose des bases saines pour la suite.",
         telechargements: [{ n: "Impeccable", href: "/skills/impeccable.zip" }],
         outils: [F.impeccable],
+        exemples: [
+          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Télécharger Impeccable » juste au-dessus : un fichier impeccable.zip arrive dans ton dossier Téléchargements. Ne l'ouvre pas, laisse-le tel quel.",
+          "Mets la fenêtre de Claude Code et celle de tes Téléchargements côte à côte. Attrape le fichier avec la souris, garde le clic enfoncé, amène-le dans la zone où tu écris tes messages, et relâche : une pastille au nom du fichier apparaît.",
+          "Écris alors « installe ce skill » et envoie. Claude Code le range au bon endroit et te confirme. Tu ne fais ça qu'une fois : ensuite, le skill reste disponible, ici et sur tous tes prochains projets.",
+          "Puis lance-le avec le prompt fourni ci-dessous.",
+        ],
         prompt: "Utilise le skill Impeccable sur tout mon site pour nettoyer et ranger le code.",
         ceQueTuDoisVoir:
-          "Souvent, presque aucune différence à l'écran, et c'est normal. Le travail se passe dans les coulisses, sur le code.",
+          "Quand le skill part, une ligne « Skill : impeccable » s'affiche dans la conversation : c'est ta preuve qu'il tourne. À l'écran du site, souvent presque aucune différence, et c'est normal : le travail se passe dans les coulisses, sur le code.",
         siCaBloque:
-          "Claude Code te répond qu'il ne connaît pas Impeccable ? C'est juste que le skill n'est pas encore installé chez toi. Télécharge-le avec le bouton juste au-dessus, puis glisse le fichier téléchargé dans la fenêtre de Claude Code et dis-lui « installe ce skill pour moi » : il le range au bon endroit. (Safari décompresse parfois le téléchargement tout seul : si tu vois un dossier impeccable au lieu d'un fichier .zip, c'est pareil, glisse le dossier.) Tu l'as installé et Claude Code ne le voit toujours pas ? Ferme et rouvre Claude Code : un skill tout juste installé n'est parfois pris en compte qu'au redémarrage. Un skill, c'est une compétence en plus qu'on ajoute une fois, et ensuite l'IA la garde.",
+          "Safari a décompressé le téléchargement tout seul et tu vois un dossier au lieu d'un .zip ? C'est pareil, glisse le dossier. Claude Code te répond qu'il ne connaît pas Impeccable juste après l'installation ? Ferme et rouvre Claude Code : un skill tout juste installé n'est parfois pris en compte qu'au redémarrage. Le glisser-déposer n'a rien fait ? Recommence doucement, en relâchant bien à l'intérieur de la zone de message.",
         monExemple: "Honnêtement, à l'écran il n'y avait pas une grande différence avant/après. Ce que ça a fait, c'est nettoyer et trier le code : tu ne le vois pas forcément, mais c'est plus propre.",
         conseil: "Ne t'attends pas à un choc visuel. Impeccable travaille surtout les coulisses, et c'est très utile pour la suite. Une fois installé, un skill se déclenche juste en le demandant en français.",
       },
@@ -375,9 +386,14 @@ export const etapesDetail: EtapeDetail[] = [
         titre: "Implémente-la avec l'IA, qui t'accompagne.",
         duree: "≈ 40 min à 1 h (la première fois, la création du compte et des clés prend du temps)",
         cestquoi:
-          "Tu demandes à Claude Code de construire la fonctionnalité choisie, en te guidant : il branche les bons outils (par exemple Supabase pour les comptes).",
+          "Tu demandes à Claude Code de construire la fonctionnalité choisie, en te guidant. Pour beaucoup de fonctionnalités (comptes, formulaire dont tu gardes les messages), il branche Supabase : c'est le service qui garde les comptes et les données de tes utilisateurs. Ton site en ligne a besoin d'un endroit où ranger tout ça, et c'est lui. Gratuit pour commencer.",
         attendu: "La fonctionnalité en place dans ton code, expliquée au passage.",
-        exemples: ["« Ajoute une inscription et une connexion avec Supabase. »"],
+        lien: { label: "Créer mon compte sur supabase.com", href: "https://supabase.com" },
+        exemples: [
+          "Si ta fonctionnalité utilise Supabase, crée d'abord ton compte : bouton juste au-dessus, puis « Sign in with GitHub », le plus simple, tu as déjà ton compte GitHub depuis l'étape 2.",
+          "Crée ensuite un projet (bouton « New project ») : donne-lui un nom, note quelque part le mot de passe de base de données qu'il te demande, et choisis une région en Europe. L'écran « Setting up your project » tourne une à deux minutes, c'est normal, ne recharge pas la page.",
+          "Puis reviens dans Claude Code et envoie le prompt ci-dessous : c'est lui qui te guide pour brancher ton site, écran par écran, y compris pour retrouver les clés.",
+        ],
         prompt:
           "Je veux ajouter [ta fonctionnalité, ex. inscription et connexion des utilisateurs] à mon site. Guide-moi étape par étape, je suis débutant total et je n'ai jamais fait ça. Quand tu as besoin que je crée un compte quelque part ou que je copie une clé, arrête-toi, dis-moi exactement où cliquer, et attends que je te confirme avant de continuer. Explique-moi en français simple ce que tu fais au fur et à mesure.",
         ceQueTuDoisVoir:
@@ -395,7 +411,10 @@ export const etapesDetail: EtapeDetail[] = [
         exemples: [
           "Comptes : crée un compte avec un faux email, déconnecte-toi, reconnecte-toi, vérifie que tu retrouves tes infos.",
           "Formulaire : envoie-le et vérifie qu'il arrive bien.",
+          "Et ton skill Agent Browser (installé à l'étape 3) peut tester à ta place, comme un vrai visiteur : utilise le prompt ci-dessous.",
         ],
+        prompt:
+          "Avec le skill Agent Browser, teste ma fonctionnalité de bout en bout comme un vrai visiteur : [décris le scénario, ex. crée un compte test, déconnecte-toi, reconnecte-toi, vérifie que tout marche]. Dis-moi ce qui casse, et corrige-le.",
         ceQueTuDoisVoir:
           "Si tu as branché des comptes avec Supabase, va sur ton tableau de bord Supabase, rubrique Authentication puis Users : ton compte test doit apparaître dans la liste, avec l'email utilisé. C'est la preuve que ça a vraiment marché, que l'info est bien arrivée dans ta base et pas juste affichée à l'écran.",
         siCaBloque:
@@ -421,9 +440,10 @@ export const etapesDetail: EtapeDetail[] = [
         duree: "≈ 15 à 20 min",
         cestquoi: "Vercel, c'est l'hébergeur : il prend ton site et le met en ligne, accessible par tout le monde, avec une vraie adresse.",
         attendu: "Ton site en ligne, avec un lien qui marche.",
+        lien: { label: "Créer mon compte sur vercel.com", href: "https://vercel.com" },
         outils: [F.vercel],
         exemples: [
-          "Crée un compte Vercel en te connectant AVEC ton compte GitHub (le plus simple).",
+          "Crée un compte Vercel (bouton juste au-dessus) en te connectant AVEC ton compte GitHub (le plus simple). S'il te demande un nom et un type de compte, choisis « Hobby », le plan gratuit.",
           "Importe ton projet depuis la liste de tes repos, puis clique sur Deploy.",
         ],
         ceQueTuDoisVoir:

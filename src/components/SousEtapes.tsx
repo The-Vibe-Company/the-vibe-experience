@@ -94,8 +94,14 @@ export default function SousEtapes({
                       <div className="se-block">
                         <span className="se-l">Où ça se passe</span>
                         <div className="se-dl">
-                          <a className="btn btn-ghost se-dl-btn" href={s.lien.href}>
-                            {s.lien.label} →
+                          <a
+                            className="btn btn-ghost se-dl-btn"
+                            href={s.lien.href}
+                            {...(s.lien.href.startsWith("http")
+                              ? { target: "_blank", rel: "noreferrer" }
+                              : {})}
+                          >
+                            {s.lien.label} {s.lien.href.startsWith("http") ? "↗" : "→"}
                           </a>
                         </div>
                       </div>
