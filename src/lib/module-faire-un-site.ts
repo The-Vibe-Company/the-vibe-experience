@@ -9,6 +9,8 @@ export type SousEtape = {
   attendu?: string;
   // Skills offerts à télécharger directement dans la sous-étape où on s'en sert.
   telechargements?: { n: string; href: string }[];
+  // Lien direct vers la page dont la sous-étape a besoin (ex. le juge) : zéro détour.
+  lien?: { label: string; href: string };
   exemples?: string[];
   outils?: Fiche[];
   prompt?: string;
@@ -460,8 +462,9 @@ export const etapesDetail: EtapeDetail[] = [
         cestquoi:
           "Le juge, c'est une IA qui regarde ton site fini et vérifie les critères techniques du module (il répond, il a un titre, un bouton, il marche sur mobile, ta fonctionnalité fonctionne).",
         attendu: "Un verdict clair : réussi, ou ce qui manque avec l'étape à reprendre.",
+        lien: { label: "Ouvrir la page du juge", href: "/juge" },
         exemples: [
-          "Va sur la page « Le juge » (le bouton « Faire évaluer mon site » sur la page du module).",
+          "Ouvre la page du juge avec le bouton juste au-dessus.",
           "Colle l'adresse de ton site en ligne (ton lien .vercel.app, celui qui marche pour tout le monde, pas celui en localhost) et lance. C'est de là qu'il fait le tour de ta checklist.",
         ],
         visuel: {

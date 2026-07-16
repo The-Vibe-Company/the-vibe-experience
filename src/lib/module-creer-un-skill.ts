@@ -333,9 +333,10 @@ export const etapesDetailSkill: EtapeDetail[] = [
         cestquoi:
           "Comme pour ton site au module précédent, on te donne un juge, mais pour les skills. Il lit ton fichier SKILL.md et vérifie qu'il est bien formé : un nom, une description qui dit quand l'utiliser, et des instructions. Ce n'est pas une note, juste un coup de main pour finir proprement.",
         attendu: "Ton skill passé au juge, et les points qu'il signale corrigés si besoin.",
+        lien: { label: "Ouvrir le juge des skills", href: "/juge-skill" },
         exemples: [
-          "Sur la page du module, tout en bas, ouvre l'encadré « Le juge des skills » et clique dessus.",
-          "Demande à Claude Code « montre-moi le contenu de mon skill », copie tout, colle-le dans le juge, et lance l'évaluation.",
+          "Ouvre le juge des skills avec le bouton juste au-dessus.",
+          "Demande à Claude Code « montre-moi uniquement le contenu de mon fichier SKILL.md, en entier », copie tout, colle-le dans le juge, et lance l'évaluation.",
         ],
         ceQueTuDoisVoir:
           "Le juge te dit ce qui va et ce qui manque, et à quelle étape revenir s'il faut. Quand tout est bon, tu as la confirmation que ton skill est propre et solide.",

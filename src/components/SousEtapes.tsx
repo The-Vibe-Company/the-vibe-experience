@@ -90,6 +90,16 @@ export default function SousEtapes({
                         </div>
                       </div>
                     )}
+                    {s.lien && (
+                      <div className="se-block">
+                        <span className="se-l">Où ça se passe</span>
+                        <div className="se-dl">
+                          <a className="btn btn-ghost se-dl-btn" href={s.lien.href}>
+                            {s.lien.label} →
+                          </a>
+                        </div>
+                      </div>
+                    )}
                     {s.exemples && s.exemples.length > 0 && (
                       <div className="se-block">
                         <span className="se-l">Exemples</span>
