@@ -56,7 +56,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         cestquoi:
           "Le seul outil de ce module, c'est Claude Code, déjà installé à ton premier projet. Un skill, c'est juste un dossier rangé chez toi, dont Claude Code s'occupe tout seul : tu n'as jamais à aller le chercher à la main. Rien à installer, rien à payer en plus. Et tout se passe en parlant à Claude Code, jamais dans le Terminal. Créer un skill ne touche ni à ton site ni à Claude Code : ça s'ajoute simplement à côté.",
         attendu:
-          "Claude Code rouvert, comme au module précédent. Peu importe le dossier ouvert : un skill se range chez toi, pas dans un projet précis, donc tu peux rouvrir ton dossier de site ou n'importe quel dossier, ça marchera pareil.",
+          "Claude Code rouvert, comme au module précédent. Le plus simple : rouvre ton dossier de site, l'étape 1 t'y fera repérer tes répétitions. Mais un skill se range chez toi, pas dans un projet précis, donc n'importe quel dossier marcherait aussi.",
         outils: [F.claudecode],
         ceQueTuDoisVoir:
           "Claude Code s'ouvre et tu retrouves la zone où tu écris tes messages, exactement comme au module précédent. Si l'app te redemande de te connecter, fais-le, c'est normal après une fermeture. Dès que tu vois la zone de discussion, tu es prêt.",
@@ -65,7 +65,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         monExemple:
           "Ce qui me plaît, c'est d'avoir un seul outil qui gère tout, très complet, et qui s'adapte à ce que tu veux faire. Rien d'autre à payer, rien d'autre à installer : tu commences tout de suite. Et comme il sait presque tout faire, tu évites d'empiler plusieurs produits différents.",
         conseil:
-          "Si tu as sauté le module « Faire un site », installe d'abord Claude Code (son étape 0). Tout part de là.",
+          "Si tu as sauté le module « Faire un site », installe d'abord Claude Code (son étape 0). Tout part de là. Et garde ce réflexe pour tout le module : quand quelque chose cloche ou te surprend, décris ton problème à Claude Code (ce que tu as fait, ce que tu attendais, ce que tu vois) et discute avec lui. Il y aura toujours des cas imprévus, et c'est comme ça qu'ils se résolvent.",
       },
       {
         titre: "Comprends ce qu'est un skill (et pourquoi ça change tout).",
@@ -160,14 +160,14 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Tu n'as besoin de rien d'autre que Claude Code. Tu lui dis en français ce que tu veux capturer, quand ça doit se déclencher, et ce que ça doit faire. Il crée le skill. C'est aussi direct que ça : pas besoin d'outil spécial pour commencer.",
         attendu: "Un skill créé, juste en le demandant.",
         prompt:
-          "Crée-moi un skill à partir de ça : [ce que tu répètes]. Il doit se déclencher quand [la situation], et faire [ce qu'il fait]. Explique-moi en français simple ce que tu as mis dedans.",
+          "Crée-moi un skill à partir de ça : [ce que tu répètes]. Il doit se déclencher quand [la situation], et faire [ce qu'il fait]. Range-le dans mes skills personnels, pour qu'il me suive sur tous mes projets. Explique-moi en français simple ce que tu as mis dedans.",
         exemples: [
           "Concrètement, ça donne : « Crée-moi un skill à partir de ça : je réexplique tout le temps mon style visuel (fond crème, titres en gros, ton chaleureux). Il doit se déclencher quand je demande de créer ou refaire une page, et faire en sorte que la page respecte ce style. Explique-moi en français simple ce que tu as mis dedans. »",
         ],
         ceQueTuDoisVoir:
           "Claude Code crée un dossier avec un SKILL.md (un nom, une description, tes instructions) et te montre ce qu'il a fait. Il le range tout seul chez toi, tu n'as rien à déplacer toi-même. S'il te demande l'autorisation de créer un fichier, dis oui, c'est juste lui qui range ton skill.",
         siCaBloque:
-          "Claude Code te dit qu'il a créé le skill mais tu ne vois aucun dossier apparaître ? C'est normal, les skills sont rangés dans un dossier système que tu n'as pas à ouvrir. Pour le voir quand même, demande-lui « montre-moi le fichier de mon skill ». Et s'il te demande l'autorisation de créer un fichier, dis oui : c'est juste lui qui range ton skill.",
+          "Claude Code te demande si tu veux le skill « pour ce projet » ou « pour tous tes projets » ? Réponds : pour tous mes projets. C'est ce qui fait qu'il te suivra partout, y compris sur ton prochain produit. Il te dit qu'il a créé le skill mais tu ne vois aucun dossier apparaître ? C'est normal, les skills sont rangés dans un dossier système que tu n'as pas à ouvrir. Pour le voir quand même, demande-lui « montre-moi le fichier de mon skill ». Et s'il te demande l'autorisation de créer un fichier, dis oui : c'est juste lui qui range ton skill.",
         monExemple:
           "Mes premiers skills, je les ai juste demandés à Claude Code. Un bon prompt suffit largement pour se lancer, sans aucun outil en plus.",
         conseil: "Sois précis sur le QUAND (la description) : c'est ce qui fait que l'IA lance ton skill toute seule au bon moment.",
@@ -185,11 +185,11 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Ensuite, sers-toi du Skill Creator à la place du simple prompt : pas besoin de recréer un deuxième skill, tu peux refaire le même en mieux, ou en créer un nouveau.",
         ],
         prompt:
-          "Utilise le skill create-skill-tools pour me créer un skill à partir de ça : [ce que tu répètes]. Il doit se déclencher quand [la situation].",
+          "Utilise le skill create-skill-tools pour me créer un skill à partir de ça : [ce que tu répètes]. Il doit se déclencher quand [la situation]. Range-le dans mes skills personnels.",
         ceQueTuDoisVoir:
           "Quand tu lâches le .zip dans la fenêtre, Claude Code affiche le nom du fichier. Après « installe ce skill », il te confirme que le skill est installé et disponible. Ensuite, quand tu l'utilises, le Skill Creator crée le skill, vérifie le format et te montre ce qu'il a fait. C'est plus carré que le simple prompt, surtout si tu n'es pas à l'aise avec la technique.",
         siCaBloque:
-          "Tu te retrouves avec un dossier au lieu d'un .zip ? Sur Safari, le téléchargement peut se décompresser tout seul, même sans double-clic : reprends le fichier qui finit par .zip (retélécharge-le au besoin, sans l'ouvrir) et glisse celui-là. Les deux fenêtres se cachent l'une l'autre ? Réduis-les pour les voir côte à côte avant de glisser. Le glisser-déposer n'a rien fait ? Recommence doucement, en relâchant bien à l'intérieur de la zone de message. Claude Code ne trouve pas le skill juste après l'install ? Ferme et rouvre-le : un nouveau skill n'est parfois pris en compte qu'au redémarrage.",
+          "Tu te retrouves avec un dossier au lieu d'un .zip ? Sur Safari, le téléchargement peut se décompresser tout seul, même sans double-clic : glisse le dossier, ça marche pareil. Les deux fenêtres se cachent l'une l'autre ? Réduis-les pour les voir côte à côte avant de glisser. Le glisser-déposer n'a rien fait ? Recommence doucement, en relâchant bien à l'intérieur de la zone de message. Claude Code ne trouve pas le skill juste après l'install ? Ferme et rouvre-le : un nouveau skill n'est parfois pris en compte qu'au redémarrage. Tu refais « le même en mieux » et tu te demandes ce que devient le premier ? Demande simplement « remplace mon skill existant » pour ne pas te retrouver avec deux versions dans la liste. Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, attends qu'elle se réinitialise et reprends, pas besoin de passer à l'offre Max.",
         monExemple:
           "Aujourd'hui, j'utilise notre Skill Creator pour que mes skills soient nickel sans que j'y pense. Mais au début, un simple prompt suffisait déjà, et c'est très bien pour commencer.",
         conseil: "Optionnel, mais recommandé dès que tu veux des skills vraiment propres. À toi de voir.",
@@ -245,7 +245,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
           legende: "Chez moi : je tape / et mon skill apparaît dans la liste, avec sa description. S'il est là, il est installé.",
         },
         siCaBloque:
-          "Tu tapes /nom et il ne se passe rien ? Vérifie le nom exact (c'est le nom du dossier). Pas sûr du nom ? Demande à Claude Code « quel est le nom exact pour appeler mon skill ? ». L'IA ne le déclenche pas toute seule alors que la situation s'y prête ? C'est presque toujours la description qui n'est pas assez claire : passe à la sous-étape suivante.",
+          "Ton skill n'apparaît pas dans la liste du / ? Ferme et rouvre Claude Code : un skill tout juste créé n'est parfois pris en compte qu'au redémarrage. Toujours rien après ça ? Vérifie le nom exact (c'est le nom du dossier), ou demande à Claude Code « quel est le nom exact pour appeler mon skill ? ». L'IA ne le déclenche pas toute seule alors que la situation s'y prête ? C'est presque toujours la description qui n'est pas assez claire : passe à la sous-étape suivante.",
         monExemple:
           "Mes premiers skills, c'étaient Impeccable et Agent Browser. La toute première fois, je n'étais même pas sûr que ça avait marché : Impeccable travaille le code, le changement ne se voyait presque pas à l'écran. D'où l'importance de ce repère : la ligne au nom du skill, c'est elle qui te dit qu'il est bien parti.",
         conseil: "Teste-le sur un vrai cas, celui qui t'a donné l'idée du skill. C'est le meilleur test.",
@@ -264,7 +264,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         prompt:
           "Mon skill ne se déclenche pas quand je [la situation]. Améliore sa description pour qu'il se lance dans ce cas, sans se déclencher à tort le reste du temps.",
         ceQueTuDoisVoir:
-          "Tu refais ta demande normale, et cette fois le skill part tout seul, sans que tu tapes son nom. C'est le signe que la description est bonne.",
+          "Important : teste dans une NOUVELLE conversation (ferme celle-ci ou ouvre-s'en une neuve). Dans la conversation où vous venez de créer le skill, l'IA l'a en tête de toute façon, le test ne prouve rien. Dans la conversation neuve, tu refais ta demande normale, et cette fois le skill part tout seul, sans que tu tapes son nom. C'est le signe que la description est bonne.",
         siCaBloque:
           "Même après deux ou trois essais il ne part pas tout seul ? Donne à Claude Code la phrase exacte que tu tapes, mot pour mot, et dis-lui « mets ces mots-là dans la description pour que le skill se déclenche quand j'écris ça ». À l'inverse, il se lance alors que tu ne veux pas ? Dis-lui « resserre la description, il ne doit se déclencher que quand [ton cas précis] ». En attendant, tu peux toujours l'appeler à la main avec /nom : le skill marche déjà, c'est juste le moment du départ qu'on règle.",
         monExemple:

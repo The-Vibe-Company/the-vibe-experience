@@ -457,6 +457,8 @@ a { color: inherit; text-decoration: none; }
 .tfilet { display: grid; grid-template-columns: 210px 1fr; gap: 1.1rem; align-items: baseline; padding: .85rem 0; border-top: 1px solid var(--border); }
 .tfilet:first-child { border-top: none; }
 .tfilet-name { display: flex; align-items: baseline; gap: .55rem; font-size: .95rem; font-weight: 650; }
+.tfilet-link { color: inherit; }
+.tfilet-link:hover { color: var(--orange); }
 .tfilet-desc { font-size: .9rem; line-height: 1.5; color: var(--muted); }
 
 .mov-cta { display: flex; flex-direction: column; gap: .35rem; margin-top: 2.6rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }

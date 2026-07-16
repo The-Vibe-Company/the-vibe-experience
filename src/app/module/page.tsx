@@ -14,12 +14,12 @@ const costLabel: Record<Cost, string> = {
   payant: "Payant",
 };
 
-const toolbox: { n: string; d: string; cost: Cost }[] = [
-  { n: "Claude Code", d: "Ton atelier. Tu construis en parlant à l'IA, elle écrit le code pour toi.", cost: "payant" },
-  { n: "Homebrew", d: "L'installateur du terminal. Une commande pour installer ce qu'il te faut.", cost: "gratuit" },
-  { n: "GitHub", d: "Le coffre-fort de ton code. Il sauvegarde ton projet et son historique.", cost: "gratuit-debut" },
-  { n: "Vercel", d: "L'hébergeur. Il met ton site en ligne en un clic.", cost: "gratuit-debut" },
-  { n: "SuperWhisper (option)", d: "Pour parler à l'IA au lieu de tout taper.", cost: "payant" },
+const toolbox: { n: string; d: string; cost: Cost; url?: string }[] = [
+  { n: "Claude Code", d: "Ton atelier. Tu construis en parlant à l'IA, elle écrit le code pour toi.", cost: "payant", url: "https://claude.com/claude-code" },
+  { n: "Homebrew", d: "L'installateur du terminal. Une commande pour installer ce qu'il te faut.", cost: "gratuit", url: "https://brew.sh" },
+  { n: "GitHub", d: "Le coffre-fort de ton code. Il sauvegarde ton projet et son historique.", cost: "gratuit-debut", url: "https://github.com" },
+  { n: "Vercel", d: "L'hébergeur. Il met ton site en ligne en un clic.", cost: "gratuit-debut", url: "https://vercel.com" },
+  { n: "SuperWhisper (option)", d: "Pour parler à l'IA au lieu de tout taper.", cost: "payant", url: "https://superwhisper.com" },
 ];
 
 const skillGifts: { n: string; d: string; href: string }[] = [
@@ -85,14 +85,20 @@ export default function Module() {
 
           <div className="label mov-sec">Ta boîte à outils</div>
           <p className="mov-toolintro">
-            Pour commencer, il te faut surtout Claude Pro, environ 20 $/mois. GitHub, Vercel et le
+            Pour commencer, il te faut surtout Claude Pro, environ 20 €/mois. GitHub, Vercel et le
             reste sont gratuits pour débuter.
           </p>
           <div className="tfilets">
             {toolbox.map((t) => (
               <div className="tfilet" key={t.n}>
                 <span className="tfilet-name">
-                  {t.n}
+                  {t.url ? (
+                    <a href={t.url} target="_blank" rel="noreferrer" className="tfilet-link">
+                      {t.n} ↗
+                    </a>
+                  ) : (
+                    t.n
+                  )}
                   <span className={`cost cost-${t.cost}`}>{costLabel[t.cost]}</span>
                 </span>
                 <span className="tfilet-desc">{t.d}</span>

@@ -6,8 +6,40 @@ type Critere = { key: string; label: string; ok: boolean; etape: string; detail?
 
 const MAX_LEN = 50000;
 
+// Nettoie un collage imparfait : la personne colle souvent la réponse entière de
+// Claude Code (phrase d'intro, numéros de ligne, clôtures de bloc de code) au lieu
+// du seul contenu du fichier. On rattrape ce qu'on peut avant de juger.
+function cleanPaste(raw: string): string {
+  let text = raw.replace(/^﻿/, "").replace(/\r\n/g, "\n");
+
+  // Clôtures de bloc de code markdown (```yaml, ``` …).
+  text = text
+    .split("\n")
+    .filter((l) => !/^\s*```/.test(l.trim()))
+    .join("\n");
+
+  // Numéros de ligne en tête (« 1→--- », « 12 | name: … », «   3: … ») : on ne les
+  // retire que si la majorité des lignes en ont, pour ne pas abîmer un vrai contenu.
+  const lines = text.split("\n");
+  const numRe = /^\s*\d+\s*(?:→|\||:|\t| {2})\s?/;
+  const numbered = lines.filter((l) => l.trim() !== "" && numRe.test(l)).length;
+  const nonEmpty = lines.filter((l) => l.trim() !== "").length;
+  if (nonEmpty > 0 && numbered / nonEmpty > 0.6) {
+    text = lines.map((l) => l.replace(numRe, "")).join("\n");
+  }
+
+  // Texte d'intro avant le fichier (« Voici ton skill : » …) : on démarre à la
+  // première ligne --- si elle n'est pas déjà au début.
+  const firstDash = text.split("\n").findIndex((l) => /^\s*---\s*$/.test(l));
+  if (firstDash > 0) {
+    text = text.split("\n").slice(firstDash).join("\n");
+  }
+
+  return text;
+}
+
 function parseFrontmatter(raw: string): { fm: string | null; body: string } {
-  const text = raw.replace(/^﻿/, "").replace(/\r\n/g, "\n");
+  const text = cleanPaste(raw);
   // Frontmatter YAML entre deux lignes ---, tout en haut du fichier.
   const m = text.match(/^\s*---\s*\n([\s\S]*?)\n---\s*(?:\n([\s\S]*))?$/);
   if (!m) return { fm: null, body: text.trim() };
@@ -88,8 +120,9 @@ export async function POST(request: Request) {
   const descText = deburr(description ?? "");
   const descLen = (description ?? "").trim().length;
   const hasWhenCue = WHEN_CUES.some((c) => descText.includes(deburr(c)));
-  // Elle dit "quand" si elle a un marqueur de déclenchement, ou si elle est assez détaillée pour l'impliquer.
-  const descWhenOk = descPresent && descLen >= 40 && (hasWhenCue || descLen >= 90);
+  // Elle dit "quand" si elle a un marqueur de déclenchement (même courte), ou si elle
+  // est assez détaillée pour l'impliquer.
+  const descWhenOk = descPresent && (hasWhenCue || descLen >= 90);
 
   const instrOk = instructions.trim().length >= 30;
 
@@ -99,7 +132,9 @@ export async function POST(request: Request) {
       label: "Ton fichier a un en-tête (le bloc entre deux ---)",
       ok: !!fm,
       etape: "2",
-      detail: fm ? undefined : "on ne trouve pas le bloc --- en haut du fichier",
+      detail: fm
+        ? undefined
+        : "on ne trouve pas le bloc --- en haut. Tu as peut-être copié plus (ou moins) que le contenu du fichier : demande à Claude Code « montre-moi uniquement le contenu de mon fichier SKILL.md, en entier », copie exactement ça et recolle-le ici",
     },
     {
       key: "name",

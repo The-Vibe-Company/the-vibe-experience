@@ -83,12 +83,17 @@ const STOPWORDS = new Set([
 ]);
 
 // Vérification gratuite, côté serveur : le contenu de la page colle-t-il au sujet déclaré ?
+// Le titre d'onglet est vérifié à part (critère dédié) : ici on ne juge que le corps de la page.
 function judgeSubject(sujet: string, pageText: string): { ok: boolean; detail?: string } {
   const text = deburr(pageText);
 
   // 1. Template de démo laissé en l'état ?
   if (BOILERPLATE.some((b) => text.includes(deburr(b)))) {
-    return { ok: false, detail: "on dirait encore le template de démo" };
+    return {
+      ok: false,
+      detail:
+        "on dirait encore le template de démo. Dis à Claude Code : « il reste du texte du template de départ sur mon site, remplace-le par mon vrai contenu »",
+    };
   }
 
   // 2. Les mots-clés du sujet se retrouvent-ils dans la page ?
@@ -107,7 +112,11 @@ function judgeSubject(sujet: string, pageText: string): { ok: boolean; detail?: 
   const matched = bases.filter((b) => text.includes(b)).length;
   const needed = keywords.length <= 2 ? 1 : Math.ceil(keywords.length * 0.4);
   if (matched >= needed) return { ok: true };
-  return { ok: false, detail: "le contenu ne semble pas parler de ton sujet" };
+  return {
+    ok: false,
+    detail:
+      "le contenu ne semble pas parler de ton sujet. Si tu es sûr que si, reformule ton sujet avec des mots qui apparaissent vraiment sur ta page, ou laisse le champ sujet vide, il est optionnel",
+  };
 }
 
 export async function POST(request: Request) {
@@ -145,6 +154,25 @@ export async function POST(request: Request) {
   const hasInteractive = /<a\s[^>]*href|<button/i.test(html);
   const hasViewport = /<meta[^>]+name=["']viewport["']/i.test(lowerHtml);
 
+  // App construite dans le navigateur (le HTML brut est une coquille vide + scripts) :
+  // le site marche peut-être très bien, mais le juge ne peut pas le voir. On le dit
+  // clairement au lieu de laisser croire que le site est vide.
+  const looksJsShell =
+    /<div[^>]+id=["'](?:root|app|__next)["']/i.test(html) || /<script[^>]+src=/i.test(html);
+  const pageOk = reachable && title.length > 0 && pageText.length > 60;
+  const pageDetail = pageOk
+    ? undefined
+    : !reachable
+      ? undefined
+      : pageText.length <= 60 && looksJsShell
+        ? "ta page se construit avec JavaScript, le juge ne voit que le HTML brut. Ton site marche peut-être très bien dans ton navigateur ! Dis à Claude Code : « le juge ne voit pas mon contenu sans JavaScript, rends le contenu principal de mon site visible directement dans le HTML (rendu côté serveur) », puis renvoie sur GitHub et repasse le juge"
+        : title.length === 0
+          ? "ta page n'a pas de titre d'onglet. Dis à Claude Code : « donne un vrai titre d'onglet à mon site »"
+          : "la page semble presque vide (très peu de texte)";
+
+  // Titre d'onglet resté celui du template : le site peut être bon, mais l'onglet trahit.
+  const titleIsTemplate = title.length > 0 && BOILERPLATE.some((b) => deburr(title).includes(deburr(b)));
+
   const criteres: Critere[] = [
     {
       key: "enligne",
@@ -156,8 +184,18 @@ export async function POST(request: Request) {
     {
       key: "page",
       label: "Une vraie page s'affiche (titre et contenu)",
-      ok: reachable && title.length > 0 && pageText.length > 60,
+      ok: pageOk,
       etape: "1",
+      detail: pageDetail,
+    },
+    {
+      key: "onglet",
+      label: "Ton onglet porte le nom de ton site",
+      ok: reachable && !titleIsTemplate,
+      etape: "1",
+      detail: titleIsTemplate
+        ? `ton onglet affiche encore « ${title} », le titre du template de départ. Dis à Claude Code : « change le titre de l'onglet de mon site pour [le nom de ton site] »`
+        : undefined,
     },
     {
       key: "interactif",
