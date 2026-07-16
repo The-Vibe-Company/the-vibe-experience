@@ -176,7 +176,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         titre: "Pour un skill au top : le Skill Creator (offert, en option).",
         duree: "≈ 10 min",
         cestquoi:
-          "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools), c'est un skill qu'on te donne. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Mais c'est un vrai plus : il crée le skill en suivant la bonne méthode, au bon format, et s'assure qu'il est propre et fonctionnel. Utile surtout si tu n'es pas à l'aise avec la technique. C'est aussi la première fois que tu installes un skill toi-même, on y va pas à pas.",
+          "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools), c'est notre vrai outil de travail, celui qu'on utilise nous-mêmes tous les jours, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Mais c'est un vrai plus : il crée le skill en suivant la bonne méthode, au bon format, et s'assure qu'il est propre et fonctionnel. C'est un outil de pro : il sait faire beaucoup plus que ce qu'on utilise ici (des tests, des mesures), et il est écrit en anglais à l'intérieur. Aucun souci : tu lui parles en français, et on lui demande la version simple. C'est aussi la première fois que tu installes un skill toi-même, on y va pas à pas.",
         attendu: "Un skill créé avec le Skill Creator, encore plus carré.",
         outils: [F.skillcreator],
         exemples: [
@@ -185,11 +185,11 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Ensuite, sers-toi du Skill Creator à la place du simple prompt : pas besoin de recréer un deuxième skill, tu peux refaire le même en mieux, ou en créer un nouveau.",
         ],
         prompt:
-          "Utilise le skill create-skill-tools pour me créer un skill à partir de ça : [ce que tu répètes]. Il doit se déclencher quand [la situation]. Range-le dans mes skills personnels.",
+          "Utilise le skill create-skill-tools pour me créer un skill à partir de ça : [ce que tu répètes]. Il doit se déclencher quand [la situation]. Range-le dans mes skills personnels. Fais la version simple, sans évaluations ni tests automatiques : c'est mon premier skill. Et parle-moi en français.",
         ceQueTuDoisVoir:
-          "Quand tu lâches le .zip dans la fenêtre, Claude Code affiche le nom du fichier. Après « installe ce skill », il te confirme que le skill est installé et disponible. Ensuite, quand tu l'utilises, le Skill Creator crée le skill, vérifie le format et te montre ce qu'il a fait. C'est plus carré que le simple prompt, surtout si tu n'es pas à l'aise avec la technique.",
+          "Quand tu lâches le .zip dans la fenêtre, Claude Code affiche le nom du fichier. Après « installe ce skill », il te confirme que le skill est installé et disponible. Ensuite, quand tu l'utilises, le Skill Creator peut te poser une ou deux questions avant de créer (c'est sa méthode de pro) : réponds simplement en français. Puis il crée le skill, vérifie le format et te montre ce qu'il a fait. C'est plus carré que le simple prompt, surtout si tu n'es pas à l'aise avec la technique.",
         siCaBloque:
-          "Tu te retrouves avec un dossier au lieu d'un .zip ? Sur Safari, le téléchargement peut se décompresser tout seul, même sans double-clic : glisse le dossier, ça marche pareil. Les deux fenêtres se cachent l'une l'autre ? Réduis-les pour les voir côte à côte avant de glisser. Le glisser-déposer n'a rien fait ? Recommence doucement, en relâchant bien à l'intérieur de la zone de message. Claude Code ne trouve pas le skill juste après l'install ? Ferme et rouvre-le : un nouveau skill n'est parfois pris en compte qu'au redémarrage. Tu refais « le même en mieux » et tu te demandes ce que devient le premier ? Demande simplement « remplace mon skill existant » pour ne pas te retrouver avec deux versions dans la liste. Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, attends qu'elle se réinitialise et reprends, pas besoin de passer à l'offre Max.",
+          "Tu te retrouves avec un dossier au lieu d'un .zip ? Sur Safari, le téléchargement peut se décompresser tout seul, même sans double-clic : glisse le dossier, ça marche pareil. Les deux fenêtres se cachent l'une l'autre ? Réduis-les pour les voir côte à côte avant de glisser. Le glisser-déposer n'a rien fait ? Recommence doucement, en relâchant bien à l'intérieur de la zone de message. Claude Code ne trouve pas le skill juste après l'install ? Ferme et rouvre-le : un nouveau skill n'est parfois pris en compte qu'au redémarrage. Le Skill Creator part dans de grandes questions techniques ou une longue boucle de tests ? C'est son mode expert : dis-lui « reste sur la version simple, c'est mon premier skill » et il se recentre. Tu refais « le même en mieux » et tu te demandes ce que devient le premier ? Demande simplement « remplace mon skill existant » pour ne pas te retrouver avec deux versions dans la liste. Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, attends qu'elle se réinitialise et reprends, pas besoin de passer à l'offre Max.",
         monExemple:
           "Aujourd'hui, j'utilise notre Skill Creator pour que mes skills soient nickel sans que j'y pense. Mais au début, un simple prompt suffisait déjà, et c'est très bien pour commencer.",
         conseil: "Optionnel, mais recommandé dès que tu veux des skills vraiment propres. À toi de voir.",
@@ -275,7 +275,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         titre: "En option : fais réviser ton skill avec l'Improve (offert).",
         duree: "≈ 10 à 15 min",
         cestquoi:
-          "L'Improve, c'est un deuxième skill qu'on te donne, là aussi en option. Il lit ton fichier SKILL.md, celui-là même que l'IA regarde pour décider quand lancer ton skill, et il le passe en revue comme un relecteur expert. Il te propose des améliorations, sur le fond (est-ce clair, utile) et sur la technique (le format, la description). Il ne casse rien, il conseille.",
+          "L'Improve (vrai nom : improve-skill-tools), c'est notre deuxième vrai outil, offert lui aussi. Il lit ton fichier SKILL.md, celui-là même que l'IA regarde pour décider quand lancer ton skill, et il le passe en revue comme un relecteur expert. Il te propose des améliorations, sur le fond (est-ce clair, utile) et sur la technique (le format, la description). Un point important sur sa façon de travailler : l'Improve RELIT, il ne modifie jamais rien lui-même, c'est voulu (un relecteur ne touche pas au texte). Pour appliquer ses remarques, c'est à Claude Code que tu le demandes ensuite.",
         attendu: "Une revue de ton skill avec des pistes concrètes d'amélioration.",
         outils: [F.improve],
         exemples: [
@@ -283,16 +283,16 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Demande-lui de passer ton skill en revue, puis applique ce qui te parle.",
         ],
         prompt:
-          "Utilise le skill improve-skill-tools pour passer mon skill [nom] en revue et propose-moi des améliorations, sur le fond et sur la technique.",
+          "Utilise le skill improve-skill-tools pour passer mon skill [nom] en revue et propose-moi des améliorations, sur le fond et sur la technique. Résume-moi la revue en français simple.",
         ceQueTuDoisVoir:
-          "L'Improve lit ton skill et te répond une liste de remarques, souvent numérotées : ce qui est déjà bien, et ce qui gagnerait à être plus clair, comme la description, le format ou une instruction floue. Il ne change rien tout seul, il propose. À toi de lui dire lesquelles appliquer, par exemple « applique les points 1 et 3 ». Tu n'es pas obligé de tout prendre.",
+          "L'Improve lit ton skill et te répond une liste de remarques numérotées : ce qui est déjà bien, et ce qui gagnerait à être plus clair, comme la description, le format ou une instruction floue. Il peut aussi ranger sa revue dans un dossier « plans » de ton projet : c'est son carnet de notes, tu n'as pas à l'ouvrir. Lui ne change rien, c'est son rôle de relecteur. Pour appliquer, demande ensuite tout simplement à Claude Code : « applique les points 1 et 3 de cette revue à mon skill ». Tu n'es pas obligé de tout prendre.",
         visuel: {
           src: "/module/skill-3-3-improve.png",
           alt: "La sortie de l'Improve : un tableau de constats numérotés avec pour chacun une catégorie, un impact, un effort et une preuve.",
           legende: "Une vraie revue de l'Improve sur un de mes skills : chaque remarque est numérotée, avec son impact. Tu choisis celles que tu appliques.",
         },
         siCaBloque:
-          "L'Improve te propose plein de choses et tu ne sais pas quoi en faire ? Prends-en une seule pour commencer, dis-lui « applique juste la première » et regarde le résultat. Et s'il ne se trouve pas après l'install, ferme et rouvre Claude Code : un nouveau skill n'est parfois pris en compte qu'au redémarrage.",
+          "L'Improve te propose plein de choses et tu ne sais pas quoi en faire ? Prends-en une seule pour commencer : dis à Claude Code « applique juste le point 1 de la revue à mon skill » et regarde le résultat. L'Improve répond qu'il n'applique pas lui-même ? C'est normal, c'est son rôle : adresse ta demande d'application à Claude Code, pas à l'Improve. Sa revue est en anglais ? Demande « résume-moi cette revue en français simple ». Et s'il ne se trouve pas après l'install, ferme et rouvre Claude Code : un nouveau skill n'est parfois pris en compte qu'au redémarrage.",
         monExemple:
           "Faire relire mes skills par l'Improve, ça les fait passer un cap. Il repère ce que je ne voyais pas, sur le fond comme sur la forme.",
         conseil: "Tu n'es pas obligé de tout appliquer. Prends ce qui rend ton skill plus clair et plus utile.",
