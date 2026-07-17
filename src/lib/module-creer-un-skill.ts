@@ -181,7 +181,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         telechargements: [{ n: "le Skill Creator", href: "/skills/create-skill-tools.zip" }],
         outils: [F.skillcreator],
         pasAPas: [
-          "Clique sur « Copier la consigne » juste au-dessus.",
+          "Clique sur « Copier le skill » juste au-dessus.",
           "Ouvre Claude Code, colle la consigne copiée dans la zone où tu écris tes messages, puis envoie. Si Claude Code te demande l'autorisation de lancer une action pour ranger le skill, dis oui, c'est juste lui qui l'installe. Tu ne fais ça qu'une seule fois, il reste disponible ensuite.",
           "Ensuite, sers-toi du Skill Creator à la place du simple prompt : pas besoin de recréer un deuxième skill, tu peux refaire le même en mieux, ou en créer un nouveau.",
         ],

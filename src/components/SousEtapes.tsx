@@ -81,15 +81,19 @@ export default function SousEtapes({
                     )}
                     {s.telechargements && s.telechargements.length > 0 && (
                       <div className="se-block">
-                        <span className="se-l">À copier dans Claude Code</span>
-                        <div className="se-dl">
+                        <div className="se-install-list">
                           {s.telechargements.map((t) => (
-                            <SkillInstallCopyButton
-                              key={t.href}
-                              href={t.href}
-                              name={t.n}
-                              className="btn btn-ghost se-dl-btn"
-                            />
+                            <div className="se-install" key={t.href}>
+                              <span className="se-l">Installer le skill : {t.n}</span>
+                              <div className="se-dl">
+                                <SkillInstallCopyButton
+                                  href={t.href}
+                                  name={t.n}
+                                  className="btn btn-ghost se-dl-btn"
+                                  showHint
+                                />
+                              </div>
+                            </div>
                           ))}
                         </div>
                       </div>

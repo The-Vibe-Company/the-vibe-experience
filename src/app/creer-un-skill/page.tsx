@@ -94,10 +94,15 @@ export default function ModuleSkill() {
             {skillGifts.map((g) => (
               <div className="gfilet" key={g.slug}>
                 <span className="gfilet-body">
-                  <span className="gfilet-name">{g.n}</span>
+                  <span className="gfilet-name">Installer le skill : {g.n}</span>
                   <span className="gfilet-desc">{g.d}</span>
                 </span>
-                <SkillInstallCopyButton href={g.href} name={g.n} className="btn btn-ghost gfilet-btn" />
+                <SkillInstallCopyButton
+                  href={g.href}
+                  name={g.n}
+                  className="btn btn-ghost gfilet-btn"
+                  showHint
+                />
               </div>
             ))}
           </div>

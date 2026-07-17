@@ -310,7 +310,7 @@ export const etapesDetail: EtapeDetail[] = [
         telechargements: [{ n: "Impeccable", href: "/skills/impeccable.zip" }],
         outils: [F.impeccable],
         pasAPas: [
-          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Copier la consigne » juste au-dessus.",
+          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Copier le skill » juste au-dessus.",
           "Ouvre Claude Code, colle la consigne copiée dans la zone où tu écris tes messages, puis envoie. Claude Code récupère le skill, le range au bon endroit et te confirme.",
           "Tu ne fais ça qu'une fois : ensuite, le skill reste disponible, ici et sur tous tes prochains projets.",
           "Puis lance-le avec le prompt fourni ci-dessous.",
