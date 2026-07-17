@@ -115,7 +115,7 @@ a { color: inherit; text-decoration: none; }
 .etape-section { background: radial-gradient(50% 60% at 92% 0%, rgba(229,98,14,0.06), rgba(253,251,247,0) 60%); }
 .etape-shell {
   width: 100%;
-  max-width: 1600px;
+  max-width: none;
   margin: 0;
   padding: 2.75rem clamp(1rem, 2vw, 2rem) 5rem clamp(1rem, 1.8vw, 1.75rem);
   display: grid;
@@ -427,6 +427,8 @@ a { color: inherit; text-decoration: none; }
   position: sticky;
   top: 84px;
   align-self: start;
+  justify-self: end;
+  width: min(100%, 280px);
   max-height: calc(100vh - 104px);
   overflow: auto;
   border-left: 1px solid var(--border);
@@ -440,7 +442,7 @@ a { color: inherit; text-decoration: none; }
 .se-aside .se-quote { border-left: none; padding-left: 0; }
 @media (max-width: 1399px) {
   .se-panel-layout.has-side { grid-template-columns: 1fr; }
-  .se-aside { position: static; top: auto; max-height: none; overflow: visible; border-left: none; border-top: 1px solid var(--border); padding: 1rem 0 0; }
+  .se-aside { position: static; top: auto; justify-self: stretch; width: auto; max-height: none; overflow: visible; border-left: none; border-top: 1px solid var(--border); padding: 1rem 0 0; }
 }
 .se-l { display: block; font-family: var(--font-geist-mono), monospace; font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; color: var(--fg); margin-bottom: .35rem; }
 .se-block p { margin: 0; font-size: .95rem; line-height: 1.62; color: var(--muted); }
@@ -901,7 +903,7 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
   .sousbody { padding-left: 1.2rem; }
   .se-panel { padding-left: 2.2rem; }
   .se-panel-layout.has-side { grid-template-columns: 1fr; }
-  .se-aside { position: static; top: auto; max-height: none; overflow: visible; border-left: none; border-top: 1px solid var(--border); padding: 1rem 0 0; }
+  .se-aside { position: static; top: auto; justify-self: stretch; width: auto; max-height: none; overflow: visible; border-left: none; border-top: 1px solid var(--border); padding: 1rem 0 0; }
   .families { grid-template-columns: 1fr; }
 }
 
