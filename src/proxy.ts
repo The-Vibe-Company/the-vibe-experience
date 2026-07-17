@@ -1,9 +1,7 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function proxy(request: NextRequest) {
-  if (request.nextUrl.pathname === "/") return NextResponse.next();
-
-  return NextResponse.rewrite(new URL("/", request.url));
+export async function proxy() {
+  return NextResponse.next();
 }
 
 export const config = {
