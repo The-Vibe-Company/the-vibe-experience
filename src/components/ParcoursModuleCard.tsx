@@ -73,7 +73,9 @@ export default function ParcoursModuleCard({
           <div className="mprogress-fill" style={{ width: `${pct}%` }} />
         </div>
       </div>
-      {meta && <span className="pc-mc-meta">{meta}</span>}
+      <span className="pc-mc-meta" aria-hidden={!meta}>
+        {meta || "\u00a0"}
+      </span>
     </Link>
   );
 }
