@@ -6,6 +6,41 @@ import { useModuleProgress, sousId } from "@/lib/progress";
 import CopyButton from "@/components/CopyButton";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
+function splitParagraphs(text: string) {
+  const explicit = text
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  if (explicit.length > 1 || text.length < 320) return explicit.length ? explicit : [text];
+
+  const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+  const paragraphs: string[] = [];
+  let current = "";
+
+  for (const sentence of sentences) {
+    const next = current ? `${current} ${sentence}` : sentence;
+    if (current && next.length > 280) {
+      paragraphs.push(current);
+      current = sentence;
+    } else {
+      current = next;
+    }
+  }
+  if (current) paragraphs.push(current);
+
+  return paragraphs;
+}
+
+function TextParagraphs({ text }: { text: string }) {
+  return (
+    <div className="se-rich">
+      {splitParagraphs(text).map((paragraph, i) => (
+        <p key={i}>{paragraph}</p>
+      ))}
+    </div>
+  );
+}
+
 export default function SousEtapes({
   sous,
   detailPret,
@@ -72,13 +107,13 @@ export default function SousEtapes({
                       {s.cestquoi && (
                         <div className="se-block">
                           <span className="se-l">C&apos;est quoi</span>
-                          <p>{s.cestquoi}</p>
+                          <TextParagraphs text={s.cestquoi} />
                         </div>
                       )}
                       {s.attendu && (
                         <div className="se-block">
                           <span className="se-l">Ce qu&apos;on attend</span>
-                          <p>{s.attendu}</p>
+                          <TextParagraphs text={s.attendu} />
                         </div>
                       )}
                       {s.telechargements && s.telechargements.length > 0 && (
@@ -161,7 +196,7 @@ export default function SousEtapes({
                       {(s.ceQueTuDoisVoir || s.visuel) && (
                         <div className="se-block">
                           <span className="se-l">Ce que tu dois voir</span>
-                          {s.ceQueTuDoisVoir && <p>{s.ceQueTuDoisVoir}</p>}
+                          {s.ceQueTuDoisVoir && <TextParagraphs text={s.ceQueTuDoisVoir} />}
                           {s.visuel && (
                             <figure className="se-shot">
                               <div className="se-shot-bar" aria-hidden>
@@ -179,7 +214,7 @@ export default function SousEtapes({
                       {s.siCaBloque && (
                         <div className="se-block">
                           <span className="se-l">Si ça bloque</span>
-                          <p>{s.siCaBloque}</p>
+                          <TextParagraphs text={s.siCaBloque} />
                         </div>
                       )}
 
@@ -215,13 +250,15 @@ export default function SousEtapes({
                         {s.monExemple && (
                           <blockquote className="se-quote">
                             <span className="se-l">Victor</span>
-                            <p>{s.monExemple}</p>
+                            {splitParagraphs(s.monExemple).map((paragraph, j) => (
+                              <p key={j}>{paragraph}</p>
+                            ))}
                           </blockquote>
                         )}
                         {s.conseil && (
                           <div className="se-block">
                             <span className="se-l">Conseil</span>
-                            <p>{s.conseil}</p>
+                            <TextParagraphs text={s.conseil} />
                           </div>
                         )}
                       </aside>
