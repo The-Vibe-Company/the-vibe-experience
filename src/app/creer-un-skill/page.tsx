@@ -4,6 +4,7 @@ import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
+import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
 export const metadata = { title: "Module · Créer ton premier skill — The Vibe Experience" };
 
@@ -86,8 +87,8 @@ export default function ModuleSkill() {
           <p className="mov-toolintro">
             Tu peux créer un skill juste en le demandant à Claude Code. Mais pour t&apos;aider à le
             faire nickel, on te donne nos deux vrais outils, en option : le premier crée un skill au
-            bon format, le second le passe en revue. Tu les télécharges et tu t&apos;en sers aux
-            étapes 2 et 3.
+            bon format, le second le passe en revue. Tu copies une consigne, tu la colles dans
+            Claude Code, et tu t&apos;en sers aux étapes 2 et 3.
           </p>
           <div className="gfilets">
             {skillGifts.map((g) => (
@@ -96,9 +97,7 @@ export default function ModuleSkill() {
                   <span className="gfilet-name">{g.n}</span>
                   <span className="gfilet-desc">{g.d}</span>
                 </span>
-                <a className="btn btn-ghost gfilet-btn" href={g.href} download>
-                  Télécharger
-                </a>
+                <SkillInstallCopyButton href={g.href} name={g.n} className="btn btn-ghost gfilet-btn" />
               </div>
             ))}
           </div>

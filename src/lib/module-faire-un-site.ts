@@ -7,7 +7,7 @@ export type SousEtape = {
   duree?: string;
   cestquoi?: string;
   attendu?: string;
-  // Skills offerts à télécharger directement dans la sous-étape où on s'en sert.
+  // Skills offerts à installer depuis une consigne copiée dans Claude Code.
   telechargements?: { n: string; href: string }[];
   // Lien direct vers la page dont la sous-étape a besoin (ex. le juge) : zéro détour.
   lien?: { label: string; href: string };
@@ -310,16 +310,16 @@ export const etapesDetail: EtapeDetail[] = [
         telechargements: [{ n: "Impeccable", href: "/skills/impeccable.zip" }],
         outils: [F.impeccable],
         pasAPas: [
-          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Télécharger Impeccable » juste au-dessus : un fichier impeccable.zip arrive dans ton dossier Téléchargements. Ne l'ouvre pas, laisse-le tel quel.",
-          "Mets la fenêtre de Claude Code et celle de tes Téléchargements côte à côte. Attrape le fichier avec la souris, garde le clic enfoncé, amène-le dans la zone où tu écris tes messages, et relâche : une pastille au nom du fichier apparaît.",
-          "Écris alors « installe ce skill » et envoie. Claude Code le range au bon endroit et te confirme. Tu ne fais ça qu'une fois : ensuite, le skill reste disponible, ici et sur tous tes prochains projets.",
+          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Copier la consigne » juste au-dessus.",
+          "Ouvre Claude Code, colle la consigne copiée dans la zone où tu écris tes messages, puis envoie. Claude Code récupère le skill, le range au bon endroit et te confirme.",
+          "Tu ne fais ça qu'une fois : ensuite, le skill reste disponible, ici et sur tous tes prochains projets.",
           "Puis lance-le avec le prompt fourni ci-dessous.",
         ],
         prompt: "Utilise le skill Impeccable sur tout mon site pour nettoyer et ranger le code.",
         ceQueTuDoisVoir:
           "Quand le skill part, une ligne « Skill : impeccable » s'affiche dans la conversation : c'est ta preuve qu'il tourne. À l'écran du site, souvent presque aucune différence, et c'est normal : le travail se passe dans les coulisses, sur le code.",
         siCaBloque:
-          "Safari a décompressé le téléchargement tout seul et tu vois un dossier au lieu d'un .zip ? C'est pareil, glisse le dossier. Claude Code te répond qu'il ne connaît pas Impeccable juste après l'installation ? Ferme et rouvre Claude Code : un skill tout juste installé n'est parfois pris en compte qu'au redémarrage. Le glisser-déposer n'a rien fait ? Recommence doucement, en relâchant bien à l'intérieur de la zone de message.",
+          "Claude Code te répond qu'il ne connaît pas Impeccable juste après l'installation ? Ferme et rouvre Claude Code : un skill tout juste installé n'est parfois pris en compte qu'au redémarrage. La consigne copiée ne marche pas ? Recopie-la depuis cette page et renvoie-la dans Claude Code.",
         monExemple: "Honnêtement, à l'écran il n'y avait pas une grande différence avant/après. Ce que ça a fait, c'est nettoyer et trier le code : tu ne le vois pas forcément, mais c'est plus propre.",
         conseil: "Ne t'attends pas à un choc visuel. Impeccable travaille surtout les coulisses, et c'est très utile pour la suite. Une fois installé, un skill se déclenche juste en le demandant en français.",
       },
@@ -343,7 +343,7 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Ça va enchaîner tout seul pendant plusieurs minutes : du texte défile, l'IA teste, corrige, re-teste. Tu sauras que c'est fini quand le texte arrête de défiler et que l'IA te fait un petit résumé du genre « tout est propre et fonctionnel ». À ce moment-là, la main te revient et tu peux réécrire dans la fenêtre. Tant que ça défile, c'est qu'elle travaille encore, laisse-la.",
         siCaBloque:
-          "Si Agent Browser dit qu'il n'arrive pas à ouvrir ton site ou reste bloqué à « j'attends la page », c'est presque toujours que ton site ne tourne plus en local : écris « relance mon site en local avant de tester avec Agent Browser », puis redemande la boucle. Si Claude Code ne connaît pas encore le skill Agent Browser (ou Impeccable), installe-le : les deux boutons de téléchargement sont juste au-dessus, dans cette sous-étape. Tu glisses le fichier dans Claude Code et tu lui dis « installe ce skill pour moi ». Pour Agent Browser, il finit son installation tout seul au premier usage : il télécharge alors son propre navigateur, ce qui peut prendre plusieurs minutes sans grand-chose à l'écran, c'est prévu. Et pour que la boucle tourne vraiment toute seule, quand Claude Code demande une permission, choisis l'option du style « ne plus demander pour cette session » : sinon tu devras cliquer Allow à chaque tour. Tant que les deux ne sont pas là, la boucle ne peut pas tourner. Et si ça tourne en rond trop longtemps (plus de 10 minutes), arrête avec Échap puis écris « fais un dernier passage et arrête-toi, dis-moi ce qui reste ». Une boucle consomme pas mal : si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, ce n'est pas un bug. Attends qu'elle se réinitialise (l'app te dit quand) et reprends là où tu en étais. Pas besoin de passer à l'offre Max juste pour cet exercice.",
+          "Si Agent Browser dit qu'il n'arrive pas à ouvrir ton site ou reste bloqué à « j'attends la page », c'est presque toujours que ton site ne tourne plus en local : écris « relance mon site en local avant de tester avec Agent Browser », puis redemande la boucle. Si Claude Code ne connaît pas encore le skill Agent Browser (ou Impeccable), installe-le : les deux consignes à copier sont juste au-dessus, dans cette sous-étape. Pour Agent Browser, il finit son installation tout seul au premier usage : il récupère alors son propre navigateur, ce qui peut prendre plusieurs minutes sans grand-chose à l'écran, c'est prévu. Et pour que la boucle tourne vraiment toute seule, quand Claude Code demande une permission, choisis l'option du style « ne plus demander pour cette session » : sinon tu devras cliquer Allow à chaque tour. Tant que les deux ne sont pas là, la boucle ne peut pas tourner. Et si ça tourne en rond trop longtemps (plus de 10 minutes), arrête avec Échap puis écris « fais un dernier passage et arrête-toi, dis-moi ce qui reste ». Une boucle consomme pas mal : si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, ce n'est pas un bug. Attends qu'elle se réinitialise (l'app te dit quand) et reprends là où tu en étais. Pas besoin de passer à l'offre Max juste pour cet exercice.",
         monExemple: "C'était ma toute première loop, et franchement c'était cool. Tu expliques à Claude Code de faire tourner les deux skills ensemble, et il enchaîne vérif, test et correction tout seul. Là tu comprends la puissance du truc.",
         conseil: "Copie-colle le prompt ci-dessus tel quel dans Claude Code : tu n'as plus qu'à le laisser boucler.",
       },

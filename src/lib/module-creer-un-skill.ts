@@ -15,7 +15,7 @@ const F = {
   },
 };
 
-// Les deux skills qu'on met à disposition des utilisateurs, à télécharger et déposer dans leurs skills.
+// Les deux skills qu'on met à disposition des utilisateurs via une consigne copiée dans Claude Code.
 export const skillGifts = [
   {
     n: "Skill Creator",
@@ -181,16 +181,16 @@ export const etapesDetailSkill: EtapeDetail[] = [
         telechargements: [{ n: "le Skill Creator", href: "/skills/create-skill-tools.zip" }],
         outils: [F.skillcreator],
         pasAPas: [
-          "Clique sur le bouton « Télécharger le Skill Creator » juste au-dessus. Un fichier create-skill-tools.zip arrive dans ton dossier Téléchargements. Ne double-clique pas dessus, ne le décompresse pas, laisse-le tel quel.",
-          "Mets la fenêtre de Claude Code et la fenêtre de tes Téléchargements côte à côte, pour bien voir les deux en même temps. Attrape le fichier .zip avec la souris, garde le clic enfoncé, amène-le jusque dans la zone où tu écris tes messages à Claude Code, puis relâche. Une pastille au nom du fichier apparaît dans la zone de message. Écris alors « installe ce skill » et envoie. Si Claude Code te demande l'autorisation de lancer une action pour ranger le skill, dis oui, c'est juste lui qui l'installe. Tu ne fais ça qu'une seule fois, il reste disponible ensuite.",
+          "Clique sur « Copier la consigne » juste au-dessus.",
+          "Ouvre Claude Code, colle la consigne copiée dans la zone où tu écris tes messages, puis envoie. Si Claude Code te demande l'autorisation de lancer une action pour ranger le skill, dis oui, c'est juste lui qui l'installe. Tu ne fais ça qu'une seule fois, il reste disponible ensuite.",
           "Ensuite, sers-toi du Skill Creator à la place du simple prompt : pas besoin de recréer un deuxième skill, tu peux refaire le même en mieux, ou en créer un nouveau.",
         ],
         prompt:
           "Utilise le skill create-skill-tools pour me créer un skill à partir de ça : [ce que tu répètes]. Il doit se déclencher quand [la situation]. Range-le dans mes skills personnels. Fais la version simple, sans évaluations ni tests automatiques : c'est mon premier skill. Et parle-moi en français.",
         ceQueTuDoisVoir:
-          "Quand tu lâches le .zip dans la fenêtre, Claude Code affiche le nom du fichier. Après « installe ce skill », il te confirme que le skill est installé et disponible. Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne « Skill : create-skill-tools » qui s'affiche (si elle n'apparaît pas, ferme et rouvre Claude Code puis redemande). Le Skill Creator peut te poser quelques questions avant de créer, parfois trois ou quatre, y compris « quel format de sortie ? » : réponds avec tes mots, simplement, il n'y a pas de mauvaise réponse. Puis il crée le skill, vérifie le format et te montre ce qu'il a fait. Il peut aussi laisser un dossier « plans » dans ton projet : c'est son carnet de notes, ignore-le. C'est plus carré que le simple prompt, surtout si tu n'es pas à l'aise avec la technique.",
+          "Après la consigne copiée, Claude Code te confirme que le skill est installé et disponible. Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne « Skill : create-skill-tools » qui s'affiche (si elle n'apparaît pas, ferme et rouvre Claude Code puis redemande). Le Skill Creator peut te poser quelques questions avant de créer, parfois trois ou quatre, y compris « quel format de sortie ? » : réponds avec tes mots, simplement, il n'y a pas de mauvaise réponse. Puis il crée le skill, vérifie le format et te montre ce qu'il a fait. Il peut aussi laisser un dossier « plans » dans ton projet : c'est son carnet de notes, ignore-le. C'est plus carré que le simple prompt, surtout si tu n'es pas à l'aise avec la technique.",
         siCaBloque:
-          "Tu te retrouves avec un dossier au lieu d'un .zip ? Sur Safari, le téléchargement peut se décompresser tout seul, même sans double-clic : glisse le dossier, ça marche pareil. Les deux fenêtres se cachent l'une l'autre ? Réduis-les pour les voir côte à côte avant de glisser. Le glisser-déposer n'a rien fait ? Recommence doucement, en relâchant bien à l'intérieur de la zone de message. Claude Code ne trouve pas le skill juste après l'install ? Ferme et rouvre-le : un nouveau skill n'est parfois pris en compte qu'au redémarrage. Le Skill Creator part dans de grandes questions techniques ou une longue boucle de tests ? C'est son mode expert : dis-lui « reste sur la version simple, c'est mon premier skill » et il se recentre. Tu refais « le même en mieux » et tu te demandes ce que devient le premier ? Demande simplement « remplace mon skill existant » pour ne pas te retrouver avec deux versions dans la liste. Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, attends qu'elle se réinitialise et reprends, pas besoin de passer à l'offre Max.",
+          "Claude Code ne trouve pas le skill juste après l'install ? Ferme et rouvre-le : un nouveau skill n'est parfois pris en compte qu'au redémarrage. La consigne copiée ne marche pas ? Recopie-la depuis cette page et renvoie-la dans Claude Code. Le Skill Creator part dans de grandes questions techniques ou une longue boucle de tests ? C'est son mode expert : dis-lui « reste sur la version simple, c'est mon premier skill » et il se recentre. Tu refais « le même en mieux » et tu te demandes ce que devient le premier ? Demande simplement « remplace mon skill existant » pour ne pas te retrouver avec deux versions dans la liste. Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, attends qu'elle se réinitialise et reprends, pas besoin de passer à l'offre Max.",
         monExemple:
           "Aujourd'hui, j'utilise notre Skill Creator pour que mes skills soient nickel sans que j'y pense. Mais au début, un simple prompt suffisait déjà, et c'est très bien pour commencer.",
         conseil: "Optionnel, mais recommandé dès que tu veux des skills vraiment propres. À toi de voir.",
@@ -281,7 +281,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         telechargements: [{ n: "l'Improve", href: "/skills/improve-skill-tools.zip" }],
         outils: [F.improve],
         pasAPas: [
-          "Télécharge l'Improve avec le bouton juste au-dessus (un .zip), fais-le glisser dans la fenêtre de Claude Code et écris « installe ce skill ». C'est la même manip que le Skill Creator.",
+          "Copie la consigne Improve juste au-dessus, colle-la dans Claude Code et envoie. C'est la même logique que le Skill Creator.",
           "Demande-lui de passer ton skill en revue avec le prompt ci-dessous, puis applique ce qui te parle.",
         ],
         prompt:

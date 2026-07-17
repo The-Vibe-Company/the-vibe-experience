@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { SousEtape } from "@/lib/module-faire-un-site";
 import { useModuleProgress, sousId } from "@/lib/progress";
 import CopyButton from "@/components/CopyButton";
+import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
 export default function SousEtapes({
   sous,
@@ -80,12 +81,15 @@ export default function SousEtapes({
                     )}
                     {s.telechargements && s.telechargements.length > 0 && (
                       <div className="se-block">
-                        <span className="se-l">À télécharger</span>
+                        <span className="se-l">À copier dans Claude Code</span>
                         <div className="se-dl">
                           {s.telechargements.map((t) => (
-                            <a key={t.href} className="btn btn-ghost se-dl-btn" href={t.href} download>
-                              Télécharger {t.n} ↓
-                            </a>
+                            <SkillInstallCopyButton
+                              key={t.href}
+                              href={t.href}
+                              name={t.n}
+                              className="btn btn-ghost se-dl-btn"
+                            />
                           ))}
                         </div>
                       </div>
