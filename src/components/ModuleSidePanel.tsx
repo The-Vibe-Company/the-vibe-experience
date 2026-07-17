@@ -96,7 +96,7 @@ export default function ModuleSidePanel({
       </div>
       <Link className="module-side-next" href={`${basePath}/${etapes[0]?.slug}`}>
         <span>Par ici</span>
-        <strong>Commencer à la sous-étape {etapes[0]?.num}.1 →</strong>
+        <strong>Commencer le module →</strong>
       </Link>
     </aside>
   );
