@@ -19,9 +19,9 @@ export default function ModuleRail({
 }) {
   useMarkModuleStarted(basePath);
 
-  const { isDone, done, mounted } = useModuleProgress(basePath);
+  const { isDone, done, mounted, started } = useModuleProgress(basePath);
   const lite = etapes.map((e) => ({ slug: e.slug, num: e.num, titre: e.titre, sousCount: e.sous.length }));
-  const stats = computeStats(lite, mounted ? done : []);
+  const stats = computeStats(lite, mounted ? done : [], mounted && started);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
 
   // Sur une page d'étape, on surligne cette étape. Sur l'accueil (currentSlug vide), on surligne l'étape courante.

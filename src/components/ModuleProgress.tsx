@@ -13,10 +13,10 @@ export default function ModuleProgress({
   basePath: string;
   etapes: EtapeLite[];
 }) {
-  const { done, mounted } = useModuleProgress(moduleKey);
+  const { done, mounted, started } = useModuleProgress(moduleKey);
   if (!mounted) return null;
 
-  const stats = computeStats(etapes, done);
+  const stats = computeStats(etapes, done, started);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const t = stats.current;
 

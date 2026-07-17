@@ -118,9 +118,10 @@ function subscribeProgress(callback: () => void) {
   };
 }
 
-function readDoneSnapshot(moduleKey: string) {
+function readModuleSnapshot(moduleKey: string) {
   if (typeof window === "undefined") return "";
-  return JSON.stringify(read()[moduleKey]?.done ?? []);
+  const entry = read()[moduleKey];
+  return JSON.stringify({ done: entry?.done ?? [], started: Boolean(entry?.started) });
 }
 
 // --- Suivi « module commencé » (pour l'accueil du parcours) -----------------
@@ -153,13 +154,17 @@ export function useMarkModuleStarted(moduleKey: string) {
 }
 
 export function useModuleProgress(moduleKey: string) {
-  const doneSnapshot = useSyncExternalStore(
+  const moduleSnapshot = useSyncExternalStore(
     subscribeProgress,
-    () => readDoneSnapshot(moduleKey),
+    () => readModuleSnapshot(moduleKey),
     () => "",
   );
-  const done = doneSnapshot ? (JSON.parse(doneSnapshot) as string[]) : [];
-  const mounted = doneSnapshot !== "";
+  const parsed = moduleSnapshot
+    ? (JSON.parse(moduleSnapshot) as { done?: string[]; started?: boolean })
+    : null;
+  const done = parsed?.done ?? [];
+  const started = Boolean(parsed?.started);
+  const mounted = moduleSnapshot !== "";
 
   const setDoneState = useCallback(
     (id: string, value: boolean) => {
@@ -184,6 +189,7 @@ export function useModuleProgress(moduleKey: string) {
 
   return {
     done,
+    started,
     mounted,
     isDone: (id: string) => done.includes(id),
     setDone: setDoneState,
@@ -212,7 +218,7 @@ export type ModuleStats = {
   started: boolean;
 };
 
-export function computeStats(etapes: EtapeLite[], done: string[]): ModuleStats {
+export function computeStats(etapes: EtapeLite[], done: string[], started = false): ModuleStats {
   const set = new Set(done);
   let total = 0;
   let doneCount = 0;
@@ -246,6 +252,6 @@ export function computeStats(etapes: EtapeLite[], done: string[]): ModuleStats {
     etapes: etapeStats,
     current,
     allDone: total > 0 && doneCount === total,
-    started: doneCount > 0,
+    started: started || doneCount > 0,
   };
 }

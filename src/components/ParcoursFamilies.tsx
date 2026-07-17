@@ -1,8 +1,10 @@
 "use client";
 
 import { Fragment, useEffect, useState, type ReactNode } from "react";
-import Link from "next/link";
 import ParcoursModule1 from "@/components/ParcoursModule1";
+import ParcoursModuleCard from "@/components/ParcoursModuleCard";
+import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
+import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import { useAnyModuleStarted } from "@/lib/progress";
 
 type Branche = "construire" | "automatiser";
@@ -109,35 +111,31 @@ export default function ParcoursFamilies() {
     {
       key: "module-02",
       node: (
-        <Link className="pc-mc" href="/creer-un-skill">
-          <div className="pc-mc-head">
-            <span className="label">Module 02 · Savoir-faire</span>
-            <span className="pc-mc-status">Disponible →</span>
-          </div>
-          <span className="pc-mc-title">Créer ton premier skill</span>
-          <p className="pc-mc-desc">
-            Tu as utilisé des skills tout faits ; celui-ci t&apos;apprend à fabriquer le tien,
-            réutilisable dans ton prochain produit.
-          </p>
-          <span className="pc-mc-meta">Savoir-faire · après le module 1</span>
-        </Link>
+        <ParcoursModuleCard
+          moduleKey="/creer-un-skill"
+          href="/creer-un-skill"
+          etapes={etapesDetailSkill}
+          label="Module 02 · Savoir-faire"
+          title="Créer ton premier skill"
+          description="Tu as utilisé des skills tout faits ; celui-ci t'apprend à fabriquer le tien, réutilisable dans ton prochain produit."
+          meta="Savoir-faire · après le module 1"
+          idleStatus="Disponible"
+        />
       ),
     },
     {
       key: "module-03",
       node: (
-        <Link className="pc-mc" href="/automatiser-ton-travail">
-          <div className="pc-mc-head">
-            <span className="label">Module 03 · Savoir-faire</span>
-            <span className="pc-mc-status">En écriture →</span>
-          </div>
-          <span className="pc-mc-title">Automatise ton travail</span>
-          <p className="pc-mc-desc">
-            Il ne se passe plus des choses parce que tu demandes, mais parce que c&apos;est
-            déclenché : sauvegardes toutes seules, garde-fous, rendez-vous programmés.
-          </p>
-          <span className="pc-mc-meta">Savoir-faire · après le module 2</span>
-        </Link>
+        <ParcoursModuleCard
+          moduleKey="/automatiser-ton-travail"
+          href="/automatiser-ton-travail"
+          etapes={etapesDetailAutomatisation}
+          label="Module 03 · Savoir-faire"
+          title="Automatise ton travail"
+          description="Il ne se passe plus des choses parce que tu demandes, mais parce que c'est déclenché : sauvegardes toutes seules, garde-fous, rendez-vous programmés."
+          meta="Savoir-faire · après le module 2"
+          idleStatus="En écriture"
+        />
       ),
     },
   ];

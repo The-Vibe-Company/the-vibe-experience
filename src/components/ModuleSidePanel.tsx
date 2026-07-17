@@ -26,8 +26,8 @@ export default function ModuleSidePanel({
   jugeHref?: string;
   jugeLabel?: string;
 }) {
-  const { done, mounted } = useModuleProgress(moduleKey);
-  const stats = computeStats(etapes, mounted ? done : []);
+  const { done, mounted, started: moduleStarted } = useModuleProgress(moduleKey);
+  const stats = computeStats(etapes, mounted ? done : [], mounted && moduleStarted);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const started = mounted && stats.started;
 
