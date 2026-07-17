@@ -4,6 +4,7 @@ import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
+import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
 export const metadata = { title: "Module · Faire un site — The Vibe Experience" };
 
@@ -108,21 +109,23 @@ export default function Module() {
 
           <div className="label mov-sec">Les skills qu&apos;on t&apos;offre</div>
           <p className="mov-toolintro">
-            À l&apos;étape 3, tu rends ton site propre avec deux skills. On te les donne, à
-            télécharger tous les deux. Ils sont publics et gratuits. Tu les glisses dans Claude Code,
-            et il finit la mise en place tout seul (Agent Browser installe son outil au premier
-            usage).
+            À l&apos;étape 3, tu rends ton site propre avec deux skills. On te donne une consigne à
+            copier dans Claude Code pour chacun. Tu colles, il récupère le skill et finit la mise en
+            place tout seul (Agent Browser installe son outil au premier usage).
           </p>
           <div className="gfilets">
             {skillGifts.map((g) => (
               <div className="gfilet" key={g.n}>
                 <span className="gfilet-body">
-                  <span className="gfilet-name">{g.n}</span>
+                  <span className="gfilet-name">Installer le skill : {g.n}</span>
                   <span className="gfilet-desc">{g.d}</span>
                 </span>
-                <a className="btn btn-ghost gfilet-btn" href={g.href} download>
-                  Télécharger
-                </a>
+                <SkillInstallCopyButton
+                  href={g.href}
+                  name={g.n}
+                  className="btn btn-ghost gfilet-btn"
+                  showHint
+                />
               </div>
             ))}
           </div>

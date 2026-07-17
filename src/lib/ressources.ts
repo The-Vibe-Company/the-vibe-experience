@@ -11,7 +11,7 @@ export const costLabel: Record<Cost, string> = {
 
 export type ActionRessource =
   | { kind: "parcours"; href: string }
-  | { kind: "telecharger"; href: string }
+  | { kind: "installer"; href: string; name: string }
   | { kind: "copier" };
 
 export type Ressource = {
@@ -129,14 +129,14 @@ export const ressources: Ressource[] = [
     type: "Skill",
     title: creator.n,
     text: `${creator.d} On te le donne au module Créer ton premier skill.`,
-    action: { kind: "telecharger", href: creator.href },
+    action: { kind: "installer", href: creator.href, name: creator.n },
   },
   {
     cat: "skills",
     type: "Skill",
     title: improve.n,
     text: `${improve.d} Offert lui aussi, au même module.`,
-    action: { kind: "telecharger", href: improve.href },
+    action: { kind: "installer", href: improve.href, name: improve.n },
   },
 
   // Prompts : les prompts exacts fournis dans les modules, prêts à copier.

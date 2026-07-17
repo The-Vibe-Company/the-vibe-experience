@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { costLabel, ressources } from "@/lib/ressources";
 import CopyButton from "@/components/CopyButton";
+import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
 const filters = [
   { key: "all", label: "Tout" },
@@ -58,10 +59,12 @@ export default function RessourcesList() {
                   Voir dans le parcours →
                 </Link>
               )}
-              {r.action.kind === "telecharger" && (
-                <a href={r.action.href} className="rrow-action" download>
-                  Télécharger
-                </a>
+              {r.action.kind === "installer" && (
+                <SkillInstallCopyButton
+                  href={r.action.href}
+                  name={r.action.name}
+                  className="rrow-action rrow-action-btn"
+                />
               )}
             </div>
           ))}
