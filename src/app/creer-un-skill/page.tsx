@@ -118,11 +118,12 @@ export default function ModuleSkill() {
 
           <div className="mov-after">
             <span className="label">Et après ?</span>
-            <span className="mov-after-title">Ton prochain produit</span>
+            <span className="mov-after-title">Automatiser ton travail</span>
             <p>
               Tu viens de fabriquer un savoir-faire, et surtout d&apos;acquérir le réflexe. Le module
-              suivant est un produit : tu y créeras les skills dont tu as besoin, maintenant que tu
-              sais faire. C&apos;est l&apos;alternance : un produit, un savoir-faire, et on recommence.
+              suivant en empile un deuxième : apprendre à faire travailler l&apos;IA sans toi
+              (sauvegardes automatiques, garde-fous, routines programmées), en réutilisant le skill
+              que tu viens de créer. Et ton prochain produit profitera de tout ça.
             </p>
           </div>
         </div>

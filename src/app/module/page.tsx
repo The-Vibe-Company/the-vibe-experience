@@ -147,8 +147,8 @@ export default function Module() {
             <p>
               Tu viens d&apos;utiliser des skills tout faits (Impeccable, Agent Browser). Le module
               suivant, un savoir-faire, t&apos;apprend à fabriquer le tien, que tu réutiliseras dans
-              ton prochain produit. C&apos;est l&apos;alternance : un produit, un savoir-faire, et on
-              recommence.
+              ton prochain produit. C&apos;est le principe : un premier produit, puis des
+              savoir-faire qui s&apos;empilent et te rendent plus fort pour le prochain.
             </p>
           </div>
         </div>
