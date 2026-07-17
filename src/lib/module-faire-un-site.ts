@@ -7,6 +7,13 @@ export type SousEtape = {
   duree?: string;
   cestquoi?: string;
   attendu?: string;
+  // Skills offerts à installer depuis une consigne copiée dans Claude Code.
+  telechargements?: { n: string; href: string }[];
+  // Lien direct vers la page dont la sous-étape a besoin (ex. le juge) : zéro détour.
+  lien?: { label: string; href: string };
+  // Procédure numérotée (« Comment faire ») : des actions à suivre dans l'ordre.
+  // À ne pas confondre avec exemples, qui illustre sans prescrire.
+  pasAPas?: string[];
   exemples?: string[];
   outils?: Fiche[];
   prompt?: string;
@@ -49,19 +56,21 @@ export const etapesDetail: EtapeDetail[] = [
     titre: "Prépare ta machine",
     tag: ["Setup", "t-build"],
     dur: "≈ 20 à 30 min · une seule fois",
-    obj: "Avant de créer quoi que ce soit, on installe l'outil principal : l'app Claude Code. Tu ne vas pas coder, tu vas lui parler en français. C'est à faire une fois, elle te ressert pour tous tes projets. Ce parcours est écrit pour Mac.",
+    obj: "Ce parcours est écrit pour Mac : si tu es sur Windows, certaines manipulations seront un peu différentes. Avant de créer quoi que ce soit, on installe l'outil principal : l'app Claude Code. Tu ne vas pas coder, tu vas lui parler en français. C'est à faire une fois, elle te ressert pour tous tes projets.",
     detailPret: true,
     sous: [
       {
         titre: "Installe l'app Claude Code.",
         duree: "≈ 10 min",
         cestquoi:
-          "Claude Code, c'est une application que tu télécharges et installes en cliquant, comme n'importe quelle app. Pas de commande, pas de terminal. Il te faut un compte Claude avec un abonnement (Pro ou Max) : le plan gratuit ne donne pas accès à Claude Code, c'est ce compte payant qui la fait marcher.",
+          "Claude Code, c'est une application que tu télécharges et installes en cliquant, comme n'importe quelle app. Pas de commande, pas de terminal. Il te faut un compte Claude avec un abonnement payant : l'offre Pro, autour de 20 € par mois, suffit largement. Le plan gratuit ne donne pas accès à Claude Code, c'est cet abonnement qui la fait marcher.",
         attendu: "L'app Claude Code installée et ouverte, connectée à ton compte.",
+        lien: { label: "Ouvrir claude.com/claude-code", href: "https://claude.com/claude-code" },
         outils: [F.claudecode],
-        exemples: [
-          "Crée d'abord ton compte Claude si tu n'en as pas.",
-          "Va sur le site officiel de Claude Code et suis leurs indications pour installer l'app sur Mac, puis ouvre-la et connecte-toi.",
+        pasAPas: [
+          "Crée d'abord ton compte Claude si tu n'en as pas : va sur claude.ai et inscris-toi.",
+          "Prends l'abonnement Pro : sur claude.ai, ouvre les réglages de ton compte (ton initiale, en bas à gauche), rubrique abonnement, et choisis Pro. C'est le moins cher qui donne accès à Claude Code, autour de 20 € par mois.",
+          "Va sur claude.com/claude-code (bouton juste au-dessus), clique « Download for macOS », puis ouvre l'app installée et connecte-toi.",
         ],
         ceQueTuDoisVoir:
           "Au premier lancement, l'app te demande de te connecter à ton compte Claude : une page s'ouvre, tu te connectes, tu reviens. Elle peut te poser une question ou deux (thème clair ou sombre…), réponds, il n'y a pas de mauvais choix. Quand tu arrives sur une zone où écrire ton message, tu es prêt.",
@@ -77,19 +86,17 @@ export const etapesDetail: EtapeDetail[] = [
         conseil: "Prends deux minutes pour te connecter tranquillement. Une fois l'app ouverte, tout le reste se passe en lui parlant.",
       },
       {
-        titre: "Ouvre ton dossier de projet dans Claude Code.",
+        titre: "Fais créer ton dossier de projet par Claude Code.",
         duree: "≈ 5 min",
         cestquoi:
-          "Tu crées un dossier vide pour ton site, et tu l'ouvres dans Claude Code. C'est dans ce dossier qu'elle va créer et ranger tout ton projet.",
-        attendu: "Un dossier à toi, ouvert dans Claude Code, prêt à recevoir ton site.",
-        exemples: [
-          "Crée un dossier « mon-site » sur ton Bureau.",
-          "Dans Claude Code, ouvre ce dossier (le bouton pour ouvrir un dossier).",
-        ],
+          "Ton site va vivre dans un dossier à lui. Pas besoin de le créer toi-même : tu ouvres Claude Code, et tu lui demandes de le créer et de travailler dedans. C'est ta toute première demande, et elle donne le ton : c'est lui qui fait, toi tu diriges.",
+        attendu: "Un dossier « mon-site » créé par Claude Code, dans lequel il travaille.",
+        prompt:
+          "Crée un dossier « mon-site » sur mon Bureau pour notre projet, et travaille dedans à partir de maintenant.",
         ceQueTuDoisVoir:
-          "Une fois le dossier ouvert, Claude Code sait où travailler. Tu vois la zone de discussion : c'est là que tu taperas ta première demande à l'étape 1.",
+          "Claude Code crée le dossier et te confirme qu'il travaille dedans. Si l'app te demande d'abord de choisir un dossier au lancement, choisis ton Bureau (ou ton dossier personnel), puis envoie le prompt : il crée mon-site et s'y met. Ensuite, tu vois la zone de discussion : c'est là que tu taperas ta première vraie demande à l'étape 1.",
         siCaBloque:
-          "Tu ne sais pas si le bon dossier est ouvert ? Demande-lui simplement « dans quel dossier es-tu en train de travailler ? ». Elle te répond, et tu vérifies que c'est bien ton dossier « mon-site ».",
+          "Il te répond qu'il ne peut pas changer de dossier ? Pas grave, fais-le à la main une fois : crée un dossier « mon-site » sur ton Bureau (clic droit, « Nouveau dossier »), puis ouvre-le dans Claude Code (son bouton d'ouverture de dossier). Et pour vérifier où il en est, demande-lui simplement « dans quel dossier es-tu en train de travailler ? ».",
         monExemple:
           "La première fois, je ne savais pas trop ce que « ouvrir un dossier » voulait dire. En vrai, c'est juste lui montrer où ranger le travail. Après, elle s'occupe de tout dedans.",
         conseil: "Un dossier vide au départ, c'est normal. C'est Claude Code qui va le remplir à l'étape suivante.",
@@ -136,9 +143,9 @@ export const etapesDetail: EtapeDetail[] = [
           "« Fais-moi un site pour lister mes animés préférés, où on peut se faire sa liste comme une bibliothèque, et pouvoir les noter. »",
         ],
         prompt:
-          "Fais-moi un site pour [ton sujet], où les gens peuvent [ce qu'ils peuvent y faire]. Ce serait bien qu'on puisse aussi [une petite fonctionnalité]. Et dis-moi quand je pourrai voir la page dans mon navigateur.",
+          "Fais-moi un site pour [ton sujet], où les gens peuvent [ce qu'ils peuvent y faire]. Ce serait bien qu'on puisse aussi [une petite fonctionnalité]. Construis-le avec Next.js, avec le contenu visible directement dans le HTML de la page (rendu côté serveur). Et dis-moi quand je pourrai voir la page dans mon navigateur.",
         ceQueTuDoisVoir:
-          "Après avoir appuyé sur Entrée, du texte se met à défiler tout seul : l'IA t'explique ce qu'elle fait et crée des fichiers. Ça peut prendre une à trois minutes, c'est normal qu'elle « réfléchisse ». Ne ferme pas la fenêtre pendant ce temps.",
+          "Avant d'agir, Claude Code te demande souvent la permission : des boutons en anglais du genre « Allow » (autoriser) et « Deny » (refuser), avec l'action qu'il veut lancer. C'est normal, et c'est toi le chef : clique Allow pour le laisser travailler. Ensuite, du texte se met à défiler tout seul : l'IA t'explique ce qu'elle fait et crée des fichiers. Ça peut prendre plusieurs minutes, parfois cinq à dix la première fois (il télécharge tout ce qu'il faut) : tant que ça bouge, c'est bon signe. Ne ferme pas la fenêtre pendant ce temps.",
         siCaBloque:
           "Si l'IA te pose une question au lieu de foncer (« tu veux plutôt X ou Y ? »), c'est bon signe : réponds simplement en français. Elle ne fait rien contre ta volonté.",
         monExemple:
@@ -161,10 +168,10 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "L'IA te répond avec une adresse qui commence par « localhost » ou « 127.0.0.1 » (par exemple http://localhost:3000). Tu la copies, tu l'ouvres dans Chrome ou Safari, et ta page s'affiche. C'est ça, « en local » : elle vit sur ta machine, personne d'autre ne la voit encore. Ensuite, quand tu demandes une modif, la page se met à jour presque tout de suite en revenant sur l'onglet.",
         siCaBloque:
-          "La page ne s'ouvre pas, ou le navigateur dit « impossible de se connecter » ? Ça veut juste dire que le site n'est pas en train de tourner. Retourne dans Claude Code et écris « mon site ne s'ouvre pas sur localhost, peux-tu le relancer et vérifier ? ». Souvent, c'est qu'on a fermé le terminal : tant que le site tourne, laisse cette fenêtre ouverte.",
+          "La page ne s'ouvre pas, ou le navigateur dit « impossible de se connecter » ? Ça veut juste dire que le site n'est pas en train de tourner. Retourne dans Claude Code et écris « mon site ne s'ouvre pas sur localhost, peux-tu le relancer et vérifier ? ». Souvent, c'est simplement que la fenêtre de Claude Code a été fermée : tant que ton site tourne, laisse-la ouverte. Si Claude Code te dit qu'il lui manque un outil pour lancer ton site (par exemple Node), pas de panique : réponds-lui « installe ce qu'il faut pour lancer mon site et guide-moi étape par étape », il s'en occupe (et s'il te fait passer par le Terminal pour ça, suis-le : tu en feras vraiment connaissance à l'étape 2, le croiser un peu en avance n'a rien de grave). Enfin, si une modif ne s'affiche pas, rafraîchis l'onglet de ton navigateur avec cmd + R : neuf fois sur dix, elle apparaît.",
         monExemple:
           "Le vrai déclic, c'est quand j'ai commencé à bidouiller : je changeais un bouton, une couleur, et je voyais le résultat tout de suite. Là j'ai compris que c'était moi qui pilotais.",
-        conseil: "Une demande à la fois, et regarde le résultat en direct. C'est le meilleur moyen d'apprendre ce qui marche.",
+        conseil: "Une demande à la fois, et regarde le résultat en direct. C'est le meilleur moyen d'apprendre ce qui marche. Et garde ce réflexe pour tout le module : quand quelque chose cloche ou te surprend, décris ton problème à Claude Code (ce que tu as fait, ce que tu attendais, ce que tu vois, l'erreur s'il y en a une) et discute avec lui. Il y aura toujours des cas imprévus, et c'est comme ça qu'ils se résolvent.",
       },
     ],
     livrable: "Une page qui tourne en local, que tu commences à façonner.",
@@ -176,51 +183,54 @@ export const etapesDetail: EtapeDetail[] = [
     titre: "Pose ton projet sur GitHub",
     tag: ["Build", "t-build"],
     dur: "≈ 30 à 45 min · en local",
-    obj: "Sauvegarder ton code et l'automatiser, pour ne plus jamais perdre ton travail.",
+    obj: "Sauvegarder ton code et l'automatiser, pour ne plus jamais perdre ton travail. C'est aussi ici que tu croises le Terminal, une seule fois, pour connecter GitHub : Claude Code te donne tout, tu colles, c'est fait.",
     detailPret: true,
     sous: [
       {
-        titre: "Installe ce qu'il te faut (Claude Code t'accompagne).",
-        duree: "≈ 10 à 15 min",
+        titre: "Laisse Claude Code installer Git.",
+        duree: "≈ 5 à 15 min",
         cestquoi:
-          "Pour sauvegarder ton code, il faut l'outil Git. C'est le premier moment où tu vas ouvrir le Terminal du Mac : Claude Code te donne la commande à coller, et c'est toi qui la colles dans le Terminal (elle ne peut pas le faire à ta place pour cette install). Le Terminal, c'est une fenêtre où on écrit du texte à l'ordinateur au lieu de cliquer.",
-        attendu: "Avoir Git prêt. Et avoir apprivoisé le Terminal, tu t'en resserviras.",
-        outils: [F.terminal, F.homebrew],
-        exemples: [
-          "Ouvre le Terminal du Mac : appuie sur cmd + espace, tape « Terminal », puis Entrée.",
-          "Demande à Claude Code « aide-moi à installer Git », copie la commande qu'elle te donne, colle-la dans le Terminal (cmd + V) et fais Entrée.",
-        ],
+          "Pour sauvegarder ton code, il faut l'outil Git. Bonne nouvelle : tu n'as rien à installer toi-même, et pas besoin du Terminal ici. Tu demandes à Claude Code, il s'en occupe, et ta seule mission est de cliquer « Installer » si une fenêtre d'Apple apparaît.",
+        attendu: "Git prêt sur ta machine, sans avoir rien installé à la main.",
+        prompt:
+          "Vérifie si Git est installé sur ma machine. S'il ne l'est pas, installe-le, et dis-moi exactement quoi faire si tu as besoin de moi.",
         ceQueTuDoisVoir:
-          "Le Terminal, c'est une fenêtre au fond uni avec un curseur qui clignote : c'est normal que ce soit vide et austère, tu n'as rien cassé. Quand tu colles la commande, beaucoup de lignes défilent, parfois plusieurs minutes (plus long la première fois, le temps que tout se télécharge). Pour vérifier que c'est bon, demande à Claude Code « est-ce que Git est bien installé ? » : elle te répond un numéro de version, par exemple « git version 2.39 ». Ce numéro, c'est ta preuve que Git est prêt.",
+          "Claude Code vérifie et te dit où il en est. Si Git manque, une fenêtre grise d'Apple peut s'ouvrir toute seule pour installer les « command line developer tools » : clique « Installer » et laisse-la finir (plusieurs minutes, selon ta connexion, c'est prévu). À la fin, demande « est-ce que Git est bien installé ? » : il te répond un numéro de version, par exemple « git version 2.39 ». Ce numéro, c'est ta preuve.",
         siCaBloque:
-          "Pour coller dans le Terminal, c'est cmd + V (la touche Command, pas Ctrl). Si tu vois « command not found », l'ordinateur ne connaît pas encore ce mot : vérifie que tu as collé la commande en entier. Si une fenêtre grise d'Apple s'ouvre et te propose d'installer les « command line developer tools », clique sur « Install » et laisse-la finir. Si tu vois « command not found: brew », dis à Claude Code « installe-moi Homebrew d'abord, puis Git ». Le Terminal peut aussi te demander ton mot de passe Mac : quand tu le tapes, rien ne s'affiche, pas même des points, c'est voulu, tape-le à l'aveugle et fais Entrée. Et si une commande finit en rouge, copie tout et colle-le à Claude Code : elle te donne la version corrigée.",
-        monExemple:
-          "Au début, le terminal me faisait peur, comme à tout le monde. La première fois que j'ai collé une ligne et que ça a marché, la peur est tombée d'un coup. Depuis, ce n'est plus un obstacle.",
-        conseil: "C'est ta première fois dans le Terminal, et c'est un vrai cap. C'est normal que ça impressionne. Tu vas juste coller une ligne et regarder. Une fois que c'est fait, tu sais que cette fenêtre n'a rien de magique : c'est une zone de texte, les erreurs rouges ne cassent rien, et tu peux y aller. Voilà, le terminal est démystifié, tu es passé de l'autre côté.",
-      },
-      {
-        titre: "Sauvegarde ton code sur GitHub.",
-        duree: "≈ 15 à 20 min",
-        cestquoi:
-          "GitHub, c'est un service en ligne où tu ranges ton code. Ça sert à deux choses : ne jamais perdre ton travail (tout est sauvegardé, avec l'historique) et pouvoir mettre ton site en ligne ensuite. Un « repo », c'est le dossier de ton projet là-bas.",
-        attendu: "Ton code copié sur GitHub, avec un premier enregistrement.",
-        outils: [F.github],
-        exemples: [
-          "Crée d'abord ton compte gratuit sur github.com dans ton navigateur.",
-          "Puis reviens dans Claude Code et demande-lui d'envoyer ton projet sur GitHub.",
-        ],
-        ceQueTuDoisVoir:
-          "Juste après avoir créé ton compte, GitHub t'envoie un email pour vérifier ton adresse : va dans ta boîte mail, ouvre-le et clique sur le lien, sinon l'envoi peut être bloqué. On va peut-être te demander si ton projet doit être « public » (visible par tout le monde) ou « private » (visible par toi seul) : dans le doute, choisis « private », tu pourras le rendre public plus tard en deux clics. Quand c'est bon, va sur github.com : ton dossier de projet (ton « repo ») apparaît avec tes fichiers dedans. C'est la preuve que ton travail est en sécurité en ligne.",
-        visuel: {
-          src: "/module/2-2-github.png",
-          alt: "Un repo de projet sur GitHub, avec ses fichiers, le premier commit et le README.",
-          legende: "Ton repo sur GitHub : tes fichiers sont là, en sécurité, avec l'historique. (Exemple avec le repo de ce parcours.)",
-        },
-        siCaBloque:
-          "Pour relier ta machine à GitHub, une page va peut-être s'ouvrir dans ton navigateur pour demander « oui, j'autorise ». C'est normal et attendu, ce n'est pas une arnaque. Si tu vois « authentication failed » ou « permission denied », dis à Claude Code « je n'arrive pas à me connecter à GitHub, aide-moi à m'authentifier étape par étape » : c'est le blocage numéro un des débutants, il est prévu. Et si tu vois « please tell me who you are » ou « Author identity unknown », c'est juste que Git ne sait pas encore qui tu es : dis à Claude Code « configure mon identité Git avec mon nom et mon email GitHub », donne-lui les deux, tu ne le refais qu'une seule fois.",
+          "L'installation Apple échoue, ou Claude Code te propose de passer par Homebrew (un installateur d'outils) ? Laisse-le te guider : au pire, il te donnera une commande à coller dans le Terminal, la fenêtre qu'on apprivoise justement à la sous-étape suivante (colle avec cmd + V, puis Entrée ; si on te demande ton mot de passe Mac, rien ne s'affiche quand tu tapes, c'est voulu, tape à l'aveugle). Et si quelque chose finit en rouge, copie tout et colle-le à Claude Code : il te donne la suite.",
         monExemple:
           "Au début, je ne comprenais même pas à quoi servait GitHub. Une fois qu'on m'a expliqué que c'était pour ne rien perdre et pouvoir mettre en ligne, ça a fait sens.",
-        conseil: "Fais-le tôt : c'est ta sécurité contre la perte de travail.",
+        conseil:
+          "Regarde-le faire : tu viens de déléguer ta première installation. C'est exactement comme ça qu'on travaille avec lui, il fait, tu valides.",
+      },
+      {
+        titre: "Connecte GitHub et envoie ton code (ta première fois dans le Terminal).",
+        duree: "≈ 20 à 30 min",
+        cestquoi:
+          "GitHub, c'est un service en ligne où tu ranges ton code. Ça sert à deux choses : ne jamais perdre ton travail (tout est sauvegardé, avec l'historique) et pouvoir mettre ton site en ligne ensuite, l'étape 5 déploie depuis GitHub. Un « repo », c'est le dossier de ton projet là-bas. Et c'est ici que tu ouvres le Terminal pour la première fois : connecter ta machine à ton compte GitHub se fait dedans, une seule fois. Le Terminal, c'est juste une fenêtre où on écrit du texte à l'ordinateur au lieu de cliquer, et Claude Code te donne tout ce qu'il faut y coller. C'est la seule chose pour laquelle ce parcours en a besoin.",
+        attendu: "Ta machine connectée à GitHub, ton code copié dessus, avec un premier enregistrement. Et le Terminal apprivoisé au passage.",
+        lien: { label: "Créer mon compte sur github.com", href: "https://github.com" },
+        outils: [F.github, F.terminal],
+        pasAPas: [
+          "Crée d'abord ton compte gratuit sur github.com (bouton juste au-dessus).",
+          "Ouvre le Terminal du Mac : appuie sur cmd + espace, tape « Terminal », puis Entrée. Une fenêtre presque vide s'ouvre, avec un curseur qui clignote (capture ci-dessous) : c'est normal, tu n'as rien cassé.",
+          "Reviens dans Claude Code et envoie le prompt ci-dessous. Quand il te donne une commande, colle-la dans le Terminal (cmd + V), fais Entrée, et suis le déroulé décrit dans « Ce que tu dois voir ».",
+        ],
+        prompt:
+          "Connecte ma machine à mon compte GitHub, puis envoie mon projet dessus. Quand tu as besoin de moi, donne-moi la commande exacte à coller dans le Terminal, et dis-moi quoi répondre aux questions qu'il me posera.",
+        ceQueTuDoisVoir:
+          "Juste après avoir créé ton compte, GitHub t'envoie un email pour vérifier ton adresse : va dans ta boîte mail, ouvre-le et clique sur le lien, sinon l'envoi peut être bloqué. Ensuite, pour relier ta machine à ton compte, Claude Code lance souvent un petit assistant DANS le Terminal, en anglais : des questions avec des choix à sélectionner avec les FLÈCHES du clavier (haut et bas, puis Entrée), pas avec la souris. Réponds « GitHub.com », puis « HTTPS », puis « Login with a web browser » : il t'affiche alors un code à 8 caractères (du genre XXXX-XXXX). Appuie sur Entrée, une page GitHub s'ouvre dans ton navigateur, tape ce code et clique le bouton vert « Authorize ». Si la fenêtre semble figée sans rien afficher, clique dedans puis appuie sur Entrée. On va aussi peut-être te demander si ton projet doit être « public » (visible par tout le monde) ou « private » (visible par toi seul) : dans le doute, choisis « private », tu pourras changer plus tard en deux clics. Un détail à retenir pour la fin du parcours : le juge de l'étape 5 ne sait vérifier que les repos publics. Si le tien est privé, tu laisseras simplement le champ « repo » du juge vide, il est optionnel. Quand c'est bon, va sur github.com : ton dossier de projet (ton « repo ») apparaît avec tes fichiers dedans. C'est la preuve que ton travail est en sécurité en ligne.",
+        visuel: {
+          src: "/module/2-1-terminal.png",
+          alt: "Le Terminal du Mac à l'ouverture : une fenêtre au fond sombre, une ligne « Last login », un prompt et un curseur.",
+          legende: "Le Terminal à l'ouverture : une fenêtre presque vide, une ligne, un curseur qui clignote. C'est tout, et c'est normal.",
+        },
+        siCaBloque:
+          "Pour coller dans le Terminal, c'est cmd + V (la touche Command, pas Ctrl). Si le Terminal demande ton mot de passe Mac, rien ne s'affiche quand tu tapes, pas même des points : c'est voulu, tape à l'aveugle et fais Entrée. Si une installation d'outil passe par Homebrew et que le Terminal affiche à la fin deux commandes sous « Next steps », colle-les aussi, l'une après l'autre. Une page va peut-être s'ouvrir dans ton navigateur pour demander « oui, j'autorise » : c'est normal et attendu, ce n'est pas une arnaque. Si tu vois « authentication failed » ou « permission denied », dis à Claude Code « je n'arrive pas à me connecter à GitHub, aide-moi à m'authentifier étape par étape » : c'est le blocage numéro un des débutants, il est prévu. Si tu vois « please tell me who you are » ou « Author identity unknown », c'est juste que Git ne sait pas encore qui tu es : dis à Claude Code « configure mon identité Git avec mon nom et mon email GitHub », donne-lui les deux, tu ne le refais qu'une seule fois. Et si une commande finit en rouge, copie tout et colle-le à Claude Code : il te donne la version corrigée.",
+        monExemple:
+          "Au début, le terminal me faisait peur, comme à tout le monde. La première fois que j'ai collé une ligne et que ça a marché, la peur est tombée d'un coup. Depuis, ce n'est plus un obstacle.",
+        conseil:
+          "C'est ta première fois dans le Terminal, et c'est un vrai cap, c'est normal que ça impressionne. Tu vas juste coller ce qu'on te donne et regarder. Une fois que c'est fait, tu sais que cette fenêtre n'a rien de magique : une zone de texte, des erreurs rouges qui ne cassent rien. Te voilà passé de l'autre côté, et dans ce parcours, le Terminal ne sert qu'à ça : connecter GitHub, une fois.",
       },
       {
         titre: "Automatise les sauvegardes.",
@@ -229,7 +239,7 @@ export const etapesDetail: EtapeDetail[] = [
           "Une fois GitHub branché, tu peux demander à Claude Code d'enregistrer et d'envoyer tes changements tout seul, sans le refaire à la main à chaque fois. Pas besoin de toucher au terminal : Claude Code lance les commandes lui-même.",
         attendu: "Tu bosses, et tes sauvegardes partent automatiquement.",
         prompt:
-          "À partir de maintenant, après chaque changement qu'on valide ensemble, enregistre et envoie automatiquement mon code sur GitHub, et dis-moi juste quand c'est fait.",
+          "À partir de maintenant, après chaque changement qu'on valide ensemble, enregistre et envoie automatiquement mon code sur GitHub, et dis-moi juste quand c'est fait. Écris aussi cette consigne dans le fichier d'instructions de mon projet, pour t'en souvenir dans nos prochaines conversations.",
         ceQueTuDoisVoir:
           "Après une modif, l'IA te dit une ligne du genre « changements sauvegardés et envoyés sur GitHub ». Tu peux aller vérifier sur github.com que la date de dernière mise à jour vient de changer.",
         visuel: {
@@ -239,7 +249,7 @@ export const etapesDetail: EtapeDetail[] = [
         },
         monExemple:
           "Une fois GitHub branché, Claude Code enregistrait et envoyait mes changements tout seul. Je n'avais même pas à toucher au terminal, il s'en occupait.",
-        conseil: "Attention à ne pas confondre : envoyer ton code sur GitHub, c'est le mettre à l'abri, pas le publier. Ton site n'est pas encore en ligne pour le public, ça se fait à l'étape 5. Là, tu sécurises, c'est tout. Et le réflexe à prendre : dès qu'un outil peut être automatisé, fais-le une fois, tu gagnes un temps fou ensuite.",
+        conseil: "Attention à ne pas confondre : envoyer ton code sur GitHub, c'est le mettre à l'abri, pas le publier. Ton site n'est pas encore en ligne pour le public, ça se fait à l'étape 5. Là, tu sécurises, c'est tout. Et le réflexe à prendre : dès qu'un outil peut être automatisé, fais-le une fois, tu gagnes un temps fou ensuite. Dernière chose, pour reprendre un autre jour : rouvre ton dossier dans Claude Code, demande « relance mon site en local », et après ta première modif, vérifie qu'une sauvegarde part toujours vers GitHub.",
       },
     ],
     livrable: "Ton projet sauvegardé sur GitHub, en automatique.",
@@ -297,12 +307,19 @@ export const etapesDetail: EtapeDetail[] = [
         cestquoi:
           "Impeccable, c'est un skill (une compétence qu'on donne à l'IA) qui remet de l'ordre. À l'écran, la différence n'est pas toujours spectaculaire ; ce qu'il fait surtout, c'est trier et nettoyer le code derrière.",
         attendu: "Un code plus propre et mieux rangé. Tu ne le vois pas forcément à l'écran, mais ça pose des bases saines pour la suite.",
+        telechargements: [{ n: "Impeccable", href: "/skills/impeccable.zip" }],
         outils: [F.impeccable],
+        pasAPas: [
+          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Copier le skill » juste au-dessus.",
+          "Ouvre Claude Code, colle la consigne copiée dans la zone où tu écris tes messages, puis envoie. Claude Code récupère le skill, le range au bon endroit et te confirme.",
+          "Tu ne fais ça qu'une fois : ensuite, le skill reste disponible, ici et sur tous tes prochains projets.",
+          "Puis lance-le avec le prompt fourni ci-dessous.",
+        ],
         prompt: "Utilise le skill Impeccable sur tout mon site pour nettoyer et ranger le code.",
         ceQueTuDoisVoir:
-          "Souvent, presque aucune différence à l'écran, et c'est normal. Le travail se passe dans les coulisses, sur le code.",
+          "Quand le skill part, une ligne « Skill : impeccable » s'affiche dans la conversation : c'est ta preuve qu'il tourne. À l'écran du site, souvent presque aucune différence, et c'est normal : le travail se passe dans les coulisses, sur le code.",
         siCaBloque:
-          "Claude Code te répond qu'il ne connaît pas Impeccable ? C'est juste que le skill n'est pas encore installé chez toi. Écris-lui « je veux utiliser le skill Impeccable mais tu ne l'as pas, guide-moi pour l'installer étape par étape ». Un skill, c'est une compétence en plus qu'on ajoute une fois, et ensuite l'IA la garde.",
+          "Claude Code te répond qu'il ne connaît pas Impeccable juste après l'installation ? Ferme et rouvre Claude Code : un skill tout juste installé n'est parfois pris en compte qu'au redémarrage. La consigne copiée ne marche pas ? Recopie-la depuis cette page et renvoie-la dans Claude Code.",
         monExemple: "Honnêtement, à l'écran il n'y avait pas une grande différence avant/après. Ce que ça a fait, c'est nettoyer et trier le code : tu ne le vois pas forcément, mais c'est plus propre.",
         conseil: "Ne t'attends pas à un choc visuel. Impeccable travaille surtout les coulisses, et c'est très utile pour la suite. Une fois installé, un skill se déclenche juste en le demandant en français.",
       },
@@ -312,6 +329,10 @@ export const etapesDetail: EtapeDetail[] = [
         cestquoi:
           "Agent Browser, c'est l'IA qui parcourt ton site comme un vrai visiteur et repère ce qui cloche. Une « loop », c'est quand tu demandes à l'IA de répéter un cycle toute seule jusqu'à ce que ce soit bon. Ici, tu fais travailler tes deux skills ensemble : Impeccable soigne, Agent Browser teste, et ça tourne en boucle sans que tu relances à la main.",
         attendu: "Tes deux skills qui s'enchaînent tout seuls : vérifie → teste → corrige → re-teste, jusqu'à ce que tout soit bon.",
+        telechargements: [
+          { n: "Impeccable", href: "/skills/impeccable.zip" },
+          { n: "Agent Browser", href: "/skills/agent-browser.zip" },
+        ],
         outils: [F.impeccable, F.agentbrowser],
         exemples: [
           "Un bouton cassé repéré par Agent Browser, corrigé par Impeccable, re-testé automatiquement.",
@@ -322,7 +343,7 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Ça va enchaîner tout seul pendant plusieurs minutes : du texte défile, l'IA teste, corrige, re-teste. Tu sauras que c'est fini quand le texte arrête de défiler et que l'IA te fait un petit résumé du genre « tout est propre et fonctionnel ». À ce moment-là, la main te revient et tu peux réécrire dans la fenêtre. Tant que ça défile, c'est qu'elle travaille encore, laisse-la.",
         siCaBloque:
-          "Si Agent Browser dit qu'il n'arrive pas à ouvrir ton site ou reste bloqué à « j'attends la page », c'est presque toujours que ton site ne tourne plus en local : écris « relance mon site en local avant de tester avec Agent Browser », puis redemande la boucle. Si Claude Code ne connaît pas encore le skill Agent Browser (ou Impeccable), demande-lui de t'aider à l'installer, tant que les deux ne sont pas là la boucle ne peut pas tourner. Et si ça tourne en rond trop longtemps (plus de 10 minutes), arrête avec Échap (ou Ctrl+C) puis écris « fais un dernier passage et arrête-toi, dis-moi ce qui reste ».",
+          "Si Agent Browser dit qu'il n'arrive pas à ouvrir ton site ou reste bloqué à « j'attends la page », c'est presque toujours que ton site ne tourne plus en local : écris « relance mon site en local avant de tester avec Agent Browser », puis redemande la boucle. Si Claude Code ne connaît pas encore le skill Agent Browser (ou Impeccable), installe-le : les deux consignes à copier sont juste au-dessus, dans cette sous-étape. Pour Agent Browser, il finit son installation tout seul au premier usage : il récupère alors son propre navigateur, ce qui peut prendre plusieurs minutes sans grand-chose à l'écran, c'est prévu. Et pour que la boucle tourne vraiment toute seule, quand Claude Code demande une permission, choisis l'option du style « ne plus demander pour cette session » : sinon tu devras cliquer Allow à chaque tour. Tant que les deux ne sont pas là, la boucle ne peut pas tourner. Et si ça tourne en rond trop longtemps (plus de 10 minutes), arrête avec Échap puis écris « fais un dernier passage et arrête-toi, dis-moi ce qui reste ». Une boucle consomme pas mal : si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, ce n'est pas un bug. Attends qu'elle se réinitialise (l'app te dit quand) et reprends là où tu en étais. Pas besoin de passer à l'offre Max juste pour cet exercice.",
         monExemple: "C'était ma toute première loop, et franchement c'était cool. Tu expliques à Claude Code de faire tourner les deux skills ensemble, et il enchaîne vérif, test et correction tout seul. Là tu comprends la puissance du truc.",
         conseil: "Copie-colle le prompt ci-dessus tel quel dans Claude Code : tu n'as plus qu'à le laisser boucler.",
       },
@@ -347,7 +368,7 @@ export const etapesDetail: EtapeDetail[] = [
         attendu: "Tu choisis une ou plusieurs fonctionnalités qui ont du sens pour ton projet.",
         outils: [F.supabase, F.api],
         exemples: [
-          "Le plus simple pour commencer : un formulaire de contact qui envoie vraiment.",
+          "Le plus simple pour commencer : un formulaire de contact dont tu retrouves les messages (ils se rangent dans Supabase, pas besoin d'envoyer de vrais emails, ce qui demanderait un service en plus).",
           "Un cran au-dessus : des comptes utilisateurs (avec Supabase).",
           "Un site en français et en anglais (via une API).",
         ],
@@ -365,15 +386,20 @@ export const etapesDetail: EtapeDetail[] = [
         titre: "Implémente-la avec l'IA, qui t'accompagne.",
         duree: "≈ 40 min à 1 h (la première fois, la création du compte et des clés prend du temps)",
         cestquoi:
-          "Tu demandes à Claude Code de construire la fonctionnalité choisie, en te guidant : il branche les bons outils (par exemple Supabase pour les comptes).",
+          "Tu demandes à Claude Code de construire la fonctionnalité choisie, en te guidant. Pour beaucoup de fonctionnalités (comptes, formulaire dont tu gardes les messages), il branche Supabase : c'est le service qui garde les comptes et les données de tes utilisateurs. Ton site en ligne a besoin d'un endroit où ranger tout ça, et c'est lui. Gratuit pour commencer.",
         attendu: "La fonctionnalité en place dans ton code, expliquée au passage.",
-        exemples: ["« Ajoute une inscription et une connexion avec Supabase. »"],
+        lien: { label: "Créer mon compte sur supabase.com", href: "https://supabase.com" },
+        pasAPas: [
+          "Si ta fonctionnalité utilise Supabase, crée d'abord ton compte : bouton juste au-dessus, puis « Sign in with GitHub », le plus simple, tu as déjà ton compte GitHub depuis l'étape 2.",
+          "Crée ensuite un projet (bouton « New project ») : donne-lui un nom, note quelque part le mot de passe de base de données qu'il te demande, et choisis une région en Europe. L'écran « Setting up your project » tourne une à deux minutes, c'est normal, ne recharge pas la page.",
+          "Puis reviens dans Claude Code et envoie le prompt ci-dessous : c'est lui qui te guide pour brancher ton site, écran par écran, y compris pour retrouver les clés.",
+        ],
         prompt:
           "Je veux ajouter [ta fonctionnalité, ex. inscription et connexion des utilisateurs] à mon site. Guide-moi étape par étape, je suis débutant total et je n'ai jamais fait ça. Quand tu as besoin que je crée un compte quelque part ou que je copie une clé, arrête-toi, dis-moi exactement où cliquer, et attends que je te confirme avant de continuer. Explique-moi en français simple ce que tu fais au fur et à mesure.",
         ceQueTuDoisVoir:
           "Pour certaines fonctionnalités (comptes, paiement…), l'IA va te demander d'aller créer un compte sur un service comme Supabase et de copier des « clés » (des sortes de mots de passe pour brancher le service). Deux gestes qui bloquent souvent : va confirmer ton adresse en cliquant le lien reçu par mail, sinon tu restes bloqué à l'entrée. Et après avoir créé ton projet, Supabase affiche « Setting up your project » une à deux minutes : c'est normal, il prépare ta base, ne recharge pas la page.",
         siCaBloque:
-          "« L'IA me demande une clé et je ne sais pas où la trouver » ? Redemande-lui « guide-moi clic par clic pour créer le compte et récupérer la clé, je n'ai jamais fait ça ». Elle sait faire. Tes clés se rangent dans un fichier caché appelé .env.local, sur ta machine uniquement : ne les colle jamais dans un message public ni une capture, et demande à Claude Code « confirme-moi que mes clés secrètes sont bien ignorées par Git et ne partiront pas sur GitHub ». Retiens que ces clés restent sur ton ordi pour l'instant : quand tu mettras ton site en ligne à l'étape 5, il faudra les redonner à l'hébergeur, mais on verra ça là-bas.",
+          "« L'IA me demande une clé et je ne sais pas où la trouver » ? Redemande-lui « guide-moi clic par clic pour créer le compte et récupérer la clé, je n'ai jamais fait ça ». Elle sait faire. Ce que tu vois sur l'écran de Supabase ne ressemble pas à ce qu'elle décrit (les interfaces changent, les noms des clés aussi) ? Fais une capture d'écran de ton écran et glisse-la dans la fenêtre de Claude Code : elle s'adaptera à ce que TOI tu vois. Tes clés se rangent dans un fichier caché appelé .env.local, sur ta machine uniquement : ne les colle jamais dans un message public ni une capture, et demande à Claude Code « confirme-moi que mes clés secrètes sont bien ignorées par Git et ne partiront pas sur GitHub ». Retiens que ces clés restent sur ton ordi pour l'instant : quand tu mettras ton site en ligne à l'étape 5, il faudra les redonner à l'hébergeur, mais on verra ça là-bas. Cette étape est longue : si Claude Code s'interrompt en disant que tu as atteint ta limite d'utilisation, attends simplement qu'elle se réinitialise puis reprends. Ne passe pas à l'offre Max juste pour finir l'exercice.",
         monExemple: "Je ne savais pas ce qu'était une base de données. L'IA m'a branché Supabase et m'a expliqué au fur et à mesure.",
         conseil: "Demande à l'IA de t'expliquer ce qu'elle fait : c'est le moment d'apprendre.",
       },
@@ -385,7 +411,10 @@ export const etapesDetail: EtapeDetail[] = [
         exemples: [
           "Comptes : crée un compte avec un faux email, déconnecte-toi, reconnecte-toi, vérifie que tu retrouves tes infos.",
           "Formulaire : envoie-le et vérifie qu'il arrive bien.",
+          "Et ton skill Agent Browser (installé à l'étape 3) peut tester à ta place, comme un vrai visiteur : utilise le prompt ci-dessous.",
         ],
+        prompt:
+          "Avec le skill Agent Browser, teste ma fonctionnalité de bout en bout comme un vrai visiteur : [décris le scénario, ex. crée un compte test, déconnecte-toi, reconnecte-toi, vérifie que tout marche]. Dis-moi ce qui casse, et corrige-le.",
         ceQueTuDoisVoir:
           "Si tu as branché des comptes avec Supabase, va sur ton tableau de bord Supabase, rubrique Authentication puis Users : ton compte test doit apparaître dans la liste, avec l'email utilisé. C'est la preuve que ça a vraiment marché, que l'info est bien arrivée dans ta base et pas juste affichée à l'écran.",
         siCaBloque:
@@ -411,15 +440,16 @@ export const etapesDetail: EtapeDetail[] = [
         duree: "≈ 15 à 20 min",
         cestquoi: "Vercel, c'est l'hébergeur : il prend ton site et le met en ligne, accessible par tout le monde, avec une vraie adresse.",
         attendu: "Ton site en ligne, avec un lien qui marche.",
+        lien: { label: "Créer mon compte sur vercel.com", href: "https://vercel.com" },
         outils: [F.vercel],
-        exemples: [
-          "Crée un compte Vercel en te connectant AVEC ton compte GitHub (le plus simple).",
+        pasAPas: [
+          "Crée un compte Vercel (bouton juste au-dessus) en te connectant AVEC ton compte GitHub (le plus simple). S'il te demande un nom et un type de compte, choisis « Hobby », le plan gratuit.",
           "Importe ton projet depuis la liste de tes repos, puis clique sur Deploy.",
         ],
         ceQueTuDoisVoir:
           "Avant le bouton Deploy, Vercel te montre un écran de configuration avec plusieurs cases : bonne nouvelle, il a déjà tout deviné (il a reconnu ton site), tu n'as rien à changer, clique Deploy. La seule case qui peut servir, c'est Environment Variables, si l'IA t'a dit d'y coller des clés. Ensuite : une barre de progression et des logs qui défilent, puis un écran de félicitations avec une petite image de ton site et un lien en .vercel.app. Clique dessus : ton site est en ligne, accessible par n'importe qui.",
         siCaBloque:
-          "Ta liste de projets à importer est vide ? C'est que Vercel n'a pas encore le droit de regarder ton GitHub : clique sur « Import Git Repository » ou « Adjust GitHub App Permissions », choisis « All repositories », valide, ton projet apparaît. Le déploiement échoue avec « Build failed » en rouge ? Ça arrive tout le temps au premier essai : copie tout le message d'erreur et colle-le à Claude Code, « mon déploiement Vercel a échoué, voici l'erreur, corrige et on renvoie sur GitHub ». Ta page s'affiche mais ta fonctionnalité (comptes, formulaire) ne marche plus alors qu'elle marchait en local ? C'est presque toujours tes clés qui manquent sur Vercel : elles sont restées sur ton ordi, pas sur GitHub (normal, ce sont des secrets). Dans Vercel, va dans Settings puis Environment Variables et ajoute-les (demande à Claude Code lesquelles et où les retrouver), puis clique Redeploy.",
+          "Ta liste de projets à importer est vide ? C'est que Vercel n'a pas encore le droit de regarder ton GitHub : clique sur « Import Git Repository » ou « Adjust GitHub App Permissions », choisis « All repositories », valide, ton projet apparaît. Le déploiement échoue avec « Build failed » en rouge ? Ça arrive tout le temps au premier essai : copie tout le message d'erreur et colle-le à Claude Code, « mon déploiement Vercel a échoué, voici l'erreur, corrige et on renvoie sur GitHub ». Une fois corrigé et renvoyé, tu n'as rien à relancer : Vercel redéploie tout seul à chaque envoi sur GitHub. Retourne sur la page de ton projet Vercel, un nouveau déploiement apparaît en haut de la liste, attends qu'il passe au vert. Ta page s'affiche mais ta fonctionnalité (comptes, formulaire) ne marche plus alors qu'elle marchait en local ? C'est presque toujours tes clés qui manquent sur Vercel : elles sont restées sur ton ordi, pas sur GitHub (normal, ce sont des secrets). Dans Vercel, va dans Settings puis Environment Variables et ajoute-les (demande à Claude Code lesquelles et où les retrouver), puis clique Redeploy.",
         monExemple: "Le déploiement sur Vercel, c'est un clic. Le plus dur, c'est tout ce qu'on a fait avant.",
         conseil: "Déploie seulement quand ton site est prêt en local. Pas avant, ça complique pour rien.",
       },
@@ -450,10 +480,11 @@ export const etapesDetail: EtapeDetail[] = [
         titre: "Le juge visite ton site et coche la checklist ; il te renvoie à l'étape à reprendre si besoin.",
         duree: "≈ 5 à 10 min",
         cestquoi:
-          "Le juge, c'est une IA qui regarde ton site fini et vérifie les critères techniques du module (il répond, il a un titre, un bouton, il marche sur mobile, ta fonctionnalité fonctionne).",
+          "Le juge, c'est une IA qui regarde ton site fini et vérifie les critères techniques du module : il répond en ligne, il a un vrai titre et du contenu, des boutons ou des liens, et il est prêt pour le mobile. Ta fonctionnalité (comptes, formulaire…), lui ne peut pas la tester : c'est toi qui l'as vérifiée à l'étape 4, et il te le rappellera.",
         attendu: "Un verdict clair : réussi, ou ce qui manque avec l'étape à reprendre.",
-        exemples: [
-          "Va sur la page « Le juge » (le bouton « Faire évaluer mon site » sur la page du module).",
+        lien: { label: "Ouvrir la page du juge", href: "/juge" },
+        pasAPas: [
+          "Ouvre la page du juge avec le bouton juste au-dessus.",
           "Colle l'adresse de ton site en ligne (ton lien .vercel.app, celui qui marche pour tout le monde, pas celui en localhost) et lance. C'est de là qu'il fait le tour de ta checklist.",
         ],
         visuel: {
@@ -462,7 +493,7 @@ export const etapesDetail: EtapeDetail[] = [
           legende: "La page du juge : tu colles l'adresse de ton site en ligne, ton sujet en une phrase, et il fait le tour de la checklist.",
         },
         siCaBloque:
-          "Le juge dit qu'il n'arrive pas à accéder à ton site alors que toi tu le vois très bien ? C'est sûrement que ton lien est privé. Ouvre ton adresse .vercel.app dans une fenêtre de navigation privée : si on te demande un mot de passe, ton site n'est pas vraiment public. Dis à Claude Code « mon site Vercel demande une connexion, je veux qu'il soit public, aide-moi à enlever la protection ». Et s'il te renvoie à une étape, c'est une bonne nouvelle : il t'a évité de partager un site cassé. Tu corriges, tu repasses, et ça valide. Ce n'est pas une punition.",
+          "Le juge dit qu'il n'arrive pas à accéder à ton site alors que toi tu le vois très bien ? C'est sûrement que ton lien est privé. Ouvre ton adresse .vercel.app dans une fenêtre de navigation privée : si on te demande un mot de passe, ton site n'est pas vraiment public. Dis à Claude Code « mon site Vercel demande une connexion, je veux qu'il soit public, aide-moi à enlever la protection ». Le juge dit que ta page est vide ou encore sur le template, alors que ton site marche très bien dans ton navigateur ? Lis le détail du critère : il te dit exactement quoi demander à Claude Code (souvent, c'est le titre de l'onglet resté par défaut, ou un contenu que le juge ne voit pas sans JavaScript). Copie ce détail, colle-le à Claude Code, renvoie sur GitHub et repasse le juge. Et s'il te renvoie à une étape, c'est une bonne nouvelle : il t'a évité de partager un site cassé. Tu corriges, tu repasses, et ça valide. Ce n'est pas une punition.",
         conseil: "Le juge n'est pas là pour te noter, juste pour t'aider à finir proprement.",
       },
       {

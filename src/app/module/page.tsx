@@ -3,6 +3,8 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import MarkSelectedPath from "@/components/MarkSelectedPath";
+import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
 export const metadata = { title: "Module · Faire un site — The Vibe Experience" };
 
@@ -13,12 +15,25 @@ const costLabel: Record<Cost, string> = {
   payant: "Payant",
 };
 
-const toolbox: { n: string; d: string; cost: Cost }[] = [
-  { n: "Claude Code", d: "Ton atelier. Tu construis en parlant à l'IA, elle écrit le code pour toi.", cost: "payant" },
-  { n: "Homebrew", d: "L'installateur du terminal. Une commande pour installer ce qu'il te faut.", cost: "gratuit" },
-  { n: "GitHub", d: "Le coffre-fort de ton code. Il sauvegarde ton projet et son historique.", cost: "gratuit-debut" },
-  { n: "Vercel", d: "L'hébergeur. Il met ton site en ligne en un clic.", cost: "gratuit-debut" },
-  { n: "SuperWhisper (option)", d: "Pour parler à l'IA au lieu de tout taper.", cost: "payant" },
+const toolbox: { n: string; d: string; cost: Cost; url?: string }[] = [
+  { n: "Claude Code", d: "Ton atelier. Tu construis en parlant à l'IA, elle écrit le code pour toi.", cost: "payant", url: "https://claude.com/claude-code" },
+  { n: "Homebrew", d: "L'installateur du terminal. Une commande pour installer ce qu'il te faut.", cost: "gratuit", url: "https://brew.sh" },
+  { n: "GitHub", d: "Le coffre-fort de ton code. Il sauvegarde ton projet et son historique.", cost: "gratuit-debut", url: "https://github.com" },
+  { n: "Vercel", d: "L'hébergeur. Il met ton site en ligne en un clic.", cost: "gratuit-debut", url: "https://vercel.com" },
+  { n: "SuperWhisper (option)", d: "Pour parler à l'IA au lieu de tout taper.", cost: "payant", url: "https://superwhisper.com" },
+];
+
+const skillGifts: { n: string; d: string; href: string }[] = [
+  {
+    n: "Impeccable",
+    d: "Rend ton interface propre et pro, et nettoie le code derrière. Tu t'en sers à l'étape 3.",
+    href: "/skills/impeccable.zip",
+  },
+  {
+    n: "Agent Browser",
+    d: "Parcourt ton site comme un vrai visiteur et repère ce qui cloche. La première fois, Claude Code finit son installation tout seul. Tu le fais boucler avec Impeccable à l'étape 3.",
+    href: "/skills/agent-browser.zip",
+  },
 ];
 
 export default function Module() {
@@ -34,6 +49,7 @@ export default function Module() {
 
   return (
     <section className="etape-section">
+      <MarkSelectedPath path="construire" />
       <div className="etape-shell">
         <ModuleRail etapes={etapesDetail} currentSlug="" basePath="/module" moduleLabel="Faire un site" />
 
@@ -52,7 +68,7 @@ export default function Module() {
           <h1 className="mov-h1">
             Faire un site, <em>de ton idée à en ligne</em>.
           </h1>
-          <p className="mov-meta">6 étapes · ≈ 4 à 5 h au total · Débutant</p>
+          <p className="mov-meta">6 étapes · ≈ 4 à 5 h de travail, souvent en plusieurs fois · Débutant</p>
           <p className="etape-obj">
             Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la
             mise en ligne, en apprenant les vrais outils au passage. On ne t&apos;impose rien, on
@@ -70,14 +86,20 @@ export default function Module() {
 
           <div className="label mov-sec">Ta boîte à outils</div>
           <p className="mov-toolintro">
-            Pour commencer, il te faut surtout Claude Pro, environ 20 $/mois. GitHub, Vercel et le
+            Pour commencer, il te faut surtout Claude Pro, environ 20 €/mois. GitHub, Vercel et le
             reste sont gratuits pour débuter.
           </p>
           <div className="tfilets">
             {toolbox.map((t) => (
               <div className="tfilet" key={t.n}>
                 <span className="tfilet-name">
-                  {t.n}
+                  {t.url ? (
+                    <a href={t.url} target="_blank" rel="noreferrer" className="tfilet-link">
+                      {t.n} ↗
+                    </a>
+                  ) : (
+                    t.n
+                  )}
                   <span className={`cost cost-${t.cost}`}>{costLabel[t.cost]}</span>
                 </span>
                 <span className="tfilet-desc">{t.d}</span>
@@ -85,8 +107,31 @@ export default function Module() {
             ))}
           </div>
 
+          <div className="label mov-sec">Les skills qu&apos;on t&apos;offre</div>
+          <p className="mov-toolintro">
+            À l&apos;étape 3, tu rends ton site propre avec deux skills. On te donne une consigne à
+            copier dans Claude Code pour chacun. Tu colles, il récupère le skill et finit la mise en
+            place tout seul (Agent Browser installe son outil au premier usage).
+          </p>
+          <div className="gfilets">
+            {skillGifts.map((g) => (
+              <div className="gfilet" key={g.n}>
+                <span className="gfilet-body">
+                  <span className="gfilet-name">Installer le skill : {g.n}</span>
+                  <span className="gfilet-desc">{g.d}</span>
+                </span>
+                <SkillInstallCopyButton
+                  href={g.href}
+                  name={g.n}
+                  className="btn btn-ghost gfilet-btn"
+                  showHint
+                />
+              </div>
+            ))}
+          </div>
+
           <Link href="/juge" className="mov-cta">
-            <span className="label">La validation</span>
+            <span className="label">Le juge</span>
             <span className="mov-cta-title">Ton site est en ligne ? Fais-le évaluer par le juge. →</span>
             <span className="mov-cta-desc">
               Il visite ton site, vérifie la checklist technique du module, et te dit ce qui manque.

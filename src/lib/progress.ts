@@ -1,9 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
+import { createClient } from "@/lib/supabase/client";
 
-// Progression d'un module, au niveau SOUS-étape, stockée en local (pas besoin de compte).
-// Objectif : l'utilisateur ne se souvient plus d'où il en est, le site le sait pour lui.
+// Progression d'un module, au niveau SOUS-étape.
+// Source immédiate : le navigateur (localStorage), pour que ça marche tout de suite, même sans compte.
+// Si l'utilisateur est connecté, on synchronise en plus avec Supabase : la progression est alors
+// gardée sur son compte et se retrouve même s'il change de machine ou vide son navigateur.
 
 const KEY = "tve_progress_v2";
 const EVT = "tve-progress";
@@ -33,23 +36,101 @@ function write(s: Store) {
   }
 }
 
-export function useModuleProgress(moduleKey: string) {
-  const [done, setDone] = useState<string[]>([]);
-  const [mounted, setMounted] = useState(false);
+// --- Synchronisation compte (Supabase) --------------------------------------
+// Le compte connecté, posé par <ProgressSync /> au chargement et à chaque login/logout.
+let authedUserId: string | null = null;
+let supa: ReturnType<typeof createClient> | null = null;
 
-  useEffect(() => {
-    const refresh = () => setDone(read()[moduleKey]?.done ?? []);
-    queueMicrotask(() => {
-      refresh();
-      setMounted(true);
-    });
-    window.addEventListener("storage", refresh);
-    window.addEventListener(EVT, refresh);
-    return () => {
-      window.removeEventListener("storage", refresh);
-      window.removeEventListener(EVT, refresh);
-    };
-  }, [moduleKey]);
+function client() {
+  if (!supa) supa = createClient();
+  return supa;
+}
+
+// Envoie l'état d'un module vers le compte. Silencieux : si le réseau ou la table manque,
+// le local reste la source de vérité.
+async function pushModule(moduleKey: string, done: string[]) {
+  if (!authedUserId) return;
+  try {
+    await client()
+      .from("module_progress")
+      .upsert(
+        { user_id: authedUserId, module_key: moduleKey, done, updated_at: new Date().toISOString() },
+        { onConflict: "user_id,module_key" },
+      );
+  } catch {
+    // hors-ligne ou table absente : on garde le local.
+  }
+}
+
+// Au login : réconcilie le local et le compte (union, pour ne perdre aucune étape faite d'un côté
+// ou de l'autre), met à jour le local si le serveur apporte du neuf, et pousse vers le serveur ce
+// que seul le local connaît (utile quand on crée son compte après avoir déjà avancé).
+export async function hydrateFromServer(userId: string) {
+  authedUserId = userId;
+  if (typeof window === "undefined") return;
+
+  let rows: { module_key: string; done: string[] | null }[] = [];
+  try {
+    const { data, error } = await client()
+      .from("module_progress")
+      .select("module_key, done")
+      .eq("user_id", userId);
+    if (error) return;
+    rows = data ?? [];
+  } catch {
+    return;
+  }
+
+  const local = read();
+  const serverByKey = new Map(rows.map((r) => [r.module_key, new Set(r.done ?? [])]));
+  const keys = new Set<string>([...Object.keys(local), ...serverByKey.keys()]);
+
+  let localChanged = false;
+  for (const mk of keys) {
+    const localDone = new Set(local[mk]?.done ?? []);
+    const serverDone = serverByKey.get(mk) ?? new Set<string>();
+    const merged = new Set<string>([...localDone, ...serverDone]);
+
+    if (merged.size !== localDone.size) {
+      local[mk] = { done: [...merged] };
+      localChanged = true;
+    }
+    if (merged.size !== serverDone.size) {
+      void pushModule(mk, [...merged]);
+    }
+  }
+
+  if (localChanged) write(local);
+}
+
+// Au logout : on arrête de pousser vers le compte. Le local reste, pour ne pas effacer l'écran.
+export function stopSync() {
+  authedUserId = null;
+}
+
+function subscribeProgress(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("storage", callback);
+  window.addEventListener(EVT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(EVT, callback);
+  };
+}
+
+function readDoneSnapshot(moduleKey: string) {
+  if (typeof window === "undefined") return "";
+  return JSON.stringify(read()[moduleKey]?.done ?? []);
+}
+
+export function useModuleProgress(moduleKey: string) {
+  const doneSnapshot = useSyncExternalStore(
+    subscribeProgress,
+    () => readDoneSnapshot(moduleKey),
+    () => "",
+  );
+  const done = doneSnapshot ? (JSON.parse(doneSnapshot) as string[]) : [];
+  const mounted = doneSnapshot !== "";
 
   const setDoneState = useCallback(
     (id: string, value: boolean) => {
@@ -59,7 +140,7 @@ export function useModuleProgress(moduleKey: string) {
       else cur.delete(id);
       s[moduleKey] = { done: [...cur] };
       write(s);
-      setDone([...cur]);
+      void pushModule(moduleKey, [...cur]);
     },
     [moduleKey],
   );

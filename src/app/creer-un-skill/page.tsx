@@ -3,6 +3,8 @@ import { etapesDetailSkill, skillToolbox, skillGifts } from "@/lib/module-creer-
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import MarkSelectedPath from "@/components/MarkSelectedPath";
+import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
 export const metadata = { title: "Module · Créer ton premier skill — The Vibe Experience" };
 
@@ -25,6 +27,7 @@ export default function ModuleSkill() {
 
   return (
     <section className="etape-section">
+      <MarkSelectedPath path="construire" />
       <div className="etape-shell">
         <ModuleRail
           etapes={etapesDetailSkill}
@@ -84,25 +87,28 @@ export default function ModuleSkill() {
           <p className="mov-toolintro">
             Tu peux créer un skill juste en le demandant à Claude Code. Mais pour t&apos;aider à le
             faire nickel, on te donne nos deux vrais outils, en option : le premier crée un skill au
-            bon format, le second le passe en revue. Tu les télécharges et tu t&apos;en sers aux
-            étapes 2 et 3.
+            bon format, le second le passe en revue. Tu copies une consigne, tu la colles dans
+            Claude Code, et tu t&apos;en sers aux étapes 2 et 3.
           </p>
           <div className="gfilets">
             {skillGifts.map((g) => (
               <div className="gfilet" key={g.slug}>
                 <span className="gfilet-body">
-                  <span className="gfilet-name">{g.n}</span>
+                  <span className="gfilet-name">Installer le skill : {g.n}</span>
                   <span className="gfilet-desc">{g.d}</span>
                 </span>
-                <a className="btn btn-ghost gfilet-btn" href={g.href} download>
-                  Télécharger
-                </a>
+                <SkillInstallCopyButton
+                  href={g.href}
+                  name={g.n}
+                  className="btn btn-ghost gfilet-btn"
+                  showHint
+                />
               </div>
             ))}
           </div>
 
           <Link href="/juge-skill" className="mov-cta">
-            <span className="label">La validation</span>
+            <span className="label">Le juge des skills</span>
             <span className="mov-cta-title">Ton skill est prêt ? Fais-le lire par le juge. →</span>
             <span className="mov-cta-desc">
               Tu colles ton fichier SKILL.md, il vérifie qu&apos;il est bien formé et te dit ce qui

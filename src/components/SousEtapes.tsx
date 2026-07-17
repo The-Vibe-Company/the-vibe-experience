@@ -4,6 +4,42 @@ import { useState } from "react";
 import type { SousEtape } from "@/lib/module-faire-un-site";
 import { useModuleProgress, sousId } from "@/lib/progress";
 import CopyButton from "@/components/CopyButton";
+import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
+
+function splitParagraphs(text: string) {
+  const explicit = text
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  if (explicit.length > 1 || text.length < 320) return explicit.length ? explicit : [text];
+
+  const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+  const paragraphs: string[] = [];
+  let current = "";
+
+  for (const sentence of sentences) {
+    const next = current ? `${current} ${sentence}` : sentence;
+    if (current && next.length > 280) {
+      paragraphs.push(current);
+      current = sentence;
+    } else {
+      current = next;
+    }
+  }
+  if (current) paragraphs.push(current);
+
+  return paragraphs;
+}
+
+function TextParagraphs({ text }: { text: string }) {
+  return (
+    <div className="se-rich">
+      {splitParagraphs(text).map((paragraph, i) => (
+        <p key={i}>{paragraph}</p>
+      ))}
+    </div>
+  );
+}
 
 export default function SousEtapes({
   sous,
@@ -69,13 +105,60 @@ export default function SousEtapes({
                     {s.cestquoi && (
                       <div className="se-block">
                         <span className="se-l">C&apos;est quoi</span>
-                        <p>{s.cestquoi}</p>
+                        <TextParagraphs text={s.cestquoi} />
                       </div>
                     )}
                     {s.attendu && (
                       <div className="se-block">
                         <span className="se-l">Ce qu&apos;on attend</span>
-                        <p>{s.attendu}</p>
+                        <TextParagraphs text={s.attendu} />
+                      </div>
+                    )}
+                    {s.telechargements && s.telechargements.length > 0 && (
+                      <div className="se-block">
+                        <div className="se-install-list">
+                          {s.telechargements.map((t) => (
+                            <div className="se-install" key={t.href}>
+                              <span className="se-l">Installer le skill : {t.n}</span>
+                              <div className="se-dl">
+                                <SkillInstallCopyButton
+                                  href={t.href}
+                                  name={t.n}
+                                  className="btn btn-ghost se-dl-btn"
+                                  showHint
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {s.lien && (
+                      <div className="se-block">
+                        <span className="se-l">Où ça se passe</span>
+                        <div className="se-dl">
+                          <a
+                            className="btn btn-ghost se-dl-btn"
+                            href={s.lien.href}
+                            {...(s.lien.href.startsWith("http")
+                              ? { target: "_blank", rel: "noreferrer" }
+                              : {})}
+                          >
+                            {s.lien.label} {s.lien.href.startsWith("http") ? "↗" : "→"}
+                          </a>
+                        </div>
+                      </div>
+                    )}
+                    {s.pasAPas && s.pasAPas.length > 0 && (
+                      <div className="se-block">
+                        <span className="se-l">Comment faire</span>
+                        <ol className="se-steps">
+                          {s.pasAPas.map((p, j) => (
+                            <li key={j}>
+                              <span>{p}</span>
+                            </li>
+                          ))}
+                        </ol>
                       </div>
                     )}
                     {s.exemples && s.exemples.length > 0 && (
@@ -113,12 +196,18 @@ export default function SousEtapes({
                           <CopyButton text={s.prompt} />
                         </div>
                         <div className="se-prompt-body">{s.prompt}</div>
+                        {s.prompt.includes("[") && (
+                          <p className="se-prompt-note">
+                            Remplace ce qui est entre crochets [ ] par tes propres mots avant
+                            d&apos;envoyer.
+                          </p>
+                        )}
                       </div>
                     )}
                     {(s.ceQueTuDoisVoir || s.visuel) && (
                       <div className="se-block">
                         <span className="se-l">Ce que tu dois voir</span>
-                        {s.ceQueTuDoisVoir && <p>{s.ceQueTuDoisVoir}</p>}
+                        {s.ceQueTuDoisVoir && <TextParagraphs text={s.ceQueTuDoisVoir} />}
                         {s.visuel && (
                           <figure className="se-shot">
                             <div className="se-shot-bar" aria-hidden>
@@ -136,19 +225,21 @@ export default function SousEtapes({
                     {s.siCaBloque && (
                       <div className="se-block">
                         <span className="se-l">Si ça bloque</span>
-                        <p>{s.siCaBloque}</p>
+                        <TextParagraphs text={s.siCaBloque} />
                       </div>
                     )}
                     {s.monExemple && (
                       <blockquote className="se-quote">
-                        <p>{s.monExemple}</p>
-                        <cite>— Victor</cite>
+                        {splitParagraphs(s.monExemple).map((paragraph, j) => (
+                          <p key={j}>{paragraph}</p>
+                        ))}
+                        <cite>Victor</cite>
                       </blockquote>
                     )}
                     {s.conseil && (
                       <div className="se-block">
                         <span className="se-l">Conseil</span>
-                        <p>{s.conseil}</p>
+                        <TextParagraphs text={s.conseil} />
                       </div>
                     )}
 

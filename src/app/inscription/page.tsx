@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import SkipQuizLink from "@/components/SkipQuizLink";
 
 export default function Inscription() {
   const [email, setEmail] = useState("");
@@ -37,12 +38,37 @@ export default function Inscription() {
         <p className="sub">
           Ton compte garde ton parcours et ta progression, pour reprendre là où tu t&apos;es arrêté.
         </p>
+        <div className="auth-note">
+          <span className="auth-note-title">Le quiz est optionnel</span>
+          <p>
+            Tu peux créer ton compte maintenant, choisir ton parcours directement, ou faire le quiz
+            pour être orienté.
+          </p>
+          <div className="auth-note-actions">
+            <SkipQuizLink className="quiz-choose">
+              Voir les parcours →
+            </SkipQuizLink>
+            <Link href="/demarrer" className="quiz-choose">
+              Faire le quiz →
+            </Link>
+          </div>
+        </div>
 
         {done ? (
-          <div className="auth-msg ok">
-            C&apos;est presque bon. On t&apos;a envoyé un email de confirmation, clique sur le lien
-            pour activer ton compte.
-          </div>
+          <>
+            <div className="auth-msg ok">
+              C&apos;est presque bon. On t&apos;a envoyé un email de confirmation, clique sur le lien
+              pour activer ton compte.
+            </div>
+            <div className="auth-next">
+              <SkipQuizLink className="btn btn-full">
+                Voir les parcours →
+              </SkipQuizLink>
+              <Link href="/demarrer" className="quiz-choose">
+                Faire le quiz avant →
+              </Link>
+            </div>
+          </>
         ) : (
           <form onSubmit={onSubmit}>
             {error && <div className="auth-msg err">{error}</div>}
