@@ -230,6 +230,23 @@ export default function ParcoursFamilies() {
         </Link>
       ),
     },
+    {
+      key: "module-03",
+      node: (
+        <Link className="pc-mc" href="/automatiser-ton-travail">
+          <div className="pc-mc-head">
+            <span className="label">Module 03 · Savoir-faire</span>
+            <span className="pc-mc-status">En écriture →</span>
+          </div>
+          <span className="pc-mc-title">Automatise ton travail</span>
+          <p className="pc-mc-desc">
+            Il ne se passe plus des choses parce que tu demandes, mais parce que c&apos;est
+            déclenché : sauvegardes toutes seules, garde-fous, rendez-vous programmés.
+          </p>
+          <span className="pc-mc-meta">Savoir-faire · après le module 2</span>
+        </Link>
+      ),
+    },
   ];
 
   const automatiserCards = businessSoon.map((m) => ({
@@ -279,7 +296,7 @@ export default function ParcoursFamilies() {
           "construire",
           "Apprendre à construire",
           "Tu fabriques tes propres trucs, pas à pas, et tu montes en compétence. Le chemin fait partie de la valeur.",
-          "2 modules disponibles"
+          "3 modules"
         )}
         {carte(
           "automatiser",
