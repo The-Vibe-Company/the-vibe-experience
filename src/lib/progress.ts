@@ -8,7 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 const KEY = "tve_progress_v2";
 const EVT = "tve-progress";
 
-type Store = Record<string, { done: string[] }>;
+type Store = Record<string, { done: string[]; started?: boolean }>;
 
 // Id stable d'une sous-étape : slug de l'étape + index (0-based).
 export function sousId(etapeSlug: string, i: number): string {
@@ -33,14 +33,56 @@ function write(s: Store) {
   }
 }
 
+export function hasAnyModuleStarted() {
+  const s = read();
+  return Object.values(s).some((entry) => entry.started || (entry.done?.length ?? 0) > 0);
+}
+
+export function markModuleStarted(moduleKey: string) {
+  const s = read();
+  const cur = s[moduleKey] ?? { done: [] };
+  if (cur.started) return;
+  s[moduleKey] = { ...cur, done: cur.done ?? [], started: true };
+  write(s);
+}
+
+export function useAnyModuleStarted() {
+  const [started, setStarted] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const refresh = () => setStarted(hasAnyModuleStarted());
+    queueMicrotask(() => {
+      refresh();
+      setMounted(true);
+    });
+    window.addEventListener("storage", refresh);
+    window.addEventListener(EVT, refresh);
+    return () => {
+      window.removeEventListener("storage", refresh);
+      window.removeEventListener(EVT, refresh);
+    };
+  }, []);
+
+  return { started, mounted };
+}
+
+export function useMarkModuleStarted(moduleKey: string) {
+  useEffect(() => {
+    markModuleStarted(moduleKey);
+  }, [moduleKey]);
+}
+
 export function useModuleProgress(moduleKey: string) {
   const [done, setDone] = useState<string[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const refresh = () => setDone(read()[moduleKey]?.done ?? []);
-    refresh();
-    setMounted(true);
+    queueMicrotask(() => {
+      refresh();
+      setMounted(true);
+    });
     window.addEventListener("storage", refresh);
     window.addEventListener(EVT, refresh);
     return () => {
