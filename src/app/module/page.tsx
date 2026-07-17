@@ -68,7 +68,7 @@ export default function Module() {
           <h1 className="mov-h1">
             Faire un site, <em>de ton idée à en ligne</em>.
           </h1>
-          <p className="mov-meta">6 étapes · ≈ 4 à 5 h de travail, souvent en plusieurs fois · Débutant</p>
+          <p className="mov-meta">6 étapes · ≈ 3 à 4 h de travail, souvent en plusieurs fois · Débutant</p>
           <p className="etape-obj">
             Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la
             mise en ligne, en apprenant les vrais outils au passage. On ne t&apos;impose rien, on

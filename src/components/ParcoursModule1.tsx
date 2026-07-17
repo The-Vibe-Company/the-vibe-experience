@@ -34,7 +34,7 @@ export default function ParcoursModule1({ onChooseModule }: { onChooseModule?: (
       <div className="pc-mc-head">
         <span className="label">Module 01 · Produit</span>
         <span className="pc-mc-head-side">
-          <span className="pc-mc-time">≈ 4 à 5 h</span>
+          <span className="pc-mc-time">≈ 3 à 4 h</span>
           {mounted &&
             (stats.allDone ? (
               <span className="pc-status done">✓ Terminé</span>
