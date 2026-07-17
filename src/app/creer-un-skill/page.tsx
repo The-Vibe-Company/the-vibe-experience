@@ -37,7 +37,7 @@ export default function ModuleSkill() {
           moduleLabel="Créer ton premier skill"
         />
 
-        <div className="ecol">
+        <div className="ecol ecol-with-side">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
