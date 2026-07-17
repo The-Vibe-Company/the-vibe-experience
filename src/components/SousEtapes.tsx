@@ -6,6 +6,8 @@ import { useModuleProgress, sousId } from "@/lib/progress";
 import CopyButton from "@/components/CopyButton";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
+const sentenceSegmenter = new Intl.Segmenter("fr", { granularity: "sentence" });
+
 function splitParagraphs(text: string) {
   const explicit = text
     .split(/\n{2,}/)
@@ -36,6 +38,18 @@ function TextParagraphs({ text }: { text: string }) {
     <div className="se-rich">
       {splitParagraphs(text).map((paragraph, i) => (
         <p key={i}>{paragraph}</p>
+      ))}
+    </div>
+  );
+}
+
+function GuidanceParagraphs({ text }: { text: string }) {
+  const paragraphs = Array.from(sentenceSegmenter.segment(text), ({ segment }) => segment.trim()).filter(Boolean);
+
+  return (
+    <div className="se-rich">
+      {paragraphs.map((paragraph) => (
+        <p key={paragraph}>{paragraph}</p>
       ))}
     </div>
   );
@@ -199,9 +213,9 @@ export default function SousEtapes({
                         </div>
                       )}
                       {(s.ceQueTuDoisVoir || s.visuel) && (
-                        <div className="se-block">
+                        <div className="se-block se-guidance">
                           <span className="se-l">Ce que tu dois voir</span>
-                          {s.ceQueTuDoisVoir && <TextParagraphs text={s.ceQueTuDoisVoir} />}
+                          {s.ceQueTuDoisVoir && <GuidanceParagraphs text={s.ceQueTuDoisVoir} />}
                           {s.visuel && (
                             <figure className="se-shot">
                               <div className="se-shot-bar" aria-hidden>
@@ -217,9 +231,9 @@ export default function SousEtapes({
                         </div>
                       )}
                       {s.siCaBloque && (
-                        <div className="se-block">
+                        <div className="se-block se-guidance">
                           <span className="se-l">Si ça bloque</span>
-                          <TextParagraphs text={s.siCaBloque} />
+                          <GuidanceParagraphs text={s.siCaBloque} />
                         </div>
                       )}
 

@@ -505,6 +505,11 @@ a { color: inherit; text-decoration: none; }
 .se-l { display: block; font-family: var(--font-geist-mono), monospace; font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; color: var(--fg); margin-bottom: .35rem; }
 .se-block p { margin: 0; font-size: .95rem; line-height: 1.62; color: var(--muted); }
 .se-rich { display: flex; flex-direction: column; gap: .7rem; }
+.se-guidance { padding: 1.15rem 0 1.25rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.se-guidance + .se-guidance { margin-top: -1.2rem; border-top: none; }
+.se-guidance > .se-l { margin-bottom: .7rem; }
+.se-guidance p { max-width: 62ch; font-size: .92rem; line-height: 1.65; }
+.se-guidance .se-shot { margin-top: 1rem; }
 .se-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .55rem; counter-reset: sesteps; }
 .se-steps li { counter-increment: sesteps; display: flex; gap: .65rem; font-size: .92rem; line-height: 1.6; }
 .se-steps li::before { content: counter(sesteps); font-family: var(--font-geist-mono), monospace; font-size: .7rem; font-weight: 600; color: var(--orange-ink); border: 1px solid var(--border); border-radius: 999px; width: 1.4rem; height: 1.4rem; display: inline-flex; align-items: center; justify-content: center; flex: none; margin-top: .12rem; }
@@ -941,8 +946,8 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-panel-intro { font-size: .95rem; line-height: 1.6; color: var(--muted); margin: 0; max-width: 62ch; }
 .pc-lib { margin-top: 1.1rem; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 3rem; border-bottom: 1px solid var(--border); }
 .pc-lib .pc-mc-lead.cur { margin-left: 0; padding-left: 1.1rem; }
-/* Cartes de même taille : le texte respire, le statut reste calé en bas. */
-.pc-lib .pc-mc { display: flex; flex-direction: column; min-height: 21.2rem; }
+/* La grille égalise naturellement les cartes, le statut reste calé en bas. */
+.pc-lib .pc-mc { display: flex; flex-direction: column; }
 .pc-lib .pc-mc .pc-mc-prog { margin-top: auto; }
 .pc-lib .pc-mc .pc-soon-bar { margin-top: auto; }
 .pc-mc { display: block; position: relative; border-top: 1px solid var(--border); padding: 1.3rem 0; color: inherit; }

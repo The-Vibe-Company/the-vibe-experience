@@ -8,9 +8,8 @@ type SideItem = {
   value: string;
 };
 
-// Panneau latéral de la page module : il ne montre que ce qui sert maintenant.
-// Avant de commencer : ce qu'il faut savoir pour se lancer. En cours : où on en
-// est et où reprendre. Terminé : la suite (le juge).
+// Panneau latéral de la page module : contexte, progression et lien secondaire.
+// Le bouton principal de démarrage ou de reprise reste dans la colonne centrale.
 export default function ModuleSidePanel({
   moduleKey,
   basePath,
