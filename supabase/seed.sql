@@ -1,0 +1,3 @@
+-- Les comptes de demonstration doivent pouvoir se connecter avec un mot de passe.
+-- Ils sont donc crees apres `supabase start` via l'API Admin locale par
+-- scripts/conductor/seed-local.mjs, plutot que par des insertions fragiles dans auth.users.

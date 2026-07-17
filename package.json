@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "conductor:dev": "zsh scripts/conductor/dev.zsh",
+    "conductor:db:reset": "zsh scripts/conductor/reset-db.zsh",
+    "conductor:db:stop": "zsh scripts/conductor/stop-db.zsh",
+    "conductor:archive": "zsh scripts/conductor/archive.zsh",
+    "supabase": "zsh scripts/supabase.zsh"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
@@ -22,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "supabase": "2.109.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
