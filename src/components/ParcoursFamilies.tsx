@@ -29,8 +29,20 @@ export default function ParcoursFamilies() {
   const [reco, setReco] = useState<Branche | null>(null);
   const moduleStarted = useAnyModuleStarted();
 
-  // On arrive toujours catégories repliées ; la reco du quiz met juste le tag
-  // « Parcours conseillé » sur la bonne carte, sans l'ouvrir.
+  // La catégorie ouverte vit dans l'URL (?cat=...). Un retour arrière depuis un
+  // module restaure donc la catégorie telle qu'on l'avait laissée, alors que le
+  // lien « Parcours » du menu, sans paramètre, arrive catégories repliées.
+  useEffect(() => {
+    queueMicrotask(() => {
+      try {
+        const cat = new URLSearchParams(window.location.search).get("cat");
+        if (cat === "construire" || cat === "automatiser") setBranche(cat);
+      } catch {}
+    });
+  }, []);
+
+  // La reco du quiz met juste le tag « Parcours conseillé » sur la bonne carte,
+  // sans l'ouvrir.
   useEffect(() => {
     queueMicrotask(() => {
       if (moduleStarted.started) {
@@ -58,7 +70,12 @@ export default function ParcoursFamilies() {
   }, [moduleStarted.started]);
 
   const choisir = (b: Branche) => {
-    setBranche(branche === b ? null : b);
+    const next = branche === b ? null : b;
+    setBranche(next);
+    try {
+      const url = next ? `${window.location.pathname}?cat=${next}` : window.location.pathname;
+      window.history.replaceState(window.history.state, "", url);
+    } catch {}
   };
 
   const carte = (b: Branche, titre: string, desc: string, count: string, soon?: boolean) => {
