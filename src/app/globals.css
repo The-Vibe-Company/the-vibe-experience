@@ -752,6 +752,10 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-panel-intro { font-size: .95rem; line-height: 1.6; color: var(--muted); margin: 0; max-width: 62ch; }
 .pc-lib { margin-top: 1.1rem; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 3rem; border-bottom: 1px solid var(--border); }
 .pc-lib .pc-mc-lead.cur { margin-left: 0; padding-left: 1.1rem; }
+/* Cartes de même taille quelle que soit la catégorie, dernier bloc calé en bas. */
+.pc-lib .pc-mc { display: flex; flex-direction: column; min-height: 20rem; }
+.pc-lib .pc-mc .pc-mc-meta:last-child, .pc-lib .pc-mc .pc-soon-bar, .pc-lib .pc-mc .pc-mc-cta { margin-top: auto; }
+.pc-lib .pc-mc .pc-mc-prog { margin-bottom: 1rem; }
 .pc-mc { display: block; position: relative; border-top: 1px solid var(--border); padding: 1.3rem 0; color: inherit; }
 .pc-mc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .pc-mc-title { display: block; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; margin: .5rem 0 0; transition: color .15s; color: var(--fg); }
@@ -787,6 +791,7 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
   .pc-grid { grid-template-columns: 1fr; gap: 1.4rem; }
   .pc-cats { grid-template-columns: 1fr; gap: 1rem; }
   .pc-lib { grid-template-columns: 1fr; }
+  .pc-lib .pc-mc { min-height: 0; }
   .pc-orient { flex-direction: column; align-items: flex-start; gap: 1rem; }
 }
 
