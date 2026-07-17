@@ -29,7 +29,7 @@ export default function ModuleSidePanel({
   const { done, mounted, started: moduleStarted } = useModuleProgress(moduleKey);
   const stats = computeStats(etapes, mounted ? done : [], mounted && moduleStarted);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
-  const started = mounted && stats.started;
+  const started = mounted && stats.doneCount > 0;
 
   if (started && stats.allDone) {
     return (

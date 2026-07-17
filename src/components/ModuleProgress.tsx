@@ -20,13 +20,15 @@ export default function ModuleProgress({
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const t = stats.current;
 
-  let cta = `Commencer à la sous-étape ${etapes[0]?.num}.1`;
+  let cta = "Commencer le module";
   let href = `${basePath}/${etapes[0]?.slug}`;
   if (stats.allDone) {
     cta = "Revoir le module";
   } else if (t) {
-    cta = `${stats.started ? "Reprendre" : "Commencer"} à la sous-étape ${t.etapeNum}.${t.subIndex + 1}`;
     href = `${basePath}/${t.etapeSlug}`;
+    if (stats.doneCount > 0) {
+      cta = `Reprendre à la sous-étape ${t.etapeNum}.${t.subIndex + 1}`;
+    }
   }
 
   return (

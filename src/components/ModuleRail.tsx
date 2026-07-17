@@ -33,7 +33,7 @@ export default function ModuleRail({
   if (mounted) {
     if (stats.allDone) cta = "Revoir le module";
     else if (t) {
-      cta = `${stats.started ? "Reprendre" : "Commencer"} à la sous-étape ${t.etapeNum}.${t.subIndex + 1} →`;
+      cta = `${stats.doneCount > 0 ? "Reprendre" : "Commencer"} à la sous-étape ${t.etapeNum}.${t.subIndex + 1} →`;
       ctaHref = `${basePath}/${t.etapeSlug}`;
     }
   }
