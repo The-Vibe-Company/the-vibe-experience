@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 // Progression d'un module, au niveau SOUS-étape.
@@ -11,7 +11,7 @@ import { createClient } from "@/lib/supabase/client";
 const KEY = "tve_progress_v2";
 const EVT = "tve-progress";
 
-type Store = Record<string, { done: string[] }>;
+type Store = Record<string, { done: string[]; started?: boolean }>;
 
 // Id stable d'une sous-étape : slug de l'étape + index (0-based).
 export function sousId(etapeSlug: string, i: number): string {
@@ -92,7 +92,7 @@ export async function hydrateFromServer(userId: string) {
     const merged = new Set<string>([...localDone, ...serverDone]);
 
     if (merged.size !== localDone.size) {
-      local[mk] = { done: [...merged] };
+      local[mk] = { ...local[mk], done: [...merged] };
       localChanged = true;
     }
     if (merged.size !== serverDone.size) {
@@ -123,6 +123,35 @@ function readDoneSnapshot(moduleKey: string) {
   return JSON.stringify(read()[moduleKey]?.done ?? []);
 }
 
+// --- Suivi « module commencé » (pour l'accueil du parcours) -----------------
+export function hasAnyModuleStarted() {
+  const s = read();
+  return Object.values(s).some((entry) => entry.started || (entry.done?.length ?? 0) > 0);
+}
+
+export function markModuleStarted(moduleKey: string) {
+  const s = read();
+  const cur = s[moduleKey] ?? { done: [] };
+  if (cur.started) return;
+  s[moduleKey] = { ...cur, done: cur.done ?? [], started: true };
+  write(s);
+}
+
+export function useAnyModuleStarted() {
+  const snapshot = useSyncExternalStore(
+    subscribeProgress,
+    () => (hasAnyModuleStarted() ? "1" : "0"),
+    () => "",
+  );
+  return { started: snapshot === "1", mounted: snapshot !== "" };
+}
+
+export function useMarkModuleStarted(moduleKey: string) {
+  useEffect(() => {
+    markModuleStarted(moduleKey);
+  }, [moduleKey]);
+}
+
 export function useModuleProgress(moduleKey: string) {
   const doneSnapshot = useSyncExternalStore(
     subscribeProgress,
@@ -138,7 +167,7 @@ export function useModuleProgress(moduleKey: string) {
       const cur = new Set(s[moduleKey]?.done ?? []);
       if (value) cur.add(id);
       else cur.delete(id);
-      s[moduleKey] = { done: [...cur] };
+      s[moduleKey] = { ...s[moduleKey], done: [...cur] };
       write(s);
       void pushModule(moduleKey, [...cur]);
     },
