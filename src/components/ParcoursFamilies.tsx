@@ -7,8 +7,6 @@ import { useAnyModuleStarted } from "@/lib/progress";
 
 type Branche = "construire" | "automatiser";
 
-const CHOIX_KEY = "tve_parcours_branche";
-
 const businessSoon = [
   {
     titre: "Automatiser mes devis",
@@ -31,15 +29,10 @@ export default function ParcoursFamilies() {
   const [reco, setReco] = useState<Branche | null>(null);
   const moduleStarted = useAnyModuleStarted();
 
+  // On arrive toujours catégories repliées ; la reco du quiz met juste le tag
+  // « Parcours conseillé » sur la bonne carte, sans l'ouvrir.
   useEffect(() => {
     queueMicrotask(() => {
-      // Choix explicite mémorisé ("" = volontairement replié).
-      let choix: Branche | "" | null = null;
-      try {
-        const saved = localStorage.getItem(CHOIX_KEY);
-        if (saved === "construire" || saved === "automatiser" || saved === "") choix = saved;
-      } catch {}
-
       if (moduleStarted.started) {
         // Un module est lancé : la reco du quiz n'a plus lieu d'être.
         setReco(null);
@@ -51,29 +44,21 @@ export default function ParcoursFamilies() {
             localStorage.setItem("tve_quiz_reco", JSON.stringify(r));
           }
         } catch {}
-        setBranche(choix === null ? "construire" : choix || null);
         return;
       }
 
-      let quizReco: Branche | null = null;
       try {
         const raw = localStorage.getItem("tve_quiz_reco");
         if (raw) {
           const r = JSON.parse(raw);
-          if (r.branche === "construire" || r.branche === "automatiser") quizReco = r.branche;
+          if (r.branche === "construire" || r.branche === "automatiser") setReco(r.branche);
         }
       } catch {}
-      setReco(quizReco);
-      setBranche(choix === null ? quizReco : choix || null);
     });
   }, [moduleStarted.started]);
 
   const choisir = (b: Branche) => {
-    const next = branche === b ? null : b;
-    setBranche(next);
-    try {
-      localStorage.setItem(CHOIX_KEY, next ?? "");
-    } catch {}
+    setBranche(branche === b ? null : b);
   };
 
   const carte = (b: Branche, titre: string, desc: string, count: string, soon?: boolean) => {

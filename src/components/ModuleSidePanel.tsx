@@ -8,65 +8,84 @@ type SideItem = {
   value: string;
 };
 
-type SideLink = {
-  label: string;
-  href: string;
-};
-
+// Panneau latéral de la page module : il ne montre que ce qui sert maintenant.
+// Avant de commencer : ce qu'il faut savoir pour se lancer. En cours : où on en
+// est et où reprendre. Terminé : la suite (le juge).
 export default function ModuleSidePanel({
   moduleKey,
   basePath,
   etapes,
-  title,
-  focus,
   facts,
-  reminders,
-  links,
+  jugeHref = "/juge",
+  jugeLabel = "Fais évaluer ton site par le juge",
 }: {
   moduleKey: string;
   basePath: string;
   etapes: EtapeLite[];
-  title: string;
-  focus: string;
   facts: SideItem[];
-  reminders: string[];
-  links: SideLink[];
+  jugeHref?: string;
+  jugeLabel?: string;
 }) {
   const { done, mounted } = useModuleProgress(moduleKey);
   const stats = computeStats(etapes, mounted ? done : []);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
+  const started = mounted && stats.started;
 
-  let cta = `Commencer à la sous-étape ${etapes[0]?.num}.1`;
-  let href = `${basePath}/${etapes[0]?.slug}`;
-  if (stats.allDone) {
-    cta = "Revoir le module";
-  } else if (stats.current) {
-    cta = `${stats.started ? "Reprendre" : "Commencer"} à la sous-étape ${stats.current.etapeNum}.${stats.current.subIndex + 1}`;
-    href = `${basePath}/${stats.current.etapeSlug}`;
+  if (started && stats.allDone) {
+    return (
+      <aside className="module-side" aria-label="Où tu en es dans le module">
+        <span className="label">Où tu en es</span>
+        <p className="module-side-state">✓ Module terminé. Bien joué.</p>
+        <Link className="module-side-next" href={jugeHref}>
+          <span>Prochaine action</span>
+          <strong>{jugeLabel} →</strong>
+        </Link>
+        <div className="module-side-links">
+          <Link href={`${basePath}/${etapes[0]?.slug}`}>Revoir le module →</Link>
+        </div>
+      </aside>
+    );
+  }
+
+  if (started && stats.current) {
+    const cur = stats.current;
+    const curEtape = etapes.find((e) => e.slug === cur.etapeSlug);
+    return (
+      <aside className="module-side" aria-label="Où tu en es dans le module">
+        <span className="label">Où tu en es</span>
+        <Link className="module-side-next" href={`${basePath}/${cur.etapeSlug}`}>
+          <span>Prochaine action</span>
+          <strong>
+            Reprendre à la sous-étape {cur.etapeNum}.{cur.subIndex + 1} →
+          </strong>
+        </Link>
+        <div className="module-side-list">
+          <div className="module-side-row">
+            <span>Étape en cours</span>
+            <strong>
+              {cur.etapeNum} · {curEtape?.titre}
+            </strong>
+          </div>
+        </div>
+        <div className="module-side-progress" aria-label="Progression du module">
+          <span>
+            <strong>
+              {stats.doneCount}/{stats.total}
+            </strong>
+            <em>sous-étapes</em>
+          </span>
+          <span>
+            <strong>{pct}%</strong>
+            <em>fait</em>
+          </span>
+        </div>
+      </aside>
+    );
   }
 
   return (
-    <aside className="module-side" aria-label="Repères du module">
-      <span className="label">Plan d&apos;attaque</span>
-      <h2>{title}</h2>
-      <p>{focus}</p>
-
-      <Link className="module-side-next" href={href}>
-        <span>Prochaine action</span>
-        <strong>{cta} →</strong>
-      </Link>
-
-      <div className="module-side-progress" aria-label="Progression du module">
-        <span>
-          <strong>{stats.doneCount}/{stats.total}</strong>
-          <em>sous-étapes</em>
-        </span>
-        <span>
-          <strong>{pct}%</strong>
-          <em>fait</em>
-        </span>
-      </div>
-
+    <aside className="module-side" aria-label="Avant de te lancer">
+      <span className="label">Avant de te lancer</span>
       <div className="module-side-list">
         {facts.map((fact) => (
           <div className="module-side-row" key={fact.label}>
@@ -75,23 +94,10 @@ export default function ModuleSidePanel({
           </div>
         ))}
       </div>
-
-      <div className="module-side-reminders">
-        <span className="se-l">À garder en tête</span>
-        <ul>
-          {reminders.map((reminder) => (
-            <li key={reminder}>{reminder}</li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="module-side-links">
-        {links.map((link) => (
-          <Link href={link.href} key={link.href}>
-            {link.label} →
-          </Link>
-        ))}
-      </div>
+      <Link className="module-side-next" href={`${basePath}/${etapes[0]?.slug}`}>
+        <span>Par ici</span>
+        <strong>Commencer à la sous-étape {etapes[0]?.num}.1 →</strong>
+      </Link>
     </aside>
   );
 }

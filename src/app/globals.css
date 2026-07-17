@@ -557,6 +557,9 @@ a { color: inherit; text-decoration: none; }
 }
 .module-side h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -.025em; line-height: 1.08; margin: .65rem 0 .55rem; color: var(--fg); }
 .module-side p { font-size: .94rem; line-height: 1.55; margin: 0 0 1.15rem; }
+.module-side > .label { display: block; margin-bottom: .6rem; }
+.module-side-state { font-weight: 650; color: var(--fg); }
+.module-side-list + .module-side-next { border-top: none; }
 .module-side-next { display: flex; flex-direction: column; gap: .25rem; padding: .95rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); color: inherit; }
 .module-side-next span { font-family: var(--font-geist-mono), monospace; font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--orange-ink); }
 .module-side-next strong { font-size: 1rem; line-height: 1.35; color: var(--fg); transition: color .15s; }
