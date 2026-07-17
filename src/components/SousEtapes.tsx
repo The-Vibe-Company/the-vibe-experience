@@ -31,6 +31,11 @@ function splitParagraphs(text: string) {
   return paragraphs;
 }
 
+function shortText(text: string, max = 140) {
+  if (text.length <= max) return text;
+  return `${text.slice(0, max).trimEnd()}...`;
+}
+
 function TextParagraphs({ text }: { text: string }) {
   return (
     <div className="se-rich">
@@ -68,7 +73,9 @@ export default function SousEtapes({
         const isOpen = open === i;
         const label = `${etapeNum}.${i + 1}`;
         const isLast = i === sous.length - 1;
-        const hasSideNotes = Boolean((s.exemples && s.exemples.length > 0) || s.monExemple || s.conseil);
+        const hasSideNotes = Boolean(
+          s.duree || s.attendu || (s.exemples && s.exemples.length > 0) || s.monExemple || s.conseil,
+        );
 
         return (
           <div
@@ -234,6 +241,23 @@ export default function SousEtapes({
 
                     {hasSideNotes && (
                       <aside className="se-aside" aria-label="Exemples et conseils">
+                        {(s.duree || s.attendu) && (
+                          <div className="se-side-meta">
+                            <span className="se-l">Repères</span>
+                            {s.duree && (
+                              <div className="se-side-kv">
+                                <span>Durée</span>
+                                <strong>{s.duree}</strong>
+                              </div>
+                            )}
+                            {s.attendu && (
+                              <div className="se-side-kv">
+                                <span>À valider</span>
+                                <strong>{shortText(s.attendu)}</strong>
+                              </div>
+                            )}
+                          </div>
+                        )}
                         {s.exemples && s.exemples.length > 0 && (
                           <div className="se-block">
                             <span className="se-l">Exemples</span>

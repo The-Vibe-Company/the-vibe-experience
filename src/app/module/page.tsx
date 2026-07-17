@@ -3,6 +3,7 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
@@ -74,6 +75,28 @@ export default function Module() {
             mise en ligne, en apprenant les vrais outils au passage. On ne t&apos;impose rien, on
             t&apos;accompagne pas à pas.
           </p>
+
+          <ModuleSidePanel
+            moduleKey="/module"
+            basePath="/module"
+            etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            title="Ton premier site réel"
+            focus="Le but n'est pas de tout comprendre d'un coup. Tu avances étape par étape, tu vois le résultat, puis tu ajustes avec l'IA."
+            facts={[
+              { label: "Livrable", value: "Un site en ligne, partageable" },
+              { label: "Rythme", value: "6 étapes, souvent en plusieurs sessions" },
+              { label: "Budget", value: "Claude Pro surtout, le reste gratuit pour débuter" },
+            ]}
+            reminders={[
+              "Garde Claude Code ouvert quand tu travailles.",
+              "Une demande à la fois, puis tu regardes le résultat.",
+              "GitHub sauvegarde ton code, Vercel le met en ligne.",
+            ]}
+            links={[
+              { label: "Voir les ressources", href: "/ressources" },
+              { label: "Évaluer mon site", href: "/juge" },
+            ]}
+          />
 
           <ModuleProgress
             moduleKey="/module"
