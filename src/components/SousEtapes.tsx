@@ -31,6 +31,11 @@ function splitParagraphs(text: string) {
   return paragraphs;
 }
 
+function shortText(text: string, max = 140) {
+  if (text.length <= max) return text;
+  return `${text.slice(0, max).trimEnd()}...`;
+}
+
 function TextParagraphs({ text }: { text: string }) {
   return (
     <div className="se-rich">
@@ -68,6 +73,9 @@ export default function SousEtapes({
         const isOpen = open === i;
         const label = `${etapeNum}.${i + 1}`;
         const isLast = i === sous.length - 1;
+        const hasSideNotes = Boolean(
+          s.duree || s.attendu || (s.exemples && s.exemples.length > 0) || s.monExemple || s.conseil,
+        );
 
         return (
           <div
@@ -101,161 +109,185 @@ export default function SousEtapes({
                     Le détail accompagné de cette sous-étape arrive bientôt.
                   </p>
                 ) : (
-                  <>
-                    {s.cestquoi && (
-                      <div className="se-block">
-                        <span className="se-l">C&apos;est quoi</span>
-                        <TextParagraphs text={s.cestquoi} />
-                      </div>
-                    )}
-                    {s.attendu && (
-                      <div className="se-block">
-                        <span className="se-l">Ce qu&apos;on attend</span>
-                        <TextParagraphs text={s.attendu} />
-                      </div>
-                    )}
-                    {s.telechargements && s.telechargements.length > 0 && (
-                      <div className="se-block">
-                        <div className="se-install-list">
-                          {s.telechargements.map((t) => (
-                            <div className="se-install" key={t.href}>
-                              <span className="se-l">Installer le skill : {t.n}</span>
-                              <div className="se-dl">
-                                <SkillInstallCopyButton
-                                  href={t.href}
-                                  name={t.n}
-                                  className="btn btn-ghost se-dl-btn"
-                                  showHint
-                                />
+                  <div className={`se-panel-layout ${hasSideNotes ? "has-side" : ""}`}>
+                    <div className="se-main">
+                      {s.cestquoi && (
+                        <div className="se-block">
+                          <span className="se-l">C&apos;est quoi</span>
+                          <TextParagraphs text={s.cestquoi} />
+                        </div>
+                      )}
+                      {s.attendu && (
+                        <div className="se-block">
+                          <span className="se-l">Ce qu&apos;on attend</span>
+                          <TextParagraphs text={s.attendu} />
+                        </div>
+                      )}
+                      {s.telechargements && s.telechargements.length > 0 && (
+                        <div className="se-block">
+                          <div className="se-install-list">
+                            {s.telechargements.map((t) => (
+                              <div className="se-install" key={t.href}>
+                                <span className="se-l">Installer le skill : {t.n}</span>
+                                <div className="se-dl">
+                                  <SkillInstallCopyButton
+                                    href={t.href}
+                                    name={t.n}
+                                    className="btn btn-ghost se-dl-btn"
+                                    showHint
+                                  />
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    {s.lien && (
-                      <div className="se-block">
-                        <span className="se-l">Où ça se passe</span>
-                        <div className="se-dl">
-                          <a
-                            className="btn btn-ghost se-dl-btn"
-                            href={s.lien.href}
-                            {...(s.lien.href.startsWith("http")
-                              ? { target: "_blank", rel: "noreferrer" }
-                              : {})}
-                          >
-                            {s.lien.label} {s.lien.href.startsWith("http") ? "↗" : "→"}
-                          </a>
+                      )}
+                      {s.lien && (
+                        <div className="se-block">
+                          <span className="se-l">Où ça se passe</span>
+                          <div className="se-dl">
+                            <a
+                              className="btn btn-ghost se-dl-btn"
+                              href={s.lien.href}
+                              {...(s.lien.href.startsWith("http")
+                                ? { target: "_blank", rel: "noreferrer" }
+                                : {})}
+                            >
+                              {s.lien.label} {s.lien.href.startsWith("http") ? "↗" : "→"}
+                            </a>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    {s.pasAPas && s.pasAPas.length > 0 && (
-                      <div className="se-block">
-                        <span className="se-l">Comment faire</span>
-                        <ol className="se-steps">
-                          {s.pasAPas.map((p, j) => (
-                            <li key={j}>
-                              <span>{p}</span>
-                            </li>
-                          ))}
-                        </ol>
-                      </div>
-                    )}
-                    {s.exemples && s.exemples.length > 0 && (
-                      <div className="se-block">
-                        <span className="se-l">Exemples</span>
-                        <ul className="se-ex">
-                          {s.exemples.map((e, j) => (
-                            <li key={j}>
-                              <span className="se-dash">–</span>
-                              <span>{e}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {s.outils && s.outils.length > 0 && (
-                      <div className="se-block">
-                        <span className="se-l">Les outils</span>
-                        <ul className="se-ex">
-                          {s.outils.map((o) => (
-                            <li key={o.n}>
-                              <span className="se-dash">–</span>
-                              <span>
-                                <strong>{o.n}.</strong> {o.d}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {s.prompt && (
-                      <div className="se-prompt">
-                        <div className="se-prompt-head">
-                          <span className="se-l">Prompt fourni</span>
-                          <CopyButton text={s.prompt} />
+                      )}
+                      {s.pasAPas && s.pasAPas.length > 0 && (
+                        <div className="se-block">
+                          <span className="se-l">Comment faire</span>
+                          <ol className="se-steps">
+                            {s.pasAPas.map((p, j) => (
+                              <li key={j}>
+                                <span>{p}</span>
+                              </li>
+                            ))}
+                          </ol>
                         </div>
-                        <div className="se-prompt-body">{s.prompt}</div>
-                        {s.prompt.includes("[") && (
-                          <p className="se-prompt-note">
-                            Remplace ce qui est entre crochets [ ] par tes propres mots avant
-                            d&apos;envoyer.
-                          </p>
-                        )}
-                      </div>
-                    )}
-                    {(s.ceQueTuDoisVoir || s.visuel) && (
-                      <div className="se-block">
-                        <span className="se-l">Ce que tu dois voir</span>
-                        {s.ceQueTuDoisVoir && <TextParagraphs text={s.ceQueTuDoisVoir} />}
-                        {s.visuel && (
-                          <figure className="se-shot">
-                            <div className="se-shot-bar" aria-hidden>
-                              <span className="se-dot" />
-                              <span className="se-dot" />
-                              <span className="se-dot" />
-                            </div>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={s.visuel.src} alt={s.visuel.alt} />
-                            {s.visuel.legende && <figcaption>{s.visuel.legende}</figcaption>}
-                          </figure>
-                        )}
-                      </div>
-                    )}
-                    {s.siCaBloque && (
-                      <div className="se-block">
-                        <span className="se-l">Si ça bloque</span>
-                        <TextParagraphs text={s.siCaBloque} />
-                      </div>
-                    )}
-                    {s.monExemple && (
-                      <blockquote className="se-quote">
-                        {splitParagraphs(s.monExemple).map((paragraph, j) => (
-                          <p key={j}>{paragraph}</p>
-                        ))}
-                        <cite>Victor</cite>
-                      </blockquote>
-                    )}
-                    {s.conseil && (
-                      <div className="se-block">
-                        <span className="se-l">Conseil</span>
-                        <TextParagraphs text={s.conseil} />
-                      </div>
-                    )}
+                      )}
+                      {s.outils && s.outils.length > 0 && (
+                        <div className="se-block">
+                          <span className="se-l">Les outils</span>
+                          <ul className="se-ex">
+                            {s.outils.map((o) => (
+                              <li key={o.n}>
+                                <span className="se-dash">-</span>
+                                <span>
+                                  <strong>{o.n}.</strong> {o.d}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {s.prompt && (
+                        <div className="se-prompt">
+                          <div className="se-prompt-head">
+                            <span className="se-l">Prompt fourni</span>
+                            <CopyButton text={s.prompt} />
+                          </div>
+                          <div className="se-prompt-body">{s.prompt}</div>
+                          {s.prompt.includes("[") && (
+                            <p className="se-prompt-note">
+                              Remplace ce qui est entre crochets [ ] par tes propres mots avant
+                              d&apos;envoyer.
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      {(s.ceQueTuDoisVoir || s.visuel) && (
+                        <div className="se-block">
+                          <span className="se-l">Ce que tu dois voir</span>
+                          {s.ceQueTuDoisVoir && <TextParagraphs text={s.ceQueTuDoisVoir} />}
+                          {s.visuel && (
+                            <figure className="se-shot">
+                              <div className="se-shot-bar" aria-hidden>
+                                <span className="se-dot" />
+                                <span className="se-dot" />
+                                <span className="se-dot" />
+                              </div>
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img src={s.visuel.src} alt={s.visuel.alt} />
+                              {s.visuel.legende && <figcaption>{s.visuel.legende}</figcaption>}
+                            </figure>
+                          )}
+                        </div>
+                      )}
+                      {s.siCaBloque && (
+                        <div className="se-block">
+                          <span className="se-l">Si ça bloque</span>
+                          <TextParagraphs text={s.siCaBloque} />
+                        </div>
+                      )}
 
-                    {!done && (
-                      <button
-                        type="button"
-                        className="btn se-done"
-                        onClick={() => {
-                          setDone(id, true);
-                          if (!isLast) setOpen(i + 1);
-                        }}
-                      >
-                        {isLast ? "Fait, étape terminée ✓" : `Fait, je passe à la ${etapeNum}.${i + 2} →`}
-                      </button>
+                      {!done && (
+                        <button
+                          type="button"
+                          className="btn se-done"
+                          onClick={() => {
+                            setDone(id, true);
+                            if (!isLast) setOpen(i + 1);
+                          }}
+                        >
+                          {isLast ? "Fait, étape terminée ✓" : `Fait, je passe à la ${etapeNum}.${i + 2} →`}
+                        </button>
+                      )}
+                    </div>
+
+                    {hasSideNotes && (
+                      <aside className="se-aside" aria-label="Exemples et conseils">
+                        {(s.duree || s.attendu) && (
+                          <div className="se-side-meta">
+                            <span className="se-l">Repères</span>
+                            {s.duree && (
+                              <div className="se-side-kv">
+                                <span>Durée</span>
+                                <strong>{s.duree}</strong>
+                              </div>
+                            )}
+                            {s.attendu && (
+                              <div className="se-side-kv">
+                                <span>À valider</span>
+                                <strong>{shortText(s.attendu)}</strong>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        {s.exemples && s.exemples.length > 0 && (
+                          <div className="se-block">
+                            <span className="se-l">Exemples</span>
+                            <ul className="se-ex">
+                              {s.exemples.map((e, j) => (
+                                <li key={j}>
+                                  <span className="se-dash">-</span>
+                                  <span>{e}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        {s.monExemple && (
+                          <blockquote className="se-quote">
+                            <span className="se-l">Victor</span>
+                            {splitParagraphs(s.monExemple).map((paragraph, j) => (
+                              <p key={j}>{paragraph}</p>
+                            ))}
+                          </blockquote>
+                        )}
+                        {s.conseil && (
+                          <div className="se-block">
+                            <span className="se-l">Conseil</span>
+                            <TextParagraphs text={s.conseil} />
+                          </div>
+                        )}
+                      </aside>
                     )}
-                  </>
+                  </div>
                 )}
               </div>
             )}

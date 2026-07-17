@@ -3,6 +3,7 @@ import { etapesDetailSkill, skillToolbox, skillGifts } from "@/lib/module-creer-
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
@@ -36,7 +37,7 @@ export default function ModuleSkill() {
           moduleLabel="Créer ton premier skill"
         />
 
-        <div className="ecol">
+        <div className="ecol ecol-with-side">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -57,6 +58,28 @@ export default function ModuleSkill() {
             fabriques le tien : une compétence que tu apprends une fois à l&apos;IA et qu&apos;elle
             réutilise ensuite toute seule, sur tous tes projets.
           </p>
+
+          <ModuleSidePanel
+            moduleKey="/creer-un-skill"
+            basePath="/creer-un-skill"
+            etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            title="Ton premier réflexe réutilisable"
+            focus="Le but n'est pas d'écrire un fichier technique parfait. Tu repères une répétition, tu la transformes en consigne durable, puis tu la testes."
+            facts={[
+              { label: "Livrable", value: "Un skill que Claude Code peut réutiliser" },
+              { label: "Rythme", value: "5 étapes, environ 1 h 40" },
+              { label: "Outil", value: "Claude Code, plus les deux skills offerts" },
+            ]}
+            reminders={[
+              "Un bon skill fait une seule chose.",
+              "Commence par une répétition que tu comprends vraiment.",
+              "Le juge vérifie la structure avant que tu le réutilises partout.",
+            ]}
+            links={[
+              { label: "Voir les ressources", href: "/ressources" },
+              { label: "Évaluer mon skill", href: "/juge-skill" },
+            ]}
+          />
 
           <ModuleProgress
             moduleKey="/creer-un-skill"
