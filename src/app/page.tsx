@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "The Vibe Experience - Site en preparation",
-  description: "The Vibe Experience arrive bientot.",
+  title: "The Vibe Experience",
+  description: "Parcours The Vibe Experience.",
   robots: {
     index: false,
     follow: false,
@@ -10,16 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return (
-    <section className="maintenance">
-      <div className="maintenance-inner">
-        <div className="maintenance-kicker">The Vibe Experience</div>
-        <h1>Site en préparation</h1>
-        <p>
-          Le parcours est en construction. Il sera remis en ligne quand la version publique sera
-          prête.
-        </p>
-      </div>
-    </section>
-  );
+  redirect("/parcours");
 }
