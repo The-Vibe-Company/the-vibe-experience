@@ -910,8 +910,13 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-desc { margin: .6rem 0 0; font-size: .92rem; line-height: 1.55; color: var(--muted); max-width: 52ch; }
 .pc-meta { display: block; margin-top: .75rem; font-family: var(--font-geist-mono), monospace; font-size: .66rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted-2); }
 .pc-right { padding-top: .3rem; }
-.pc-prog-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .55rem; }
+.pc-prog-head { display: flex; justify-content: space-between; align-items: baseline; min-height: 1rem; margin-bottom: .55rem; }
 .pc-count { font-family: var(--font-geist-mono), monospace; font-size: .72rem; color: var(--fg); }
+.pc-progress-state { display: inline-flex; align-items: center; gap: .55rem; font-family: var(--font-geist-mono), monospace; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--muted-2); white-space: nowrap; }
+.pc-progress-state::before { content: ""; width: 1.25rem; height: 2px; background: currentColor; flex: none; }
+.pc-progress-state.done { color: var(--fg); }
+.pc-progress-state.cur { color: var(--orange); }
+.pc-progress-state.todo { color: var(--muted-2); }
 .pc-cta { margin-top: 1.1rem; }
 .pc-fam-soon { font-family: var(--font-geist-mono), monospace; font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; color: var(--faint); white-space: nowrap; }
 .pc-srow-soon { grid-template-columns: 1fr auto; }
@@ -937,8 +942,10 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-lib { margin-top: 1.1rem; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 3rem; border-bottom: 1px solid var(--border); }
 .pc-lib .pc-mc-lead.cur { margin-left: 0; padding-left: 1.1rem; }
 /* Cartes de même taille quelle que soit la catégorie, dernier bloc calé en bas. */
-.pc-lib .pc-mc { display: flex; flex-direction: column; min-height: 20rem; }
-.pc-lib .pc-mc .pc-mc-meta:last-child, .pc-lib .pc-mc .pc-soon-bar, .pc-lib .pc-mc .pc-mc-prog:last-child { margin-top: auto; }
+.pc-lib .pc-mc { display: grid; grid-template-rows: auto auto minmax(5.1rem, auto) auto auto; align-content: start; min-height: 20rem; }
+.pc-lib .pc-mc .pc-mc-meta:last-child { align-self: end; }
+.pc-lib .pc-mc .pc-soon-bar { align-self: end; }
+.pc-lib .pc-mc .pc-mc-prog:last-child { align-self: end; }
 .pc-mc { display: block; position: relative; border-top: 1px solid var(--border); padding: 1.3rem 0; color: inherit; }
 .pc-mc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .pc-mc-head-side { display: inline-flex; align-items: baseline; gap: 1.1rem; flex: none; }

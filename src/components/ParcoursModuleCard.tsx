@@ -37,6 +37,12 @@ export default function ParcoursModuleCard({
   const stats = computeStats(lite, mounted ? done : [], mounted && started);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const cur = mounted && stats.started && !stats.allDone;
+  const progressText = stats.allDone
+    ? `Terminé ${stats.doneCount}/${stats.total}`
+    : cur
+      ? `En cours ${stats.doneCount}/${stats.total}`
+      : `À faire ${stats.doneCount}/${stats.total}`;
+  const progressState = stats.allDone ? "done" : cur ? "cur" : "todo";
 
   return (
     <Link
@@ -61,12 +67,7 @@ export default function ParcoursModuleCard({
       <p className="pc-mc-desc">{description}</p>
       <div className="pc-mc-prog">
         <div className="pc-prog-head">
-          <span className="label">Progression</span>
-          {mounted && (
-            <span className="pc-count">
-              {stats.doneCount}/{stats.total}
-            </span>
-          )}
+          {mounted && <span className={`pc-progress-state ${progressState}`}>{progressText}</span>}
         </div>
         <div className="mprogress-bar" aria-hidden>
           <div className="mprogress-fill" style={{ width: `${pct}%` }} />
