@@ -4,7 +4,9 @@ import Link from "next/link";
 import { etapesDetail } from "@/lib/module-faire-un-site";
 import { useModuleProgress, computeStats } from "@/lib/progress";
 
-// Carte compacte du module 01 pour la bibliothèque du parcours.
+// Carte compacte du module 01 pour la bibliothèque du parcours. Toute la carte
+// est cliquable, comme les autres modules ; l'état (En cours / Terminé) et la
+// barre de progression suffisent, pas de bouton dédié.
 export default function ParcoursModule1({ onChooseModule }: { onChooseModule?: () => void }) {
   const { done, mounted } = useModuleProgress("/module");
   const lite = etapesDetail.map((e) => ({
@@ -15,22 +17,15 @@ export default function ParcoursModule1({ onChooseModule }: { onChooseModule?: (
   }));
   const stats = computeStats(lite, mounted ? done : []);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
-  const t = stats.current;
 
   const cur = mounted && stats.started && !stats.allDone;
 
-  let cta = "Commencer le module";
-  let href = "/module";
-  if (mounted) {
-    if (stats.allDone) cta = "Revoir le module";
-    else if (cur && t) {
-      cta = "Reprendre le module";
-      href = `/module/${t.etapeSlug}`;
-    }
-  }
-
   return (
-    <div className={`pc-mc pc-mc-lead${cur ? " cur" : ""}`}>
+    <Link
+      href="/module"
+      className={`pc-mc pc-mc-lead${cur ? " cur" : ""}`}
+      onClick={onChooseModule}
+    >
       <div className="pc-mc-head">
         <span className="label">Module 01 · Produit</span>
         {mounted &&
@@ -43,9 +38,7 @@ export default function ParcoursModule1({ onChooseModule }: { onChooseModule?: (
             </span>
           ) : null)}
       </div>
-      <Link href="/module" className="pc-mc-title" onClick={onChooseModule}>
-        Faire un site
-      </Link>
+      <span className="pc-mc-title">Faire un site</span>
       <p className="pc-mc-desc">
         De ton idée à en ligne : tu construis TON site en apprenant les vrais outils au passage.
       </p>
@@ -62,9 +55,6 @@ export default function ParcoursModule1({ onChooseModule }: { onChooseModule?: (
           <div className="mprogress-fill" style={{ width: `${pct}%` }} />
         </div>
       </div>
-      <Link href={href} className="btn btn-full pc-mc-cta" onClick={onChooseModule}>
-        {cta} →
-      </Link>
-    </div>
+    </Link>
   );
 }
