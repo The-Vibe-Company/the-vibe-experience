@@ -3,6 +3,7 @@ import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Automatise ton travail — The Vibe Experience" };
@@ -29,7 +30,7 @@ export default function ModuleAutomatisation() {
           moduleLabel="Automatise ton travail"
         />
 
-        <div className="ecol">
+        <div className="ecol ecol-with-side">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -51,6 +52,19 @@ export default function ModuleAutomatisation() {
             un garde-fou qui t&apos;empêche de casser, un bilan qui t&apos;attend chaque vendredi.
             Rien de neuf à installer : tu branches ce que tu as déjà.
           </p>
+
+          <ModuleSidePanel
+            moduleKey="/automatiser-ton-travail"
+            basePath="/automatiser-ton-travail"
+            etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            facts={[
+              { label: "Livrable", value: "Des automatisations qui se déclenchent seules" },
+              { label: "Durée", value: "5 étapes · ≈ 2 h à 2 h 45" },
+              { label: "Outil", value: "Claude Code, rien de neuf à installer" },
+            ]}
+            jugeHref="/parcours"
+            jugeLabel="Retourner aux modules"
+          />
 
           <ModuleProgress
             moduleKey="/automatiser-ton-travail"
