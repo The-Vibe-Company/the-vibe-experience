@@ -28,15 +28,6 @@ export default function ParcoursModule1({ onChooseModule }: { onChooseModule?: (
     >
       <div className="pc-mc-head">
         <span className="label">Module 01 · Produit</span>
-        {mounted &&
-          (stats.allDone ? (
-            <span className="pc-status done">✓ Terminé</span>
-          ) : cur ? (
-            <span className="pc-status cur">
-              <span className="pc-dot" aria-hidden />
-              En cours
-            </span>
-          ) : null)}
       </div>
       <span className="pc-mc-title">Faire un site</span>
       <p className="pc-mc-desc">
@@ -44,7 +35,16 @@ export default function ParcoursModule1({ onChooseModule }: { onChooseModule?: (
       </p>
       <div className="pc-mc-prog">
         <div className="pc-prog-head">
-          <span className="label">Progression</span>
+          {mounted && stats.allDone ? (
+            <span className="pc-status done">✓ Terminé</span>
+          ) : cur ? (
+            <span className="pc-status cur">
+              <span className="pc-dot" aria-hidden />
+              En cours
+            </span>
+          ) : (
+            <span className="label">Progression</span>
+          )}
           {mounted && (
             <span className="pc-count">
               {stats.doneCount}/{stats.total}
