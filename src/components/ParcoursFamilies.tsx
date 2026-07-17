@@ -28,24 +28,41 @@ const businessSoon = [
 ];
 
 // Bandeau horizontal de modules : défile en boucle, revient au début après le tour.
-// Le tour est simulé en doublant les cartes ; dès qu'on dépasse le premier jeu,
-// on se recale d'un jeu en arrière, pixel pour pixel, donc sans saut visible.
+// Le tour est simulé en répétant les jeux de cartes ; dès qu'on dépasse le premier
+// jeu, on se recale d'un jeu en arrière, pixel pour pixel, donc sans saut visible.
 function Bandeau({ cards }: { cards: { key: string; node: ReactNode }[] }) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const wrapT = useRef<number | undefined>(undefined);
-  const [loop, setLoop] = useState(false);
+  const multi = cards.length > 1;
+  const [copies, setCopies] = useState(multi ? 2 : 1);
 
+  // Largeur exacte d'un jeu complet : distance entre une carte et son double
+  // (elle inclut l'écart entre les jeux, contrairement à scrollWidth / copies).
+  const setWidth = () => {
+    const el = trackRef.current;
+    if (!el || el.children.length <= cards.length) return 0;
+    const first = el.children[0] as HTMLElement;
+    const dup = el.children[cards.length] as HTMLElement;
+    return dup.offsetLeft - first.offsetLeft;
+  };
+
+  // Assez de jeux pour pouvoir toujours défiler d'un jeu complet avant la fin de
+  // piste : la boucle marche alors même quand un jeu entier tient à l'écran.
   useEffect(() => {
+    if (!multi) return;
     const el = trackRef.current;
     if (!el) return;
     const check = () => {
-      const setWidth = loop ? el.scrollWidth / 2 : el.scrollWidth;
-      setLoop(setWidth > el.clientWidth + 4);
+      const w = setWidth();
+      if (w > 0) setCopies(2 + Math.ceil(el.clientWidth / w));
     };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
-  }, [loop]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [multi, copies, cards.length]);
+
+  useEffect(() => () => window.clearTimeout(wrapT.current), []);
 
   const step = () => {
     const el = trackRef.current!;
@@ -56,12 +73,17 @@ function Bandeau({ cards }: { cards: { key: string; node: ReactNode }[] }) {
 
   const onScroll = () => {
     const el = trackRef.current;
-    if (!el || !loop) return;
+    if (!el || !multi) return;
     window.clearTimeout(wrapT.current);
     wrapT.current = window.setTimeout(() => {
-      const w = el.scrollWidth / 2;
-      if (el.scrollLeft >= w) el.scrollLeft -= w;
-    }, 120);
+      const w = setWidth();
+      if (w <= 0) return;
+      if (el.scrollLeft >= w) {
+        let sl = el.scrollLeft;
+        while (sl >= w) sl -= w;
+        el.scrollLeft = sl;
+      }
+    }, 100);
   };
 
   const next = () => {
@@ -71,13 +93,14 @@ function Bandeau({ cards }: { cards: { key: string; node: ReactNode }[] }) {
   const prev = () => {
     const el = trackRef.current;
     if (!el) return;
-    if (loop && el.scrollLeft < 8) el.scrollLeft += el.scrollWidth / 2;
+    const w = setWidth();
+    if (multi && w > 0 && el.scrollLeft < 8) el.scrollLeft += w;
     el.scrollBy({ left: -step(), behavior: "smooth" });
   };
 
   return (
     <div className="pc-band">
-      {loop && (
+      {multi && (
         <div className="pc-band-nav">
           <button
             type="button"
@@ -98,17 +121,13 @@ function Bandeau({ cards }: { cards: { key: string; node: ReactNode }[] }) {
         </div>
       )}
       <div className="pc-band-track" ref={trackRef} onScroll={onScroll}>
-        {cards.map((c) => (
-          <div className="pc-band-card" key={c.key}>
-            {c.node}
-          </div>
-        ))}
-        {loop &&
+        {Array.from({ length: copies }, (_, s) =>
           cards.map((c) => (
-            <div className="pc-band-card" key={`clone-${c.key}`} aria-hidden inert>
+            <div className="pc-band-card" key={`${s}-${c.key}`}>
               {c.node}
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   );
