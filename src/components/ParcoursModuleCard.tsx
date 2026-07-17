@@ -27,16 +27,16 @@ export default function ParcoursModuleCard({
   lead?: boolean;
   onChooseModule?: () => void;
 }) {
-  const { done, mounted, started } = useModuleProgress(moduleKey);
+  const { done, mounted } = useModuleProgress(moduleKey);
   const lite = etapes.map((e) => ({
     slug: e.slug,
     num: e.num,
     titre: e.titre,
     sousCount: e.sous.length,
   }));
-  const stats = computeStats(lite, mounted ? done : [], mounted && started);
+  const stats = computeStats(lite, mounted ? done : []);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
-  const cur = mounted && stats.started && !stats.allDone;
+  const cur = mounted && stats.doneCount > 0 && !stats.allDone;
   const progressText = stats.allDone
     ? `Terminé ${stats.doneCount}/${stats.total}`
     : cur

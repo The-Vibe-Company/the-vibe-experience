@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { EtapeDetail } from "@/lib/module-faire-un-site";
-import { useModuleProgress, computeStats, sousId, useMarkModuleStarted } from "@/lib/progress";
+import { useModuleProgress, computeStats, sousId } from "@/lib/progress";
 
 // Rail de progression (design 3a/2a) : module, barre de progression par sous-étape,
 // bouton « Reprendre », et sommaire des étapes qui déploie la courante.
@@ -17,8 +17,6 @@ export default function ModuleRail({
   basePath: string;
   moduleLabel: string;
 }) {
-  useMarkModuleStarted(basePath);
-
   const { isDone, done, mounted, started } = useModuleProgress(basePath);
   const lite = etapes.map((e) => ({ slug: e.slug, num: e.num, titre: e.titre, sousCount: e.sous.length }));
   const stats = computeStats(lite, mounted ? done : [], mounted && started);
