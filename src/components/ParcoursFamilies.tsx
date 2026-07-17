@@ -1,12 +1,11 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import ParcoursModule1 from "@/components/ParcoursModule1";
 import { useAnyModuleStarted } from "@/lib/progress";
 
 type Branche = "construire" | "automatiser";
-type Vue = "bandeau" | "tout";
 
 const CHOIX_KEY = "tve_parcours_branche";
 
@@ -27,116 +26,9 @@ const businessSoon = [
   { titre: "Gérer mon agenda", desc: "Tes rendez-vous et tes rappels organisés à ta place." },
 ];
 
-// Bandeau horizontal de modules : défile en boucle, revient au début après le tour.
-// Le tour est simulé en répétant les jeux de cartes ; dès qu'on dépasse le premier
-// jeu, on se recale d'un jeu en arrière, pixel pour pixel, donc sans saut visible.
-function Bandeau({ cards }: { cards: { key: string; node: ReactNode }[] }) {
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const wrapT = useRef<number | undefined>(undefined);
-  const multi = cards.length > 1;
-  const [copies, setCopies] = useState(multi ? 2 : 1);
-
-  // Largeur exacte d'un jeu complet : distance entre une carte et son double
-  // (elle inclut l'écart entre les jeux, contrairement à scrollWidth / copies).
-  const setWidth = () => {
-    const el = trackRef.current;
-    if (!el || el.children.length <= cards.length) return 0;
-    const first = el.children[0] as HTMLElement;
-    const dup = el.children[cards.length] as HTMLElement;
-    return dup.offsetLeft - first.offsetLeft;
-  };
-
-  // Assez de jeux pour pouvoir toujours défiler d'un jeu complet avant la fin de
-  // piste : la boucle marche alors même quand un jeu entier tient à l'écran.
-  useEffect(() => {
-    if (!multi) return;
-    const el = trackRef.current;
-    if (!el) return;
-    const check = () => {
-      const w = setWidth();
-      if (w > 0) setCopies(2 + Math.ceil(el.clientWidth / w));
-    };
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [multi, copies, cards.length]);
-
-  useEffect(() => () => window.clearTimeout(wrapT.current), []);
-
-  const step = () => {
-    const el = trackRef.current!;
-    const card = el.firstElementChild as HTMLElement | null;
-    const gap = parseFloat(getComputedStyle(el).columnGap || "0") || 0;
-    return (card?.offsetWidth ?? el.clientWidth) + gap;
-  };
-
-  const onScroll = () => {
-    const el = trackRef.current;
-    if (!el || !multi) return;
-    window.clearTimeout(wrapT.current);
-    wrapT.current = window.setTimeout(() => {
-      const w = setWidth();
-      if (w <= 0) return;
-      if (el.scrollLeft >= w) {
-        let sl = el.scrollLeft;
-        while (sl >= w) sl -= w;
-        el.scrollLeft = sl;
-      }
-    }, 100);
-  };
-
-  const next = () => {
-    trackRef.current?.scrollBy({ left: step(), behavior: "smooth" });
-  };
-
-  const prev = () => {
-    const el = trackRef.current;
-    if (!el) return;
-    const w = setWidth();
-    if (multi && w > 0 && el.scrollLeft < 8) el.scrollLeft += w;
-    el.scrollBy({ left: -step(), behavior: "smooth" });
-  };
-
-  return (
-    <div className="pc-band">
-      {multi && (
-        <div className="pc-band-nav">
-          <button
-            type="button"
-            className="pc-band-btn"
-            onClick={prev}
-            aria-label="Modules précédents"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            className="pc-band-btn"
-            onClick={next}
-            aria-label="Modules suivants"
-          >
-            →
-          </button>
-        </div>
-      )}
-      <div className="pc-band-track" ref={trackRef} onScroll={onScroll}>
-        {Array.from({ length: copies }, (_, s) =>
-          cards.map((c) => (
-            <div className="pc-band-card" key={`${s}-${c.key}`}>
-              {c.node}
-            </div>
-          ))
-        )}
-      </div>
-    </div>
-  );
-}
-
 export default function ParcoursFamilies() {
   const [branche, setBranche] = useState<Branche | null>(null);
   const [reco, setReco] = useState<Branche | null>(null);
-  const [vue, setVue] = useState<Vue>("bandeau");
   const moduleStarted = useAnyModuleStarted();
 
   useEffect(() => {
@@ -179,7 +71,6 @@ export default function ParcoursFamilies() {
   const choisir = (b: Branche) => {
     const next = branche === b ? null : b;
     setBranche(next);
-    setVue("bandeau");
     try {
       localStorage.setItem(CHOIX_KEY, next ?? "");
     } catch {}
@@ -265,26 +156,14 @@ export default function ParcoursFamilies() {
     ),
   }));
 
+  // Bibliothèque : tous les modules de la catégorie, en grille de 3.
   const panel = (intro: string, cards: { key: string; node: ReactNode }[]) => (
     <div className="pc-panel" id="pc-panel">
       <p className="pc-panel-intro">{intro}</p>
-      {vue === "bandeau" ? (
-        <Bandeau cards={cards} />
-      ) : (
-        <div className="pc-lib">
-          {cards.map((c) => (
-            <Fragment key={c.key}>{c.node}</Fragment>
-          ))}
-        </div>
-      )}
-      <div className="pc-all">
-        <button
-          type="button"
-          className="pc-all-btn"
-          onClick={() => setVue(vue === "bandeau" ? "tout" : "bandeau")}
-        >
-          {vue === "bandeau" ? "Voir tous les modules ↓" : "Replier la bibliothèque ↑"}
-        </button>
+      <div className="pc-lib">
+        {cards.map((c) => (
+          <Fragment key={c.key}>{c.node}</Fragment>
+        ))}
       </div>
     </div>
   );
