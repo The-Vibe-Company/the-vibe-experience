@@ -121,9 +121,8 @@ export default function Module() {
 
           <div className="label mov-sec">Les skills qu&apos;on t&apos;offre</div>
           <p className="mov-toolintro">
-            À l&apos;étape 3, tu rends ton site propre avec deux skills. On te donne un prompt à copier
-            dans Claude Code ou Codex pour chacun. Tu le colles, l&apos;outil récupère le skill et finit
-            la mise en place tout seul (Agent Browser installe son outil au premier usage).
+            À l&apos;étape 3, tu rends ton site propre avec deux skills. Chacun se copie d&apos;un clic : tu le
+            colles dans Claude Code ou Codex et il s&apos;installe tout seul (Agent Browser installe son outil au premier usage).
           </p>
           <div className="gfilets">
             {skillGifts.map((g) => (

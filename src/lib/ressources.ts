@@ -114,15 +114,15 @@ export const ressources: Ressource[] = [
     cat: "skills",
     type: "Skill",
     title: "Impeccable",
-    text: "Le skill qui rend ton interface propre et pro, sans être designer. Tu l'utilises à l'étape 3 du module Faire un site, qui t'explique aussi comment l'installer.",
-    action: { kind: "parcours", href: "/module/3" },
+    text: "Le skill qui rend ton interface propre et pro, sans être designer. Tu l'utilises à l'étape 3 du module Faire un site.",
+    action: { kind: "installer", href: "/skills/impeccable.zip", name: "Impeccable" },
   },
   {
     cat: "skills",
     type: "Skill",
     title: "Agent Browser",
     text: "L'IA qui parcourt ton site comme un vrai visiteur et repère ce qui cloche. Il tourne en boucle avec Impeccable à l'étape 3 du module Faire un site.",
-    action: { kind: "parcours", href: "/module/3" },
+    action: { kind: "installer", href: "/skills/agent-browser.zip", name: "Agent Browser" },
   },
   {
     cat: "skills",
