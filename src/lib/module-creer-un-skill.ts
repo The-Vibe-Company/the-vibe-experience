@@ -3,7 +3,7 @@ import type { EtapeDetail } from "./module-faire-un-site";
 const F = {
   claudecode: {
     n: "Claude Code",
-    d: "Ton atelier, déjà installé à ton premier projet. C'est lui qui va fabriquer ton skill.",
+    d: "Ton atelier, déjà installé depuis ton premier projet. C'est lui qui va fabriquer ton skill.",
   },
   skillcreator: {
     n: "Skill Creator (offert)",
@@ -34,7 +34,7 @@ export const skillGifts = [
 export const skillToolbox: { n: string; d: string; cost: "gratuit" | "gratuit-debut" | "payant"; costNote?: string }[] = [
   {
     n: "Claude Code",
-    d: "Le seul outil du module. Tu l'as déjà de ton premier projet, rien de neuf à installer.",
+    d: "Le seul outil du module. Tu l'as depuis ton premier projet, rien de neuf à installer.",
     cost: "payant",
     costNote: "Le même abonnement Claude Pro que pour ton site. Rien de plus.",
   },
@@ -46,7 +46,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
     num: "0",
     titre: "C'est quoi un skill",
     tag: ["Setup", "t-build"],
-    dur: "≈ 10 min · rien à installer",
+    dur: "≈ 8 min · rien à installer",
     obj: "Tu as déjà Claude Code de ton premier projet, rien de neuf à installer. Un skill, c'est une compétence que tu apprends une fois à l'IA et qu'elle réutilise ensuite toute seule. Tu viens d'en utiliser des tout faits (Impeccable, Agent Browser), là tu fais le tien. Et rassure-toi : créer un skill n'abîme rien, ça s'ajoute à côté.",
     detailPret: true,
     sous: [
@@ -54,14 +54,14 @@ export const etapesDetailSkill: EtapeDetail[] = [
         titre: "Tu as déjà ton seul outil : Claude Code.",
         duree: "≈ 2 min",
         cestquoi:
-          "Le seul outil de ce module, c'est Claude Code, déjà installé à ton premier projet. Un skill, c'est juste un dossier rangé chez toi, dont Claude Code s'occupe tout seul : tu n'as jamais à aller le chercher à la main. Rien à installer, rien à payer en plus. Et tout se passe en parlant à Claude Code, jamais dans le Terminal. Créer un skill ne touche ni à ton site ni à Claude Code : ça s'ajoute simplement à côté.",
+          "Le seul outil de ce module, c'est Claude Code, déjà installé depuis ton premier projet. Un skill, c'est juste un dossier rangé chez toi, dont Claude Code s'occupe tout seul : tu n'as jamais à aller le chercher à la main. Et tout se passe en parlant à Claude Code, jamais dans le Terminal.",
         attendu:
           "Claude Code rouvert, comme au module précédent. Le plus simple : rouvre ton dossier de site, l'étape 1 t'y fera repérer tes répétitions. Mais un skill se range chez toi, pas dans un projet précis, donc n'importe quel dossier marcherait aussi.",
         outils: [F.claudecode],
         ceQueTuDoisVoir:
           "Claude Code s'ouvre et tu retrouves la zone où tu écris tes messages, exactement comme au module précédent. Si l'app te redemande de te connecter, fais-le, c'est normal après une fermeture. Dès que tu vois la zone de discussion, tu es prêt.",
         siCaBloque:
-          "Tu ne sais plus comment rouvrir Claude Code ? Clique sur son icône comme n'importe quelle app (elle est dans tes Applications, ou tape son nom avec cmd + espace). Elle refuse de s'ouvrir ou te déconnecte ? Rouvre-la une fois et reconnecte-toi, il n'y a rien de cassé.",
+          "Tu ne sais plus comment rouvrir Claude Code ? Clique sur son icône comme n'importe quelle app (elle est dans tes Applications, ou tape son nom avec cmd + espace). L'app refuse de s'ouvrir ou te déconnecte ? Rouvre-la une fois et reconnecte-toi, il n'y a rien de cassé. Et pour rouvrir ton dossier de site dedans, c'est le même geste qu'au module précédent : son bouton d'ouverture de dossier.",
         monExemple:
           "Ce qui me plaît, c'est d'avoir un seul outil qui gère tout, très complet, et qui s'adapte à ce que tu veux faire. Rien d'autre à payer, rien d'autre à installer : tu commences tout de suite. Et comme il sait presque tout faire, tu évites d'empiler plusieurs produits différents.",
         conseil:
@@ -71,7 +71,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         titre: "Comprends ce qu'est un skill (et pourquoi ça change tout).",
         duree: "≈ 5 min",
         cestquoi:
-          "Un skill, c'est le petit dossier dont on parlait, et dedans il y a trois choses : un nom, une description (quand l'IA doit l'utiliser) et des instructions (ce qu'elle doit faire). Techniquement, tout ça tient dans un simple fichier texte appelé SKILL.md. Tu n'auras jamais à l'écrire toi-même, Claude Code s'en occupe, retiens juste le mot, tu le reverras. Tu l'appelles en tapant /nom dans la zone où tu écris à Claude Code, comme un message (par exemple /impeccable), ou l'IA le déclenche toute seule quand ta demande colle à la description. Tu l'apprends une fois, elle s'en ressert toujours.",
+          "Un skill, c'est le petit dossier dont on parlait, et dedans il y a trois choses : un nom, une description (quand l'IA doit l'utiliser) et des instructions (ce qu'elle doit faire). Techniquement, tout ça tient dans un simple fichier texte appelé SKILL.md. Tu n'auras jamais à l'écrire toi-même, Claude Code s'en occupe, retiens juste le mot, tu le reverras. Tu l'appelles en tapant /nom dans la zone où tu écris à Claude Code, comme un message (par exemple /impeccable), ou l'IA le déclenche toute seule quand ta demande colle à la description. Tu l'apprends une fois à l'IA, et elle s'en ressert toujours.",
         attendu:
           "Avoir compris l'idée : capturer une compétence pour ne plus la réexpliquer à chaque fois.",
         exemples: ["Les skills tout faits que tu as déjà utilisés au module précédent : Impeccable, Agent Browser."],
@@ -97,7 +97,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
     num: "1",
     titre: "Trouve ton premier skill",
     tag: ["Savoir-faire", "t-product"],
-    dur: "≈ 10 min",
+    dur: "≈ 8 min",
     obj: "Le meilleur premier skill, c'est un truc que tu réexpliques sans arrêt à l'IA. On repère cette répétition, et on en choisit un qui te resservira, idéalement dès ton prochain projet.",
     detailPret: true,
     sous: [
@@ -119,7 +119,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         siCaBloque:
           "Tu ne vois vraiment aucune répétition, ni présente ni à venir ? Prends la plus courante pour presque tout le monde : ton style visuel, que tu redécris à chaque page ou chaque image. C'est un excellent premier skill.",
         monExemple:
-          "Mon tout premier skill, c'était la documentation : je réexpliquais sans cesse comment je voulais que mon travail soit documenté. Le deuxième, c'était notre DA image, pour ne plus redécrire notre style à chaque visuel.",
+          "Mon tout premier skill, c'était la documentation : je réexpliquais sans cesse comment je voulais que mon travail soit documenté. Le deuxième, c'était notre DA image (notre direction artistique, le style visuel maison), pour ne plus le redécrire à chaque visuel.",
         conseil:
           "Ouvre une note sur ton ordi ou prends un papier, et écris ta répétition en une seule phrase. L'écrire, ça matérialise la décision. Cherche le truc que tu as tapé plusieurs fois cette semaine : c'est lui, ton premier skill.",
       },
@@ -137,7 +137,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         siCaBloque:
           "Tu as noté deux ou trois répétitions et tu n'arrives pas à choisir ? Prends la plus pénible, celle qui te fait soupirer à chaque fois, ou celle qui reviendra dès ton prochain projet. Aucune ne te paraît utile tout de suite ? Ce n'est pas grave, ce premier skill est un galop d'essai : prends celle que tu comprends le mieux.",
         monExemple:
-          "Si je devais conseiller un premier skill, ce serait un truc utile et concret, comme capturer un style ou documenter son projet. Mais le vrai cadeau, ce n'est pas ce skill-là précisément, c'est le réflexe d'en créer dès que tu te répètes.",
+          "Si je devais conseiller un premier skill, ce serait un truc utile et concret, comme capturer un style ou documenter son projet.",
         conseil: "Un test simple pour ne pas voir trop gros : si tu ne peux pas résumer ton skill en une phrase, c'est qu'il est trop gros, réduis-le. Un skill qui fait une chose bien vaut mieux qu'un skill qui essaie de tout faire.",
       },
     ],
@@ -149,8 +149,8 @@ export const etapesDetailSkill: EtapeDetail[] = [
     num: "2",
     titre: "Crée ton skill",
     tag: ["Build", "t-build"],
-    dur: "≈ 25 min",
-    obj: "Créer un skill, c'est simple : tu peux le demander directement à Claude Code, juste avec un prompt. Et pour un skill vraiment carré, on te donne notre Skill Creator, en option, qui garantit le bon format et la qualité sans que tu touches à la technique.",
+    dur: "≈ 30 min",
+    obj: "Créer un skill, c'est simple : tu peux le demander directement à Claude Code, juste avec un prompt. Et pour un skill vraiment carré, on te donne notre Skill Creator, en option, qui garantit le bon format et t'assure un skill propre et fonctionnel, sans que tu touches à la technique.",
     detailPret: true,
     sous: [
       {
@@ -162,21 +162,21 @@ export const etapesDetailSkill: EtapeDetail[] = [
         prompt:
           "Crée-moi un skill à partir de ça : [ce que tu répètes]. Il doit se déclencher quand [la situation], et faire [ce qu'il fait]. Range-le dans mes skills personnels, pour qu'il me suive sur tous mes projets. Explique-moi en français simple ce que tu as mis dedans.",
         exemples: [
-          "Concrètement, ça donne : « Crée-moi un skill à partir de ça : je réexplique tout le temps mon style visuel (fond crème, titres en gros, ton chaleureux). Il doit se déclencher quand je demande de créer ou refaire une page, et faire en sorte que la page respecte ce style. Explique-moi en français simple ce que tu as mis dedans. »",
+          "Concrètement, ça donne : « Crée-moi un skill à partir de ça : je réexplique tout le temps mon style visuel (fond crème, titres en gros, ton chaleureux). Il doit se déclencher quand je demande de créer ou refaire une page, et faire en sorte que la page respecte ce style. Range-le dans mes skills personnels, pour qu'il me suive sur tous mes projets. Explique-moi en français simple ce que tu as mis dedans. »",
         ],
         ceQueTuDoisVoir:
           "Claude Code crée un dossier avec un SKILL.md (un nom, une description, tes instructions) et te montre ce qu'il a fait. Il le range tout seul chez toi, tu n'as rien à déplacer toi-même. S'il te demande l'autorisation de créer un fichier, dis oui, c'est juste lui qui range ton skill.",
         siCaBloque:
-          "Claude Code te demande si tu veux le skill « pour ce projet » ou « pour tous tes projets » ? Réponds : pour tous mes projets. C'est ce qui fait qu'il te suivra partout, y compris sur ton prochain produit. Il te dit qu'il a créé le skill mais tu ne vois aucun dossier apparaître ? C'est normal, les skills sont rangés dans un dossier système que tu n'as pas à ouvrir. Pour le voir quand même, demande-lui « montre-moi le fichier de mon skill ». Et s'il te demande l'autorisation de créer un fichier, dis oui : c'est juste lui qui range ton skill.",
+          "Claude Code te demande si tu veux le skill « pour ce projet » ou « pour tous tes projets » ? Réponds : pour tous mes projets. C'est ce qui fait qu'il te suivra partout, y compris sur ton prochain produit. Il te dit qu'il a créé le skill mais tu ne vois aucun dossier apparaître ? C'est normal, les skills sont rangés dans un dossier système que tu n'as pas à ouvrir. Pour le voir quand même, demande-lui « montre-moi le fichier de mon skill ».",
         monExemple:
           "Mes premiers skills, je les ai juste demandés à Claude Code. Un bon prompt suffit largement pour se lancer, sans aucun outil en plus.",
         conseil: "Sois précis sur le QUAND (la description) : c'est ce qui fait que l'IA lance ton skill toute seule au bon moment.",
       },
       {
         titre: "Pour un skill au top : le Skill Creator (offert, en option).",
-        duree: "≈ 10 min",
+        duree: "≈ 15 min (le temps de répondre à ses questions)",
         cestquoi:
-          "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools), c'est notre vrai outil de travail, celui qu'on utilise nous-mêmes tous les jours, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Mais c'est un vrai plus : il crée le skill en suivant la bonne méthode, au bon format, et s'assure qu'il est propre et fonctionnel. C'est un outil de pro : il sait faire beaucoup plus que ce qu'on utilise ici (des tests, des mesures), et il est écrit en anglais à l'intérieur. Aucun souci : tu lui parles en français, et on lui demande la version simple. C'est aussi la première fois que tu installes un skill toi-même, on y va pas à pas.",
+          "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools), c'est notre vrai outil de travail, celui qu'on utilise nous-mêmes tous les jours, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Mais c'est un vrai plus : il crée le skill en suivant la bonne méthode, au bon format, et s'assure qu'il est propre et fonctionnel. C'est un outil de pro : il sait faire beaucoup plus que ce qu'on utilise ici (des tests, des mesures), et il est écrit en anglais à l'intérieur. Aucun souci : tu lui parles en français, et on lui demande la version simple. Et le geste d'installation, tu le connais déjà : le même copier-coller qu'Impeccable et Agent Browser au module précédent.",
         attendu: "Un skill créé avec le Skill Creator, encore plus carré.",
         telechargements: [{ n: "le Skill Creator", href: "/skills/create-skill-tools.zip" }],
         outils: [F.skillcreator],
@@ -192,7 +192,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
 
 Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne « Skill : create-skill-tools » qui s'affiche. Si elle n'apparaît pas, ferme et rouvre Claude Code puis redemande.
 
-Le Skill Creator peut te poser quelques questions avant de créer, parfois trois ou quatre, y compris « quel format de sortie ? ». Réponds avec tes mots, simplement, il n'y a pas de mauvaise réponse.
+Le Skill Creator peut te poser quelques questions avant de créer, parfois trois ou quatre, y compris « quel format de sortie ? », autrement dit sous quelle forme tu veux le résultat. Réponds avec tes mots (« un texte dans la conversation », « un fichier »), ou dis simplement « choisis pour moi » : il n'y a pas de mauvaise réponse.
 
 Puis il crée le skill, vérifie le format et te montre ce qu'il a fait. Il peut aussi laisser un dossier « plans » dans ton projet : c'est son carnet de notes, ignore-le. C'est plus carré que le simple prompt, surtout si tu n'es pas à l'aise avec la technique.`,
         siCaBloque:
@@ -213,7 +213,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         titre: "Relis ton skill.",
         duree: "≈ 7 min",
         cestquoi:
-          "Le skill est un dossier avec un SKILL.md : un nom, une description (quand l'utiliser), et tes instructions. Tu relis juste pour vérifier que ça te ressemble.",
+          "Tu te souviens : un nom, une description (quand l'utiliser), tes instructions. Tu relis juste pour vérifier que ça te ressemble.",
         attendu: "Un skill que tu as relu et qui te convient.",
         prompt: "Montre-moi le contenu de mon skill et explique-moi sa description en français simple.",
         ceQueTuDoisVoir:
@@ -226,7 +226,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         siCaBloque:
           "Tu ne retrouves pas le dossier ? Demande à Claude Code « où as-tu créé mon skill, montre-moi le fichier ».",
         monExemple:
-          "La première fois que j'ai ouvert un de mes SKILL.md, ça ressemblait à un fichier technique. En vrai, j'ai compris que la description est essentielle : c'est elle qui te dit ce que fait ton skill, et le reste, ce sont tes instructions écrites noir sur blanc. Mes premiers skills, justement, manquaient de descriptions.",
+          "La première fois que j'ai ouvert un de mes SKILL.md, ça ressemblait à un fichier technique. En vrai, j'ai compris que la description est essentielle : c'est elle qui dit à l'IA quand utiliser ton skill, et le reste, ce sont tes instructions écrites noir sur blanc. Mes premiers skills, justement, manquaient de descriptions.",
         conseil: "Une bonne relecture, c'est surtout vérifier la description : c'est elle qui décide quand ton skill se déclenche.",
       },
     ],
@@ -238,7 +238,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
     num: "3",
     titre: "Teste-le et fais-le réviser",
     tag: ["Build", "t-build"],
-    dur: "≈ 30 min",
+    dur: "≈ 30 à 40 min",
     obj: "Un skill qui existe mais ne se déclenche jamais ne sert à rien. On vérifie qu'il part au bon moment, et, en option, on le fait réviser par notre skill Improve pour l'améliorer encore.",
     detailPret: true,
     sous: [
@@ -262,15 +262,20 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         siCaBloque:
           "Ton skill n'apparaît pas dans la liste du / ? Ferme et rouvre Claude Code : un skill tout juste créé n'est parfois pris en compte qu'au redémarrage. Toujours rien après ça ? Vérifie le nom exact (c'est le nom du dossier), ou demande à Claude Code « quel est le nom exact pour appeler mon skill ? ». L'IA ne le déclenche pas toute seule alors que la situation s'y prête ? C'est presque toujours la description qui n'est pas assez claire : passe à la sous-étape suivante.",
         monExemple:
-          "Mes premiers skills, c'étaient Impeccable et Agent Browser. La toute première fois, je n'étais même pas sûr que ça avait marché : Impeccable travaille le code, le changement ne se voyait presque pas à l'écran. D'où l'importance de ce repère : la ligne au nom du skill, c'est elle qui te dit qu'il est bien parti.",
+          "Les premiers skills que j'ai utilisés, c'étaient Impeccable et Agent Browser. La toute première fois, je n'étais même pas sûr que ça avait marché : Impeccable travaille le code, le changement ne se voyait presque pas à l'écran. D'où l'importance de ce repère : la ligne au nom du skill, c'est elle qui te dit qu'il est bien parti.",
         conseil: "Teste-le sur un vrai cas, celui qui t'a donné l'idée du skill. C'est le meilleur test.",
       },
       {
         titre: "Ajuste la description jusqu'à ce qu'il parte au bon moment.",
-        duree: "≈ 10 min",
+        duree: "≈ 10 à 15 min",
         cestquoi:
-          "La description, c'est ce qui dit à l'IA QUAND utiliser le skill. Si elle est floue, l'IA ne le déclenche pas. Tu n'ouvres rien toi-même : tu demandes à Claude Code de la retravailler, jusqu'à ce que ça marche.",
+          "La description, c'est ce qui dit à l'IA QUAND utiliser le skill. Si elle est floue, l'IA ne le déclenche pas. Tu n'ouvres rien toi-même : tu testes, et si besoin tu demandes à Claude Code de la retravailler, jusqu'à ce que ça marche.",
         attendu: "Un skill qui se déclenche tout seul quand la situation s'y prête.",
+        pasAPas: [
+          "Ouvre une NOUVELLE conversation dans Claude Code : son bouton de nouvelle conversation, comme pour repartir d'une page blanche (pas besoin de fermer l'app). C'est le seul vrai test : dans la conversation où vous avez créé le skill, l'IA l'a en tête de toute façon.",
+          "Refais ta demande normale, sans taper de /. Si la ligne au nom de ton skill apparaît, c'est gagné : ta description est bonne, passe à la sous-étape suivante.",
+          "Il n'est pas parti ? Envoie le prompt ci-dessous, puis reteste dans une nouvelle conversation. C'est normal de s'y reprendre à deux ou trois fois.",
+        ],
         exemples: [
           "Une description trop vague, qui ne se déclenche pas : « pour mes visuels ».",
           "La même, retravaillée, qui se déclenche : « À utiliser quand je demande de créer une image, un visuel, une illustration ou une vignette, pour appliquer mon style maison. »",
@@ -279,7 +284,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         prompt:
           "Mon skill ne se déclenche pas quand je [la situation]. Améliore sa description pour qu'il se lance dans ce cas, sans se déclencher à tort le reste du temps.",
         ceQueTuDoisVoir:
-          "Important : teste dans une NOUVELLE conversation (ferme celle-ci ou ouvre-s'en une neuve). Dans la conversation où vous venez de créer le skill, l'IA l'a en tête de toute façon, le test ne prouve rien. Dans la conversation neuve, tu refais ta demande normale, et cette fois le skill part tout seul, sans que tu tapes son nom. C'est le signe que la description est bonne.",
+          "Dans la conversation neuve, ta demande normale fait partir le skill tout seul : la ligne à son nom s'affiche sans que tu aies tapé le moindre /, et l'IA suit tes instructions. C'est le signe que la description est bonne.",
         siCaBloque:
           "Même après deux ou trois essais il ne part pas tout seul ? Donne à Claude Code la phrase exacte que tu tapes, mot pour mot, et dis-lui « mets ces mots-là dans la description pour que le skill se déclenche quand j'écris ça ». À l'inverse, il se lance alors que tu ne veux pas ? Dis-lui « resserre la description, il ne doit se déclencher que quand [ton cas précis] ». En attendant, tu peux toujours l'appeler à la main avec /nom : le skill marche déjà, c'est juste le moment du départ qu'on règle.",
         monExemple:
@@ -301,14 +306,14 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         prompt:
           "Utilise le skill improve-skill-tools pour passer mon skill [nom] en revue et propose-moi des améliorations, sur le fond et sur la technique. Résume-moi la revue en français simple.",
         ceQueTuDoisVoir:
-          "L'Improve lit ton skill et te répond une liste de remarques numérotées : ce qui est déjà bien, et ce qui gagnerait à être plus clair, comme la description, le format ou une instruction floue. Il peut aussi ranger sa revue dans un dossier « plans » de ton projet : c'est son carnet de notes, tu n'as pas à l'ouvrir. S'il te demande « quels constats veux-tu transformer en plans ? », réponds simplement « aucun, la liste me suffit ». Lui ne change rien, c'est son rôle de relecteur. Pour appliquer, ouvre une NOUVELLE conversation et demande à Claude Code : « applique les points 1 et 3 de la revue de mon skill [nom] » (tant que le relecteur est chargé dans la conversation en cours, il refusera de modifier, c'est voulu). Tu n'es pas obligé de tout prendre.",
+          "L'Improve lit ton skill et te répond une liste de remarques numérotées : ce qui est déjà bien, et ce qui gagnerait à être plus clair, comme la description, le format ou une instruction floue. Il peut aussi ranger sa revue dans un dossier « plans » de ton projet : c'est son carnet de notes, tu n'as pas à l'ouvrir. S'il te demande « quels constats veux-tu transformer en plans ? », réponds simplement « aucun, la liste me suffit ». Lui ne change rien, c'est son rôle de relecteur. Pour appliquer, copie d'abord les points qui te parlent, puis ouvre une NOUVELLE conversation et colle-les à Claude Code : « applique ces points de la revue de mon skill [nom] ». Le copier-coller est important : une conversation neuve ne se souvient pas de l'ancienne. Et tant que le relecteur est chargé dans la conversation en cours, il refusera de modifier, c'est voulu. Tu n'es pas obligé de tout prendre.",
         visuel: {
           src: "/module/skill-3-3-improve.png",
           alt: "La sortie de l'Improve : un tableau de constats numérotés avec pour chacun une catégorie, un impact, un effort et une preuve.",
           legende: "Une vraie revue de l'Improve sur un de mes skills : chaque remarque est numérotée, avec son impact. Tu choisis celles que tu appliques.",
         },
         siCaBloque:
-          "L'Improve te propose plein de choses et tu ne sais pas quoi en faire ? Prends-en une seule pour commencer : dans une nouvelle conversation, dis à Claude Code « applique juste le point 1 de la revue de mon skill [nom] » et regarde le résultat. On te répond qu'on n'applique pas, ou on te parle de « plan » et d'« exécuteur » ? C'est le relecteur qui est encore chargé dans cette conversation : ouvre-en une nouvelle et redemande, ça passera. Sa revue est en anglais ? Demande « résume-moi cette revue en français simple ». Et s'il ne se trouve pas après l'install, ferme et rouvre Claude Code : un nouveau skill n'est parfois pris en compte qu'au redémarrage.",
+          "L'Improve te propose plein de choses et tu ne sais pas quoi en faire ? Prends-en une seule pour commencer : copie le point 1, colle-le dans une nouvelle conversation avec « applique ce point de la revue de mon skill [nom] » et regarde le résultat. Claude Code te demande « quelle revue ? » ? C'est que le point n'a pas été collé : retourne le copier dans la conversation de la revue. On te répond qu'on n'applique pas, ou on te parle de « plan » et d'« exécuteur » ? C'est le relecteur qui est encore chargé dans cette conversation : ouvre-en une nouvelle et recolle ta demande, ça passera. Sa revue est en anglais ? Demande « résume-moi cette revue en français simple ». Et si Claude Code ne trouve pas l'Improve après l'install, ferme et rouvre l'app : un nouveau skill n'est parfois pris en compte qu'au redémarrage.",
         monExemple:
           "Faire relire mes skills par l'Improve, ça les fait passer un cap. Il repère ce que je ne voyais pas, sur le fond comme sur la forme.",
         conseil: "Tu n'es pas obligé de tout appliquer. Prends ce qui rend ton skill plus clair et plus utile.",
@@ -322,7 +327,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
     num: "4",
     titre: "Réutilise-le et fais-le valider",
     tag: ["Ship", "t-ship"],
-    dur: "≈ 20 à 25 min",
+    dur: "≈ 20 à 30 min",
     obj: "Le vrai gain est double : ce skill te suit sur tous tes projets, et surtout tu as maintenant le réflexe d'en créer dès que tu répètes quelque chose. On s'en sert pour de vrai, on le fait valider par le juge, et c'est bouclé.",
     detailPret: true,
     sous: [
@@ -336,26 +341,26 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         ceQueTuDoisVoir:
           "Le skill se lance et fait le travail d'un coup, sans que tu redécrives ton style, ta checklist ou ta façon de faire. Compare au temps que ça te prenait avant, quand tu réexpliquais tout à chaque fois : c'est exactement ça, le gain que tu viens de fabriquer.",
         siCaBloque:
-          "Le skill fait presque ce que tu veux mais pas tout à fait ? Ne corrige pas le résultat à la main. Dis à Claude Code ce qui manque et demande-lui d'améliorer le skill lui-même (par exemple « ajoute telle règle à mon skill »). Comme ça, la prochaine fois, il sera meilleur tout seul.",
+          "Le skill fait presque ce que tu veux mais pas tout à fait ? Ne corrige pas le résultat à la main. Dis à Claude Code ce qui manque et demande-lui d'améliorer le skill lui-même (par exemple « ajoute telle règle à mon skill »). Comme ça, la prochaine fois, il sera meilleur tout seul. Et pas de stress à l'idée de le lâcher sur ton vrai site : GitHub garde tout l'historique depuis le module précédent, donc si le résultat ne te plaît pas, demande « annule les derniers changements et reviens à la version d'avant ». Souviens-toi juste que tes sauvegardes partent toutes seules sur GitHub et que ton site en ligne se met à jour dans la foulée : pour essayer tranquille, dis d'abord à Claude Code « ne pousse rien sur GitHub tant que je n'ai pas validé ».",
         monExemple:
           "Mon skill de DA (mon style visuel), je m'en sers sur presque tous nos visuels. Je ne redécris plus jamais notre style, il est capturé une fois pour toutes.",
         conseil: "À chaque fois que tu te surprends à réexpliquer la même chose, c'est un futur skill.",
       },
       {
         titre: "Fais valider ton skill par le juge.",
-        duree: "≈ 5 min",
+        duree: "≈ 5 à 10 min (avec la correction éventuelle)",
         cestquoi:
           "Comme pour ton site au module précédent, on te donne un juge, mais pour les skills. Il lit ton fichier SKILL.md et vérifie qu'il est bien formé : un nom, une description qui dit quand l'utiliser, et des instructions. Ce n'est pas une note, juste un coup de main pour finir proprement.",
         attendu: "Ton skill passé au juge, et les points qu'il signale corrigés si besoin.",
         lien: { label: "Ouvrir le juge des skills", href: "/juge-skill" },
         pasAPas: [
           "Ouvre le juge des skills avec le bouton juste au-dessus.",
-          "Demande à Claude Code « montre-moi uniquement le contenu de mon fichier SKILL.md, en entier », copie tout, colle-le dans le juge, et lance l'évaluation.",
+          "Demande à Claude Code « montre-moi uniquement le contenu du fichier SKILL.md de mon skill [nom], en entier », copie tout, colle-le dans le juge, et lance l'évaluation.",
         ],
         ceQueTuDoisVoir:
           "Le juge te dit ce qui va et ce qui manque, et à quelle étape revenir s'il faut. Quand tout est bon, tu as la confirmation que ton skill est propre et solide.",
         siCaBloque:
-          "Le juge signale qu'il manque quelque chose ? C'est souvent la description à préciser. Corrige avec Claude Code, repasse le juge, et c'est bouclé. Ce n'est pas une punition, il t'aide juste à finir propre.",
+          "Le juge signale qu'il manque quelque chose ? C'est souvent la description à préciser. Corrige avec Claude Code, repasse le juge, et c'est bouclé.",
         conseil: "Un skill validé par le juge, c'est un skill que tu peux réutiliser les yeux fermés sur tes prochains projets.",
       },
       {
@@ -367,7 +372,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         ceQueTuDoisVoir:
           "Tu peux nommer, en une phrase, la prochaine répétition que tu transformeras en skill. C'est le signe que le réflexe est là.",
         monExemple:
-          "Aujourd'hui, j'ai même un skill pour créer des skills. C'est dire si c'est devenu un réflexe : dès que je répète quelque chose, j'en fais un skill.",
+          "Aujourd'hui, j'ai même un skill pour créer des skills : c'est le Skill Creator que tu as installé à l'étape 2. C'est dire si c'est devenu un réflexe : dès que je répète quelque chose, j'en fais un skill.",
         conseil: "Avant de partir, note en une phrase la prochaine répétition que tu transformeras en skill. C'est ça, le réflexe.",
       },
     ],
