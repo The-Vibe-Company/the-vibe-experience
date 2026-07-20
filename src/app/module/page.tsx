@@ -3,6 +3,7 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
@@ -53,7 +54,7 @@ export default function Module() {
       <div className="etape-shell">
         <ModuleRail etapes={etapesDetail} currentSlug="" basePath="/module" moduleLabel="Faire un site" />
 
-        <div className="ecol">
+        <div className="ecol ecol-with-side">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -74,6 +75,17 @@ export default function Module() {
             mise en ligne, en apprenant les vrais outils au passage. On ne t&apos;impose rien, on
             t&apos;accompagne pas à pas.
           </p>
+
+          <ModuleSidePanel
+            moduleKey="/module"
+            basePath="/module"
+            etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            facts={[
+              { label: "Livrable", value: "Un site en ligne, partageable" },
+              { label: "Durée", value: "6 étapes · ≈ 3 à 4 h" },
+              { label: "Budget", value: "Claude Pro (~20 €/mois), le reste gratuit" },
+            ]}
+          />
 
           <ModuleProgress
             moduleKey="/module"
@@ -109,9 +121,8 @@ export default function Module() {
 
           <div className="label mov-sec">Les skills qu&apos;on t&apos;offre</div>
           <p className="mov-toolintro">
-            À l&apos;étape 3, tu rends ton site propre avec deux skills. On te donne une consigne à
-            copier dans Claude Code pour chacun. Tu colles, il récupère le skill et finit la mise en
-            place tout seul (Agent Browser installe son outil au premier usage).
+            À l&apos;étape 3, tu rends ton site propre avec deux skills. Chacun se copie d&apos;un clic : tu le
+            colles dans Claude Code ou Codex et il s&apos;installe tout seul (Agent Browser installe son outil au premier usage).
           </p>
           <div className="gfilets">
             {skillGifts.map((g) => (
@@ -147,8 +158,8 @@ export default function Module() {
             <p>
               Tu viens d&apos;utiliser des skills tout faits (Impeccable, Agent Browser). Le module
               suivant, un savoir-faire, t&apos;apprend à fabriquer le tien, que tu réutiliseras dans
-              ton prochain produit. C&apos;est l&apos;alternance : un produit, un savoir-faire, et on
-              recommence.
+              ton prochain produit. C&apos;est le principe : un premier produit, puis des
+              savoir-faire qui s&apos;empilent et te rendent plus fort pour le prochain.
             </p>
           </div>
         </div>

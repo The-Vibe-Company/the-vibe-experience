@@ -66,8 +66,16 @@ export default function ParcoursCta({
     titre: e.titre,
     sousCount: e.sous.length,
   }));
-  const buildStats = computeStats(buildLite, buildProgress.mounted ? buildProgress.done : []);
-  const skillStats = computeStats(skillLite, skillProgress.mounted ? skillProgress.done : []);
+  const buildStats = computeStats(
+    buildLite,
+    buildProgress.mounted ? buildProgress.done : [],
+    buildProgress.mounted && buildProgress.started,
+  );
+  const skillStats = computeStats(
+    skillLite,
+    skillProgress.mounted ? skillProgress.done : [],
+    skillProgress.mounted && skillProgress.started,
+  );
   const buildCurrent = buildStats.current;
   const skillCurrent = skillStats.current;
 

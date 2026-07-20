@@ -23,10 +23,11 @@ export default function ModuleEtapes({
   basePath: string;
   etapes: EtapeCard[];
 }) {
-  const { done, mounted } = useModuleProgress(moduleKey);
+  const { done, mounted, started } = useModuleProgress(moduleKey);
   const stats = computeStats(
     etapes.map((e) => ({ slug: e.slug, num: e.num, titre: e.titre, sousCount: e.sousCount })),
     mounted ? done : [],
+    mounted && started,
   );
   const currentSlug = stats.current?.etapeSlug;
 

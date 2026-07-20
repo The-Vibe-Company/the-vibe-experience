@@ -1,12 +1,13 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
-import Link from "next/link";
+import { Fragment, useEffect, useState, type ReactNode } from "react";
 import ParcoursModule1 from "@/components/ParcoursModule1";
+import ParcoursModuleCard from "@/components/ParcoursModuleCard";
+import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
+import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
+import { useAnyModuleStarted } from "@/lib/progress";
 
 type Branche = "construire" | "automatiser";
-const RECO_KEY = "tve_quiz_reco";
-const RECO_EVENT = "tve-quiz-reco";
 
 const businessSoon = [
   {
@@ -25,116 +26,196 @@ const businessSoon = [
   { titre: "Gérer mon agenda", desc: "Tes rendez-vous et tes rappels organisés à ta place." },
 ];
 
-function readRecoBranch(): Branche | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(RECO_KEY);
-    if (!raw) return null;
-    const r = JSON.parse(raw);
-    return r.branche === "construire" || r.branche === "automatiser" ? r.branche : null;
-  } catch {
-    return null;
-  }
-}
-
-function subscribeReco(callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-  window.addEventListener("storage", callback);
-  window.addEventListener(RECO_EVENT, callback);
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(RECO_EVENT, callback);
-  };
-}
-
-function clearRecommendedBranch() {
-  try {
-    const raw = localStorage.getItem(RECO_KEY);
-    if (!raw) return;
-    const record = JSON.parse(raw);
-    if (!record?.branche) return;
-    delete record.branche;
-    localStorage.setItem(RECO_KEY, JSON.stringify(record));
-    window.dispatchEvent(new CustomEvent(RECO_EVENT));
-  } catch {
-    // La recommandation est un confort d'affichage, pas un état critique.
-  }
-}
-
 export default function ParcoursFamilies() {
-  const branche = useSyncExternalStore(subscribeReco, readRecoBranch, () => null);
+  const [branche, setBranche] = useState<Branche | null>(null);
+  const [reco, setReco] = useState<Branche | null>(null);
+  const moduleStarted = useAnyModuleStarted();
 
-  const construireCol = (
-    <div
-      className={branche === "construire" ? "pc-col pc-col-build pc-col-reco" : "pc-col pc-col-build"}
-      key="construire"
-    >
-      {branche === "construire" && <span className="pc-reco-tag">Parcours conseillé</span>}
-      <div className="pc-col-summary">
-        <div className="pc-col-head">
-          <h2 className="pc-family-title">Apprendre à construire</h2>
-        </div>
-        <p className="pc-col-intro">
-          Tu apprends à fabriquer tes propres trucs, pas à pas, et tu montes en compétence. Le chemin
-          fait partie de la valeur.
-        </p>
-      </div>
-      <div className="pc-col-list">
-        <ParcoursModule1 onChooseModule={clearRecommendedBranch} />
-        <Link className="pc-mc" href="/creer-un-skill" onClick={clearRecommendedBranch}>
-          <div className="pc-mc-head">
-            <span className="label">Module 02 · Savoir-faire</span>
-            <span className="pc-mc-status">Disponible →</span>
-          </div>
-          <span className="pc-mc-title">Créer ton premier skill</span>
-          <p className="pc-mc-desc">
-            Tu as utilisé des skills tout faits ; celui-ci t&apos;apprend à fabriquer le tien,
-            réutilisable dans ton prochain produit.
-          </p>
-          <span className="pc-mc-meta">Savoir-faire · après le module 1</span>
-        </Link>
-      </div>
-    </div>
-  );
+  // La catégorie ouverte vit dans l'URL (?cat=...). Un retour arrière depuis un
+  // module restaure donc la catégorie telle qu'on l'avait laissée, alors que le
+  // lien « Parcours » du menu, sans paramètre, arrive catégories repliées.
+  useEffect(() => {
+    queueMicrotask(() => {
+      try {
+        const cat = new URLSearchParams(window.location.search).get("cat");
+        if (cat === "construire" || cat === "automatiser") setBranche(cat);
+      } catch {}
+    });
+  }, []);
 
-  const automatiserCol = (
-    <div
-      className={
-        branche === "automatiser" ? "pc-col pc-col-business pc-col-reco" : "pc-col pc-col-business"
+  // Le panneau latéral (résultat du quiz) peut demander l'ouverture d'une
+  // catégorie sans recharger la page.
+  useEffect(() => {
+    const onOpen = (e: Event) => {
+      const b = (e as CustomEvent).detail;
+      if (b !== "construire" && b !== "automatiser") return;
+      setBranche(b);
+      try {
+        window.history.replaceState(window.history.state, "", `${window.location.pathname}?cat=${b}`);
+      } catch {}
+    };
+    window.addEventListener("tve-open-cat", onOpen);
+    return () => window.removeEventListener("tve-open-cat", onOpen);
+  }, []);
+
+  // La reco du quiz met juste le tag « Parcours conseillé » sur la bonne carte,
+  // sans l'ouvrir.
+  useEffect(() => {
+    queueMicrotask(() => {
+      if (moduleStarted.started) {
+        // Un module est lancé : la reco du quiz n'a plus lieu d'être.
+        setReco(null);
+        try {
+          const raw = localStorage.getItem("tve_quiz_reco");
+          if (raw) {
+            const r = JSON.parse(raw);
+            delete r.branche;
+            localStorage.setItem("tve_quiz_reco", JSON.stringify(r));
+          }
+        } catch {}
+        return;
       }
-      key="automatiser"
-    >
-      {branche === "automatiser" && <span className="pc-reco-tag">Parcours conseillé</span>}
-      <div className="pc-col-summary">
-        <div className="pc-col-head">
-          <h2 className="pc-family-title">Automatiser ton business</h2>
-          <span className="pc-fam-soon">En préparation</span>
+
+      try {
+        const raw = localStorage.getItem("tve_quiz_reco");
+        if (raw) {
+          const r = JSON.parse(raw);
+          if (r.branche === "construire" || r.branche === "automatiser") setReco(r.branche);
+        }
+      } catch {}
+    });
+  }, [moduleStarted.started]);
+
+  const choisir = (b: Branche) => {
+    const next = branche === b ? null : b;
+    setBranche(next);
+    try {
+      const url = next ? `${window.location.pathname}?cat=${next}` : window.location.pathname;
+      window.history.replaceState(window.history.state, "", url);
+    } catch {}
+  };
+
+  const carte = (b: Branche, titre: string, desc: string, count: string, soon?: boolean) => {
+    const on = branche === b;
+    return (
+      <button
+        type="button"
+        className={on ? "pc-cat on" : "pc-cat"}
+        onClick={() => choisir(b)}
+        aria-expanded={on}
+        aria-controls="pc-panel"
+      >
+        {reco === b && <span className="pc-reco-tag">Parcours conseillé</span>}
+        <span className="pc-cat-head">
+          <span className="pc-cat-title">{titre}</span>
+          {soon && <span className="pc-fam-soon">En préparation</span>}
+        </span>
+        <span className="pc-cat-desc">{desc}</span>
+        <span className="pc-cat-foot">
+          <span className="pc-cat-count">{count}</span>
+          <span className="pc-cat-cta" aria-hidden>
+            {on ? "Replier ↑" : "Voir les modules ↓"}
+          </span>
+        </span>
+      </button>
+    );
+  };
+
+  const construireCards = [
+    { key: "module-01", node: <ParcoursModule1 /> },
+    {
+      key: "module-02",
+      node: (
+        <ParcoursModuleCard
+          moduleKey="/creer-un-skill"
+          href="/creer-un-skill"
+          etapes={etapesDetailSkill}
+          label="Module 02 · Savoir-faire"
+          title="Créer ton premier skill"
+          description="Tu as utilisé des skills tout faits ; celui-ci t'apprend à fabriquer le tien, réutilisable dans ton prochain produit."
+          meta="Savoir-faire · après le module 1"
+          idleStatus="Disponible"
+        />
+      ),
+    },
+    {
+      key: "module-03",
+      node: (
+        <ParcoursModuleCard
+          moduleKey="/automatiser-ton-travail"
+          href="/automatiser-ton-travail"
+          etapes={etapesDetailAutomatisation}
+          label="Module 03 · Savoir-faire"
+          title="Automatise ton travail"
+          description="Il ne se passe plus des choses parce que tu demandes, mais parce que c'est déclenché : sauvegardes toutes seules, garde-fous, rendez-vous programmés."
+          meta="Savoir-faire · après le module 2"
+          idleStatus="En écriture"
+        />
+      ),
+    },
+  ];
+
+  const automatiserCards = businessSoon.map((m) => ({
+    key: m.titre,
+    node: (
+      <div className="pc-mc pc-mc-soon">
+        <div className="pc-mc-head">
+          <span className="pc-mc-status">Bientôt</span>
         </div>
-        <p className="pc-col-intro">
-          Tu mets l&apos;IA au travail sur les tâches qui te font perdre du temps. Des skills prêts à
-          l&apos;emploi, tu apprends juste à t&apos;en servir. Pour ceux qui veulent un résultat, pas
-          forcément apprendre à tout construire.
-        </p>
+        <span className="pc-mc-title">{m.titre}</span>
+        <p className="pc-mc-desc">{m.desc}</p>
+        <div className="pc-soon-bar" aria-disabled="true">
+          Bientôt disponible
+        </div>
       </div>
-      <div className="pc-col-list">
-        {businessSoon.map((m) => (
-          <div className="pc-mc pc-mc-soon" key={m.titre}>
-            <div className="pc-mc-head">
-              <span className="pc-mc-status">Bientôt</span>
-            </div>
-            <span className="pc-mc-title">{m.titre}</span>
-            <p className="pc-mc-desc">{m.desc}</p>
-            <div className="pc-soon-bar" aria-disabled="true">
-              Bientôt disponible
-            </div>
-          </div>
+    ),
+  }));
+
+  // Bibliothèque : tous les modules de la catégorie, en grille de 3.
+  const panel = (intro: string, cards: { key: string; node: ReactNode }[]) => (
+    <div className="pc-panel" id="pc-panel">
+      <p className="pc-panel-intro">{intro}</p>
+      <div className="pc-lib">
+        {cards.map((c) => (
+          <Fragment key={c.key}>{c.node}</Fragment>
         ))}
       </div>
     </div>
   );
 
-  const cols =
-    branche === "automatiser" ? [automatiserCol, construireCol] : [construireCol, automatiserCol];
+  return (
+    <div className="pc-pick">
+      <div className="pc-cats">
+        {carte(
+          "construire",
+          "Apprendre à construire",
+          "Tu fabriques tes propres trucs, pas à pas, et tu montes en compétence. Le chemin fait partie de la valeur.",
+          "3 modules"
+        )}
+        {carte(
+          "automatiser",
+          "Automatiser ton business",
+          "Tu mets l'IA au travail sur les tâches qui te font perdre du temps. Un résultat, sans devoir tout construire.",
+          "5 modules à venir",
+          true
+        )}
+      </div>
 
-  return <div className={branche ? "pc-cols pc-cols-hasreco" : "pc-cols"}>{cols}</div>;
+      {branche === null && (
+        <p className="pc-pick-hint">Clique sur une catégorie pour découvrir ses modules.</p>
+      )}
+
+      {branche === "construire" &&
+        panel(
+          "Des modules guidés où tu construis un vrai truc à toi, en apprenant les vrais outils au passage.",
+          construireCards
+        )}
+
+      {branche === "automatiser" &&
+        panel(
+          "Des skills prêts à l'emploi, tu apprends juste à t'en servir. Ces modules sont en préparation, ils arrivent bientôt.",
+          automatiserCards
+        )}
+    </div>
+  );
 }
