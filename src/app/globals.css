@@ -987,14 +987,14 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
 .pc-srow-dots { grid-template-columns: 52px 1fr; }
 .pc-srow-dots .pc-srow-n { color: var(--border-strong); }
 .pc-srow-tail { font-size: .9rem; line-height: 1.55; color: var(--muted-2); font-style: italic; }
-/* Accueil du parcours : colonne principale + panneau latéral « Où tu en es »
-   collé à droite. Deux colonnes flex, aucun chevauchement possible : la
-   bibliothèque vit dans la colonne principale. Le panneau est sticky sur
-   toute la hauteur de la page, il suit le scroll. */
-.pcx-shell { display: flex; align-items: flex-start; gap: clamp(2.2rem, 4vw, 4.5rem); }
-.pcx-main { flex: 1 1 0%; min-width: 0; }
-.pcx-shell .module-side { position: sticky; top: 84px; flex: 0 0 270px; width: 270px; justify-self: auto; margin: .5rem 0 0; padding: 0 0 0 1.4rem; border-left: 1px solid var(--border); border-top: none; }
-.pcx-main .pc-lib { column-gap: 2.25rem; }
+/* Accueil du parcours : même logique que les pages module. Pleine largeur
+   d'écran, le panneau « Où tu en es » est collé au bord droit, le contenu
+   est centré entre le bord gauche et le panneau, et profite de la place.
+   Le panneau est sticky sur toute la hauteur de la page, il suit le scroll. */
+.pcx-shell { width: 100%; max-width: none; margin: 0; padding: 2.75rem clamp(1rem, 2vw, 2rem) 5rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1120px) minmax(0, 1fr) minmax(240px, 320px); column-gap: clamp(1.5rem, 2.5vw, 2.5rem); align-items: start; }
+.pcx-main { grid-column: 2; min-width: 0; }
+.pcx-shell .module-side { grid-column: 4; position: sticky; top: 84px; justify-self: end; width: min(100%, 320px); margin: .5rem 0 0; padding: 0 0 0 1.4rem; border-left: 1px solid var(--border); border-top: none; }
+.pcx-main .pc-lib { column-gap: clamp(2rem, 2.5vw, 3rem); }
 .pcx-side-more { margin-top: 1.15rem; }
 .pcx-side-more > .label { display: block; }
 .pcx-side-more .module-side-links { padding-top: .6rem; }
@@ -1002,7 +1002,7 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
 .pcx-principe .tfilets { margin-top: .8rem; }
 .pcx-principe .tfilet-desc { max-width: 62ch; }
 @media (max-width: 1000px) {
-  .pcx-shell { display: block; }
+  .pcx-shell { display: block; padding: 2rem 1.4rem 3rem; }
   .pcx-shell .module-side { position: static; width: auto; margin: 2.4rem 0 0; padding: 1.2rem 0 0; border-left: none; border-top: 1px solid var(--border); }
 }
 @media (max-width: 860px) {

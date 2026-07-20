@@ -21,7 +21,7 @@ const principes = [
 
 export default function Parcours() {
   return (
-    <div className="pgwrap pcx-shell">
+    <div className="pcx-shell">
       <div className="pcx-main">
         <div className="crumb">
           <Link href="/">Accueil</Link>
