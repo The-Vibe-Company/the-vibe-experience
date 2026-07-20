@@ -1,14 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { etapesDetail, type EtapeDetail } from "@/lib/module-faire-un-site";
 import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
 import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import { computeStats, useModuleProgress, type EtapeLite } from "@/lib/progress";
 
 // Panneau latéral de l'accueil du parcours. Avant de commencer : ce qu'il faut
-// savoir pour se lancer, et le quiz pour être orienté. Dès qu'un module est
-// entamé : où on en est sur chacun, et la prochaine action pour reprendre.
+// savoir pour se lancer, et le quiz pour être orienté ; si le quiz a été passé,
+// son résultat remplace l'invitation. Dès qu'un module est entamé : où on en
+// est sur chacun, et la prochaine action pour reprendre.
+
+type QuizReco = { branche?: string; niveau?: string; objectif?: string };
 
 const toLite = (etapes: EtapeDetail[]): EtapeLite[] =>
   etapes.map((e) => ({ slug: e.slug, num: e.num, titre: e.titre, sousCount: e.sous.length }));
@@ -35,6 +39,16 @@ export default function ParcoursSidePanel() {
   const p2 = useModuleProgress(MODULES[2].key);
   const progress = [p0, p1, p2];
 
+  const [reco, setReco] = useState<QuizReco | null>(null);
+  useEffect(() => {
+    queueMicrotask(() => {
+      try {
+        const raw = localStorage.getItem("tve_quiz_reco");
+        if (raw) setReco(JSON.parse(raw) as QuizReco);
+      } catch {}
+    });
+  }, []);
+
   const mods = MODULES.map((m, i) => {
     const p = progress[i];
     return { ...m, stats: computeStats(m.etapes, p.mounted ? p.done : [], p.mounted && p.started) };
@@ -54,6 +68,51 @@ export default function ParcoursSidePanel() {
   );
 
   if (!anyStarted) {
+    // Quiz passé et aucun module commencé : le résultat remplace l'invitation.
+    if (reco?.branche === "construire" || reco?.branche === "automatiser") {
+      const branche = reco.branche;
+      const brancheLabel =
+        branche === "automatiser" ? "Automatiser ton business" : "Apprendre à construire";
+      const objectif = reco.objectif
+        ? `${branche === "automatiser" ? "Automatiser" : "Créer"} ${reco.objectif}`
+        : null;
+      return (
+        <aside className="module-side" aria-label="Ton résultat du quiz">
+          <span className="label">Ton résultat du quiz</span>
+          <div className="module-side-list">
+            <div className="module-side-row">
+              <span>Parcours conseillé</span>
+              <strong>{brancheLabel}</strong>
+            </div>
+            {reco.niveau && (
+              <div className="module-side-row">
+                <span>Niveau</span>
+                <strong>{reco.niveau}</strong>
+              </div>
+            )}
+            {objectif && (
+              <div className="module-side-row">
+                <span>Objectif</span>
+                <strong>{objectif}</strong>
+              </div>
+            )}
+          </div>
+          <button
+            type="button"
+            className="module-side-next"
+            onClick={() => window.dispatchEvent(new CustomEvent("tve-open-cat", { detail: branche }))}
+          >
+            <span>Par ici</span>
+            <strong>Voir les modules conseillés →</strong>
+          </button>
+          <div className="module-side-links">
+            <Link href="/demarrer">Refaire le quiz →</Link>
+          </div>
+          {links}
+        </aside>
+      );
+    }
+
     return (
       <aside className="module-side" aria-label="Avant de te lancer">
         <span className="label">Avant de te lancer</span>

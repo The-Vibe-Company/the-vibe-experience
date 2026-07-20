@@ -992,9 +992,10 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
    d'écran, le panneau « Où tu en es » est collé au bord droit, le contenu
    est centré entre le bord gauche et le panneau, et profite de la place.
    Le panneau est sticky sur toute la hauteur de la page, il suit le scroll. */
-.pcx-shell { width: 100%; max-width: none; margin: 0; padding: 2.75rem clamp(1rem, 2vw, 2rem) 5rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1120px) minmax(0, 1fr) minmax(240px, 320px); column-gap: clamp(1.5rem, 2.5vw, 2.5rem); align-items: start; }
+.pcx-shell { width: 100%; max-width: none; margin: 0; padding: 2.75rem clamp(1rem, 2vw, 2rem) 5rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1120px) minmax(240px, 320px); column-gap: clamp(1.5rem, 2.5vw, 2.5rem); align-items: start; }
 .pcx-main { grid-column: 2; min-width: 0; }
-.pcx-shell .module-side { grid-column: 4; position: sticky; top: 84px; justify-self: end; width: min(100%, 320px); margin: .5rem 0 0; padding: 0 0 0 1.4rem; border-left: 1px solid var(--border); border-top: none; }
+.pcx-shell .module-side { grid-column: 3; position: sticky; top: 84px; justify-self: end; width: min(100%, 320px); margin: .5rem 0 0; padding: 0 0 0 1.4rem; border-left: 1px solid var(--border); border-top: none; }
+.module-side button.module-side-next { width: 100%; background: none; border-left: 0; border-right: 0; font: inherit; text-align: left; cursor: pointer; }
 .pcx-main .pc-lib { column-gap: clamp(2rem, 2.5vw, 3rem); }
 .pcx-side-more { margin-top: 1.15rem; }
 .pcx-side-more > .label { display: flex; }

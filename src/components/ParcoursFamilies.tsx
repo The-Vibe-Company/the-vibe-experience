@@ -43,6 +43,21 @@ export default function ParcoursFamilies() {
     });
   }, []);
 
+  // Le panneau latéral (résultat du quiz) peut demander l'ouverture d'une
+  // catégorie sans recharger la page.
+  useEffect(() => {
+    const onOpen = (e: Event) => {
+      const b = (e as CustomEvent).detail;
+      if (b !== "construire" && b !== "automatiser") return;
+      setBranche(b);
+      try {
+        window.history.replaceState(window.history.state, "", `${window.location.pathname}?cat=${b}`);
+      } catch {}
+    };
+    window.addEventListener("tve-open-cat", onOpen);
+    return () => window.removeEventListener("tve-open-cat", onOpen);
+  }, []);
+
   // La reco du quiz met juste le tag « Parcours conseillé » sur la bonne carte,
   // sans l'ouvrir.
   useEffect(() => {
