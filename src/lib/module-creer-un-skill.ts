@@ -15,7 +15,7 @@ const F = {
   },
 };
 
-// Les deux skills qu'on met à disposition des utilisateurs via une consigne copiée dans Claude Code.
+// Les deux skills offerts en copier-coller : le texte copié contient le skill entier.
 export const skillGifts = [
   {
     n: "Skill Creator",
@@ -181,14 +181,14 @@ export const etapesDetailSkill: EtapeDetail[] = [
         telechargements: [{ n: "le Skill Creator", href: "/skills/create-skill-tools.zip" }],
         outils: [F.skillcreator],
         pasAPas: [
-          "Clique sur « Copier le skill » juste au-dessus.",
-          "Ouvre Claude Code, colle la consigne copiée dans la zone où tu écris tes messages, puis envoie. Si Claude Code te demande l'autorisation de lancer une action pour ranger le skill, dis oui, c'est juste lui qui l'installe. Tu ne fais ça qu'une seule fois, il reste disponible ensuite.",
+          "Clique sur « Copier le skill » juste au-dessus : ça copie le skill en entier.",
+          "Ouvre Claude Code, colle le skill copié dans la zone où tu écris tes messages, puis envoie. Si Claude Code te demande l'autorisation de lancer une action pour ranger le skill, dis oui, c'est juste lui qui l'installe. Tu ne fais ça qu'une seule fois, il reste disponible ensuite.",
           "Ensuite, sers-toi du Skill Creator à la place du simple prompt : pas besoin de recréer un deuxième skill, tu peux refaire le même en mieux, ou en créer un nouveau.",
         ],
         prompt:
           "Utilise le skill create-skill-tools pour me créer un skill à partir de ça : [ce que tu répètes]. Il doit se déclencher quand [la situation]. Range-le dans mes skills personnels. Fais la version simple, sans évaluations ni tests automatiques : c'est mon premier skill. Et parle-moi en français.",
         ceQueTuDoisVoir:
-          `Après la consigne copiée, Claude Code te confirme que le skill est installé et disponible.
+          `Une fois le skill collé et envoyé, Claude Code te confirme qu'il est installé et disponible.
 
 Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne « Skill : create-skill-tools » qui s'affiche. Si elle n'apparaît pas, ferme et rouvre Claude Code puis redemande.
 
@@ -198,7 +198,7 @@ Puis il crée le skill, vérifie le format et te montre ce qu'il a fait. Il peut
         siCaBloque:
           `Claude Code ne trouve pas le skill juste après l'install ? Ferme et rouvre-le : un nouveau skill n'est parfois pris en compte qu'au redémarrage.
 
-La consigne copiée ne marche pas ? Recopie-la depuis cette page et renvoie-la dans Claude Code.
+Le collage ne marche pas ? Recopie le skill depuis cette page et renvoie-le dans Claude Code.
 
 Le Skill Creator part dans de grandes questions techniques ou une longue boucle de tests ? C'est son mode expert : dis-lui « reste sur la version simple, c'est mon premier skill » et il se recentre.
 
@@ -295,7 +295,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         telechargements: [{ n: "l'Improve", href: "/skills/improve-skill-tools.zip" }],
         outils: [F.improve],
         pasAPas: [
-          "Copie la consigne Improve juste au-dessus, colle-la dans Claude Code et envoie. C'est la même logique que le Skill Creator.",
+          "Copie le skill Improve juste au-dessus, colle-le dans Claude Code et envoie. C'est la même logique que le Skill Creator.",
           "Demande-lui de passer ton skill en revue avec le prompt ci-dessous, puis applique ce qui te parle.",
         ],
         prompt:

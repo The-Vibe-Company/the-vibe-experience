@@ -3,6 +3,7 @@ import { etapesDetailSkill, skillToolbox, skillGifts } from "@/lib/module-creer-
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
@@ -36,7 +37,7 @@ export default function ModuleSkill() {
           moduleLabel="Créer ton premier skill"
         />
 
-        <div className="ecol">
+        <div className="ecol ecol-with-side">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -57,6 +58,19 @@ export default function ModuleSkill() {
             fabriques le tien : une compétence que tu apprends une fois à l&apos;IA et qu&apos;elle
             réutilise ensuite toute seule, sur tous tes projets.
           </p>
+
+          <ModuleSidePanel
+            moduleKey="/creer-un-skill"
+            basePath="/creer-un-skill"
+            etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            facts={[
+              { label: "Livrable", value: "Un skill que Claude Code peut réutiliser" },
+              { label: "Durée", value: "5 étapes · ≈ 1 h 40" },
+              { label: "Outil", value: "Claude Code, plus les deux skills offerts" },
+            ]}
+            jugeHref="/juge-skill"
+            jugeLabel="Fais évaluer ton skill par le juge"
+          />
 
           <ModuleProgress
             moduleKey="/creer-un-skill"
@@ -87,8 +101,8 @@ export default function ModuleSkill() {
           <p className="mov-toolintro">
             Tu peux créer un skill juste en le demandant à Claude Code. Mais pour t&apos;aider à le
             faire nickel, on te donne nos deux vrais outils, en option : le premier crée un skill au
-            bon format, le second le passe en revue. Tu copies une consigne, tu la colles dans
-            Claude Code, et tu t&apos;en sers aux étapes 2 et 3.
+            bon format, le second le passe en revue. Tu copies le skill, tu le colles dans
+            Claude Code ou Codex, il s&apos;installe tout seul, et tu t&apos;en sers aux étapes 2 et 3.
           </p>
           <div className="gfilets">
             {skillGifts.map((g) => (
@@ -118,11 +132,12 @@ export default function ModuleSkill() {
 
           <div className="mov-after">
             <span className="label">Et après ?</span>
-            <span className="mov-after-title">Ton prochain produit</span>
+            <span className="mov-after-title">Automatiser ton travail</span>
             <p>
               Tu viens de fabriquer un savoir-faire, et surtout d&apos;acquérir le réflexe. Le module
-              suivant est un produit : tu y créeras les skills dont tu as besoin, maintenant que tu
-              sais faire. C&apos;est l&apos;alternance : un produit, un savoir-faire, et on recommence.
+              suivant en empile un deuxième : apprendre à faire travailler l&apos;IA sans toi
+              (sauvegardes automatiques, garde-fous, routines programmées), en réutilisant le skill
+              que tu viens de créer. Et ton prochain produit profitera de tout ça.
             </p>
           </div>
         </div>

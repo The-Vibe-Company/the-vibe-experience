@@ -5,6 +5,7 @@ set -o pipefail
 
 SCRIPT_DIR="${0:A:h}"
 PROJECT_ROOT="${SCRIPT_DIR:h:h}"
+SUPABASE_PORT_STATE_FILE="$PROJECT_ROOT/.context/conductor-supabase-port-base"
 
 fail() {
   print -u2 "\nConductor local dev: $*"
@@ -16,23 +17,39 @@ require_conductor_port() {
     fail "CONDUCTOR_PORT est absent. Lance cette commande depuis le menu Run de Conductor."
   fi
 
-  if (( CONDUCTOR_PORT < 1024 || CONDUCTOR_PORT > 65526 )); then
-    fail "CONDUCTOR_PORT=$CONDUCTOR_PORT ne permet pas de reserver la plage de 10 ports du workspace."
+  if (( CONDUCTOR_PORT < 1024 || CONDUCTOR_PORT > 65535 )); then
+    fail "CONDUCTOR_PORT=$CONDUCTOR_PORT n'est pas un port web valide."
   fi
 }
 
 configure_workspace() {
   require_conductor_port
 
+  local supabase_port_base
+  if [[ -r "$SUPABASE_PORT_STATE_FILE" ]]; then
+    supabase_port_base="$(<"$SUPABASE_PORT_STATE_FILE")"
+  else
+    # CONDUCTOR_PORT ne reserve qu'un port. Supabase utilise donc un bloc
+    # distinct et stable, pour ne pas entrer en collision avec un autre chat.
+    supabase_port_base=$((56000 + (CONDUCTOR_PORT % 900) * 10))
+    mkdir -p "${SUPABASE_PORT_STATE_FILE:h}"
+    print -r -- "$supabase_port_base" > "$SUPABASE_PORT_STATE_FILE"
+  fi
+
+  if [[ ! "$supabase_port_base" =~ '^[0-9]+$' ]] || \
+    (( supabase_port_base < 56000 || supabase_port_base > 64990 )); then
+    fail "Le bloc de ports Supabase local est invalide. Supprime $SUPABASE_PORT_STATE_FILE, puis relance Run."
+  fi
+
   export SUPABASE_PROJECT_ID="the-vibe-${CONDUCTOR_PORT}"
-  export SUPABASE_API_PORT=$((CONDUCTOR_PORT + 1))
-  export SUPABASE_DB_PORT=$((CONDUCTOR_PORT + 2))
-  export SUPABASE_DB_SHADOW_PORT=$((CONDUCTOR_PORT + 3))
-  export SUPABASE_STUDIO_PORT=$((CONDUCTOR_PORT + 4))
-  export SUPABASE_INBUCKET_PORT=$((CONDUCTOR_PORT + 5))
-  export SUPABASE_POOLER_PORT=$((CONDUCTOR_PORT + 6))
-  export SUPABASE_EDGE_INSPECTOR_PORT=$((CONDUCTOR_PORT + 7))
-  export SUPABASE_ANALYTICS_PORT=$((CONDUCTOR_PORT + 8))
+  export SUPABASE_API_PORT=$((supabase_port_base + 1))
+  export SUPABASE_DB_PORT=$((supabase_port_base + 2))
+  export SUPABASE_DB_SHADOW_PORT=$((supabase_port_base + 3))
+  export SUPABASE_STUDIO_PORT=$((supabase_port_base + 4))
+  export SUPABASE_INBUCKET_PORT=$((supabase_port_base + 5))
+  export SUPABASE_POOLER_PORT=$((supabase_port_base + 6))
+  export SUPABASE_EDGE_INSPECTOR_PORT=$((supabase_port_base + 7))
+  export SUPABASE_ANALYTICS_PORT=$((supabase_port_base + 8))
   export SUPABASE_AUTH_SITE_URL="http://localhost:${CONDUCTOR_PORT}"
 }
 

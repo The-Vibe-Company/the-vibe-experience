@@ -5,9 +5,9 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import { useModuleProgress, computeStats } from "@/lib/progress";
 
 export default function CompteProgress() {
-  const { done, mounted } = useModuleProgress("/module");
+  const { done, mounted, started } = useModuleProgress("/module");
   const lite = etapesDetail.map((e) => ({ slug: e.slug, num: e.num, titre: e.titre, sousCount: e.sous.length }));
-  const stats = computeStats(lite, mounted ? done : []);
+  const stats = computeStats(lite, mounted ? done : [], mounted && started);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const t = stats.current;
 

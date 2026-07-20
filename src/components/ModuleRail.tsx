@@ -4,8 +4,7 @@ import Link from "next/link";
 import type { EtapeDetail } from "@/lib/module-faire-un-site";
 import { useModuleProgress, computeStats, sousId } from "@/lib/progress";
 
-// Rail de progression (design 3a/2a) : module, barre de progression par sous-étape,
-// bouton « Reprendre », et sommaire des étapes qui déploie la courante.
+// Rail de progression : module, barre et sommaire des étapes.
 export default function ModuleRail({
   etapes,
   currentSlug,
@@ -17,24 +16,13 @@ export default function ModuleRail({
   basePath: string;
   moduleLabel: string;
 }) {
-  const { isDone, done, mounted } = useModuleProgress(basePath);
+  const { isDone, done, mounted, started } = useModuleProgress(basePath);
   const lite = etapes.map((e) => ({ slug: e.slug, num: e.num, titre: e.titre, sousCount: e.sous.length }));
-  const stats = computeStats(lite, mounted ? done : []);
+  const stats = computeStats(lite, mounted ? done : [], mounted && started);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
 
   // Sur une page d'étape, on surligne cette étape. Sur l'accueil (currentSlug vide), on surligne l'étape courante.
   const highlightSlug = currentSlug || stats.current?.etapeSlug || etapes[0]?.slug;
-
-  const t = stats.current;
-  let cta: string | null = null;
-  let ctaHref = `${basePath}/${etapes[0].slug}`;
-  if (mounted) {
-    if (stats.allDone) cta = "Revoir le module";
-    else if (t) {
-      cta = `${stats.started ? "Reprendre" : "Commencer"} à la sous-étape ${t.etapeNum}.${t.subIndex + 1} →`;
-      ctaHref = `${basePath}/${t.etapeSlug}`;
-    }
-  }
 
   return (
     <nav className="erail" aria-label={`Progression du module ${moduleLabel}`}>
@@ -55,12 +43,6 @@ export default function ModuleRail({
             <div className="erail-fill" style={{ width: `${pct}%` }} />
           </div>
         </div>
-      )}
-
-      {cta && (
-        <Link className="btn erail-btn" href={ctaHref}>
-          {cta}
-        </Link>
       )}
 
       <ol className="erail-list">
