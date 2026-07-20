@@ -46,9 +46,9 @@ export default function ParcoursSidePanel() {
     <div className="pcx-side-more">
       <span className="label">Autour du parcours</span>
       <div className="module-side-links">
-        <Link href="/ressources">Les ressources : outils, skills et prompts →</Link>
-        <Link href="/journal">Le journal de bord, l&apos;AI Journey en direct →</Link>
-        <Link href="/juge">Le juge : fais évaluer ton site →</Link>
+        <Link href="/ressources">Les ressources : outils, skills et prompts{" "}→</Link>
+        <Link href="/journal">Le journal de bord, l&apos;AI Journey en direct{" "}→</Link>
+        <Link href="/juge">Le juge : fais évaluer ton site{" "}→</Link>
       </div>
     </div>
   );
