@@ -1,0 +1,34 @@
+scripts/conductor/common.zsh
+  s_a34f1c2e7036a5::t_a2afe99586a33d 17
+  s_a34f1c2e7036a5::t_2beca678ba9254 12-16,42-78,101-102,104-107,112-115,117-119,125,128-129,133-134,138-151,155,157,159,165-166,171-175,181,186,188,191-192,194,197-202,216-217,253,260,265,349,371-386,391,408-411
+  s_a34f1c2e7036a5::t_bf8dac322d928e 206-210,222-226,228-247
+AGENTS.md
+  s_a34f1c2e7036a5::t_c23680887460a8 14
+scripts/conductor/common.test.zsh
+  s_a34f1c2e7036a5::t_2b8ec7f2145fc1 101-113,147
+  s_a34f1c2e7036a5::t_00cea344ce5ca7 1-52,54-55,57-100,114-146,148-151
+  s_a34f1c2e7036a5::t_27fbb63b592a5d 53,56
+package.json
+  s_a34f1c2e7036a5::t_00cea344ce5ca7 10
+README.md
+  s_a34f1c2e7036a5::t_c23680887460a8 85
+  s_a34f1c2e7036a5::t_a2afe99586a33d 22-25
+scripts/conductor/dev.zsh
+  s_a34f1c2e7036a5::t_2beca678ba9254 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "acb9bfbc1ae003f65bbacfe89ad17a20ba62610d",
+  "prompts": {},
+  "sessions": {
+    "s_a34f1c2e7036a5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f704a-ba55-7982-84f3-8d724eb53304",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
