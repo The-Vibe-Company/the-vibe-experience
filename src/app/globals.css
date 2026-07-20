@@ -761,7 +761,8 @@ a.frow:hover .frow-n { color: var(--orange); }
 .ap-hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 4rem; align-items: center; margin-top: 2.4rem; }
 .ap-lead { font-size: 1.3rem; font-weight: 600; line-height: 1.4; color: var(--fg); margin: 0 0 1.1rem; }
 .ap-p { font-size: 1.02rem; line-height: 1.65; color: var(--muted); margin: 0 0 1rem; }
-.ap-art { position: relative; aspect-ratio: 4/5; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 28px 56px -36px rgba(10,10,10,0.35); background: var(--bg-2); }
+/* Même format que l'image (1536x1024) : le visuel s'affiche en entier, sans recadrage. */
+.ap-art { position: relative; aspect-ratio: 3/2; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 28px 56px -36px rgba(10,10,10,0.35); background: var(--bg-2); }
 .ap-princ { display: flex; flex-direction: column; margin-top: 1.6rem; }
 .ap-prow { display: grid; grid-template-columns: 3rem 1fr; gap: 1.3rem; padding: 1.5rem 0; border-top: 1px solid var(--border); }
 .ap-prow:first-child { border-top: none; }
