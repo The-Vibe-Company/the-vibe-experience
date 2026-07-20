@@ -1,0 +1,75 @@
+src/components/ParcoursModuleCard.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-81
+src/components/ParcoursModule1.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 3,6,9-18
+src/components/SkillInstallCopyButton.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 5-9,21,31-59,62-63,65-69
+public/skills/impeccable-install.txt
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-4528
+public/skills/improve-skill-tools-install.txt
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-625
+src/components/SousEtapes.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 9-10,46-57,85-90,124-151,153-154,156-170,172-212,214-260,262-273,275-283,285
+src/components/ParcoursFamilies.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 3,5-8,29-77,79-95,98-122,124-156,158-168,171-180,186-206,208-220
+src/lib/module-faire-un-site.ts
+  s_a34f1c2e7036a5::t_8997422915e9a0 10,313-314,322
+src/lib/progress.ts
+  s_a34f1c2e7036a5::t_8997422915e9a0 3,14,95,121,123-153,157,159,162-167,175,192,221,255
+src/lib/ressources.ts
+  s_a34f1c2e7036a5::t_8997422915e9a0 117-118,125
+src/app/globals.css
+  s_a34f1c2e7036a5::t_8997422915e9a0 51,153,155,157-158,161-178,180-195,238,477-504,508-512,553-590,682,835,919,921-925,930-937,939-963,991-1009,1012-1014,1019-1021
+src/app/module/page.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 6,57,79-89,124-125,161-162
+src/lib/module-automatisation.ts
+  s_a34f1c2e7036a5::t_8997422915e9a0 4-5
+src/components/ModuleSidePanel.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-102
+src/proxy.ts
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-2,4-5
+src/app/creer-un-skill/page.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 6,40,62-74,104-105,135,138-140
+src/app/parcours/page.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 3,7-21,24-41,43,45-54,57-58
+public/skills/agent-browser-install.txt
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-272
+scripts/generate-skill-install-texts.mjs
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-42
+public/skills/create-skill-tools-install.txt
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-5501
+src/components/CompteProgress.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 8,10
+src/components/ModuleRail.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 7,19,21
+src/components/ParcoursCta.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 69-78
+src/lib/module-creer-un-skill.ts
+  s_a34f1c2e7036a5::t_8997422915e9a0 18,184-185,191,201,298
+src/app/automatiser-ton-travail/[etape]/page.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-115
+src/components/ParcoursSidePanel.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-186
+src/components/ModuleEtapes.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 26,30
+src/components/ModuleProgress.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 6,16,19,23,29-31
+src/app/automatiser-ton-travail/page.tsx
+  s_a34f1c2e7036a5::t_8997422915e9a0 1-114
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "0aa45a67931c96c53d7fb0ef61c45a2000f8d29d",
+  "prompts": {},
+  "sessions": {
+    "s_a34f1c2e7036a5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f704a-ba55-7982-84f3-8d724eb53304",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
