@@ -101,8 +101,8 @@ export default function ModuleSkill() {
           <p className="mov-toolintro">
             Tu peux créer un skill juste en le demandant à Claude Code. Mais pour t&apos;aider à le
             faire nickel, on te donne nos deux vrais outils, en option : le premier crée un skill au
-            bon format, le second le passe en revue. Tu copies une consigne, tu la colles dans
-            Claude Code, et tu t&apos;en sers aux étapes 2 et 3.
+            bon format, le second le passe en revue. Tu copies un prompt, tu le colles dans
+            Claude Code ou Codex, et tu t&apos;en sers aux étapes 2 et 3.
           </p>
           <div className="gfilets">
             {skillGifts.map((g) => (

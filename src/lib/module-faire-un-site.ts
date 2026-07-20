@@ -7,7 +7,7 @@ export type SousEtape = {
   duree?: string;
   cestquoi?: string;
   attendu?: string;
-  // Skills offerts à installer depuis une consigne copiée dans Claude Code.
+  // Skills offerts à installer depuis un prompt copié dans Claude Code ou Codex.
   telechargements?: { n: string; href: string }[];
   // Lien direct vers la page dont la sous-étape a besoin (ex. le juge) : zéro détour.
   lien?: { label: string; href: string };
@@ -310,8 +310,8 @@ export const etapesDetail: EtapeDetail[] = [
         telechargements: [{ n: "Impeccable", href: "/skills/impeccable.zip" }],
         outils: [F.impeccable],
         pasAPas: [
-          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Copier le skill » juste au-dessus.",
-          "Ouvre Claude Code, colle la consigne copiée dans la zone où tu écris tes messages, puis envoie. Claude Code récupère le skill, le range au bon endroit et te confirme.",
+          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Copier le prompt » juste au-dessus.",
+          "Ouvre Claude Code, colle le prompt copié dans la zone où tu écris tes messages, puis envoie. Claude Code récupère le skill, le range au bon endroit et te confirme.",
           "Tu ne fais ça qu'une fois : ensuite, le skill reste disponible, ici et sur tous tes prochains projets.",
           "Puis lance-le avec le prompt fourni ci-dessous.",
         ],
@@ -319,7 +319,7 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Quand le skill part, une ligne « Skill : impeccable » s'affiche dans la conversation : c'est ta preuve qu'il tourne. À l'écran du site, souvent presque aucune différence, et c'est normal : le travail se passe dans les coulisses, sur le code.",
         siCaBloque:
-          "Claude Code te répond qu'il ne connaît pas Impeccable juste après l'installation ? Ferme et rouvre Claude Code : un skill tout juste installé n'est parfois pris en compte qu'au redémarrage. La consigne copiée ne marche pas ? Recopie-la depuis cette page et renvoie-la dans Claude Code.",
+          "Claude Code te répond qu'il ne connaît pas Impeccable juste après l'installation ? Ferme et rouvre Claude Code : un skill tout juste installé n'est parfois pris en compte qu'au redémarrage. Le prompt ne marche pas ? Recopie-le depuis cette page et renvoie-le dans Claude Code.",
         monExemple: "Honnêtement, à l'écran il n'y avait pas une grande différence avant/après. Ce que ça a fait, c'est nettoyer et trier le code : tu ne le vois pas forcément, mais c'est plus propre.",
         conseil: "Ne t'attends pas à un choc visuel. Impeccable travaille surtout les coulisses, et c'est très utile pour la suite. Une fois installé, un skill se déclenche juste en le demandant en français.",
       },
