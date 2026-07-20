@@ -73,7 +73,6 @@ acquire_workspace_lock() {
 
   print -r -- "$$" > "$WORKSPACE_LOCK_DIR/pid"
   WORKSPACE_LOCK_HELD=1
-  trap cleanup_runtime EXIT HUP INT TERM
 }
 
 supabase_cli() {
@@ -413,6 +412,28 @@ print_workspace_summary() {
   print "  Nouveau:   nouveau@local.test / vibe-local-123"
   print "  Demo:      demo@local.test / vibe-local-123"
   print ""
+}
+
+# Zsh runs an EXIT trap declared inside a function when that function returns.
+# Define function traps at file scope so the workspace lock survives
+# acquire_workspace_lock and signals terminate the lifecycle command.
+TRAPEXIT() {
+  cleanup_runtime
+}
+
+TRAPHUP() {
+  cleanup_runtime
+  return 129
+}
+
+TRAPINT() {
+  cleanup_runtime
+  return 130
+}
+
+TRAPTERM() {
+  cleanup_runtime
+  return 143
 }
 
 cd "$PROJECT_ROOT"

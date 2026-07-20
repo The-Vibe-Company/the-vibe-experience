@@ -154,6 +154,42 @@ test_clear_branch_credentials_removes_named_api_keys() {
   assert_equal "keep-project-ref" "$SUPABASE_PARENT_PROJECT_REF" "Le project ref non secret doit rester disponible"
 }
 
+test_signal_cleanup_stops_lifecycle_process() {
+  local signal_root="$TEST_ROOT/signal-workspace"
+  local marker="$signal_root/continued"
+  local child_pid
+  local child_status
+  local deadline
+
+  mkdir -p "$signal_root"
+  CONDUCTOR_COMMON_NO_AUTO_CONFIGURE=1 zsh -c '
+    source "$1"
+    PROJECT_ROOT="$2"
+    WORKSPACE_LOCK_DIR="$PROJECT_ROOT/.context/conductor-supabase.lock"
+    acquire_workspace_lock
+    sleep 1
+    print continued > "$PROJECT_ROOT/continued"
+  ' _ "$SCRIPT_DIR/common.zsh" "$signal_root" &
+  child_pid=$!
+
+  deadline=$((SECONDS + 5))
+  while [[ ! -d "$signal_root/.context/conductor-supabase.lock" ]] && (( SECONDS < deadline )); do
+    sleep 0.05
+  done
+  [[ -d "$signal_root/.context/conductor-supabase.lock" ]] || fail "Le processus enfant n'a pas acquis son verrou"
+
+  kill -TERM "$child_pid"
+  if wait "$child_pid"; then
+    fail "Le processus interrompu devait retourner un statut d'echec"
+  else
+    child_status=$?
+  fi
+
+  assert_equal "143" "$child_status" "SIGTERM doit interrompre le cycle de vie"
+  [[ ! -e "$marker" ]] || fail "Le processus ne doit pas reprendre apres SIGTERM"
+  [[ ! -d "$signal_root/.context/conductor-supabase.lock" ]] || fail "Le verrou doit etre nettoye apres SIGTERM"
+}
+
 run_test "stable workspace identity" test_branch_name_is_workspace_stable
 run_test "separate workflow and project statuses" test_branch_statuses_are_kept_separate
 run_test "literal login guidance" test_login_failure_is_literal
@@ -162,5 +198,6 @@ run_test "hosted workflow settles before CLI migrations" test_workflow_must_sett
 run_test "public env preservation" test_public_env_preserves_unrelated_values
 run_test "credential and lock cleanup" test_cleanup_removes_credentials_and_lock
 run_test "dynamic API key cleanup" test_clear_branch_credentials_removes_named_api_keys
+run_test "signal cleanup stops lifecycle process" test_signal_cleanup_stops_lifecycle_process
 
 print "1..$pass_count"
