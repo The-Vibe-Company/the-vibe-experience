@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test:conductor": "zsh scripts/conductor/common.test.zsh",
     "conductor:dev": "zsh scripts/conductor/dev.zsh",
     "conductor:db:reset": "zsh scripts/conductor/reset-db.zsh",
-    "conductor:db:stop": "zsh scripts/conductor/stop-db.zsh",
+    "conductor:db:pause": "zsh scripts/conductor/stop-db.zsh",
+    "conductor:db:stop": "npm run conductor:db:pause",
     "conductor:archive": "zsh scripts/conductor/archive.zsh",
     "supabase": "zsh scripts/supabase.zsh"
   },

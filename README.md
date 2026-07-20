@@ -11,13 +11,23 @@ npm run dev
 
 ### Conductor : environnement complet en un clic
 
-Dans Conductor, le Run `dev` prepare automatiquement un environnement isole pour le worktree :
+Dans Conductor, le Run `dev` prepare automatiquement une branche Supabase hebergee et isolee pour
+la branche Git du worktree :
 
-- Docker Desktop est lance s'il est arrete ;
-- Supabase demarre sur un bloc de ports dedie au workspace ;
-- les migrations et les comptes locaux sont prepares ;
-- `.env.local` est genere avec l'URL et la cle publique de cette stack ;
+- la branche distante est creee ou reveillee sans copier les donnees de production ;
+- les migrations locales et les comptes de test sont prepares ;
+- `.env.local` est genere avec l'URL et la cle publique de cette branche ;
 - Next.js demarre sur `$CONDUCTOR_PORT`.
+
+Ces branches de workspace sont gerees par la CLI Conductor et ne sont pas rattachees au workflow
+Git Supabase. Conductor est l'unique proprietaire de leurs migrations, ce qui evite une double
+application concurrente avec le deploiement automatique Supabase.
+
+La CLI doit etre connectee a un compte ayant acces au projet Supabase :
+
+```bash
+npm run supabase -- login
+```
 
 Deux comptes sont disponibles :
 
@@ -26,9 +36,9 @@ Deux comptes sont disponibles :
 | Nouveau, sans progression | `nouveau@local.test` | `vibe-local-123` |
 | Demo avec un parcours commence | `demo@local.test` | `vibe-local-123` |
 
-Les donnees persistent entre les Runs. Le menu Run propose aussi `reset-db` pour revenir au seed
-initial et `stop-db` pour liberer les ressources Docker sans supprimer les donnees. L'archivage du
-workspace supprime sa stack et ses volumes, sans toucher aux autres worktrees.
+Les donnees persistent entre les Runs. Le menu Run propose aussi `reset-db` pour supprimer puis
+recreer la branche depuis les migrations, et `pause-db` pour suspendre son compute sans supprimer
+les donnees. L'archivage du workspace supprime uniquement sa branche Supabase.
 
 Les memes actions sont accessibles depuis le terminal du workspace Conductor. Utiliser le
 `$CONDUCTOR_PORT` deja attribue au workspace ; ne pas le remplacer manuellement :
@@ -36,19 +46,19 @@ Les memes actions sont accessibles depuis le terminal du workspace Conductor. Ut
 ```bash
 npm run conductor:dev
 npm run conductor:db:reset
-npm run conductor:db:stop
+npm run conductor:db:pause
 ```
 
-Pour utiliser la CLI Supabase hors Conductor (migrations, `status`, `link`, `db push`), passer par
-le wrapper qui fournit les ports locaux historiques attendus par `supabase/config.toml` :
+Supabase local reste disponible hors Conductor pour travailler hors ligne ou generer des
+migrations. Le wrapper utilise les ports historiques de `supabase/config.toml` :
 
 ```bash
 npm run supabase -- status
 npm run supabase -- db reset --local
 ```
 
-Les commandes liees ou distantes gardent leurs garde-fous Supabase habituels ; ne jamais ajouter le
-seed local a une base de production.
+Les commandes liees ou distantes gardent leurs garde-fous Supabase habituels. Ne jamais executer le
+seed de workspace sur la base de production.
 
 ## Workflow branches et deploiement
 
@@ -59,9 +69,9 @@ Regle par defaut : ne jamais pousser, ouvrir une PR, ou merger vers `main` sans 
 Workflow attendu :
 
 1. Chaque agent travaille sur sa branche de workspace.
-2. Les PRs de travail se font en draft vers `preview/all-current-work`, pas vers `main`.
-3. Les branches de travail sont combinees dans `preview/all-current-work` pour tester une version complete sans deployer en production.
-4. Quand Victor valide une mise en ligne publique, une seule PR finale part de `preview/all-current-work` vers `main`.
+2. Chaque branche Git utilise sa propre branche Supabase de preview.
+3. Quand Victor valide une mise en ligne publique, la branche ouvre sa PR directement vers `main`.
+4. La PR est mergee uniquement apres validation de ses checks et de la mise en production.
 
 Avant toute commande `git push`, `gh pr create` ou `gh pr merge`, verifier et annoncer la branche cible. Si la cible est `main`, demander une validation explicite de mise en production.
 
@@ -72,6 +82,7 @@ Tant que le site n'est pas pret a etre public, `main` sert une page d'attente et
 ## Verification
 
 ```bash
+npm run test:conductor
 npm run lint
 npm run build
 ```
