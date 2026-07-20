@@ -929,8 +929,8 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-srow-soon .pc-srow-title { color: var(--muted-2); }
 /* Parcours en deux catégories cliquables */
 .pc-pick { margin-top: 2.4rem; }
-.pc-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; align-items: stretch; }
-.pc-cat { position: relative; display: flex; flex-direction: column; gap: .55rem; text-align: left; padding: 1.5rem 1.4rem 1.35rem; border: 1px solid var(--border); border-radius: var(--radius); background: none; color: inherit; font: inherit; cursor: pointer; transition: border-color .15s, background .15s; }
+.pc-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; align-items: stretch; }
+.pc-cat { position: relative; display: flex; flex-direction: column; gap: .6rem; text-align: left; padding: 1.75rem 1.6rem 1.5rem; border: 1px solid var(--border); border-radius: var(--radius); background: none; color: inherit; font: inherit; cursor: pointer; transition: border-color .15s, background .15s; }
 .pc-cat:hover { border-color: var(--border-strong); }
 .pc-cat:hover .pc-cat-cta { color: var(--orange); }
 .pc-cat.on { border-color: var(--orange); background: var(--bg-2); }
@@ -992,9 +992,9 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
    d'écran, le panneau « Où tu en es » est collé au bord droit, le contenu
    est centré entre le bord gauche et le panneau, et profite de la place.
    Le panneau est sticky sur toute la hauteur de la page, il suit le scroll. */
-.pcx-shell { width: 100%; max-width: none; margin: 0; padding: 2.75rem clamp(1rem, 2vw, 2rem) 5rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1120px) minmax(240px, 320px); column-gap: clamp(1.5rem, 2.5vw, 2.5rem); align-items: start; }
+.pcx-shell { width: 100%; max-width: none; margin: 0; padding: 2.75rem clamp(1rem, 2vw, 2rem) 5rem; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1200px) minmax(0, 1fr) minmax(240px, 320px); column-gap: clamp(1.5rem, 2.5vw, 2.5rem); align-items: start; }
 .pcx-main { grid-column: 2; min-width: 0; }
-.pcx-shell .module-side { grid-column: 3; position: sticky; top: 84px; justify-self: end; width: min(100%, 320px); margin: .5rem 0 0; padding: 0 0 0 1.4rem; border-left: 1px solid var(--border); border-top: none; }
+.pcx-shell .module-side { grid-column: 4; position: sticky; top: 84px; justify-self: end; width: min(100%, 320px); margin: .5rem 0 0; padding: 0 0 0 1.4rem; border-left: 1px solid var(--border); border-top: none; }
 .module-side button.module-side-next { width: 100%; background: none; border-left: 0; border-right: 0; font: inherit; text-align: left; cursor: pointer; }
 .pcx-main .pc-lib { column-gap: clamp(2rem, 2.5vw, 3rem); }
 .pcx-side-more { margin-top: 1.15rem; }
