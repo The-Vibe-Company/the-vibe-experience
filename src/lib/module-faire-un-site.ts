@@ -203,33 +203,50 @@ export const etapesDetail: EtapeDetail[] = [
           "Regarde-le faire : tu viens de déléguer ta première installation. C'est exactement comme ça qu'on travaille avec lui, il fait, tu valides.",
       },
       {
-        titre: "Connecte GitHub et envoie ton code (ta première fois dans le Terminal).",
-        duree: "≈ 15 à 20 min",
+        titre: "Crée ton compte GitHub et ouvre le Terminal.",
+        duree: "≈ 5 min",
         cestquoi:
-          "GitHub, c'est un service en ligne où tu ranges ton code. Ça sert à deux choses : ne jamais perdre ton travail (tout est sauvegardé, avec l'historique) et pouvoir mettre ton site en ligne ensuite (c'est depuis GitHub que l'étape 5 le déploiera). Un « repo », c'est le dossier de ton projet là-bas. Et c'est ici que tu ouvres le Terminal pour la première fois : connecter ta machine à ton compte GitHub se fait dedans, une seule fois. Pas de panique, c'est juste une zone de texte, et Claude Code te donne tout ce qu'il faut y coller. C'est la seule étape où le parcours te fait ouvrir le Terminal exprès.",
-        attendu: "Ta machine connectée à GitHub, ton code copié dessus, avec un premier enregistrement. Et le Terminal apprivoisé au passage.",
+          "GitHub, c'est un service en ligne où tu ranges ton code. Ça sert à deux choses : ne jamais perdre ton travail (tout est sauvegardé, avec l'historique) et pouvoir mettre ton site en ligne ensuite (c'est depuis GitHub que l'étape 5 le déploiera). Un « repo », c'est le dossier de ton projet là-bas. Ici, tu prépares juste le terrain : ton compte, et ta première ouverture du Terminal, cette fameuse fenêtre. Pas de panique : c'est juste une zone de texte, et tu ne vas encore rien y taper.",
+        attendu: "Ton compte GitHub créé et vérifié, et le Terminal ouvert devant toi. C'est tout.",
         lien: { label: "Créer mon compte sur github.com", href: "https://github.com" },
         outils: [F.github, F.terminal],
         pasAPas: [
-          "Crée d'abord ton compte gratuit sur github.com (bouton juste au-dessus).",
-          "Ouvre le Terminal du Mac : appuie sur cmd + espace, tape « Terminal », puis Entrée. Une fenêtre presque vide s'ouvre, avec un curseur qui clignote (capture ci-dessous) : c'est normal, tu n'as rien cassé.",
-          "Reviens dans Claude Code et envoie le prompt ci-dessous. Quand il te donne une commande, colle-la dans le Terminal (cmd + V), fais Entrée, et suis le déroulé décrit dans « Ce que tu dois voir ».",
+          "Crée ton compte gratuit sur github.com (bouton juste au-dessus).",
+          "Va valider l'email que GitHub t'envoie : ouvre-le et clique sur le lien. Sans ça, l'envoi de ton code peut être bloqué à la sous-étape suivante.",
+          "Ouvre le Terminal du Mac : appuie sur cmd + espace, tape « Terminal », puis Entrée. Une fenêtre presque vide s'ouvre, avec un curseur qui clignote (capture ci-dessous) : c'est normal, tu n'as rien cassé. Laisse-la ouverte.",
         ],
-        prompt:
-          "Connecte ma machine à mon compte GitHub, puis envoie mon projet dessus. Quand tu as besoin de moi, donne-moi la commande exacte à coller dans le Terminal, et dis-moi quoi répondre aux questions qu'il me posera.",
         ceQueTuDoisVoir:
-          "Juste après avoir créé ton compte, GitHub t'envoie un email pour vérifier ton adresse : va dans ta boîte mail, ouvre-le et clique sur le lien, sinon l'envoi peut être bloqué. Ensuite, pour relier ta machine à ton compte, Claude Code lance souvent un petit assistant DANS le Terminal, en anglais : des questions avec des choix à sélectionner avec les FLÈCHES du clavier (haut et bas, puis Entrée), pas avec la souris. Réponds « GitHub.com », puis « HTTPS », puis « Login with a web browser » : il t'affiche alors un code à 8 caractères (du genre XXXX-XXXX). Appuie sur Entrée, une page GitHub s'ouvre dans ton navigateur, tape ce code et clique le bouton vert « Authorize ». Si la fenêtre semble figée sans rien afficher, clique dedans puis appuie sur Entrée. On va aussi peut-être te demander si ton projet doit être « public » (visible par tout le monde) ou « private » (visible par toi seul) : dans le doute, choisis « private », tu pourras changer plus tard en deux clics. Quand c'est bon, va sur github.com : ton dossier de projet (ton « repo ») apparaît avec tes fichiers dedans. C'est la preuve que ton travail est en sécurité en ligne.",
+          "Ton compte GitHub qui marche (tu es connecté sur github.com), et la fenêtre du Terminal ouverte : une ligne de texte, un curseur qui clignote, rien d'autre. Il ne se passe rien tant que tu ne colles rien dedans.",
         visuel: {
           src: "/module/2-1-terminal.png",
           alt: "Le Terminal du Mac à l'ouverture : une fenêtre au fond sombre, une ligne « Last login », un prompt et un curseur.",
           legende: "Le Terminal à l'ouverture : une fenêtre presque vide, une ligne, un curseur qui clignote. C'est tout, et c'est normal.",
         },
         siCaBloque:
+          "L'email de GitHub n'arrive pas ? Regarde dans tes spams, ou fais-le renvoyer depuis github.com. Et si le Terminal t'impressionne, ouvre-le quand même : tant que tu n'y colles rien, il ne se passe rien.",
+        monExemple: "Au début, le Terminal me faisait peur, comme à tout le monde.",
+        conseil: "Ouvrir cette fenêtre, c'est déjà passer un cap. La suite, c'est juste du copier-coller guidé.",
+      },
+      {
+        titre: "Connecte ta machine à GitHub et envoie ton code.",
+        duree: "≈ 10 à 15 min",
+        cestquoi:
+          "Connecter ta machine à ton compte GitHub, c'est LE moment Terminal du parcours : ça se passe dedans, une seule fois. Claude Code te donne tout ce qu'il faut y coller, toi tu colles et tu suis. C'est la seule étape où le parcours te fait ouvrir le Terminal exprès.",
+        attendu: "Ta machine connectée à GitHub, ton code copié dessus, avec un premier enregistrement. Et le Terminal apprivoisé au passage.",
+        pasAPas: [
+          "Dans Claude Code, envoie le prompt ci-dessous.",
+          "Quand il te donne une commande, colle-la dans le Terminal ouvert à la sous-étape d'avant (cmd + V), fais Entrée, et suis le déroulé décrit dans « Ce que tu dois voir ».",
+        ],
+        prompt:
+          "Connecte ma machine à mon compte GitHub, puis envoie mon projet dessus. Quand tu as besoin de moi, donne-moi la commande exacte à coller dans le Terminal, et dis-moi quoi répondre aux questions qu'il me posera.",
+        ceQueTuDoisVoir:
+          "Pour relier ta machine à ton compte, Claude Code lance souvent un petit assistant DANS le Terminal, en anglais : des questions avec des choix à sélectionner avec les FLÈCHES du clavier (haut et bas, puis Entrée), pas avec la souris. Réponds « GitHub.com », puis « HTTPS », puis « Login with a web browser » : il t'affiche alors un code à 8 caractères (du genre XXXX-XXXX). Appuie sur Entrée, une page GitHub s'ouvre dans ton navigateur, tape ce code et clique le bouton vert « Authorize ». Si la fenêtre semble figée sans rien afficher, clique dedans puis appuie sur Entrée. On va aussi peut-être te demander si ton projet doit être « public » (visible par tout le monde) ou « private » (visible par toi seul) : dans le doute, choisis « private », tu pourras changer plus tard en deux clics. Quand c'est bon, va sur github.com : ton dossier de projet (ton « repo ») apparaît avec tes fichiers dedans. C'est la preuve que ton travail est en sécurité en ligne.",
+        siCaBloque:
           "Pour coller dans le Terminal, c'est cmd + V (la touche Command, pas Ctrl). Si le Terminal demande ton mot de passe Mac, rien ne s'affiche quand tu tapes, pas même des points : c'est voulu, tape à l'aveugle et fais Entrée. Si une installation d'outil passe par Homebrew et que le Terminal affiche à la fin deux commandes sous « Next steps », colle-les aussi, l'une après l'autre. Une page va peut-être s'ouvrir dans ton navigateur pour demander « oui, j'autorise » : c'est normal et attendu, ce n'est pas une arnaque. Si tu vois « authentication failed » ou « permission denied », dis à Claude Code « je n'arrive pas à me connecter à GitHub, aide-moi à m'authentifier étape par étape » : c'est le blocage numéro un des débutants, il est prévu. Si tu vois « please tell me who you are » ou « Author identity unknown », c'est juste que Git ne sait pas encore qui tu es : dis à Claude Code « configure mon identité Git avec mon nom et mon email GitHub », donne-lui les deux, tu ne le refais qu'une seule fois. Et si une commande finit en rouge, copie tout et colle-le à Claude Code : il te donne la version corrigée.",
         monExemple:
-          "Au début, le Terminal me faisait peur, comme à tout le monde. La première fois que j'ai collé une ligne et que ça a marché, la peur est tombée d'un coup. Depuis, ce n'est plus un obstacle.",
+          "La première fois que j'ai collé une ligne dans le Terminal et que ça a marché, la peur est tombée d'un coup. Depuis, ce n'est plus un obstacle.",
         conseil:
-          "C'est ta première fois dans le Terminal, et c'est un vrai cap, c'est normal que ça impressionne. Tu vas juste coller ce qu'on te donne et regarder. Une fois que c'est fait, tu sais que cette fenêtre n'a rien de magique : une zone de texte, des erreurs rouges qui ne cassent rien. Te voilà passé de l'autre côté.",
+          "C'est un vrai cap, c'est normal que ça impressionne. Tu vas juste coller ce qu'on te donne et regarder. Une fois que c'est fait, tu sais que cette fenêtre n'a rien de magique : une zone de texte, des erreurs rouges qui ne cassent rien. Te voilà passé de l'autre côté.",
       },
       {
         titre: "Automatise les sauvegardes.",
@@ -478,7 +495,9 @@ export const etapesDetail: EtapeDetail[] = [
           "Ne te contente pas de regarder que c'est joli : refais ton test de bout en bout sur le vrai lien en ligne (crée un compte test, envoie le formulaire), comme un vrai visiteur. Ce qui marchait sur ton ordi ne marche pas toujours du premier coup en ligne, et c'est le moment de le voir, pas après avoir partagé. Pour la vitesse, pas besoin d'outil : ta page doit apparaître en une à deux secondes.",
         siCaBloque:
           "Un truc dépasse ou casse sur mobile ? Fais une capture d'écran depuis ton téléphone, envoie-la à Claude Code et dis « voilà ce que ça donne sur mobile, corrige ». Si tu attends cinq secondes ou plus devant un écran blanc, dis « mon site est lent à charger en ligne, qu'est-ce qui le ralentit ? ».",
-        conseil: "Teste sur ton propre téléphone, c'est le plus simple et le plus parlant : la plupart des gens verront ton site sur mobile, et si c'est cassé là, c'est cassé pour eux.",
+        monExemple:
+          "Je vais être honnête : mes propres sites, je ne suis presque jamais allé les voir sur mobile. Je ne sais même pas à quoi ressemble mon premier site sur un téléphone. Fais mieux que moi : ça prend deux minutes, et c'est là que la plupart des gens verront le tien.",
+        conseil: "Teste sur ton propre téléphone, c'est le plus simple et le plus parlant.",
       },
       {
         titre: "Le juge visite ton site et coche la checklist.",
