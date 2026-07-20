@@ -9,5 +9,6 @@ bootstrap_local_users
 write_public_env
 print_workspace_summary
 clear_branch_credentials
+release_workspace_lock
 
 exec npm run dev -- --port "$CONDUCTOR_PORT"

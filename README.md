@@ -19,6 +19,10 @@ la branche Git du worktree :
 - `.env.local` est genere avec l'URL et la cle publique de cette branche ;
 - Next.js demarre sur `$CONDUCTOR_PORT`.
 
+Ces branches de workspace sont gerees par la CLI Conductor et ne sont pas rattachees au workflow
+Git Supabase. Conductor est l'unique proprietaire de leurs migrations, ce qui evite une double
+application concurrente avec le deploiement automatique Supabase.
+
 La CLI doit etre connectee a un compte ayant acces au projet Supabase :
 
 ```bash
@@ -78,6 +82,7 @@ Tant que le site n'est pas pret a etre public, `main` sert une page d'attente et
 ## Verification
 
 ```bash
+npm run test:conductor
 npm run lint
 npm run build
 ```

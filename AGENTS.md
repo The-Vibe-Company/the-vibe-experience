@@ -11,7 +11,7 @@ At the beginning of every new Conductor workspace:
 1. Confirm the workspace is on its feature branch, never on `main`.
 2. Let the Conductor setup script run `npm ci`. If dependencies are missing, run `npm ci` before any project command.
 3. Before testing the app or using the database, start the default Conductor Run `dev`. From a workspace terminal, use `npm run conductor:dev` with the `CONDUCTOR_PORT` already assigned by Conductor. Do not use bare `npm run dev` for the first start.
-4. The `dev` command creates or wakes the Supabase branch associated with the Git branch, applies local migrations, creates the workspace test accounts, writes the branch's public credentials to `.env.local`, and starts Next.js on `CONDUCTOR_PORT`.
+4. The `dev` command creates or wakes the Supabase branch owned by this workspace, applies local migrations, creates the workspace test accounts, writes the branch's public credentials to `.env.local`, and starts Next.js on `CONDUCTOR_PORT`.
 5. If the Supabase CLI is not authenticated, stop and ask the user to run `npm run supabase -- login`. Never substitute production credentials or connect the workspace to the production database.
 
 Workspace database rules:

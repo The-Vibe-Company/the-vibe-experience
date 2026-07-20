@@ -9,6 +9,12 @@ PROJECT_ROOT="${SCRIPT_DIR:h:h}"
 SUPABASE_PARENT_PROJECT_REF="${SUPABASE_PARENT_PROJECT_REF:-qzqtbaepzdmsvgfupsdm}"
 SUPABASE_BRANCH_REGION="${SUPABASE_BRANCH_REGION:-eu-central-1}"
 SUPABASE_BRANCH_SIZE="${SUPABASE_BRANCH_SIZE:-nano}"
+SUPABASE_BRANCH_STATE_FILE="$PROJECT_ROOT/.context/supabase-branch-name"
+WORKSPACE_LOCK_DIR="$PROJECT_ROOT/.context/conductor-supabase.lock"
+CREDENTIALS_TEMP_FILE=""
+WORKSPACE_LOCK_HELD=0
+SUPABASE_UNPAUSE_REQUESTED=0
+SUPABASE_WORKFLOW_WARNING_SHOWN=0
 
 fail() {
   print -u2 "\nConductor Supabase: $*"
@@ -33,6 +39,43 @@ configure_workspace() {
   [[ "$GIT_BRANCH" != "main" ]] || fail "Le Run Conductor refuse d'utiliser la base Supabase de production. Cree une branche de workspace."
 }
 
+cleanup_runtime() {
+  if [[ -n "$CREDENTIALS_TEMP_FILE" ]]; then
+    rm -f "$CREDENTIALS_TEMP_FILE"
+    CREDENTIALS_TEMP_FILE=""
+  fi
+  release_workspace_lock
+}
+
+release_workspace_lock() {
+  if (( WORKSPACE_LOCK_HELD )); then
+    rm -rf "$WORKSPACE_LOCK_DIR"
+    WORKSPACE_LOCK_HELD=0
+  fi
+}
+
+acquire_workspace_lock() {
+  local owner_pid=""
+
+  mkdir -p "$PROJECT_ROOT/.context"
+  if ! mkdir "$WORKSPACE_LOCK_DIR" 2>/dev/null; then
+    if [[ -f "$WORKSPACE_LOCK_DIR/pid" ]]; then
+      owner_pid="$(<"$WORKSPACE_LOCK_DIR/pid")"
+    fi
+
+    if [[ "$owner_pid" =~ '^[0-9]+$' ]] && kill -0 "$owner_pid" 2>/dev/null; then
+      fail "Une autre action Supabase Conductor est deja en cours pour ce workspace (PID $owner_pid)."
+    fi
+
+    rm -rf "$WORKSPACE_LOCK_DIR"
+    mkdir "$WORKSPACE_LOCK_DIR" 2>/dev/null || fail "Impossible de verrouiller les actions Supabase de ce workspace."
+  fi
+
+  print -r -- "$$" > "$WORKSPACE_LOCK_DIR/pid"
+  WORKSPACE_LOCK_HELD=1
+  trap cleanup_runtime EXIT HUP INT TERM
+}
+
 supabase_cli() {
   local binary="$PROJECT_ROOT/node_modules/.bin/supabase"
   [[ -x "$binary" ]] || fail "Supabase CLI est absent. Execute npm ci dans ce workspace."
@@ -55,74 +98,114 @@ branch_list_json() {
 load_remote_branch() {
   local branches_json
   local branch_record
+  local persisted_name=""
+  local expected_name
 
-  branches_json="$(branch_list_json)" || fail "Impossible de lire les branches Supabase. Verifie `supabase login` et tes droits sur le projet."
-  branch_record="$(TARGET_GIT_BRANCH="$GIT_BRANCH" node -e '
+  branches_json="$(branch_list_json)" || fail 'Impossible de lire les branches Supabase. Demande a l’utilisateur d’executer npm run supabase -- login, puis relance dev.'
+  [[ -f "$SUPABASE_BRANCH_STATE_FILE" ]] && persisted_name="$(<"$SUPABASE_BRANCH_STATE_FILE")"
+  expected_name="$(generated_branch_name)"
+  branch_record="$(PERSISTED_BRANCH_NAME="$persisted_name" EXPECTED_BRANCH_NAME="$expected_name" node -e '
     let input = "";
     process.stdin.on("data", (chunk) => { input += chunk; });
     process.stdin.on("end", () => {
       const branches = JSON.parse(input);
-      const branch = branches.find((item) => !item.is_default && item.git_branch === process.env.TARGET_GIT_BRANCH);
+      const candidates = [process.env.PERSISTED_BRANCH_NAME, process.env.EXPECTED_BRANCH_NAME].filter(Boolean);
+      const branch = candidates
+        .map((name) => branches.find((item) => !item.is_default && item.name === name))
+        .find(Boolean);
       if (branch) {
-        const status = branch.preview_project_status ?? branch.status;
-        process.stdout.write([branch.name, branch.project_ref, status].join("\t"));
+        const workflowStatus = branch.status ?? "UNKNOWN";
+        const projectStatus = branch.preview_project_status ?? "UNKNOWN";
+        process.stdout.write([branch.name, branch.project_ref, workflowStatus, projectStatus].join("\t"));
       }
     });
   ' <<< "$branches_json")"
 
   if [[ -z "$branch_record" ]]; then
+    clear_persisted_branch
     SUPABASE_BRANCH_NAME=""
     SUPABASE_BRANCH_PROJECT_REF=""
-    SUPABASE_BRANCH_STATUS=""
+    SUPABASE_BRANCH_WORKFLOW_STATUS=""
+    SUPABASE_BRANCH_PROJECT_STATUS=""
     return 1
   fi
 
-  IFS=$'\t' read -r SUPABASE_BRANCH_NAME SUPABASE_BRANCH_PROJECT_REF SUPABASE_BRANCH_STATUS <<< "$branch_record"
+  IFS=$'\t' read -r SUPABASE_BRANCH_NAME SUPABASE_BRANCH_PROJECT_REF SUPABASE_BRANCH_WORKFLOW_STATUS SUPABASE_BRANCH_PROJECT_STATUS <<< "$branch_record"
+  persist_branch_name "$SUPABASE_BRANCH_NAME"
   return 0
+}
+
+persist_branch_name() {
+  local branch_name="$1"
+  local temporary_state="$SUPABASE_BRANCH_STATE_FILE.tmp.$$"
+
+  mkdir -p "${SUPABASE_BRANCH_STATE_FILE:h}"
+  umask 077
+  print -r -- "$branch_name" > "$temporary_state"
+  mv "$temporary_state" "$SUPABASE_BRANCH_STATE_FILE"
+}
+
+clear_persisted_branch() {
+  rm -f "$SUPABASE_BRANCH_STATE_FILE"
 }
 
 generated_branch_name() {
   local slug
   local digest
+  local workspace_identity="${CONDUCTOR_WORKSPACE_NAME:-${PROJECT_ROOT:t}}"
 
-  slug="$(print -rn -- "$GIT_BRANCH" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//' | cut -c1-38)"
+  slug="$(print -rn -- "$workspace_identity" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//' | cut -c1-38)"
   [[ -n "$slug" ]] || slug="workspace"
-  digest="$(print -rn -- "$GIT_BRANCH" | shasum -a 256 | awk '{print substr($1, 1, 8)}')"
+  digest="$(print -rn -- "$PROJECT_ROOT" | shasum -a 256 | awk '{print substr($1, 1, 8)}')"
   print -r -- "conductor-${slug}-${digest}"
 }
 
 create_remote_branch() {
   SUPABASE_BRANCH_NAME="$(generated_branch_name)"
-  print "Creation de la branche Supabase $SUPABASE_BRANCH_NAME pour $GIT_BRANCH..."
-  supabase_cli branches create "$SUPABASE_BRANCH_NAME" \
+  print "Creation de la branche Supabase $SUPABASE_BRANCH_NAME pour le workspace $GIT_BRANCH..."
+  if ! supabase_cli branches create "$SUPABASE_BRANCH_NAME" \
     --project-ref "$SUPABASE_PARENT_PROJECT_REF" \
-    --git-branch "$GIT_BRANCH" \
     --region "$SUPABASE_BRANCH_REGION" \
     --size "$SUPABASE_BRANCH_SIZE" \
     --yes \
-    >/dev/null || fail "La creation de la branche Supabase a echoue."
+    >/dev/null; then
+    sleep 1
+    load_remote_branch && return
+    fail "La creation de la branche Supabase a echoue."
+  fi
 }
 
 unpause_remote_branch_if_needed() {
   local deadline
 
-  if [[ "$SUPABASE_BRANCH_STATUS" == "PAUSING" ]]; then
+  if [[ "$SUPABASE_BRANCH_PROJECT_STATUS" == "PAUSING" ]]; then
     deadline=$((SECONDS + 120))
     while (( SECONDS < deadline )); do
       sleep 2
       load_remote_branch || fail "La branche Supabase a disparu pendant sa mise en pause."
-      [[ "$SUPABASE_BRANCH_STATUS" != "PAUSING" ]] && break
+      [[ "$SUPABASE_BRANCH_PROJECT_STATUS" != "PAUSING" ]] && break
     done
-    [[ "$SUPABASE_BRANCH_STATUS" != "PAUSING" ]] || fail "La branche Supabase reste bloquee en mise en pause."
+    [[ "$SUPABASE_BRANCH_PROJECT_STATUS" != "PAUSING" ]] || fail "La branche Supabase reste bloquee en mise en pause."
   fi
 
-  if [[ "$SUPABASE_BRANCH_STATUS" == *"PAUSED"* || "$SUPABASE_BRANCH_STATUS" == "INACTIVE" ]]; then
+  if [[ "$SUPABASE_BRANCH_PROJECT_STATUS" == *"PAUSED"* || "$SUPABASE_BRANCH_PROJECT_STATUS" == "INACTIVE" ]] && \
+    (( ! SUPABASE_UNPAUSE_REQUESTED )); then
     print "Reveil de la branche Supabase $SUPABASE_BRANCH_NAME..."
-    supabase_cli branches unpause "$SUPABASE_BRANCH_NAME" \
+    if ! supabase_cli branches unpause "$SUPABASE_BRANCH_NAME" \
       --project-ref "$SUPABASE_PARENT_PROJECT_REF" \
       --yes \
-      >/dev/null || fail "La branche Supabase n'a pas pu etre reveillee."
+      >/dev/null; then
+      load_remote_branch || fail "La branche Supabase a disparu pendant son reveil."
+      [[ "$SUPABASE_BRANCH_PROJECT_STATUS" == "COMING_UP" || "$SUPABASE_BRANCH_PROJECT_STATUS" == "ACTIVE_HEALTHY" ]] || \
+        fail "La branche Supabase n'a pas pu etre reveillee."
+    fi
+    SUPABASE_UNPAUSE_REQUESTED=1
   fi
+}
+
+workflow_is_terminal() {
+  [[ "$SUPABASE_BRANCH_WORKFLOW_STATUS" == "FUNCTIONS_DEPLOYED" || \
+    "$SUPABASE_BRANCH_WORKFLOW_STATUS" == *"_FAILED" ]]
 }
 
 load_branch_credentials() {
@@ -130,53 +213,56 @@ load_branch_credentials() {
   local deadline=$((SECONDS + 300))
   local next_update=$((SECONDS + 10))
 
-  temporary_env="$(mktemp)"
+  CREDENTIALS_TEMP_FILE="$(mktemp)"
+  temporary_env="$CREDENTIALS_TEMP_FILE"
   chmod 600 "$temporary_env"
 
   while (( SECONDS < deadline )); do
     if load_remote_branch; then
-      if [[ "$SUPABASE_BRANCH_STATUS" == *"FAILED"* ]]; then
-        rm -f "$temporary_env"
-        fail "Le deploiement Supabase a echoue avec le statut $SUPABASE_BRANCH_STATUS. Consulte les logs Branching du dashboard."
-      fi
+      if workflow_is_terminal; then
+        if [[ "$SUPABASE_BRANCH_WORKFLOW_STATUS" == *"FAILED"* ]] && (( ! SUPABASE_WORKFLOW_WARNING_SHOWN )); then
+          print "Le workflow Git Supabase indique $SUPABASE_BRANCH_WORKFLOW_STATUS ; Conductor utilise son flux CLI independant et verifiera les migrations directement."
+          SUPABASE_WORKFLOW_WARNING_SHOWN=1
+        fi
 
-      unpause_remote_branch_if_needed
+        unpause_remote_branch_if_needed
 
-      if supabase_cli branches get "$SUPABASE_BRANCH_NAME" \
-        --project-ref "$SUPABASE_PARENT_PROJECT_REF" \
-        -o env \
-        > "$temporary_env" 2>/dev/null; then
-        set -a
-        source "$temporary_env"
-        set +a
+        if supabase_cli branches get "$SUPABASE_BRANCH_NAME" \
+          --project-ref "$SUPABASE_PARENT_PROJECT_REF" \
+          -o env \
+          > "$temporary_env" 2>/dev/null; then
+          set -a
+          source "$temporary_env"
+          set +a
 
-        if [[ -n "${SUPABASE_URL:-}" && -n "${SUPABASE_ANON_KEY:-}" && \
-          -n "${SUPABASE_SERVICE_ROLE_KEY:-}" && -n "${POSTGRES_URL_NON_POOLING:-}" ]] && \
-          curl -fsS --max-time 10 \
-            -H "apikey: $SUPABASE_ANON_KEY" \
-            "$SUPABASE_URL/auth/v1/health" \
-            >/dev/null 2>&1; then
-          rm -f "$temporary_env"
-          return
+          if [[ -n "${SUPABASE_URL:-}" && -n "${SUPABASE_ANON_KEY:-}" && \
+            -n "${SUPABASE_SERVICE_ROLE_KEY:-}" && -n "${POSTGRES_URL_NON_POOLING:-}" ]] && \
+            curl -fsS --max-time 10 \
+              -H "apikey: $SUPABASE_ANON_KEY" \
+              "$SUPABASE_URL/auth/v1/health" \
+              >/dev/null 2>&1; then
+            rm -f "$temporary_env"
+            CREDENTIALS_TEMP_FILE=""
+            return
+          fi
         fi
       fi
     fi
 
     if (( SECONDS >= next_update )); then
-      print "Supabase prepare $GIT_BRANCH (${SUPABASE_BRANCH_STATUS:-creation en cours})..."
+      print "Supabase prepare $GIT_BRANCH (${SUPABASE_BRANCH_PROJECT_STATUS:-creation en cours}, workflow ${SUPABASE_BRANCH_WORKFLOW_STATUS:-inconnu})..."
       next_update=$((next_update + 10))
     fi
     sleep 2
   done
 
   rm -f "$temporary_env"
+  CREDENTIALS_TEMP_FILE=""
   fail "La branche Supabase n'est pas devenue disponible apres 5 minutes."
 }
 
 ensure_remote_branch() {
-  if load_remote_branch; then
-    unpause_remote_branch_if_needed
-  else
+  if ! load_remote_branch; then
     create_remote_branch
   fi
 
@@ -260,6 +346,7 @@ delete_remote_branch() {
     --project-ref "$SUPABASE_PARENT_PROJECT_REF" \
     --yes \
     >/dev/null || fail "La branche Supabase n'a pas pu etre supprimee."
+  clear_persisted_branch
 }
 
 wait_for_branch_deletion() {
@@ -281,16 +368,27 @@ pause_remote_branch() {
     return
   fi
 
-  print "Mise en pause de la branche Supabase $SUPABASE_BRANCH_NAME..."
-  supabase_cli branches pause "$SUPABASE_BRANCH_NAME" \
-    --project-ref "$SUPABASE_PARENT_PROJECT_REF" \
-    --yes \
-    >/dev/null || fail "La branche Supabase n'a pas pu etre mise en pause."
+  if [[ "$SUPABASE_BRANCH_PROJECT_STATUS" == "INACTIVE" || "$SUPABASE_BRANCH_PROJECT_STATUS" == "PAUSED" ]]; then
+    print "La branche Supabase $SUPABASE_BRANCH_NAME est deja en pause."
+    return
+  fi
+
+  if [[ "$SUPABASE_BRANCH_PROJECT_STATUS" != "PAUSING" ]]; then
+    print "Mise en pause de la branche Supabase $SUPABASE_BRANCH_NAME..."
+    if ! supabase_cli branches pause "$SUPABASE_BRANCH_NAME" \
+      --project-ref "$SUPABASE_PARENT_PROJECT_REF" \
+      --yes \
+      >/dev/null; then
+      load_remote_branch || fail "La branche Supabase a disparu pendant sa mise en pause."
+      [[ "$SUPABASE_BRANCH_PROJECT_STATUS" == "PAUSING" || "$SUPABASE_BRANCH_PROJECT_STATUS" == "INACTIVE" ]] || \
+        fail "La branche Supabase n'a pas pu etre mise en pause."
+    fi
+  fi
 
   deadline=$((SECONDS + 120))
   while (( SECONDS < deadline )); do
     load_remote_branch || fail "La branche Supabase a disparu pendant sa mise en pause."
-    [[ "$SUPABASE_BRANCH_STATUS" == "PAUSED" || "$SUPABASE_BRANCH_STATUS" == "INACTIVE" ]] && return
+    [[ "$SUPABASE_BRANCH_PROJECT_STATUS" == "PAUSED" || "$SUPABASE_BRANCH_PROJECT_STATUS" == "INACTIVE" ]] && return
     sleep 2
   done
   fail "La branche Supabase n'est pas passee en pause apres 2 minutes."
@@ -307,4 +405,7 @@ print_workspace_summary() {
 }
 
 cd "$PROJECT_ROOT"
-configure_workspace
+if [[ "${CONDUCTOR_COMMON_NO_AUTO_CONFIGURE:-0}" != "1" ]]; then
+  configure_workspace
+  acquire_workspace_lock
+fi
