@@ -141,7 +141,14 @@ export default function SousEtapes({
                             {s.telechargements.map((t) => (
                               <div className="se-install" key={t.href}>
                                 <span className="se-l">Installer le skill : {t.n}</span>
-                                <SkillInstallCopyButton href={t.href} name={t.n} variant="box" />
+                                <div className="se-dl">
+                                  <SkillInstallCopyButton
+                                    href={t.href}
+                                    name={t.n}
+                                    className="btn btn-ghost se-dl-btn"
+                                    showHint
+                                  />
+                                </div>
                               </div>
                             ))}
                           </div>
