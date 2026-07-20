@@ -55,6 +55,9 @@ export default function ParcoursSidePanel() {
   });
 
   const anyStarted = progress.every((p) => p.mounted) && mods.some((m) => m.stats.started);
+  // Le juge évalue le site du module 1 : le lien n'a de sens que si ce module
+  // est au moins commencé.
+  const siteCommence = mods[0].stats.started;
 
   const links = (
     <div className="pcx-side-more">
@@ -62,7 +65,7 @@ export default function ParcoursSidePanel() {
       <div className="module-side-links">
         <Link href="/ressources">Les ressources : outils, skills et prompts{" "}→</Link>
         <Link href="/journal">Le journal de bord, l&apos;AI Journey en direct{" "}→</Link>
-        <Link href="/juge">Le juge : fais évaluer ton site{" "}→</Link>
+        {siteCommence && <Link href="/juge">Le juge : fais évaluer ton site{" "}→</Link>}
       </div>
     </div>
   );
