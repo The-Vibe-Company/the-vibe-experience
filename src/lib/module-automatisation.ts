@@ -2,7 +2,13 @@ import type { EtapeDetail } from "./module-faire-un-site";
 
 // Module 3 — « Automatise ton travail » (famille savoir-faire).
 // BROUILLON en review sur /automatiser-ton-travail (pages câblées, listé dans le
-// parcours avec le statut « En écriture ») : structure et contenu à itérer avec Victor.
+// parcours avec le statut « En écriture »). Vécus Victor intégrés le 2026-07-20.
+// Reste avant publication : les 3 captures [CAPTURE], la page du juge (principe
+// validé par Victor : coller la consigne, vérif déclencheur / action / garde-fou,
+// à construire sur le modèle du juge des skills), et les cadeaux (décision Victor :
+// rien de confidentiel, offrir les hooks maison réplicables à forte valeur ;
+// candidats : le garde-fou prod « pas de mise en ligne sans OK explicite » et le
+// hook de documentation ; à packager depuis les vrais configs, comme au module 2).
 // Fil directeur : jusqu'ici, il se passe quelque chose parce que tu demandes.
 // Une automatisation, c'est quelque chose qui se passe parce que c'est déclenché.
 // Les concepts (déclencheur, action, garde-fou) sont universels ; Claude Code est
@@ -42,7 +48,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         outils: [F.claudecode],
         siCaBloque:
           "Tu ne sais plus comment rouvrir Claude Code ou retrouver ton dossier ? Même geste qu'avant : ouvre l'app, et demande-lui « dans quel dossier travailles-tu ? ». Au besoin, redemande-lui d'ouvrir ton dossier de site.",
-        // [TON VÉCU] Victor : ce que l'automatisation a changé dans tes journées (l'impression que le travail continue sans toi).
+        monExemple:
+          "Ma veille sur l'actu de l'IA, je n'y touche presque plus depuis un mois : elle me sort sa petite newsletter chaque semaine, et une alerte quand un sujet est important. Me tenir au courant, c'est littéralement sorti de mon cerveau. C'est ça que l'automatisation change : de la charge mentale en moins.",
         conseil:
           "Garde le réflexe des modules précédents : quand quelque chose cloche ou te surprend, décris ton problème à Claude Code (ce que tu as fait, ce que tu attendais, ce que tu vois) et discute avec lui.",
       },
@@ -93,7 +100,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         ],
         siCaBloque:
           "Tu ne vois pas de répétition ? Prends celle de tout le monde : la sauvegarde. Depuis le module 1, tu redemandes (ou tu comptes sur une consigne écrite) pour envoyer ton code sur GitHub. C'est exactement ce qu'on automatise à la sous-étape suivante.",
-        // [TON VÉCU] Victor : la naissance de ton hook de documentation (la répétition qui t'a fait passer le cap).
+        monExemple:
+          "Chez moi, la documentation de mon travail est devenue plein de hooks : à chaque faille que je repérais (un truc qui n'était pas capturé), j'en rajoutais un. C'est le chemin classique : tu repères ce qui devrait se faire tout seul, et tu le branches.",
         conseil: "Un bon candidat au hook a un déclencheur NET : « à chaque X ». Si tu n'arrives pas à nommer le X, ce n'est pas encore un hook, c'est peut-être un rendez-vous (étape 3).",
       },
       {
@@ -128,7 +136,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Après ta modification, la confirmation de sauvegarde apparaît sans que tu aies rien demandé. C'est ton premier « ça s'est fait tout seul ». Et quand tu listes tes hooks, celui de la sauvegarde apparaît avec son déclencheur et son action.",
         siCaBloque:
           "La sauvegarde ne part pas ? Ferme et rouvre Claude Code (comme pour un skill tout juste installé), refais une petite modification, et si ça ne part toujours pas, dis-lui « mon hook de sauvegarde ne se déclenche pas, diagnostique et répare ». Et souviens-toi : tu peux toujours tout retirer d'une phrase.",
-        // [TON VÉCU] Victor : la première fois qu'un de tes hooks est parti tout seul (l'effet que ça fait).
+        monExemple:
+          "Mes hooks, je les testais exactement comme ça : je déclenchais l'événement exprès, dans une nouvelle conversation, pour voir si ça capturait vraiment. Le jour où j'ai demandé « montre-moi ce que tu as enregistré » et que tout est ressorti, c'était hyper satisfaisant. Quand un hook marche vraiment, c'est cette sensation-là.",
         conseil: "Prends l'habitude de tester chaque automatisation juste après l'avoir posée, en déclenchant l'événement exprès. Une automatisation non testée est une automatisation supposée.",
       },
     ],
@@ -150,7 +159,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         cestquoi:
           "Depuis le module 1, chaque envoi sur GitHub peut mettre ton site en ligne. C'est puissant, et c'est exactement pour ça qu'il faut une barrière : un garde-fou, c'est un hook dont l'action est de VÉRIFIER et, si besoin, de BLOQUER. Les pros en mettent partout, pas parce qu'ils sont maladroits, mais parce que tout le monde finit par pousser une bêtise un jour.",
         attendu: "Tu as compris qu'un garde-fou est un hook comme un autre, avec une action de blocage.",
-        // [TON VÉCU] Victor : l'incident du merge accidentel qui a publié le site, et la règle gravée ensuite pour que ça ne se reproduise plus. C'est LE vécu de cette étape.
+        monExemple:
+          "Je l'ai appris en me faisant avoir : un simple « merge » lancé trop vite a publié sur notre site des choses qui n'étaient pas validées. Ma réaction, ça a été la bonne question : qu'est-ce que je mets en place pour que ça n'arrive jamais deux fois ? Depuis, si je dis juste « merge », mon garde-fou me bloque et exige que je précise que je veux vraiment la mise en ligne. Honnêtement, quand je suis pressé, c'est parfois pénible. Mais plus rien n'est parti en ligne sans contrôle depuis.",
         siCaBloque:
           "« Bloquer », ça t'inquiète ? Un garde-fou ne casse jamais rien : au pire, il t'arrête et t'explique pourquoi. Tu peux toujours passer outre en le retirant, mais il t'aura forcé à le décider en conscience.",
         conseil: "La bonne question pour trouver tes garde-fous : « qu'est-ce que je ne veux JAMAIS voir arriver tout seul ? »",
@@ -197,7 +207,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         ],
         siCaBloque:
           "Rien ne te vient ? Prends le bilan hebdo, c'est le plus parlant : tu verras chaque semaine ton site résumé sans avoir rien demandé. Tu pourras en changer plus tard, une routine se modifie ou se supprime d'une phrase, comme un hook.",
-        // [TON VÉCU] Victor : le premier vendredi où le menu des sujets est arrivé tout seul (la sensation du travail qui t'attend, déjà fait).
+        monExemple:
+          "Deux vécus, pour être honnête. Ma veille tourne toute seule et la charge mentale a vraiment disparu : je n'y pense plus, ça sort chaque semaine. Mon menu de sujets du vendredi tourne aussi tout seul, mais les propositions, on les retravaille beaucoup ensuite : ça prépare mon travail, ça ne me l'enlève pas. Les deux genres existent, autant le savoir en choisissant.",
         conseil:
           "Une seule règle d'honnêteté à connaître : la tâche tourne sur TON Mac, donc il doit être allumé à l'heure du rendez-vous. Choisis une heure où il l'est vraiment (pas 3h du matin).",
       },
@@ -262,7 +273,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Même astuce qu'à l'étape 3 : fais d'abord un passage d'essai dans 2 minutes. Tu dois voir la ligne de ton skill s'afficher pendant le travail (la preuve qu'il utilise TON style), puis propositions.md apparaître avec les brouillons. Note la dernière phrase du prompt : « je choisis moi-même ». C'est ton garde-fou d'usine, l'humain reste à la fin de la chaîne.",
         siCaBloque:
           "Les propositions ne sont pas dans ton style ? Vérifie que ton skill se déclenche (la ligne à son nom) ; sinon, ajoute son nom exact dans la consigne de la tâche. Les idées sont à côté de la plaque ? Précise le sujet dans la consigne : plus il est net, meilleures sont les propositions.",
-        // [TON VÉCU] Victor : ce que tes automatisations globales (la veille, le bilan du soir) ont changé, et ce qu'elles t'ont appris sur les usines solides.
+        monExemple:
+          "Ma plus grosse usine, c'est ma veille sur l'actu de l'IA : elle surveille, trie selon mes règles (qu'est-ce qui mérite une alerte tout de suite, qu'est-ce qui attend la newsletter) et me livre le tout chaque semaine. Ça fait un mois que je n'y touche presque plus. Chaque brique est simple. C'est l'assemblage qui travaille.",
         conseil:
           "Une bonne usine te PROPOSE, elle ne décide pas à ta place. Garde toujours un humain au bout de la chaîne pour ce qui se voit publiquement.",
       },
@@ -272,7 +284,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         cestquoi:
           "Comme aux modules 1 et 2 : le juge vérifie que ton automatisation est bien formée. Tu lui décris ton usine (ou tu colles la consigne de ta tâche), et il vérifie les trois morceaux de l'étape 0 : un déclencheur clair, une action claire, un garde-fou.",
         attendu: "Un verdict : ton automatisation a ses trois morceaux, ou il te dit lequel manque et où le reprendre.",
-        // [À TRANCHER avec Victor : le juge du module 3 (page + critères). Direction proposée : sur le modèle du juge des skills, on colle la consigne de son automatisation, il vérifie déclencheur / action / garde-fou et renvoie à l'étape à reprendre.]
+        // [VALIDÉ Victor 2026-07-20] Principe du juge acté. Page /juge-automatisation à
+        // construire sur le modèle du juge des skills, puis ajouter le lien ici.
         siCaBloque:
           "Le juge dit qu'il manque le garde-fou ? C'est le plus souvent la phrase de contrôle qui manque dans ta consigne (« ne modifie pas mon site directement », « bloque si ça casse »). Ajoute-la et repasse.",
         conseil: "Le juge ne juge pas l'utilité de ton automatisation, seulement sa solidité. L'utilité, c'est toi qui la mesures en la laissant vivre une semaine ou deux.",
@@ -287,7 +300,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "La preuve, c'est ton quotidien de la semaine prochaine : la sauvegarde qui part seule, le garde-fou qui veille, le bilan du vendredi, les propositions du lundi. Quatre choses qui travaillent pendant que tu fais autre chose.",
         siCaBloque:
           "Une de tes automatisations t'agace ? Ne la subis pas : ajuste sa consigne d'une phrase, ou retire-la. C'est toi le chef, toujours.",
-        // [TON VÉCU] Victor : le bilan global (ce que ça change de bosser avec des automatisations partout, et la limite : rester le chef).
+        monExemple:
+          "Mon bilan honnête : certaines automatisations m'ont vraiment enlevé la charge (la veille), d'autres préparent le travail mais la décision reste chez moi (mon menu de sujets : on retravaille presque tout avant de publier, et c'est normal). C'est exactement la limite à garder : une automatisation qui déciderait à ma place de ce qui se publie, je n'en veux pas. C'est moi le chef.",
         conseil:
           "Relis ta semaine dans deux vendredis : compte ce qui s'est fait sans toi. C'est la vraie mesure de ce module.",
       },
