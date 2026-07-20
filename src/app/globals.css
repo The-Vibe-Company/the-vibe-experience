@@ -926,10 +926,9 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-fam-soon { font-family: var(--font-geist-mono), monospace; font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; color: var(--faint); white-space: nowrap; }
 .pc-srow-soon { grid-template-columns: 1fr auto; }
 .pc-srow-soon .pc-srow-title { color: var(--muted-2); }
-/* Parcours en deux catégories cliquables. Le bloc est en display:contents :
-   ses enfants se placent directement dans la grille .pcx-grid de la page. */
-.pc-pick { display: contents; }
-.pc-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; align-items: stretch; margin-top: 2.4rem; }
+/* Parcours en deux catégories cliquables */
+.pc-pick { margin-top: 2.4rem; }
+.pc-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; align-items: stretch; }
 .pc-cat { position: relative; display: flex; flex-direction: column; gap: .55rem; text-align: left; padding: 1.5rem 1.4rem 1.35rem; border: 1px solid var(--border); border-radius: var(--radius); background: none; color: inherit; font: inherit; cursor: pointer; transition: border-color .15s, background .15s; }
 .pc-cat:hover { border-color: var(--border-strong); }
 .pc-cat:hover .pc-cat-cta { color: var(--orange); }
@@ -988,13 +987,14 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
 .pc-srow-dots { grid-template-columns: 52px 1fr; }
 .pc-srow-dots .pc-srow-n { color: var(--border-strong); }
 .pc-srow-tail { font-size: .9rem; line-height: 1.55; color: var(--muted-2); font-style: italic; }
-/* Accueil du parcours : colonne principale + panneau latéral « Où tu en es ».
-   La bibliothèque (.pc-panel) et « Le principe » reprennent toute la largeur. */
-.pcx-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 300px); column-gap: clamp(2rem, 4vw, 4rem); align-items: start; }
-.pcx-grid > * { grid-column: 1; min-width: 0; }
-.pcx-grid .pc-cats, .pcx-grid .pc-pick-hint { grid-column: 1; min-width: 0; }
-.pcx-grid .pc-panel { grid-column: 1 / -1; min-width: 0; }
-.pcx-grid .module-side { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: 84px; justify-self: end; width: min(100%, 320px); margin: .5rem 0 0; padding: 0 0 0 1.4rem; border-left: 1px solid var(--border); border-top: none; }
+/* Accueil du parcours : colonne principale + panneau latéral « Où tu en es »
+   collé à droite. Deux colonnes flex, aucun chevauchement possible : la
+   bibliothèque vit dans la colonne principale. Le panneau est sticky sur
+   toute la hauteur de la page, il suit le scroll. */
+.pcx-shell { display: flex; align-items: flex-start; gap: clamp(2.2rem, 4vw, 4.5rem); }
+.pcx-main { flex: 1 1 0%; min-width: 0; }
+.pcx-shell .module-side { position: sticky; top: 84px; flex: 0 0 270px; width: 270px; justify-self: auto; margin: .5rem 0 0; padding: 0 0 0 1.4rem; border-left: 1px solid var(--border); border-top: none; }
+.pcx-main .pc-lib { column-gap: 2.25rem; }
 .pcx-side-more { margin-top: 1.15rem; }
 .pcx-side-more > .label { display: block; }
 .pcx-side-more .module-side-links { padding-top: .6rem; }
@@ -1002,9 +1002,8 @@ a.pc-srow:hover .pc-srow-status { color: var(--orange); }
 .pcx-principe .tfilets { margin-top: .8rem; }
 .pcx-principe .tfilet-desc { max-width: 62ch; }
 @media (max-width: 1000px) {
-  .pcx-grid { grid-template-columns: minmax(0, 1fr); }
-  .pcx-grid .pc-panel { grid-column: 1; }
-  .pcx-grid .module-side { grid-column: 1; grid-row: auto; position: static; justify-self: stretch; width: auto; margin: 2.4rem 0 0; padding: 1.2rem 0 0; border-left: none; border-top: 1px solid var(--border); }
+  .pcx-shell { display: block; }
+  .pcx-shell .module-side { position: static; width: auto; margin: 2.4rem 0 0; padding: 1.2rem 0 0; border-left: none; border-top: 1px solid var(--border); }
 }
 @media (max-width: 860px) {
   .pc-grid { grid-template-columns: 1fr; gap: 1.4rem; }

@@ -21,8 +21,8 @@ const principes = [
 
 export default function Parcours() {
   return (
-    <div className="pgwrap pcx-grid">
-      <div className="pcx-head">
+    <div className="pgwrap pcx-shell">
+      <div className="pcx-main">
         <div className="crumb">
           <Link href="/">Accueil</Link>
           <span className="sep">/</span>
@@ -39,23 +39,23 @@ export default function Parcours() {
           les tâches qui te bouffent du temps. Commence par celle qui te parle. Le quiz peut
           t&apos;aider, mais il n&apos;est pas obligatoire.
         </p>
-      </div>
 
-      <ParcoursFamilies />
+        <ParcoursFamilies />
 
-      <ParcoursSidePanel />
-
-      <div className="pcx-principe">
-        <div className="label">Le principe</div>
-        <div className="tfilets">
-          {principes.map((p) => (
-            <div className="tfilet" key={p.t}>
-              <span className="tfilet-name">{p.t}</span>
-              <span className="tfilet-desc">{p.d}</span>
-            </div>
-          ))}
+        <div className="pcx-principe">
+          <div className="label">Le principe</div>
+          <div className="tfilets">
+            {principes.map((p) => (
+              <div className="tfilet" key={p.t}>
+                <span className="tfilet-name">{p.t}</span>
+                <span className="tfilet-desc">{p.d}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      <ParcoursSidePanel />
     </div>
   );
 }
