@@ -953,7 +953,10 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-lib .pc-mc { display: grid; grid-template-rows: subgrid; grid-row: span 5; align-content: start; }
 .pc-lib .pc-mc .pc-mc-prog { margin-top: .75rem; }
 .pc-mc { display: block; position: relative; border-top: 1px solid var(--border); padding: 1.15rem 0; color: inherit; }
-.pc-mc-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .35rem 1rem; }
+/* Alignement par le haut, pas par la ligne de base : le statut (police plus
+   grande) poussait le label vers le bas dans les cartes qui en ont un, et les
+   labels ne se retrouvaient plus à la même hauteur d'une carte à l'autre. */
+.pc-mc-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: .35rem 1rem; }
 /* Label compact sur une seule ligne : sans ça, « Savoir-faire » se coupe en plein mot
    et la ligne en plus repousse toute la rangée de statuts vers le bas. */
 .pc-mc-head .label { font-size: .66rem; letter-spacing: .1em; white-space: nowrap; }
