@@ -48,7 +48,7 @@ body {
   display: inline-flex; align-items: center; gap: .5rem;
 }
 .label::before { content: ""; width: 18px; height: 2px; background: var(--orange); display: inline-block; }
-.wrap { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 2rem; }
 .wrap-narrow { max-width: 980px; margin: 0 auto; padding: 0 2rem; }
 a { color: inherit; text-decoration: none; }
 
@@ -678,7 +678,7 @@ a { color: inherit; text-decoration: none; }
 
 /* PAGES DE CONTENU (design sobre) */
 .nwrap { max-width: 820px; margin: 0 auto; padding: 2.75rem 3rem 5rem; }
-.pgwrap { max-width: 1200px; margin: 0 auto; padding: 2.75rem 3rem 5rem; }
+.pgwrap { max-width: 1440px; margin: 0 auto; padding: 2.75rem 3rem 5rem; }
 .pg-h1 { font-size: clamp(2rem, 3.6vw, 2.8rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; margin: 1rem 0 0; }
 .pg-h1 em { font-style: normal; color: var(--orange); }
 .pg-lead { font-size: 1.06rem; line-height: 1.62; color: var(--muted); max-width: 40rem; margin: 1.1rem 0 0; }
@@ -946,11 +946,13 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-panel-intro { font-size: .95rem; line-height: 1.6; color: var(--muted); margin: 0; max-width: 62ch; }
 .pc-lib { margin-top: 1.1rem; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 3rem; border-bottom: 1px solid var(--border); }
 .pc-lib .pc-mc-lead.cur { margin-left: 0; padding-left: 1.1rem; }
-/* La grille égalise naturellement les cartes, le statut reste calé en bas. */
-.pc-lib .pc-mc { display: flex; flex-direction: column; }
-.pc-lib .pc-mc .pc-mc-prog { margin-top: auto; }
-.pc-lib .pc-mc .pc-soon-bar { margin-top: auto; }
-.pc-mc { display: block; position: relative; border-top: 1px solid var(--border); padding: 1.3rem 0; color: inherit; }
+/* Subgrid : label, titre, description, statut et meta partagent leurs rangées
+   entre les cartes d'une même ligne. Tout reste aligné même si un label ou un
+   titre passe sur deux lignes, et chaque ligne de cartes garde sa propre
+   hauteur quand la bibliothèque grandit. */
+.pc-lib .pc-mc { display: grid; grid-template-rows: subgrid; grid-row: span 5; align-content: start; }
+.pc-lib .pc-mc .pc-mc-prog { margin-top: .75rem; }
+.pc-mc { display: block; position: relative; border-top: 1px solid var(--border); padding: 1.15rem 0; color: inherit; }
 .pc-mc-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .35rem 1rem; }
 /* Label compact sur une seule ligne : sans ça, « Savoir-faire » se coupe en plein mot
    et la ligne en plus repousse toute la rangée de statuts vers le bas. */
