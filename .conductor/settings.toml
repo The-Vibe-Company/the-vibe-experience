@@ -24,3 +24,7 @@ icon = "database"
 available_in = [ "local" ]
 command = "npm run conductor:db:pause"
 icon = "pause"
+
+[prompts]
+general = "At the start of a new local workspace, read AGENTS.md and follow its Workspace startup procedure. Work only on the workspace feature branch. Before testing the app or database, use the Conductor dev Run so it provisions the isolated Supabase branch and generates .env.local; do not start with bare npm run dev, Docker, local Supabase, or production credentials. Use reset-db only for the current workspace, pause-db to preserve its data without compute, and let archive delete its branch."
+create_pr = "The only pull request base for this project is main. Before opening or merging a PR to main, state that main is the public production branch and require Victor's explicit production approval."
