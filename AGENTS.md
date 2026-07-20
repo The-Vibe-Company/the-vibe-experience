@@ -13,8 +13,8 @@ Do not push to `main`, open a PR targeting `main`, or merge into `main` unless V
 Default workflow for this project:
 
 1. Do all work on feature/workspace branches.
-2. Open draft PRs against `preview/all-current-work`, not `main`.
-3. Merge or combine feature branches into `preview/all-current-work` to review all current work together.
-4. Only after Victor explicitly approves a public release, open or merge a final PR from `preview/all-current-work` into `main`.
+2. Keep each feature isolated on its own branch and Supabase preview branch.
+3. After Victor explicitly approves a public release, open the feature PR directly against `main`.
+4. Merge that PR only after its checks and production approval succeed.
 
 Before any `git push`, `gh pr create`, or `gh pr merge`, state the target branch. If the target is `main`, stop and ask for explicit production approval.

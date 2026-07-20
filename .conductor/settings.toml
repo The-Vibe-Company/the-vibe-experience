@@ -20,11 +20,7 @@ available_in = [ "local" ]
 command = "npm run conductor:db:reset"
 icon = "database"
 
-[scripts.run.stop-db]
+[scripts.run.pause-db]
 available_in = [ "local" ]
-command = "npm run conductor:db:stop"
-icon = "square-terminal"
-
-[prompts]
-general = "Treat main as the public production branch. Work on feature/workspace branches. Do not push, open PRs, or merge into main unless Victor explicitly approves a production release. Use preview/all-current-work as the integration branch for combining agent work."
-create_pr = "Create draft PRs against preview/all-current-work by default, not main. If the requested base is main, stop and ask Victor for explicit production approval because main can deploy publicly through Vercel."
+command = "npm run conductor:db:pause"
+icon = "pause"

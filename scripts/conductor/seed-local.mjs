@@ -4,7 +4,7 @@ const url = process.env.CONDUCTOR_SUPABASE_URL;
 const serviceRoleKey = process.env.CONDUCTOR_SUPABASE_SERVICE_ROLE_KEY;
 
 if (!url || !serviceRoleKey) {
-  throw new Error("Les identifiants Admin de la stack Supabase locale sont absents.");
+  throw new Error("Les identifiants Admin de la branche Supabase sont absents.");
 }
 
 const admin = createClient(url, serviceRoleKey, {
@@ -63,11 +63,11 @@ for (const user of users) {
       existing.user.user_metadata?.conductor_seed_state === "pending"
     ) {
       await seedDemoUser(user.id);
-      console.log(`Seed local repris et termine : ${user.email}`);
+      console.log(`Seed de workspace repris et termine : ${user.email}`);
       continue;
     }
 
-    console.log(`Compte local conserve : ${user.email}`);
+    console.log(`Compte de workspace conserve : ${user.email}`);
     continue;
   }
 
@@ -91,5 +91,5 @@ for (const user of users) {
     await seedDemoUser(user.id);
   }
 
-  console.log(`Compte local cree : ${user.email}`);
+  console.log(`Compte de workspace cree : ${user.email}`);
 }
