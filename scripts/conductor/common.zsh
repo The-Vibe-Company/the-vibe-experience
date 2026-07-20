@@ -331,6 +331,17 @@ bootstrap_local_users() {
 }
 
 clear_branch_credentials() {
+  local variable_name
+
+  # `branches get -o env` emits one SUPABASE_<name>_KEY variable per API key.
+  # Clear dynamically named keys as well as the stable connection credentials
+  # before handing the environment to Next.js.
+  for variable_name in ${(k)parameters}; do
+    if [[ "$variable_name" == SUPABASE_*_KEY ]]; then
+      unset "$variable_name"
+    fi
+  done
+
   unset POSTGRES_URL POSTGRES_URL_NON_POOLING SUPABASE_ANON_KEY SUPABASE_DEFAULT_KEY
   unset SUPABASE_JWT_SECRET SUPABASE_PUBLISHABLE_KEY SUPABASE_SERVICE_ROLE_KEY SUPABASE_URL
 }

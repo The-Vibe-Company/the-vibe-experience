@@ -140,6 +140,20 @@ test_cleanup_removes_credentials_and_lock() {
   [[ ! -d "$WORKSPACE_LOCK_DIR" ]] || fail "Le verrou du workspace doit etre libere"
 }
 
+test_clear_branch_credentials_removes_named_api_keys() {
+  SUPABASE_ANON_KEY="anon"
+  SUPABASE_CUSTOM_PREVIEW_KEY="custom"
+  SUPABASE_PARENT_PROJECT_REF="keep-project-ref"
+  POSTGRES_URL_NON_POOLING="postgres://secret"
+
+  clear_branch_credentials
+
+  [[ -z "${SUPABASE_ANON_KEY:-}" ]] || fail "La cle anon doit etre retiree"
+  [[ -z "${SUPABASE_CUSTOM_PREVIEW_KEY:-}" ]] || fail "Toute cle API nommee doit etre retiree"
+  [[ -z "${POSTGRES_URL_NON_POOLING:-}" ]] || fail "L'URL Postgres doit etre retiree"
+  assert_equal "keep-project-ref" "$SUPABASE_PARENT_PROJECT_REF" "Le project ref non secret doit rester disponible"
+}
+
 run_test "stable workspace identity" test_branch_name_is_workspace_stable
 run_test "separate workflow and project statuses" test_branch_statuses_are_kept_separate
 run_test "literal login guidance" test_login_failure_is_literal
@@ -147,5 +161,6 @@ run_test "CLI-owned idempotent creation" test_create_is_cli_owned_and_retry_safe
 run_test "hosted workflow settles before CLI migrations" test_workflow_must_settle_before_manual_migrations
 run_test "public env preservation" test_public_env_preserves_unrelated_values
 run_test "credential and lock cleanup" test_cleanup_removes_credentials_and_lock
+run_test "dynamic API key cleanup" test_clear_branch_credentials_removes_named_api_keys
 
 print "1..$pass_count"
