@@ -951,7 +951,10 @@ a.frow:hover .frow-n { color: var(--orange); }
 .pc-lib .pc-mc .pc-mc-prog { margin-top: auto; }
 .pc-lib .pc-mc .pc-soon-bar { margin-top: auto; }
 .pc-mc { display: block; position: relative; border-top: 1px solid var(--border); padding: 1.3rem 0; color: inherit; }
-.pc-mc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.pc-mc-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .35rem 1rem; }
+/* Label compact sur une seule ligne : sans ça, « Savoir-faire » se coupe en plein mot
+   et la ligne en plus repousse toute la rangée de statuts vers le bas. */
+.pc-mc-head .label { font-size: .66rem; letter-spacing: .1em; white-space: nowrap; }
 .pc-mc-head-side { display: inline-flex; align-items: baseline; gap: 1.1rem; flex: none; }
 .pc-mc-time { font-family: var(--font-geist-mono), monospace; font-size: .72rem; color: var(--orange); white-space: nowrap; }
 .pc-mc-title { display: block; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; margin: .5rem 0 0; transition: color .15s; color: var(--fg); }
