@@ -1,8 +1,8 @@
 import type { EtapeDetail } from "./module-faire-un-site";
 
 // Module 3 — « Automatise ton travail » (famille savoir-faire).
-// BROUILLON en review sur /automatiser-ton-travail (pages câblées, pas encore listé
-// dans le parcours) : structure et contenu à itérer avec Victor.
+// BROUILLON en review sur /automatiser-ton-travail (pages câblées, listé dans le
+// parcours avec le statut « En écriture ») : structure et contenu à itérer avec Victor.
 // Fil directeur : jusqu'ici, il se passe quelque chose parce que tu demandes.
 // Une automatisation, c'est quelque chose qui se passe parce que c'est déclenché.
 // Les concepts (déclencheur, action, garde-fou) sont universels ; Claude Code est

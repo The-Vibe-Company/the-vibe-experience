@@ -282,11 +282,11 @@ export const etapesDetail: EtapeDetail[] = [
           "Le résultat ne te plaît pas du tout ? On ne repart pas de zéro, on ajuste. Pour montrer une image à l'IA, attrape le fichier avec ta souris et lâche-le directement dans la fenêtre de Claude Code : son chemin s'écrit tout seul, tu ajoutes ta phrase après (« inspire-toi de cette image pour les couleurs ») et Entrée. Et si l'IA dit avoir appliqué mais que ta page n'a pas bougé, retourne sur l'onglet de ton navigateur et rafraîchis (cmd + R) : neuf fois sur dix, la nouvelle version apparaît.",
         visuel: {
           src: "/module/da-avant-apres.webp",
-          alt: "Avant / après de la DA du site de mangas : à gauche un rendu générique, à droite une identité façon planche de manga noir et blanc.",
-          legende: "Mon site de mangas, avant et après avoir travaillé la DA. Même contenu, mais là il a une vraie identité.",
+          alt: "Avant / après de la DA du site d'animés : à gauche un rendu générique, à droite une identité façon planche de manga noir et blanc.",
+          legende: "Mon site d'animés, avant et après avoir travaillé la DA. Même contenu, mais là il a une vraie identité.",
         },
         monExemple:
-          "Pour mon site de mangas, j'ai demandé une DA façon planche de manga : noir et blanc, style crayonné, comme des pages dessinées. C'est ce qui lui a donné son ambiance à lui, pas une déco par défaut.",
+          "Pour mon site d'animés, j'ai demandé une DA façon planche de manga : noir et blanc, style crayonné, comme des pages dessinées. C'est ce qui lui a donné son ambiance à lui, pas une déco par défaut.",
         conseil: "Inspire-toi de sites ou d'images que tu aimes et décris-les à l'IA (ou montre-les-lui), plutôt que de partir de zéro.",
       },
       {
@@ -494,6 +494,8 @@ export const etapesDetail: EtapeDetail[] = [
         },
         siCaBloque:
           "Le juge dit qu'il n'arrive pas à accéder à ton site alors que toi tu le vois très bien ? C'est sûrement que ton lien est privé. Ouvre ton adresse .vercel.app dans une fenêtre de navigation privée : si on te demande un mot de passe, ton site n'est pas vraiment public. Dis à Claude Code « mon site Vercel demande une connexion, je veux qu'il soit public, aide-moi à enlever la protection ». Le juge dit que ta page est vide ou encore sur le template, alors que ton site marche très bien dans ton navigateur ? Lis le détail du critère : il te dit exactement quoi demander à Claude Code (souvent, c'est le titre de l'onglet resté par défaut, ou un contenu que le juge ne voit pas sans JavaScript). Copie ce détail, colle-le à Claude Code, renvoie sur GitHub et repasse le juge. Et s'il te renvoie à une étape, c'est une bonne nouvelle : il t'a évité de partager un site cassé. Tu corriges, tu repasses, et ça valide. Ce n'est pas une punition.",
+        monExemple:
+          "Moi, ce juge, je ne l'ai jamais passé : il n'existait pas encore. Mon premier site, c'est Antoine, de l'équipe, qui l'a vérifié avant que je passe à la suite. Le juge est là pour te donner ce même regard extérieur, sans avoir besoin de quelqu'un sous la main.",
         conseil: "Le juge n'est pas là pour te noter, juste pour t'aider à finir proprement.",
       },
       {
