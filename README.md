@@ -14,7 +14,7 @@ npm run dev
 Dans Conductor, le Run `dev` prepare automatiquement un environnement isole pour le worktree :
 
 - Docker Desktop est lance s'il est arrete ;
-- Supabase demarre sur les ports voisins de `$CONDUCTOR_PORT` ;
+- Supabase demarre sur un bloc de ports dedie au workspace ;
 - les migrations et les comptes locaux sont prepares ;
 - `.env.local` est genere avec l'URL et la cle publique de cette stack ;
 - Next.js demarre sur `$CONDUCTOR_PORT`.

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useModuleProgress, computeStats, type EtapeLite } from "@/lib/progress";
 
-// En-tête de progression sur la page d'un module : sous-étapes faites + reprise au bon endroit.
+// Progression et action principale de démarrage ou de reprise du module.
 export default function ModuleProgress({
   moduleKey,
   basePath,
