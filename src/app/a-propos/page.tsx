@@ -15,7 +15,7 @@ export default function APropos() {
         À propos · The Vibe Company
       </div>
       <h1 className="pg-h1">
-        Le parcours que <em>j&apos;ai eu la chance d&apos;avoir</em>.
+        Le parcours que j&apos;ai vécu, <em>ouvert à tous</em>.
       </h1>
 
       <div className="ap-hero">
