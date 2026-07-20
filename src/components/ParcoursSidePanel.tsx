@@ -65,6 +65,9 @@ export default function ParcoursSidePanel() {
       <div className="module-side-links">
         <Link href="/ressources">Les ressources : outils, skills et prompts{" "}→</Link>
         <Link href="/journal">Le journal de bord, l&apos;AI Journey en direct{" "}→</Link>
+        {!siteCommence && (
+          <Link href="/a-propos">À propos : le parcours que j&apos;ai vécu&nbsp;→</Link>
+        )}
         {siteCommence && <Link href="/juge">Le juge : fais évaluer ton site{" "}→</Link>}
       </div>
     </div>
