@@ -1,0 +1,41 @@
+supabase/config.toml
+  s_a34f1c2e7036a5::t_53ae1d887323cc 5,10,35,37,47,97,108,159,381,390,410-411
+scripts/conductor/archive.zsh
+  s_a34f1c2e7036a5::t_53ae1d887323cc 5-6
+package.json
+  s_a34f1c2e7036a5::t_53ae1d887323cc 12-13
+scripts/conductor/dev.zsh
+  s_a34f1c2e7036a5::t_53ae1d887323cc 6-7,11
+.github/pull_request_template.md
+  s_a34f1c2e7036a5::t_53ae1d887323cc 7
+README.md
+  s_a34f1c2e7036a5::t_53ae1d887323cc 14-15,17-19,22-27,35-37,45,48-49,56-57,68-70
+.conductor/settings.toml
+  s_a34f1c2e7036a5::t_53ae1d887323cc 23,25-26
+scripts/conductor/common.zsh
+  s_a34f1c2e7036a5::t_53ae1d887323cc 9-12,14,23-24,31-33,42-47,49-77,80-116,119-124,126,128-131,133-134,136-143,145-151,153-161,164-169,172-173,176-180,182-183,186-208,214-218,221-222,226-231,233-238,240-242,247-298,303
+scripts/conductor/stop-db.zsh
+  s_a34f1c2e7036a5::t_53ae1d887323cc 5
+scripts/conductor/seed-local.mjs
+  s_a34f1c2e7036a5::t_53ae1d887323cc 7,66,70,94
+AGENTS.md
+  s_a34f1c2e7036a5::t_53ae1d887323cc 16-18
+scripts/conductor/reset-db.zsh
+  s_a34f1c2e7036a5::t_53ae1d887323cc 5-8,12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "3bf0a82e0e94d1a1801aa6ff2dca184df9c9e169",
+  "prompts": {},
+  "sessions": {
+    "s_a34f1c2e7036a5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f704a-ba55-7982-84f3-8d724eb53304",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "StanGirard <stan@quivr.app>"
+    }
+  }
+}
