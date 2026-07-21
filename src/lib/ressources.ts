@@ -160,8 +160,8 @@ export const ressources: Ressource[] = [
     cat: "prompts",
     type: "Prompt",
     title: "Automatiser tes sauvegardes GitHub",
-    text: "Le prompt de l'étape 2.3. Tu le donnes une fois, et tes changements partent tout seuls sur GitHub.",
-    prompt: promptDuParcours(etapesDetail, "2", 2, "À partir de maintenant"),
+    text: "Le prompt de l'étape 2.4. Tu le donnes une fois, et tes changements partent tout seuls sur GitHub.",
+    prompt: promptDuParcours(etapesDetail, "2", 3, "À partir de maintenant"),
     action: { kind: "copier" },
   },
   {
