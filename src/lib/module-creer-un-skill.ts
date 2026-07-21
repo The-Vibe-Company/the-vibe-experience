@@ -190,7 +190,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         ceQueTuDoisVoir:
           `Une fois le skill collé et envoyé, Claude Code te confirme qu'il est installé et disponible.
 
-Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne « Skill : create-skill-tools » qui s'affiche. Si elle n'apparaît pas, ferme et rouvre Claude Code puis redemande.
+Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne au nom du skill (du genre « Ran skill /create-skill-tools ») qui s'affiche. Attention, elle est souvent rangée dans une ligne-résumé repliée (du genre « Ran 6 commands... ») : clique dessus pour la déplier. Si elle n'apparaît vraiment pas, ferme et rouvre Claude Code puis redemande.
 
 Le Skill Creator peut te poser quelques questions avant de créer, parfois trois ou quatre, y compris « quel format de sortie ? », autrement dit sous quelle forme tu veux le résultat. Réponds avec tes mots (« un texte dans la conversation », « un fichier »), ou dis simplement « choisis pour moi » : il n'y a pas de mauvaise réponse.
 
@@ -253,7 +253,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
           "Écrire « applique mon style à cette page » et voir le skill se déclencher tout seul.",
         ],
         ceQueTuDoisVoir:
-          "Dès que tu tapes la barre oblique /, une petite liste de noms s'ouvre au-dessus de la zone d'écriture. Ton skill doit y figurer : le fait qu'il soit dans la liste, c'est déjà la preuve qu'il est installé. Choisis-le, ou finis de taper son nom, puis envoie. Quand le skill part, une ligne à son nom s'affiche (du genre « Skill : mon-style »), et l'IA enchaîne en suivant tes instructions au lieu de te reposer les mêmes questions. Pour le déclenchement tout seul, c'est le même repère : sans que tu aies tapé le moindre /, cette ligne au nom de ton skill apparaît. Attention par contre : dans CETTE conversation, où vous venez de créer le skill ensemble, ce test ne prouve rien, l'IA l'a en tête de toute façon. La vraie preuve du déclenchement tout seul, c'est la sous-étape suivante, dans une conversation neuve. Ici, contente-toi de vérifier le /nom.",
+          "Dès que tu tapes la barre oblique /, une petite liste de noms s'ouvre au-dessus de la zone d'écriture. Ton skill doit y figurer : le fait qu'il soit dans la liste, c'est déjà la preuve qu'il est installé. Choisis-le, ou finis de taper son nom, puis envoie. Quand le skill part, une ligne à son nom s'affiche (du genre « Ran skill /mon-style », parfois repliée dans la ligne-résumé des actions : clique pour déplier), et l'IA enchaîne en suivant tes instructions au lieu de te reposer les mêmes questions. Pour le déclenchement tout seul, c'est le même repère : sans que tu aies tapé le moindre /, cette ligne au nom de ton skill apparaît. Attention par contre : dans CETTE conversation, où vous venez de créer le skill ensemble, ce test ne prouve rien, l'IA l'a en tête de toute façon. La vraie preuve du déclenchement tout seul, c'est la sous-étape suivante, dans une conversation neuve. Ici, contente-toi de vérifier le /nom.",
         visuel: {
           src: "/module/skill-3-1-slash-menu.png",
           alt: "Le menu « / » de Claude Code : le nom du skill s'affiche dans la liste pendant la frappe, avec sa description au-dessus.",
@@ -273,7 +273,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         attendu: "Un skill qui se déclenche tout seul quand la situation s'y prête.",
         pasAPas: [
           "Ouvre une NOUVELLE conversation dans Claude Code : son bouton « New session » (« Nouvelle session » si ton app est en français), pas besoin de fermer l'app. C'est le seul vrai test : dans la conversation où vous avez créé le skill, l'IA l'a en tête de toute façon.",
-          "Refais ta demande normale, sans taper de /. Si la ligne au nom de ton skill apparaît, c'est gagné : ta description est bonne, passe à la sous-étape suivante.",
+          "Refais ta demande normale, sans taper de /. Si la ligne au nom de ton skill apparaît (déplie la ligne-résumé des actions si besoin), c'est gagné : ta description est bonne, passe à la sous-étape suivante.",
           "Il n'est pas parti ? Envoie le prompt ci-dessous, puis reteste dans une nouvelle conversation. C'est normal de s'y reprendre à deux ou trois fois.",
         ],
         exemples: [
