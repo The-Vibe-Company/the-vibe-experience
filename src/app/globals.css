@@ -701,6 +701,9 @@ a { color: inherit; text-decoration: none; }
 /* Variante pleine largeur : pour les pages sans colonne latérale qui profitent
    de tout l'écran, comme l'accueil du parcours. */
 .pgwrap-full { max-width: 1760px; }
+/* Intro centrée au-dessus des deux colonnes du parcours. */
+.pg-head-center { text-align: center; }
+.pg-head-center .pg-lead { margin-left: auto; margin-right: auto; }
 .pg-h1 { font-size: clamp(2rem, 3.6vw, 2.8rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; margin: 1rem 0 0; }
 .pg-h1 em { font-style: normal; color: var(--orange); }
 .pg-lead { font-size: 1.06rem; line-height: 1.62; color: var(--muted); max-width: 40rem; margin: 1.1rem 0 0; }
