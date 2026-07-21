@@ -44,6 +44,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Ce module n'ajoute aucun outil. Une automatisation, ce n'est pas un logiciel en plus : c'est une façon de brancher ce que tu as déjà (ton site du module 1, tes skills du module 2, Claude Code) pour que ça travaille sans toi. Rien à payer, rien à installer.",
         attendu: "Claude Code rouvert sur ton dossier de site, comme aux modules précédents.",
         outils: [F.claudecode],
+        ceQueTuDoisVoir:
+          "Claude Code ouvert sur ton dossier de site, comme tu l'as laissé au module précédent. Rien d'autre : tout ce que ce module installe passera par cette fenêtre.",
         siCaBloque:
           "Tu ne sais plus comment rouvrir Claude Code ou retrouver ton dossier ? Même geste qu'avant : ouvre l'app, et demande-lui « dans quel dossier travailles-tu ? ». Au besoin, redemande-lui d'ouvrir ton dossier de site.",
         monExemple:
@@ -68,6 +70,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Rien à l'écran pour l'instant : le test, c'est toi. Dis à voix haute : « une automatisation, c'est un déclencheur, une action et un garde-fou ». Si tu sais aussi citer les deux familles de déclencheurs (un événement, ou l'heure), tu as tout ce qu'il faut pour la suite.",
         siCaBloque:
           "Le vocabulaire te semble abstrait ? C'est normal, il devient concret dès la prochaine étape : tu vas installer ton premier réflexe et le voir partir tout seul. Retiens juste les trois mots.",
+        monExemple:
+          "Mes automatisations à moi (la veille qui sort ma newsletter, mes hooks de documentation, mon garde-fou de mise en ligne) tiennent toutes dans ces trois morceaux. C'est le même squelette partout, du petit réflexe à la grosse usine.",
         conseil:
           "Ces trois morceaux valent partout, pas seulement dans Claude Code : le jour où tu utiliseras un autre outil d'automatisation, tu chercheras les mêmes trois choses.",
       },
@@ -96,6 +100,10 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "« À chaque grosse modification, je repasse Impeccable pour nettoyer. »",
           "« À la fin de chaque session, je demande un résumé de ce qu'on a fait. »",
         ],
+        prompt:
+          "Regarde les fichiers de mon projet et nos habitudes de travail : qu'est-ce que je te redemande ou relance toujours pareil, au même moment ? Propose-moi deux ou trois candidats au format « à chaque fois que [événement], fais [action] », et dis-moi lequel te semble le plus utile.",
+        ceQueTuDoisVoir:
+          "Ta phrase est bonne si tu peux pointer le déclencheur du doigt : « à chaque fois que... quoi, exactement ? ». Si la réponse est nette (un changement validé, une fin de session), c'est un hook. Si c'est « de temps en temps », ce n'en est pas un.",
         siCaBloque:
           "Tu ne vois pas de répétition ? Prends celle de tout le monde : la sauvegarde. Depuis le module 1, tu redemandes (ou tu comptes sur une consigne écrite) pour envoyer ton code sur GitHub. C'est exactement ce qu'on automatise à la sous-étape suivante.",
         monExemple:
@@ -116,6 +124,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         siCaBloque:
           "Il te propose plusieurs façons de faire et tu ne sais pas choisir ? Réponds « choisis la plus simple et la plus fiable pour un débutant, et explique-moi ton choix en deux phrases ». Il te parle d'un fichier de réglages avec un nom technique ? Pas besoin de l'ouvrir : c'est son rangement à lui, comme pour les skills.",
         // [CAPTURE] Le moment où Claude Code confirme l'installation du hook (sa réponse après le prompt).
+        monExemple:
+          "Chez moi, un hook enregistre chaque fichier modifié, sur tous mes projets, pour que ma documentation n'oublie rien. Je l'ai décrit une fois, il tourne depuis des semaines sans que j'y pense.",
         conseil: "Décris toujours un hook dans cet ordre : le déclencheur (« à chaque fois que... »), puis l'action (« fais... »). C'est le format qui marche à tous les coups.",
       },
       {
@@ -157,6 +167,11 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         cestquoi:
           "Depuis le module 1, chaque envoi sur GitHub peut mettre ton site en ligne. C'est puissant, et c'est exactement pour ça qu'il faut une barrière : un garde-fou, c'est un hook dont l'action est de VÉRIFIER et, si besoin, de BLOQUER. Les pros en mettent partout, pas parce qu'ils sont maladroits, mais parce que tout le monde finit par pousser une bêtise un jour.",
         attendu: "Tu as compris qu'un garde-fou est un hook comme un autre, avec une action de blocage.",
+        exemples: [
+          "« Avant chaque mise en ligne, vérifie que le site se construit. Sinon, bloque et explique. »",
+          "« Ne mets jamais mon site public à jour sans que je le demande explicitement. » (le mien)",
+          "« Ne supprime jamais un fichier sans me montrer lequel et me demander. »",
+        ],
         monExemple:
           "Je l'ai appris en me faisant avoir : un simple « merge » lancé trop vite a publié sur notre site des choses qui n'étaient pas validées. Ma réaction, ça a été la bonne question : qu'est-ce que je mets en place pour que ça n'arrive jamais deux fois ? Depuis, si je dis juste « merge », mon garde-fou me bloque et exige que je précise que je veux vraiment la mise en ligne. Honnêtement, quand je suis pressé, c'est parfois pénible. Mais plus rien n'est parti en ligne sans contrôle depuis.",
         siCaBloque:
@@ -169,6 +184,10 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         cestquoi:
           "Tu poses le garde-fou, puis tu fais la chose la plus formatrice du module : tu casses ton site EXPRÈS pour le voir bloquer. C'est le meilleur moyen de lui faire confiance ensuite.",
         attendu: "Un garde-fou actif : impossible d'envoyer en ligne un site qui ne se construit plus. Et tu l'as vu bloquer de tes yeux.",
+        pasAPas: [
+          "Envoie le prompt ci-dessous tel quel : il installe le garde-fou, puis le teste devant toi avec une erreur volontaire.",
+          "Regarde les trois actes se dérouler (détaillés dans « Ce que tu dois voir » juste en dessous), et vérifie à la fin que ton site s'affiche toujours en local.",
+        ],
         prompt:
           "Installe-moi un garde-fou : avant chaque envoi de mon code sur GitHub, vérifie que mon site se construit sans erreur. Si ça casse, bloque l'envoi et explique-moi le problème en français simple. Ensuite, pour tester, introduis une petite erreur volontaire dans mon site, essaie d'envoyer, et montre-moi le blocage. Puis répare l'erreur et confirme que l'envoi repasse.",
         ceQueTuDoisVoir:
@@ -203,6 +222,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "« Chaque vendredi à 17h, fais le bilan de mon site : ce qui a changé cette semaine, mes nouveaux inscrits, et une idée d'amélioration. Range-le dans un fichier bilan.md. »",
           "« Chaque lundi à 9h, vérifie que mon site en ligne répond bien et dis-moi si quelque chose cloche. »",
         ],
+        ceQueTuDoisVoir:
+          "Ta phrase complète tient les quatre morceaux : le jour, l'heure, l'action, et où se range le résultat. S'il en manque un, la routine sera floue : précise-le avant de programmer.",
         siCaBloque:
           "Rien ne te vient ? Prends le bilan hebdo, c'est le plus parlant : tu verras chaque semaine ton site résumé sans avoir rien demandé. Tu pourras en changer plus tard, une routine se modifie ou se supprime d'une phrase, comme un hook.",
         monExemple:
@@ -225,12 +246,19 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Programme une tâche d'essai qui se lance dans 2 minutes : fais le bilan de mon site (ce qui a changé récemment, et une idée d'amélioration) et range-le dans un fichier bilan.md à la racine de mon projet. Dis-moi quand c'est programmé, puis quand c'est passé.",
         ceQueTuDoisVoir:
           "Claude Code confirme la programmation. Deux minutes plus tard, sans que tu touches à rien, la tâche se lance : tu vois le travail se faire, puis le fichier bilan.md apparaître dans ton projet. C'est ton premier rendez-vous honoré. Quand tu passes au rythme hebdo, demande « montre-moi mes tâches programmées » : elle doit y figurer avec son horaire. Tu peux aussi la voir dans la barre latérale de l'app, section « Routines ».",
+        visuel: {
+          src: "/module/3-2-routines.png",
+          alt: "La barre latérale de Claude Code : l'entrée Routines du menu, puis la section Routines listant deux tâches programmées.",
+          legende: "Chez moi : la section « Routines » de ma barre latérale, avec mes deux vrais rendez-vous : le menu de sujets du vendredi et le bilan du soir.",
+        },
         siCaBloque:
           "Les deux minutes passent et rien ne se lance ? Demande « où en est ma tâche programmée ? » : selon la configuration, il peut y avoir un léger décalage, c'est prévu. Toujours rien ? « Ma tâche d'essai ne s'est pas lancée, diagnostique et reprogramme-la. » Et pour tout arrêter un jour : « supprime ma tâche programmée du vendredi », c'est tout.",
         // [À VÉRIFIER avant publication : le comportement si le Mac est éteint à l'heure dite
         // (rattrapage au réveil ou passage sauté ?). Le libellé de la barre latérale
         // (« Routines ») est confirmé par la capture de Victor du 21/07.]
         // [CAPTURE] La tâche d'essai qui se déclenche toute seule + le fichier bilan.md apparu.
+        monExemple:
+          "Dans ma barre latérale (capture ci-dessus), il y a aujourd'hui deux rendez-vous : la proposition de sujets de contenu de la semaine, et le bilan du soir. C'est devenu le rythme normal de mes semaines : ces trucs-là arrivent, que j'y pense ou non.",
         conseil:
           "L'astuce du passage d'essai vaut pour TOUTES tes futures routines : d'abord dans 2 minutes pour voir, ensuite au vrai rythme. Ne programme jamais à l'aveugle.",
       },
@@ -244,6 +272,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Vendredi soir, un bilan.md mis à jour t'attend dans ton projet, sans que tu aies rien demandé. Si le contenu ne te convient pas, ne supprime pas la routine : dis simplement « à partir de maintenant, ajoute aussi [ce qui manque] dans le bilan ».",
         siCaBloque:
           "Vendredi est passé et pas de bilan ? Premier réflexe : ton Mac était-il allumé à 17h ? Si non, c'est la limite honnête de la routine locale (déplace l'horaire). Si oui, demande « pourquoi ma tâche du vendredi n'a pas tourné ? ».",
+        monExemple:
+          "Mon menu de sujets tombe le vendredi. Honnêtement, je le lis souvent le lundi, et c'est très bien comme ça : une routine ne t'impose pas d'être au rendez-vous, le travail t'attend.",
         conseil:
           "C'est le rang au-dessus qui règle la limite du « Mac allumé » : des routines qui tournent dans le cloud, sans ta machine. On en reparle à la fin du module.",
       },
@@ -267,6 +297,10 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Jusqu'ici, chaque brique travaillait seule. Une usine, c'est des briques branchées ensemble : une routine (le déclencheur), ton skill mon-style du module 2 (le savoir-faire), et ton garde-fou (la sécurité). Résultat : chaque semaine, des propositions de contenu pour ton site, écrites dans TON style, prêtes à valider.",
         attendu:
           "Une automatisation complète : chaque lundi, des idées de contenu dans ton style t'attendent, et rien ne part en ligne sans toi.",
+        pasAPas: [
+          "Adapte le prompt ci-dessous à ton sujet et au nom de ton skill, puis envoie-le.",
+          "Fais d'abord un passage d'essai dans 2 minutes (l'astuce de l'étape 3) pour voir propositions.md apparaître, puis passe au vrai rythme du lundi.",
+        ],
         prompt:
           "Programme une tâche chaque lundi à 9h : cherche ce qui est nouveau ou intéressant autour de [le sujet de ton site], choisis les 2 meilleures idées de contenu pour mon site, et rédige un brouillon pour chacune en utilisant mon skill [nom de ton skill du module 2]. Range tout dans un fichier propositions.md. Ne modifie pas mon site directement : je choisis moi-même ce que j'ajoute.",
         ceQueTuDoisVoir:
