@@ -48,7 +48,7 @@ body {
   display: inline-flex; align-items: center; gap: .5rem;
 }
 .label::before { content: ""; width: 18px; height: 2px; background: var(--orange); display: inline-block; }
-.wrap { max-width: 1440px; margin: 0 auto; padding: 0 2rem; }
+.wrap { max-width: 1760px; margin: 0 auto; padding: 0 2rem; }
 .wrap-narrow { max-width: 980px; margin: 0 auto; padding: 0 2rem; }
 a { color: inherit; text-decoration: none; }
 
@@ -698,6 +698,9 @@ a { color: inherit; text-decoration: none; }
 /* PAGES DE CONTENU (design sobre) */
 .nwrap { max-width: 820px; margin: 0 auto; padding: 2.75rem 3rem 5rem; }
 .pgwrap { max-width: 1440px; margin: 0 auto; padding: 2.75rem 3rem 5rem; }
+/* Variante pleine largeur : pour les pages sans colonne latérale qui profitent
+   de tout l'écran, comme l'accueil du parcours. */
+.pgwrap-full { max-width: 1760px; }
 .pg-h1 { font-size: clamp(2rem, 3.6vw, 2.8rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; margin: 1rem 0 0; }
 .pg-h1 em { font-style: normal; color: var(--orange); }
 .pg-lead { font-size: 1.06rem; line-height: 1.62; color: var(--muted); max-width: 40rem; margin: 1.1rem 0 0; }
@@ -925,7 +928,7 @@ a.frow:hover .frow-n { color: var(--orange); }
 /* Parcours : deux catégories à égalité, titres hors du bloc, modules dans un
    panneau encadré (le cadre dit l'appartenance). */
 .pcat { margin-top: 2.6rem; }
-.pcat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 3.5rem; align-items: start; }
+.pcat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem clamp(3.5rem, 7vw, 8rem); align-items: start; }
 .pcat-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; }
 .pcat-h { font-size: 1.9rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; margin: 0; }
 .pcat-soon { font-family: var(--font-geist-mono), monospace; font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; color: var(--faint); white-space: nowrap; }

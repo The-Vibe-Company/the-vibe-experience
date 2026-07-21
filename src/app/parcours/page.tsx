@@ -5,7 +5,7 @@ export const metadata = { title: "Le parcours — The Vibe Experience" };
 
 export default function Parcours() {
   return (
-    <div className="pgwrap">
+    <div className="pgwrap pgwrap-full">
       <div className="crumb">
         <Link href="/">Accueil</Link>
         <span className="sep">/</span>
