@@ -671,6 +671,24 @@ a { color: inherit; text-decoration: none; }
 .hmorelink { display: inline-block; margin-top: 1.1rem; font-size: .9rem; font-weight: 600; color: var(--orange-ink); }
 .hfin { margin-top: 4rem; padding: 3.6rem 0 1rem; border-top: 1px solid var(--border); }
 .hfin .btn { margin-top: 1.6rem; }
+
+/* Accueil centré (esprit page produit) : texte au milieu, image en dessous,
+   sections empilées et centrées. */
+.hcen { text-align: center; }
+.hcen-hero { padding: 4rem 0 0; }
+.hcen .hh1 { max-width: 17ch; margin-left: auto; margin-right: auto; }
+.hcen .hlead { max-width: 36rem; margin-left: auto; margin-right: auto; }
+.hcen .hp { margin-left: auto; margin-right: auto; }
+.hcen .hcta { justify-content: center; }
+.hcen .hfacts { justify-content: center; }
+.hcen .hfin .btn { margin-top: 0; }
+.hcen-art { position: relative; max-width: 880px; margin: 3.2rem auto 3.2rem; aspect-ratio: 16 / 9; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 28px 56px -36px rgba(10,10,10,0.35); background: var(--bg-2); }
+.hcen-points { max-width: 620px; margin: 2.6rem auto 0; display: flex; flex-direction: column; gap: 2.1rem; }
+.hcen-point strong { display: block; font-size: 1.08rem; font-weight: 700; letter-spacing: -0.015em; }
+.hcen-point p { margin: .5rem 0 0; font-size: .95rem; line-height: 1.62; color: var(--muted); }
+@media (max-width: 700px) {
+  .hcen-art { aspect-ratio: 4 / 3; }
+}
 @media (max-width: 900px) {
   .hwrap { padding: 0 1.4rem 3rem; }
   .hhero { grid-template-columns: 1fr; gap: 2.2rem; padding-top: 2.5rem; }
