@@ -3,9 +3,7 @@ import type { EtapeDetail } from "./module-faire-un-site";
 // Module 3 — « Automatise ton travail » (famille savoir-faire).
 // BROUILLON en review sur /automatiser-ton-travail (pages câblées, listé dans le
 // parcours avec le statut « En écriture »). Vécus Victor intégrés le 2026-07-20.
-// Reste avant publication : les 3 captures [CAPTURE], la page du juge (principe
-// validé par Victor : coller la consigne, vérif déclencheur / action / garde-fou,
-// à construire sur le modèle du juge des skills), et les cadeaux (décision Victor :
+// Reste avant publication : les 3 captures [CAPTURE], et les cadeaux (décision Victor :
 // rien de confidentiel, offrir les hooks maison réplicables à forte valeur ;
 // candidats : le garde-fou prod « pas de mise en ligne sans OK explicite » et le
 // hook de documentation ; à packager depuis les vrais configs, comme au module 2).
@@ -226,10 +224,12 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         prompt:
           "Programme une tâche d'essai qui se lance dans 2 minutes : fais le bilan de mon site (ce qui a changé récemment, et une idée d'amélioration) et range-le dans un fichier bilan.md à la racine de mon projet. Dis-moi quand c'est programmé, puis quand c'est passé.",
         ceQueTuDoisVoir:
-          "Claude Code confirme la programmation. Deux minutes plus tard, sans que tu touches à rien, la tâche se lance : tu vois le travail se faire, puis le fichier bilan.md apparaître dans ton projet. C'est ton premier rendez-vous honoré. Quand tu passes au rythme hebdo, demande « montre-moi mes tâches programmées » : elle doit y figurer avec son horaire.",
+          "Claude Code confirme la programmation. Deux minutes plus tard, sans que tu touches à rien, la tâche se lance : tu vois le travail se faire, puis le fichier bilan.md apparaître dans ton projet. C'est ton premier rendez-vous honoré. Quand tu passes au rythme hebdo, demande « montre-moi mes tâches programmées » : elle doit y figurer avec son horaire. Tu peux aussi la voir dans la barre latérale de l'app, section « Routines ».",
         siCaBloque:
           "Les deux minutes passent et rien ne se lance ? Demande « où en est ma tâche programmée ? » : selon la configuration, il peut y avoir un léger décalage, c'est prévu. Toujours rien ? « Ma tâche d'essai ne s'est pas lancée, diagnostique et reprogramme-la. » Et pour tout arrêter un jour : « supprime ma tâche programmée du vendredi », c'est tout.",
-        // [À VÉRIFIER avant publication : le libellé exact de la fonctionnalité de tâches programmées dans l'app (passage novice dédié), et le comportement si le Mac est éteint à l'heure dite.]
+        // [À VÉRIFIER avant publication : le comportement si le Mac est éteint à l'heure dite
+        // (rattrapage au réveil ou passage sauté ?). Le libellé de la barre latérale
+        // (« Routines ») est confirmé par la capture de Victor du 21/07.]
         // [CAPTURE] La tâche d'essai qui se déclenche toute seule + le fichier bilan.md apparu.
         conseil:
           "L'astuce du passage d'essai vaut pour TOUTES tes futures routines : d'abord dans 2 minutes pour voir, ensuite au vrai rythme. Ne programme jamais à l'aveugle.",
@@ -284,8 +284,13 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         cestquoi:
           "Comme aux modules 1 et 2 : le juge vérifie que ton automatisation est bien formée. Tu lui décris ton usine (ou tu colles la consigne de ta tâche), et il vérifie les trois morceaux de l'étape 0 : un déclencheur clair, une action claire, un garde-fou.",
         attendu: "Un verdict : ton automatisation a ses trois morceaux, ou il te dit lequel manque et où le reprendre.",
-        // [VALIDÉ Victor 2026-07-20] Principe du juge acté. Page /juge-automatisation à
-        // construire sur le modèle du juge des skills, puis ajouter le lien ici.
+        lien: { label: "Ouvrir le juge des automatisations", href: "/juge-automatisation" },
+        pasAPas: [
+          "Ouvre le juge avec le bouton juste au-dessus.",
+          "Colle la consigne de ton automatisation (le texte que tu as donné à Claude Code : celle de ton usine, ou n'importe laquelle) et lance l'évaluation.",
+        ],
+        ceQueTuDoisVoir:
+          "Trois lignes cochées : le déclencheur (avec sa famille, un événement ou l'heure), l'action, le garde-fou. Si l'une est rouge, le juge te dit ce qui manque et te renvoie à l'étape à reprendre : tu corriges ta consigne, et tu repasses.",
         siCaBloque:
           "Le juge dit qu'il manque le garde-fou ? C'est le plus souvent la phrase de contrôle qui manque dans ta consigne (« ne modifie pas mon site directement », « bloque si ça casse »). Ajoute-la et repasse.",
         conseil: "Le juge ne juge pas l'utilité de ton automatisation, seulement sa solidité. L'utilité, c'est toi qui la mesures en la laissant vivre une semaine ou deux.",

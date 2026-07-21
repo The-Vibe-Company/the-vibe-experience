@@ -62,8 +62,8 @@ export default function ModuleAutomatisation() {
               { label: "Durée", value: "5 étapes · ≈ 2 h à 2 h 45" },
               { label: "Outil", value: "Claude Code, rien de neuf à installer" },
             ]}
-            jugeHref="/parcours"
-            jugeLabel="Retourner aux modules"
+            jugeHref="/juge-automatisation"
+            jugeLabel="Fais évaluer ton automatisation par le juge"
           />
 
           <ModuleProgress
