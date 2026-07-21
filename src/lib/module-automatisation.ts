@@ -270,7 +270,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         prompt:
           "Programme une tâche chaque lundi à 9h : cherche ce qui est nouveau ou intéressant autour de [le sujet de ton site], choisis les 2 meilleures idées de contenu pour mon site, et rédige un brouillon pour chacune en utilisant mon skill [nom de ton skill du module 2]. Range tout dans un fichier propositions.md. Ne modifie pas mon site directement : je choisis moi-même ce que j'ajoute.",
         ceQueTuDoisVoir:
-          "Même astuce qu'à l'étape 3 : fais d'abord un passage d'essai dans 2 minutes. Tu dois voir la ligne de ton skill s'afficher pendant le travail (la preuve qu'il utilise TON style), puis propositions.md apparaître avec les brouillons. Note la dernière phrase du prompt : « je choisis moi-même ». C'est ton garde-fou d'usine, l'humain reste à la fin de la chaîne.",
+          "Même astuce qu'à l'étape 3 : fais d'abord un passage d'essai dans 2 minutes. Tu dois voir la ligne de ton skill s'afficher pendant le travail (la preuve qu'il utilise TON style ; déplie la ligne-résumé des actions si tu ne la vois pas), puis propositions.md apparaître avec les brouillons. Note la dernière phrase du prompt : « je choisis moi-même ». C'est ton garde-fou d'usine, l'humain reste à la fin de la chaîne.",
         siCaBloque:
           "Les propositions ne sont pas dans ton style ? Vérifie que ton skill se déclenche (la ligne à son nom) ; sinon, ajoute son nom exact dans la consigne de la tâche. Les idées sont à côté de la plaque ? Précise le sujet dans la consigne : plus il est net, meilleures sont les propositions.",
         monExemple:
