@@ -1,0 +1,1806 @@
+Installe ce skill dans mes skills personnels (par exemple ~/.claude/skills/ pour Claude Code, ou l'équivalent de mon outil) : recrée chaque fichier listé ci-dessous, chemin et contenu identiques, sans rien reformuler. Quand c'est fait, vérifie que generer-facture/SKILL.md est en place et confirme-moi que le skill est prêt.
+
+===== FICHIER : generer-facture/LISEZMOI.md =====
+# Générer une facture : le mode d'emploi
+
+Ce skill fait tes factures à ta place. Le cas magique : ton devis accepté
+devient une facture en une phrase (« le devis DEV-2026-001 est signé, fais la
+facture d'acompte »), sans rien ressaisir. Et si tu ne fais pas de devis, il
+fait aussi tes factures de zéro : tu réponds à 2-3 questions et tu obtiens
+une facture conforme au droit français, numérotée proprement, avec ton
+échéance de paiement et tes mentions.
+
+Il sait faire les quatre documents de la vraie vie : la facture classique,
+la facture d'acompte quand tu encaisses une avance, la facture de solde qui
+déduit toute seule les acomptes déjà facturés, et l'avoir quand une facture
+déjà envoyée doit être corrigée (avec sa propre numérotation et la
+référence à la facture d'origine, comme la loi le demande). Il gère aussi
+tes remises (par ligne ou globales, la TVA se recalcule toute seule sur le
+net), retient tes prestations habituelles et tes clients (« la même chose
+que d'habitude » suffit), écrit le montant en toutes lettres sur la
+facture, et sort le journal de tes factures en un fichier Excel pour ton
+comptable.
+
+Il est fait pour les indépendants et les petites entreprises françaises. Si
+tu utilises déjà son compagnon (le skill de devis), il récupère tout ce que
+tu lui as déjà dit : tu ne refais pas le setup.
+
+## Ce qu'il te faut (honnêtement)
+
+- Un abonnement Claude payant : la version gratuite ne suffit pas,
+  l'abonnement Pro (environ 20 € par mois) suffit. Si un jour tu factures
+  en trop grand volume pour le Pro, le plan au-dessus existe, à toi de voir
+  selon le temps gagné.
+- L'application Claude qui lit les skills et travaille dans un dossier :
+  Claude Code, ou l'application de bureau Claude (Mac ou Windows).
+- Rien d'autre. Aucun logiciel, aucun abonnement en plus. La facture sort en
+  fichier HTML que tu transformes en PDF en l'imprimant (« Enregistrer au
+  format PDF »).
+
+Un point d'honnêteté sur la facturation électronique : une réforme française
+impose progressivement (2026-2027) la facture électronique entre entreprises
+via des plateformes agréées. Ce skill produit des factures classiques (PDF),
+qui restent valables pour tes clients particuliers et, selon le calendrier,
+pour ta taille d'entreprise. Il t'expliquera où tu en es si tu lui poses la
+question, sans te vendre du rêve.
+
+## Les trois gestes
+
+**Geste 1 : installe le skill.** Le plus simple : demande à Claude de le
+faire. Ouvre Claude et écris : « installe le skill generer-facture qui est
+dans mon dossier Téléchargements » (ou l'endroit où tu l'as mis). Si tu
+préfères l'application de bureau : Réglages, puis Capacités, puis Skills,
+et importe le fichier téléchargé.
+
+**Geste 2 : la première fois, laisse-le faire connaissance.** Écris
+« fais-moi une facture », ou n'importe quelle phrase à toi : il n'y a pas
+de formule magique à connaître. Deux cas :
+- Tu utilises déjà le skill de devis : il retrouve tout (ton entreprise, ta
+  TVA, tes clients) et ne te pose que les questions propres aux factures :
+  ta numérotation de factures, ton délai de paiement, ton IBAN. Deux
+  minutes.
+- Tu pars de zéro : il te pose une quinzaine de questions, une seule fois ;
+  compte 5 à 10 minutes avec ton SIRET, ton numéro de TVA et ton IBAN sous
+  la main. Si tu as déjà émis des factures, retrouve ton dernier numéro
+  tel que tu l'écris : ta numérotation doit se suivre sans trou, c'est la
+  loi, et il la reprendra à l'identique.
+
+**Geste 3 : facture.** « Le devis DEV-2026-012 est accepté, facture
+d'acompte de 30 % » ou « facture pour Mme Martin : retouches rideaux, 240
+euros, prestation du 12 août ». Il te montre un récapitulatif, tu dis oui,
+le fichier est prêt. Plusieurs factures à faire ? Donne tout d'un coup, il
+les sort en série.
+
+## Et si quelque chose change
+
+« Nouveau RIB », « je passe les paiements à 45 jours », « j'ai déménagé » :
+dis-le, il met à jour juste ça. Attention, particularité des factures : une
+facture déjà envoyée ne se corrige pas, elle s'annule par un avoir (le
+skill t'expliquera la marche à suivre le cas échéant).
+
+## Ce qu'il ne fait pas
+
+Les devis (c'est son compagnon generer-devis), les relances d'impayés, la
+comptabilité au-delà de l'export du journal, et la télétransmission
+électronique (Chorus Pro, plateformes agréées). Il ne donne pas de conseil juridique :
+il applique les règles officielles, sourcées dans le dossier `references`.
+
+---
+
+Offert par The Vibe Company (thevibecompany.co). Libre d'utilisation, sans
+support garanti.
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-facture/SKILL.md =====
+---
+name: generer-facture
+description: >-
+  Génère des factures françaises conformes et numérotées, prêtes à imprimer en
+  PDF : facture classique, facture d'acompte, facture de solde qui déduit les
+  acomptes. Utiliser dès que l'utilisateur veut faire, créer, préparer, émettre
+  ou envoyer une facture, facturer un client, transformer un devis accepté en
+  facture, facturer un acompte ou un solde, ou dit simplement « facture pour
+  [client] », même sans détail. Utiliser aussi quand il veut modifier ses
+  informations de facturation (IBAN, délai de paiement, numérotation,
+  pénalités). Si un devis créé avec le skill generer-devis existe, la facture
+  s'en déduit sans aucune ressaisie. À la première utilisation, dérouler le
+  setup guidé (ou importer la configuration du skill devis si elle existe) ;
+  ensuite, chaque facture ne demande que le strict nécessaire du jour.
+---
+
+# Générer une facture
+
+Ce skill transforme une demande en une phrase (« facture pour Mme Martin »,
+« le devis DEV-2026-001 est accepté, facture d'acompte de 30 % ») en une
+facture française conforme : mentions obligatoires, numérotation continue,
+TVA ou franchise, échéance de paiement, prête à imprimer en PDF.
+
+L'utilisateur est souvent non-technique. Parle-lui simplement, sans jargon
+(jamais « JSON », « script », « sidecar » : dire « les données de ton
+devis », « tes informations enregistrées »). Une question à la fois.
+
+## Les trois règles qui ne se négocient pas
+
+1. **Rien ne s'invente.** Une adresse, un SIRET, un montant, une date de
+   prestation, un taux : si l'information manque, elle se demande. Une
+   facture est un document fiscal ; une facture fausse est pire qu'un refus.
+2. **Tous les calculs et tout le rendu passent par le script**
+   `scripts/generer_facture.py` : totaux, TVA, prorata d'acompte, déduction
+   des acomptes, échéance. Ne calcule jamais un montant toi-même.
+3. **Récapituler avant de générer.** Contrairement à un devis, une facture
+   émise ne se corrige pas en la régénérant : elle se rectifie par un
+   avoir. Donc le récapitulatif d'avant génération est encore plus
+   important ici : client, lignes, montants, type de facture, échéance.
+
+## Étape 0, à chaque invocation : la configuration existe-t-elle ?
+
+Cherche le fichier de configuration, dans cet ordre :
+
+1. `config/entreprise.json` dans le dossier de ce skill ;
+2. `entreprise-devis.json` ou `entreprise-facture.json` dans le dossier de
+   travail courant.
+
+- **Le fichier existe et contient un bloc `facture`** : lis-le (et
+  `clients.json` à côté), va directement à « Faire une facture ».
+- **Le fichier n'existe pas** : avant de dérouler un setup complet, cherche
+  la configuration du skill devis (`generer-devis/config/entreprise.json`
+  dans le dossier voisin de ce skill, ou `~/.claude/skills/generer-devis/config/`).
+  Si elle existe, annonce la bonne nouvelle : « tu utilises déjà le skill
+  devis, je reprends tout ce qu'il sait » ; copie `entreprise.json` et
+  `clients.json` dans `config/` de ce skill, puis ne pose QUE les questions
+  du bloc facture (ci-dessous). Sinon, setup complet.
+- **Le fichier existe mais sans bloc `facture`** (config importée du devis) :
+  pose uniquement les questions du bloc facture, une fois.
+
+## Le setup de première utilisation
+
+Si tout est à faire (pas de config devis à importer), reprendre les blocs
+du setup du skill devis : entreprise (nom, forme, adresse, SIRET, mention EI
+automatique pour les entrepreneurs individuels, capital et ville du RCS pour
+les sociétés), TVA (franchise avec mention 293 B automatique, ou taux et
+numéro de TVA intracommunautaire), métier (assurance décennale pour les
+artisans du bâtiment : la loi l'exige sur chaque facture aussi), optionnels
+(téléphone, email, site, logo), champs libres (texte simple ou étiquette +
+valeur, l'utilisateur choisit où). Le pourquoi de chaque mention est dans
+`references/mentions-obligatoires-facture.md` : consulter en cas de doute,
+ne jamais improviser une réponse juridique.
+
+Puis, dans tous les cas, le bloc FACTURE (les questions propres à ce skill,
+posées une seule fois) :
+
+1. **La numérotation des factures** : distincte de celle des devis, elle
+   doit être CONTINUE et sans trou (c'est une exigence légale). Par défaut
+   FA-ANNÉE-001. Si l'utilisateur a déjà émis des factures, demander son
+   DERNIER numéro TEL QU'IL L'ÉCRIT et reprendre son format à l'identique,
+   préfixe compris (« 2026-040 » donne `format_numero` « {annee}-{seq:03d} »
+   sans préfixe, jamais « FA-2026-041 ») : changer le format en cours de
+   série est une rupture de la séquence légale. Confirmer à l'utilisateur
+   le prochain numéro qui sera émis. Le passage d'année est géré par le
+   script : quand le format contient l'année, la séquence repart à 1 au
+   1er janvier (série annuelle, admise par le BOFiP) ; le signaler à
+   l'utilisateur à la première facture d'une nouvelle année, et pour ceux
+   qui numérotent en continu d'une année sur l'autre, mettre
+   `reset_annuel` à false dans le bloc facture.
+2. **Le délai de paiement** : 30 jours par défaut (c'est aussi le défaut
+   légal entre professionnels ; 60 jours maximum). L'échéance s'affiche en
+   date pleine sur chaque facture.
+3. **L'IBAN** : fortement conseillé sur une facture (c'est là que le client
+   paie). Proposé, pas imposé.
+4. **Modes de paiement acceptés** (virement, chèque, espèces, CB).
+5. **Pénalités et escompte** (clients professionnels) : le skill applique
+   les mentions légales par défaut (pénalités au taux BCE majoré de 10
+   points, indemnité forfaitaire de 40 €, « Escompte pour paiement
+   anticipé : néant ») ; demander seulement si l'utilisateur veut d'autres
+   valeurs.
+6. **Si l'utilisateur facture la TVA** : son numéro de TVA
+   intracommunautaire est une mention obligatoire des factures (tolérance
+   seulement sous 150 € HT) : s'il ne l'a pas donné au setup devis,
+   insister gentiment ici (il est sur son avis de situation ou auprès de
+   son SIE), et vérifier sa convention de prix (`prix_annonces` : HT, TTC
+   ou demander à chaque fois).
+
+Le setup manie du vocabulaire fiscal qui est du jargon pour un débutant.
+Pour chaque terme, une formulation simple existe, l'utiliser d'office :
+- franchise en base : « sur tes factures actuelles, est-ce qu'il y a une
+  ligne TVA ? Si non, tu es sûrement en franchise » ;
+- numéro de TVA intracommunautaire : « un code qui commence par FR suivi de
+  11 chiffres, sur ton avis de situation ou tes anciennes factures » ;
+- escompte : « une petite remise si le client paie avant l'échéance ; la
+  plupart n'en font pas, on écrit alors la mention officielle "néant" » ;
+- mention EI : ne pas poser de question, l'activer et dire pourquoi ;
+- assurance décennale : « l'assurance obligatoire de ton métier du
+  bâtiment, son nom est sur ton attestation ».
+
+Annoncer une durée honnête : le setup complet fait une quinzaine de
+questions, compter 5 à 10 minutes avec le SIRET, le numéro de TVA et
+l'IBAN sous la main (2 minutes seulement si la config du skill devis est
+importée). Écris la configuration (modèle :
+`references/exemple-config.json`, y compris `prix_annonces`), montre un
+récapitulatif en clair, propose une facture d'essai.
+
+**Mise à jour** : « nouveau RIB », « je passe à 45 jours », « nouvelle
+adresse » : modifier la ou les clés concernées, confirmer, sans redérouler
+le setup.
+
+## Faire une facture : deux portes d'entrée
+
+### Porte 1 : depuis un devis (zéro ressaisie)
+
+Si l'utilisateur mentionne un devis (« le devis DEV-2026-001 est accepté »,
+« facture pour le chantier Martin »), cherche ses données avant de poser la
+moindre question :
+
+- le fichier de données à côté du devis : `Devis-NUMERO-Client.json` dans le
+  dossier `Devis/` (créé par le skill devis à chaque génération) ;
+- à défaut, le devis HTML lui-même (notre modèle est lisible : blocs
+  émetteur/client, tableau des lignes, totaux) ;
+- à défaut, demander à l'utilisateur de dire où est le devis, ou les infos.
+
+Tout en découle : client, lignes, montants, TVA, référence du devis. Les
+seules questions restantes sont celles que le devis ne contient pas :
+
+- **Facture d'acompte** (le devis vient d'être signé) : le pourcentage est
+  souvent déjà sur le devis (« acompte 30 % à la commande ») : le proposer,
+  ne demander que s'il diffère. Type `acompte`, avec les lignes du devis en
+  `base_lignes` : le script calcule le prorata exact, y compris par taux de
+  TVA.
+- **Facture de solde** (la prestation est finie) : type `solde`, toutes les
+  lignes du devis, plus la déduction des acomptes déjà facturés. Cherche
+  les factures d'acompte liées dans `Factures/` (leurs fichiers de données
+  portent la référence du devis) et propose-les à la déduction ; demande la
+  date de la prestation si inconnue (mention obligatoire).
+- **Facture complète directe** (pas d'acompte) : type `complete`, lignes du
+  devis, date de la prestation à demander si inconnue.
+
+### Porte 2 : sans devis
+
+2-3 questions maximum, comme le skill devis :
+
+1. **Le client** : s'il est au carnet (`clients.json`), son nom suffit et le
+   dire (« comme d'habitude »). Nouveau client : fiche complète en une fois
+   (nom, adresse obligatoires ; SIRET si entreprise, téléphone, email
+   proposés). Si le doute existe, demander si le client est une entreprise
+   ou un particulier : les mentions de pénalités ne concernent que les
+   professionnels, le script s'appuie sur le SIRET ou le champ
+   `professionnel` du client.
+2. **La prestation et les montants** : AVANT de demander, regarder le
+   CATALOGUE (`catalogue.json` à côté du carnet clients, rempli
+   automatiquement, partagé dans l'esprit avec le skill devis) : si la
+   désignation ou la référence correspond à une fiche mémorisée, la
+   PROPOSER (« le forfait shooting produit, 800 € HT comme d'habitude ? »)
+   au lieu de redemander prix, détails ou unité. La mémoire propose,
+   l'utilisateur décide : jamais un prix mémorisé appliqué sans
+   confirmation, et sa parole met la fiche à jour. Sinon : lignes avec prix
+   (et la référence produit si l'utilisateur en utilise, champ
+   `reference`), et LA DATE de la vente ou de la prestation (obligatoire
+   sur une facture ; « juillet 2026 » ou « du 4 au 8 août » suffisent). **Un prix annoncé est ambigu
+   tant qu'on ne sait pas s'il est HT ou TTC.** La règle : en franchise de
+   TVA, aucune ambiguïté, le prix est le prix. Avec TVA : ce que
+   l'utilisateur a dit fait foi (« TTC », « tout compris », « HT ») ;
+   sinon sa convention enregistrée (`prix_annonces` du bloc TVA, importée
+   du skill devis le cas échéant) ; sinon poser LA question courte
+   (« 850 €, c'est hors taxes ou TTC ? »). Jamais de déduction
+   silencieuse. Pour un prix TTC, passer `prix_unitaire_ttc` au script :
+   c'est lui qui convertit, et le récapitulatif montre toujours HT, TVA et
+   TTC.
+3. **Les particularités du jour** : bon de commande du client, échéance
+   spéciale, mention libre.
+
+### Dans les deux cas
+
+- construis le fichier de facture (modèle : `references/exemple-facture.json`)
+  dans un dossier temporaire ;
+- montre le récapitulatif (règle 3) et attends l'accord ;
+- appelle le script :
+
+  ```bash
+  python3 <dossier-du-skill>/scripts/generer_facture.py \
+    --config <chemin-de-la-config> --facture <fichier-du-jour> \
+    --sortie Factures --enregistrer
+  ```
+
+  `--enregistrer` fait avancer la numérotation (continue, sans trou) et
+  mémorise le client. Ne l'omettre que pour un essai.
+- si le script signale un manque, transforme son message en question, ne
+  comble jamais le trou toi-même.
+
+**Livraison** : ouvre le fichier pour l'utilisateur quand c'est possible
+(`open` sur Mac, `start` sur Windows), donne le chemin complet (dossier
+`Factures/`), rappelle le geste PDF (imprimer, « Enregistrer au format
+PDF » ; le bandeau gris disparaît à l'impression). Ne montre jamais la
+sortie brute du script : traduis en français courant (numéro, montants,
+échéance, net à payer).
+
+## Remises
+
+Les réductions acquises sont une MENTION OBLIGATOIRE des factures : dès que
+l'utilisateur accorde une remise, elle passe par les champs prévus, jamais
+par une ligne négative bricolée ni un prix discrètement baissé :
+
+- remise sur une ligne : `remise_pct` (pourcentage) ou `remise_montant`
+  (montant HT) dans la ligne ; elle s'affiche sous la désignation ;
+- remise globale : bloc `remise` de la facture (`{"libelle": "Remise
+  fidélité", "pourcentage": 10}` ou `{"libelle": ..., "montant_ht": 50}`) ;
+  elle s'affiche dans les totaux (« Total HT avant remise », puis la
+  remise, puis le net).
+
+La TVA est calculée par le script sur le montant APRÈS remise, comme
+l'exige la règle fiscale. Une remise habituelle mémorisée (fiche client)
+se PROPOSE, elle ne s'applique jamais sans confirmation.
+
+## Préférences par client
+
+La fiche d'un client au carnet peut porter ses particularités durables :
+`delai_paiement_jours` (appliqué automatiquement par le script à
+l'échéance : un client à 45 jours prime sur le défaut de la config),
+une remise habituelle ou une adresse de chantier (que TOI tu proposes au
+moment voulu, sans jamais les imposer). Quand l'utilisateur dit « pour lui
+c'est toujours 45 jours », c'est dans sa fiche client que ça s'enregistre,
+pas dans la config globale.
+
+## La facture récurrente (« comme chaque mois »)
+
+Quand l'utilisateur facture régulièrement la même chose au même client :
+repartir du fichier de données de sa DERNIÈRE facture (le `.json` à côté
+du HTML dans `Factures/`), garder les lignes, mettre à jour la date de
+prestation, laisser la numérotation avancer. Proposer en une phrase
+(« même facture que le mois dernier, 240 € pour la maintenance, sur
+juillet ? ») et générer sur son accord. C'est le trio carnet + catalogue +
+données de la dernière facture qui rend ça possible sans aucune ressaisie.
+
+## L'export pour le comptable
+
+Quand l'utilisateur veut son journal de factures (« exporte mes factures »,
+« le récap pour mon comptable », « combien j'ai facturé ce trimestre ») :
+
+```bash
+python3 <dossier-du-skill>/scripts/exporter_journal.py \
+  --factures Factures --sortie journal-factures.csv
+```
+
+Le script lit les données de toutes les factures générées et produit un
+CSV prêt pour Excel en français (point-virgule, virgule décimale) : numéro,
+type, dates, client, montants, les avoirs en négatif. Donner le total net
+en clair avec le fichier.
+
+## Plusieurs factures d'un coup (mode rafale)
+
+« J'ai 4 factures à faire » : collecter TOUTES les variables en une passe
+(le vrac dans un seul message est bienvenu), UN récapitulatif groupé, UNE
+validation, puis génération en série avec `--enregistrer` : la numérotation
+avance toute seule, les nouveaux clients entrent au carnet, et l'utilisateur
+récupère tous les fichiers d'un coup.
+
+## Se tromper, corriger : les avoirs
+
+Une facture PAS ENCORE envoyée au client peut être régénérée avec le même
+numéro (champ `numero`, sans `--enregistrer`). Une facture DÉJÀ envoyée ne
+se modifie JAMAIS : elle se corrige par un AVOIR, que ce skill sait faire
+(type `avoir`) :
+
+- le bloc `facture_initiale` (numéro ET date de la facture corrigée) est
+  obligatoire : un avoir qui ne référence pas sa facture est non conforme ;
+- les `lignes` décrivent ce qui est crédité (tout ou partie de la facture,
+  ou juste la différence en cas d'erreur de prix) ;
+- les avoirs ont leur propre série de numéros (AV-ANNÉE-001 par défaut,
+  compteur dédié dans la config), la série des factures reste continue ;
+- l'option `net_de_taxe: true` produit un avoir sans TVA (quand on renonce
+  à récupérer la TVA), avec sa mention ;
+- le document dit « À valoir sur vos prochains règlements » : pas
+  d'échéance, pas de pénalités.
+
+Le réflexe en cas d'erreur signalée : demander si la facture est partie.
+Pas partie : régénération même numéro. Partie : avoir (total ou de la
+différence) puis, s'il faut refacturer, une nouvelle facture au numéro
+suivant. Ne jamais réutiliser un numéro émis : la séquence est continue ou
+elle n'est rien.
+
+## La facturation électronique (question fréquente)
+
+Si l'utilisateur demande « et la facture électronique ? », « mon comptable
+me parle de Chorus / PDP » : lire la section dédiée de
+`references/mentions-obligatoires-facture.md` et répondre honnêtement
+(calendrier de la réforme, qui est concerné, jusqu'à quand le PDF reste
+suffisant selon le client). Ce skill produit des factures classiques ; il ne
+télétransmet rien.
+
+## Ce que ce skill ne fait pas
+
+Pas de devis (c'est le skill generer-devis, son compagnon naturel), pas de
+relances d'impayés, pas de comptabilité au-delà de l'export du journal,
+pas de télétransmission (Chorus Pro, plateformes de dématérialisation), pas
+de conseil juridique ou fiscal personnalisé : pour une question de droit,
+citer `references/mentions-obligatoires-facture.md` et ses sources
+officielles, et en cas de doute persistant, le dire plutôt que trancher.
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-facture/assets/modele-facture.html =====
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<title>{{TITRE_DOCUMENT}}</title>
+<style>
+  /* Modèle de facture A4, sobre, noir et blanc. Pensé pour l'impression PDF (Cmd+P / Ctrl+P).
+     Le fond est forcé en blanc : une facture est un document imprimé, elle doit rester
+     noire sur blanc même si le navigateur du client est en mode sombre. */
+  :root { color-scheme: only light; }
+  @page { size: A4; margin: 14mm 16mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  body {
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #111;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+  .page { max-width: 178mm; margin: 0 auto; padding: 10mm 0; }
+  @media print {
+    .page { padding: 0; }
+    .no-print { display: none; }
+  }
+  .bandeau-aide {
+    background: #f4f4f4; border: 1px solid #ddd; border-radius: 6px;
+    padding: 10px 14px; margin-bottom: 18px; font-size: 9.5pt; color: #444;
+  }
+  header.entete { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 26px; }
+  .logo img { max-height: 58px; max-width: 180px; }
+  .titre-bloc { text-align: right; }
+  .titre-bloc h1 { margin: 0; font-size: 26pt; letter-spacing: 2px; font-weight: 700; }
+  .titre-bloc .meta { margin-top: 6px; font-size: 10pt; color: #333; }
+  .adresses { display: flex; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
+  .adresse { width: 48%; }
+  .adresse .etiquette {
+    font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1px; color: #666;
+    border-bottom: 1px solid #111; padding-bottom: 3px; margin-bottom: 7px;
+  }
+  .adresse .nom { font-weight: 700; }
+  .adresse div { margin: 1px 0; }
+  .champs-facture { margin-bottom: 14px; font-size: 10pt; }
+  .champs-facture div { margin: 2px 0; }
+  table.lignes { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+  table.lignes th {
+    text-align: left; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.8px;
+    border-bottom: 1.5px solid #111; padding: 6px 8px;
+  }
+  table.lignes td { border-bottom: 1px solid #ddd; padding: 7px 8px; vertical-align: top; }
+  table.lignes .num { text-align: right; white-space: nowrap; }
+  table.lignes .desc-details { color: #555; font-size: 9.5pt; margin-top: 2px; }
+  .totaux { display: flex; justify-content: flex-end; margin-bottom: 22px; }
+  .totaux table { border-collapse: collapse; min-width: 70mm; }
+  .totaux td { padding: 4px 10px; text-align: right; }
+  .totaux td:first-child { text-align: left; color: #333; }
+  .totaux tr.total-final td {
+    border-top: 1.5px solid #111; font-weight: 700; font-size: 12pt; padding-top: 7px;
+  }
+  .totaux tr.deduction td { color: #333; }
+  .mentions { font-size: 9pt; color: #333; margin-bottom: 22px; }
+  .mentions .etiquette {
+    font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1px; color: #666;
+    border-bottom: 1px solid #111; padding-bottom: 3px; margin-bottom: 7px;
+  }
+  .mentions p { margin: 3px 0; }
+  footer.pied {
+    border-top: 1px solid #111; padding-top: 7px; font-size: 8pt; color: #555; text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="bandeau-aide no-print">
+    Pour obtenir le PDF : imprimez cette page (menu Fichier puis Imprimer, ou Cmd+P sur Mac,
+    Ctrl+P sur Windows) et, dans la fenêtre d'impression, choisissez la destination
+    « Enregistrer au format PDF ». Si ce fichier ne s'est pas ouvert dans votre navigateur
+    (Chrome, Safari, Edge...), faites un clic droit dessus puis « Ouvrir avec » votre
+    navigateur. Ce bandeau n'apparaîtra pas sur le PDF.
+  </div>
+
+  <header class="entete">
+    <div class="logo">{{BLOC_LOGO}}</div>
+    <div class="titre-bloc">
+      <h1>{{TITRE_FACTURE}}</h1>
+      <div class="meta">
+        <div>N° {{NUMERO}}</div>
+        <div>Date d'émission : {{DATE_EMISSION}}</div>
+        {{LIGNE_DATE_PRESTATION}}
+        {{LIGNE_ECHEANCE}}
+      </div>
+    </div>
+  </header>
+
+  <section class="adresses">
+    <div class="adresse">
+      <div class="etiquette">Émetteur</div>
+      {{BLOC_EMETTEUR}}
+    </div>
+    <div class="adresse">
+      <div class="etiquette">Client</div>
+      {{BLOC_CLIENT}}
+    </div>
+  </section>
+
+  {{BLOC_CHAMPS_FACTURE}}
+
+  <table class="lignes">
+    <thead>
+      <tr>{{ENTETES_COLONNES}}</tr>
+    </thead>
+    <tbody>
+      {{LIGNES_TABLEAU}}
+    </tbody>
+  </table>
+
+  <section class="totaux">
+    <table>
+      {{LIGNES_TOTAUX}}
+    </table>
+  </section>
+
+  <section class="mentions">
+    <div class="etiquette">Règlement et mentions</div>
+    {{BLOC_MENTIONS}}
+  </section>
+
+  <footer class="pied">{{PIED_DE_PAGE}}</footer>
+</div>
+</body>
+</html>
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-facture/companion.json =====
+{
+  "$schema": "https://thecompanion.sh/schemas/companion-manifest.v2.schema.json",
+  "name": "generer-facture",
+  "version": "1.1.1",
+  "title": "Générer une facture",
+  "description": "Génère des factures françaises conformes et numérotées : complète, acompte, solde avec déduction automatique, et avoirs. Remises, montant en toutes lettres, préférences par client, facture récurrente, export du journal pour le comptable. Chaîné à generer-devis (zéro ressaisie) mais autonome.",
+  "notes": "# generer-facture : le topo\n\nSkill offert n°2 de The Vibe Company, le compagnon de generer-devis. Il produit les quatre documents de la vraie vie : facture classique, facture d'acompte, facture de solde qui déduit les acomptes déjà facturés, et AVOIR quand une facture envoyée doit être corrigée.\n\n## La plus-value en une phrase\n\nTon devis accepté devient facture en une phrase, zéro ressaisie ; sans devis, une facture conforme en 2-3 questions.\n\n## Le lien avec generer-devis\n\nDepuis un devis : « le devis DEV-2026-001 est signé, facture d'acompte de 30 % » : il retrouve les données du devis tout seul, calcule le prorata (par taux de TVA), référence le devis. La facture de solde retrouve aussi les factures d'acompte liées et les déduit. Config partagée : au premier lancement il importe la configuration du skill devis et ne pose que les questions factures (2 minutes). Sans le skill devis : setup complet autonome (une quinzaine de questions, 5 à 10 minutes, une seule fois).\n\n## Ce qu'il sait faire au quotidien\n\n- REMISES conformes : par ligne ou globale, affichées proprement, TVA calculée sur le net (mention obligatoire des réductions acquises).\n- AVOIRS : référence obligatoire à la facture initiale, série AV dédiée qui ne troue pas ta numérotation, option net de taxe ; le skill connaît la marche à suivre (facture pas partie = régénération même numéro ; partie = avoir, total ou de la différence).\n- MÉMOIRES : carnet de clients (avec préférences par client : un client à 45 jours de délai est facturé à 45 jours automatiquement), catalogue de prestations partagé avec le devis, facture récurrente (« comme chaque mois »).\n- MONTANT EN TOUTES LETTRES (« arrêtée à la somme de... »), désactivable.\n- EXPORT COMPTABLE : le journal de tes factures en CSV Excel français, avoirs en négatif.\n- Mode rafale, doctrine HT/TTC (ta convention enregistrée, jamais de déduction silencieuse), passage d'année automatique, numérotation continue sans trou reprise à ton format exact.\n\n## Conformité 2026 (sourcée service-public, Légifrance, BOFiP)\n\nÉchéance, pénalités et indemnité de 40 € entre pros (retirées pour les particuliers), « Escompte pour paiement anticipé : néant », franchise 293 B, décennale des artisans, TVA au prorata sur les acomptes, 15 € d'amende par mention manquante évitée par construction. Et l'honnêteté sur la facturation électronique : PDF légal pour les particuliers sans limite, pour le B2B d'une TPE jusqu'au 31/08/2027 ; le skill ne télétransmet pas.\n\n## Éprouvé\n\nBanc d'essai avec/sans (3 scénarios), test débutant total (9 frictions corrigées), raffinerie indépendante (catalogue, refus d'avoir sauvage, passage d'année), 36/36 tests déterministes sur le lot 1.1, déclenchement mesuré 20/20.\n\n## Ce qu'il ne fait pas\n\nLes devis (generer-devis), les relances d'impayés, la comptabilité au-delà de l'export du journal, la télétransmission (plateformes agréées), le conseil juridique.",
+  "metadata": {
+    "changelog": [
+      {
+        "version": "1.1.1",
+        "date": "2026-07-21",
+        "changes": [
+          "Fiche Companion mise à jour : description et topo au niveau des capacités 1.1 (mémoires, remises, avoirs, export)."
+        ]
+      },
+      {
+        "version": "1.1.0",
+        "date": "2026-07-21",
+        "changes": [
+          "Remises conformes par ligne et globales (mention obligatoire des réductions acquises), TVA sur le net.",
+          "AVOIRS : type avoir avec référence obligatoire à la facture initiale, série AV dédiée, option net de taxe ; marche à suivre erreur-sur-facture-envoyée intégrée.",
+          "Montant en toutes lettres sur les factures (« arrêtée à la somme de... »), désactivable.",
+          "Préférences par client : délai de paiement de la fiche client appliqué automatiquement à l'échéance.",
+          "Facture récurrente : « comme chaque mois » depuis les données de la dernière facture du client.",
+          "Export du journal des factures en CSV pour le comptable (exporter_journal.py), avoirs en négatif."
+        ]
+      },
+      {
+        "version": "1.0.1",
+        "date": "2026-07-21",
+        "changes": [
+          "Catalogue des prestations partagé avec le skill devis (les factures d'acompte n'y entrent pas).",
+          "Références produit affichées sur la facture.",
+          "Passage d'année géré par le script (série annuelle BOFiP, échappatoire reset_annuel).",
+          "Pénalités de retard : bascule sur le défaut légal quand la configuration est vide."
+        ]
+      },
+      {
+        "version": "1.0.0",
+        "date": "2026-07-21",
+        "changes": [
+          "Première version : trois types de factures, chaîne devis vers facture (sidecar + import de config), doctrine HT/TTC, mentions légales 2026 sourcées (dont calendrier e-facturation), banc d'essai complet avec test débutant."
+        ]
+      }
+    ],
+    "companionSkillId": "cec601f3-c827-446a-83c0-06e9c68702c5"
+  },
+  "environment": {
+    "env": {},
+    "secrets": {}
+  },
+  "dependencies": {},
+  "commands": [],
+  "checks": {}
+}
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-facture/config/LISEZMOI.md =====
+# Dossier de configuration
+
+Ce dossier est vide à l'installation : il se remplit tout seul à ta
+première utilisation du skill.
+
+- `entreprise.json` : les informations de ton entreprise et tes réglages de
+  facturation (numérotation, délai de paiement, IBAN, pénalités), collectés
+  une fois. Si tu utilises déjà le skill de devis, ils sont importés de
+  chez lui : tu ne réponds qu'aux questions propres aux factures.
+- `clients.json` : ton carnet de clients, partagé dans l'esprit avec celui
+  du skill devis, enrichi à chaque facture.
+- `catalogue.json` : la mémoire de tes prestations et produits (référence,
+  désignation, prix, TVA), enrichie automatiquement. La prochaine fois que
+  tu factures la même chose, le skill te propose la fiche au lieu de tout
+  redemander ; c'est toujours toi qui confirmes le prix.
+- Ton logo, si tu en as donné un.
+
+Pour modifier quelque chose, ne touche pas à ces fichiers : dis simplement
+au skill « j'ai changé de RIB » (ou autre), il s'en occupe.
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-facture/references/exemple-config.json =====
+{
+  "entreprise": {
+    "nom": "Atelier Dupont",
+    "forme_juridique": "",
+    "mention_ei": true,
+    "adresse_lignes": [
+      "12 rue des Lilas",
+      "69003 Lyon"
+    ],
+    "siret": "123 456 789 00012",
+    "rcs_ou_rm": "",
+    "capital_social": "",
+    "telephone": "06 12 34 56 78",
+    "email": "contact@atelier-dupont.example",
+    "site_web": "",
+    "logo": null
+  },
+  "tva": {
+    "franchise": true,
+    "taux_defaut": 20,
+    "numero_tva_intra": "",
+    "prix_annonces": "demander",
+    "option_debits": false
+  },
+  "assurance": {
+    "obligatoire": true,
+    "type": "de responsabilité décennale",
+    "nom_assureur": "Assureur Exemple",
+    "coordonnees_assureur": "1 place de l'Assurance, 75000 Paris",
+    "couverture_geographique": "France métropolitaine"
+  },
+  "facture": {
+    "prefixe_numero": "FA",
+    "prochain_numero": 1,
+    "format_numero": "{prefixe}-{annee}-{seq:03d}",
+    "delai_paiement_jours": 30,
+    "modes_paiement": "virement bancaire",
+    "iban": "FR76 0000 0000 0000 0000 0000 000",
+    "penalites": "",
+    "escompte": "",
+    "mentions_libres": [],
+    "montant_en_lettres": true,
+    "avoir": {
+      "prefixe_numero": "AV",
+      "prochain_numero": 1,
+      "format_numero": "{prefixe}-{annee}-{seq:03d}"
+    }
+  },
+  "champs_libres": [],
+  "metier": "batiment"
+}
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-facture/references/exemple-facture.json =====
+{
+  "commentaire": "Trois exemples en un : garder le bloc correspondant au type voulu.",
+  "exemple_complete": {
+    "type": "complete",
+    "client": {
+      "nom": "Madame Martin",
+      "adresse_lignes": [
+        "8 avenue du Parc",
+        "69006 Lyon"
+      ],
+      "telephone": "06 98 76 54 32"
+    },
+    "reference_devis": "DEV-2026-012",
+    "date_prestation": "du 4 au 5 août 2026",
+    "lignes": [
+      {
+        "description": "Remplacement du chauffe-eau électrique 200 L",
+        "details": "Dépose de l'ancien appareil, fourniture et pose du nouveau, mise en service.",
+        "quantite": 1,
+        "unite": "forfait",
+        "prix_unitaire_ht": 980
+      }
+    ],
+    "champs_libres": [],
+    "mentions_libres": [],
+    "remise": {
+      "libelle": "Remise fidélité",
+      "pourcentage": 5
+    }
+  },
+  "exemple_acompte": {
+    "type": "acompte",
+    "client": {
+      "nom": "Madame Martin",
+      "adresse_lignes": [
+        "8 avenue du Parc",
+        "69006 Lyon"
+      ]
+    },
+    "reference_devis": "DEV-2026-012",
+    "acompte": {
+      "pourcentage": 30,
+      "base_lignes": [
+        {
+          "description": "Remplacement du chauffe-eau",
+          "quantite": 1,
+          "prix_unitaire_ht": 980
+        },
+        {
+          "description": "Reprise de l'arrivée d'eau",
+          "quantite": 2,
+          "prix_unitaire_ht": 55
+        }
+      ]
+    }
+  },
+  "exemple_solde": {
+    "type": "solde",
+    "client": {
+      "nom": "Madame Martin",
+      "adresse_lignes": [
+        "8 avenue du Parc",
+        "69006 Lyon"
+      ]
+    },
+    "reference_devis": "DEV-2026-012",
+    "date_prestation": "du 4 au 5 août 2026",
+    "lignes": [
+      {
+        "description": "Remplacement du chauffe-eau électrique 200 L",
+        "quantite": 1,
+        "unite": "forfait",
+        "prix_unitaire_ht": 980
+      },
+      {
+        "description": "Main d'œuvre supplémentaire : reprise de l'arrivée d'eau",
+        "quantite": 2,
+        "unite": "h",
+        "prix_unitaire_ht": 55
+      }
+    ],
+    "acomptes_deja_factures": [
+      {
+        "numero": "FA-2026-005",
+        "montant_ttc": 327.0
+      }
+    ]
+  },
+  "exemple_avoir_erreur_de_prix": {
+    "type": "avoir",
+    "client": {
+      "nom": "Madame Martin",
+      "adresse_lignes": [
+        "8 avenue du Parc",
+        "69006 Lyon"
+      ]
+    },
+    "facture_initiale": {
+      "numero": "FA-2026-005",
+      "date": "21 juillet 2026"
+    },
+    "lignes": [
+      {
+        "description": "Correction d'erreur de prix sur la facture FA-2026-005",
+        "quantite": 1,
+        "prix_unitaire_ht": 60
+      }
+    ]
+  }
+}
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-facture/references/mentions-obligatoires-facture.md =====
+# La facture en droit français : ce qui est obligatoire, ce qui est usage
+
+Référence pour répondre aux questions de l'utilisateur sans improviser.
+Chaque règle est marquée LOI ou USAGE. État du droit : juillet 2026 (les
+points datés sont signalés). Sources officielles en bas de page. Ne jamais
+donner de conseil juridique personnalisé au-delà : renvoyer aux sources.
+
+## Les mentions obligatoires (le socle)
+
+Double fondement : art. L441-9 du code de commerce (commercial) et
+art. 242 nonies A de l'annexe II au CGI (fiscal). LOI :
+
+- date d'émission ; numéro unique dans une séquence chronologique CONTINUE
+  et sans trou ;
+- date de la vente ou de la fin de la prestation (si différente) ;
+- identité complète du vendeur (nom, adresse, forme, SIREN/SIRET, RCS et
+  ville pour les sociétés, mention EI pour les entrepreneurs individuels) ;
+- identité et adresse du client ; adresse de facturation si différente ;
+  numéro du bon de commande s'il en a établi un ;
+- numéro de TVA intracommunautaire du vendeur (tolérance : factures
+  jusqu'à 150 € HT) ; celui du client quand il est redevable
+  (autoliquidation, intracommunautaire) ;
+- désignation précise, quantités, prix unitaire HT, remises acquises ;
+- taux de TVA par ligne, montant de TVA par taux, totaux HT et TTC ;
+- date d'échéance du règlement ; conditions d'escompte (la formule
+  consacrée quand il n'y en a pas : « Escompte pour paiement anticipé :
+  néant ») ; taux des pénalités de retard ; indemnité forfaitaire de
+  recouvrement de 40 € : ces quatre-là entre PROFESSIONNELS uniquement.
+
+Selon la situation, LOI aussi : « TVA non applicable, art. 293 B du CGI »
+(franchise ; alors aucun taux ni montant de TVA), « Autoliquidation »,
+mention d'exonération, assurance décennale des artisans (assureur,
+coordonnées, couverture : sur chaque devis ET chaque facture, art. L132-1
+code de l'artisanat), garantie légale de conformité (2 ans) pour certaines
+ventes de biens aux particuliers, éco-participation le cas échéant.
+
+## Les 4 nouvelles mentions (décret 2022-1299) : pas encore, mais bientôt
+
+LOI à venir. SIREN du client, adresse de livraison si différente, nature de
+l'opération (biens / services / mixte), « Option pour le paiement de la
+taxe d'après les débits ». Exigibles au calendrier de l'émission
+électronique : 1er septembre 2026 pour les grandes entreprises et ETI,
+1er septembre 2027 pour les PME et micro. Le script sait déjà les afficher :
+les proposer, c'est prendre de l'avance licite.
+
+## La facturation électronique (la question chaude, état au 21/07/2026)
+
+LOI, calendrier confirmé (fiche officielle F23208 mise à jour 30/04/2026) :
+
+- 1er septembre 2026 : TOUTES les entreprises assujetties (même les micro
+  en franchise) doivent pouvoir RECEVOIR les factures électroniques, via
+  une Plateforme Agréée (PA, ex-PDP).
+- 1er septembre 2026 : les grandes entreprises et ETI doivent ÉMETTRE en
+  électronique. 1er septembre 2027 : les PME, TPE et micro aussi.
+- Le périmètre est le B2B DOMESTIQUE entre assujettis. Les clients
+  PARTICULIERS (B2C) ne sont JAMAIS concernés : une facture PDF ou papier
+  reste légale envers eux sans limite de date (avec e-reporting des ventes
+  côté vendeur à partir de son échéance d'émission).
+- L'État a abandonné la plateforme publique gratuite (annonce du
+  15/10/2024) : tout passe par les PA privées (plus de 100 immatriculées,
+  liste sur impots.gouv.fr). Un PDF envoyé par mail n'est PAS une facture
+  électronique au sens de la réforme.
+- Sanctions à partir du 1/9/2026 (LF 2026) : 50 € par facture non émise en
+  électronique (plafond 15 000 €/an), 500 € par manquement e-reporting,
+  tolérance pour la première infraction régularisée.
+
+Ce que ça veut dire pour l'utilisateur de ce skill : ses factures PDF sont
+valables pour tous ses clients particuliers, sans limite. Pour ses clients
+professionnels : valables jusqu'au 31 août 2027 s'il est TPE/PME/micro ;
+ensuite il lui faudra une plateforme agréée pour le B2B (ce skill ne
+télétransmet pas). Être honnête là-dessus, jamais rassurant à tort.
+
+## Acomptes et soldes
+
+- LOI : TOUT acompte encaissé doit donner lieu à une facture (art. 289
+  CGI). C'est précisément ce que fait le type « acompte » du script.
+- LOI : depuis 2023, la TVA est exigible dès l'encaissement de l'acompte, y
+  compris pour les ventes de biens : la facture d'acompte porte donc la
+  TVA (sauf franchise). Le script calcule le prorata par taux.
+- LOI : la facture de solde récapitule l'opération et DÉDUIT les acomptes
+  déjà facturés en les référençant par leur numéro. Une facture d'acompte
+  et une facture de solde sont des factures à part entière : elles
+  prennent leur place dans la séquence de numérotation.
+
+## Numérotation
+
+LOI : séquence chronologique continue, sans trou. Des séries distinctes
+sont admises (par année, par activité) avec un préfixe par série (BOFiP).
+Un numéro émis ne se réutilise JAMAIS : une facture erronée déjà envoyée
+s'annule ou se corrige par un AVOIR qui référence la facture initiale
+(numéro et date), pas par une réémission. Les devis, eux, n'ont aucune
+obligation de numérotation : c'est la facture qui est tenue à la rigueur.
+
+## Clients particuliers (B2C)
+
+- LOI : pour une prestation de services à un particulier, une NOTE est
+  obligatoire dès 25 € TTC (remise avant paiement, double conservé 2 ans) ;
+  la facture complète du skill la couvre largement. Travaux chez un
+  particulier : note obligatoire aussi (art. 290 quinquies CGI).
+- Les mentions B2B (pénalités, 40 €, escompte) ne s'imposent pas envers un
+  particulier : le script les retire automatiquement quand le client n'est
+  pas professionnel.
+
+## Délais de paiement et pénalités (entre professionnels)
+
+LOI : 30 jours par défaut après exécution ; 60 jours date de facture (ou
+45 jours fin de mois) maximum. Pénalités par défaut : taux BCE majoré de
+10 points (12,15 % au 1er semestre 2026), plancher 3 fois le taux légal ;
+exigibles sans rappel. Indemnité de recouvrement : 40 € par facture en
+retard. Dépassement des plafonds : amendes jusqu'à 75 000 € / 2 000 000 €.
+
+## Sanctions sur la facture elle-même
+
+LOI : 15 € par mention manquante ou inexacte (plafond : le quart du montant
+de la facture, art. 1737 II CGI) ; défaut de facturation : 50 % du montant
+(ramené à 5 % si l'opération est comptabilisée) ; amende administrative
+jusqu'à 75 000 € (personne physique) / 375 000 € (personne morale) pour
+manquement aux obligations de facturation (art. L441-9 II).
+
+## Conservation, langue, divers
+
+LOI : conserver 10 ans (code de commerce). Facture en français par
+principe ; devise étrangère possible mais TVA déterminée en euros. Aucune
+signature ni tampon requis. USAGE (recommandé, jamais imposé) : IBAN et
+moyens de paiement, logo, référence du devis accepté, CGV jointes.
+
+## Sources officielles
+
+- entreprendre.service-public.gouv.fr/vosdroits/F31808 (mentions de la
+  facture, mise à jour 06/11/2025)
+- entreprendre.service-public.gouv.fr/vosdroits/F23208 (facturation
+  électronique, mise à jour 30/04/2026) et actualité A18802 (sanctions LF
+  2026)
+- legifrance.gouv.fr : art. L441-9 et L441-10 code de commerce, art. 242
+  nonies A annexe II CGI (version consolidée), art. 1737 CGI, art.
+  R526-27 code de commerce (mention EI), décret 2022-1299
+- bofip.impots.gouv.fr : BOI-TVA-DECLA-30-20-20-10 (numérotation, séries),
+  BOI-TVA-DECLA-30-20-10 (délivrance, acomptes), BOI-TVA-DECLA-30-20-20-20
+  (tolérances, factures ≤ 150 € HT)
+- impots.gouv.fr (« je passe à la facturation électronique », liste des
+  plateformes agréées)
+- entreprendre.service-public.gouv.fr/vosdroits/F23211 (délais de paiement
+  et pénalités), F10029 (conservation)
+- arrêté n° 83-50/A du 3 octobre 1983 (note aux particuliers dès 25 €)
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-facture/scripts/exporter_journal.py =====
+#!/usr/bin/env python3
+"""Exporte le journal des factures en CSV pour le comptable.
+
+Usage :
+  python3 exporter_journal.py --factures <dossier Factures> [--sortie journal.csv]
+
+Le script lit les fichiers de données écrits par generer_facture.py à côté de
+chaque facture (mêmes noms, extension .json), et produit un CSV lisible par
+Excel en français : séparateur point-virgule, virgule décimale, montants sans
+symbole. Les avoirs apparaissent en négatif dans la colonne « net », pour que
+la somme de la colonne donne le chiffre réellement facturé.
+
+Aucune dépendance : Python standard uniquement.
+"""
+
+import argparse
+import csv
+import glob
+import json
+import os
+import sys
+
+TYPES = {"facture_complete": "Facture", "facture_acompte": "Facture d'acompte",
+         "facture_solde": "Facture de solde", "facture_avoir": "Avoir"}
+
+
+def montant_csv(valeur):
+    return f"{valeur:.2f}".replace(".", ",")
+
+
+def main():
+    p = argparse.ArgumentParser(description="Journal des factures en CSV pour le comptable.")
+    p.add_argument("--factures", required=True, help="dossier contenant les factures générées")
+    p.add_argument("--sortie", default="journal-factures.csv")
+    args = p.parse_args()
+
+    lignes = []
+    for chemin in glob.glob(os.path.join(args.factures, "*.json")):
+        try:
+            with open(chemin, encoding="utf-8") as f:
+                d = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            continue
+        if d.get("genere_par") != "generer-facture":
+            continue
+        t = d.get("type", "")
+        totaux = d.get("totaux", {})
+        net = totaux.get("net_a_payer", totaux.get("total_ttc", 0))
+        signe = -1 if t == "facture_avoir" else 1
+        lignes.append({
+            "numero": d.get("numero", ""),
+            "type": TYPES.get(t, t),
+            "date": d.get("date_emission", ""),
+            "echeance": d.get("date_echeance", ""),
+            "client": d.get("client", {}).get("nom", ""),
+            "reference_devis": d.get("reference_devis", ""),
+            "total_ht": signe * totaux.get("total_ht", 0),
+            "total_tva": signe * totaux.get("total_tva", 0),
+            "total_ttc": signe * totaux.get("total_ttc", 0),
+            "net": signe * net,
+            "franchise_tva": "oui" if totaux.get("franchise_tva") else "non",
+        })
+
+    if not lignes:
+        print(f"ERREUR : aucune facture générée par ce skill trouvée dans {args.factures}",
+              file=sys.stderr)
+        sys.exit(1)
+
+    lignes.sort(key=lambda x: (x["date"], x["numero"]))
+    with open(args.sortie, "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.writer(f, delimiter=";")
+        w.writerow(["Numéro", "Type", "Date d'émission", "Échéance", "Client",
+                    "Référence devis", "Total HT", "TVA", "Total TTC",
+                    "Net (à payer ou à créditer)", "Franchise de TVA"])
+        for l in lignes:
+            w.writerow([l["numero"], l["type"], l["date"], l["echeance"], l["client"],
+                        l["reference_devis"], montant_csv(l["total_ht"]),
+                        montant_csv(l["total_tva"]), montant_csv(l["total_ttc"]),
+                        montant_csv(l["net"]), l["franchise_tva"]])
+
+    total_net = sum(l["net"] for l in lignes)
+    print(json.dumps({"fichier": args.sortie, "factures": len(lignes),
+                      "total_net": f"{total_net:.2f}".replace(".", ",") + " €"},
+                     ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-facture/scripts/generer_facture.py =====
+#!/usr/bin/env python3
+"""Générateur de factures : transforme la configuration de l'entreprise + les
+données de la facture du jour en un fichier HTML A4 prêt à imprimer en PDF.
+
+Usage :
+  python3 generer_facture.py --config <config/entreprise.json> --facture <facture.json>
+                             [--sortie <dossier>] [--enregistrer]
+
+Trois types de factures (champ "type" du fichier de facture) :
+  - "complete" : facture classique, toutes les lignes.
+  - "acompte"  : facture d'acompte (pourcentage ou montant, sur une base donnée,
+                 typiquement un devis accepté).
+  - "solde"    : facture finale qui reprend toutes les lignes et DÉDUIT les
+                 acomptes déjà facturés (net à payer).
+
+Le script est volontairement en Python standard, sans aucune dépendance.
+Tous les calculs (totaux, TVA, prorata d'acompte, déductions, échéance) sont
+faits ici et seulement ici : l'agent ne calcule jamais un montant à la main.
+"""
+
+import argparse
+import base64
+import datetime
+import html
+import json
+import mimetypes
+import os
+import re
+import sys
+import unicodedata
+
+MOIS_FR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet",
+           "août", "septembre", "octobre", "novembre", "décembre"]
+
+MENTION_FRANCHISE = "TVA non applicable, art. 293 B du CGI"
+
+UNITES = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit",
+          "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize"]
+DIZAINES = {20: "vingt", 30: "trente", 40: "quarante", 50: "cinquante",
+            60: "soixante", 80: "quatre-vingt"}
+
+
+def nombre_en_lettres(n):
+    """Nombre entier en toutes lettres (orthographe rectifiée de 1990, traits
+    d'union partout), pour la mention « arrêtée à la somme de »."""
+    n = int(n)
+    if n < 0:
+        return "moins " + nombre_en_lettres(-n)
+    if n < 17:
+        return UNITES[n]
+    if n < 20:
+        return "dix-" + UNITES[n - 10]
+    if n < 100:
+        if n in (71, 91) or 71 < n < 80 or n > 91:
+            d = 60 if n < 80 else 80
+            reste = n - d
+            return DIZAINES[d] + ("-et-" if reste == 11 and d == 60 else "-") + \
+                (nombre_en_lettres(reste) if d == 60 else nombre_en_lettres(reste))
+        d = (n // 10) * 10
+        if d == 70:
+            d, reste = 60, n - 60
+        elif d == 90:
+            d, reste = 80, n - 80
+        else:
+            reste = n - d
+        if reste == 0:
+            return DIZAINES[d] + ("s" if d == 80 else "")
+        if reste == 1 and d in (20, 30, 40, 50, 60):
+            return DIZAINES[d] + "-et-un"
+        return DIZAINES[d] + "-" + nombre_en_lettres(reste)
+    if n < 1000:
+        c, reste = divmod(n, 100)
+        tete = "cent" if c == 1 else nombre_en_lettres(c) + "-cent"
+        if reste == 0:
+            return tete + ("s" if c > 1 else "")
+        return tete + "-" + nombre_en_lettres(reste)
+    if n < 1_000_000:
+        m, reste = divmod(n, 1000)
+        tete = "mille" if m == 1 else nombre_en_lettres(m) + "-mille"
+        return tete if reste == 0 else tete + "-" + nombre_en_lettres(reste)
+    M, reste = divmod(n, 1_000_000)
+    tete = nombre_en_lettres(M) + ("-million" if M == 1 else "-millions")
+    return tete if reste == 0 else tete + "-" + nombre_en_lettres(reste)
+
+
+def montant_en_lettres(valeur):
+    """1234.56 -> « mille-deux-cent-trente-quatre euros et cinquante-six centimes »."""
+    euros = int(valeur)
+    centimes = int(round((valeur - euros) * 100))
+    texte = nombre_en_lettres(euros) + (" euro" if euros in (0, 1) else " euros")
+    if centimes:
+        texte += " et " + nombre_en_lettres(centimes) + \
+                 (" centime" if centimes == 1 else " centimes")
+    return texte
+
+
+def erreur(msg):
+    print(f"ERREUR : {msg}", file=sys.stderr)
+    sys.exit(1)
+
+
+def charger_json(chemin, nom):
+    if not os.path.exists(chemin):
+        erreur(f"fichier {nom} introuvable : {chemin}")
+    try:
+        with open(chemin, encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        erreur(f"le fichier {nom} n'est pas un JSON valide ({chemin}) : {e}")
+
+
+def date_fr(d):
+    return f"{d.day} {MOIS_FR[d.month - 1]} {d.year}"
+
+
+def parser_date(texte):
+    for fmt in ("%Y-%m-%d", "%d/%m/%Y"):
+        try:
+            return datetime.datetime.strptime(texte, fmt).date()
+        except ValueError:
+            continue
+    erreur(f"date illisible : « {texte} » (formats acceptés : AAAA-MM-JJ ou JJ/MM/AAAA)")
+
+
+def montant_fr(valeur):
+    entier, decimales = f"{valeur:,.2f}".split(".")
+    entier = entier.replace(",", " ")
+    return f"{entier},{decimales} €"
+
+
+def nombre_fr(valeur):
+    if float(valeur) == int(float(valeur)):
+        return str(int(float(valeur)))
+    return f"{float(valeur):g}".replace(".", ",")
+
+
+def slug(texte):
+    texte = unicodedata.normalize("NFKD", texte).encode("ascii", "ignore").decode()
+    texte = re.sub(r"[^A-Za-z0-9]+", "-", texte).strip("-")
+    return texte or "client"
+
+
+def e(texte):
+    return html.escape(str(texte), quote=True)
+
+
+def client_professionnel(facture):
+    c = facture.get("client", {})
+    if "professionnel" in c:
+        return bool(c["professionnel"])
+    return bool(c.get("siret") or c.get("numero_tva_intra"))
+
+
+def valider(config, facture):
+    manques = []
+    ent = config.get("entreprise", {})
+    for champ, libelle in [("nom", "le nom de l'entreprise"),
+                           ("adresse_lignes", "l'adresse de l'entreprise"),
+                           ("siret", "le numéro SIREN ou SIRET")]:
+        if not ent.get(champ):
+            manques.append(f"{libelle} (configuration, bloc « entreprise »)")
+
+    tva = config.get("tva", {})
+    if not tva.get("franchise") and tva.get("taux_defaut") is None:
+        manques.append("le taux de TVA par défaut (configuration, bloc « tva ») "
+                       "ou le régime de franchise en base")
+
+    client = facture.get("client", {})
+    if not client.get("nom"):
+        manques.append("le nom du client (facture, bloc « client »)")
+    if not client.get("adresse_lignes"):
+        manques.append("l'adresse du client (facture, bloc « client »)")
+
+    type_f = facture.get("type", "complete")
+    if type_f not in ("complete", "acompte", "solde", "avoir"):
+        erreur(f"type de facture inconnu : « {type_f} » "
+               "(attendu : complete, acompte, solde ou avoir)")
+
+    if type_f == "avoir":
+        fi = facture.get("facture_initiale", {})
+        if not fi.get("numero") or not fi.get("date"):
+            manques.append("le numéro ET la date de la facture initiale (facture, bloc "
+                           "« facture_initiale ») : un avoir doit référencer la facture "
+                           "qu'il corrige, c'est une mention obligatoire")
+        if not facture.get("lignes"):
+            manques.append("au moins une ligne décrivant ce qui est crédité (facture, « lignes »)")
+        for i, l in enumerate(facture.get("lignes", []), 1):
+            if not l.get("description"):
+                manques.append(f"la description de la ligne {i} de l'avoir")
+            if l.get("prix_unitaire_ht") is None and l.get("prix_unitaire_ttc") is None:
+                manques.append(f"le montant de la ligne {i} de l'avoir")
+
+    if type_f in ("complete", "solde"):
+        lignes = facture.get("lignes", [])
+        if not lignes:
+            manques.append("au moins une ligne (facture, « lignes »)")
+        for i, l in enumerate(lignes, 1):
+            if not l.get("description"):
+                manques.append(f"la description de la ligne {i}")
+            if l.get("prix_unitaire_ht") is None and l.get("prix_unitaire_ttc") is None:
+                manques.append(f"le prix unitaire de la ligne {i} (HT ou TTC)")
+        if not facture.get("date_prestation"):
+            manques.append("la date (ou période) de la vente ou de la prestation "
+                           "(facture, « date_prestation ») : mention obligatoire")
+
+    if type_f == "acompte":
+        a = facture.get("acompte", {})
+        if a.get("pourcentage") is None and a.get("montant_ht") is None:
+            manques.append("le pourcentage OU le montant HT de l'acompte (facture, bloc « acompte »)")
+        if a.get("pourcentage") is not None and not a.get("base_lignes") and a.get("base_total_ht") is None:
+            manques.append("la base de l'acompte : les lignes du devis (« base_lignes ») "
+                           "ou son total HT (« base_total_ht »)")
+
+    if type_f == "solde":
+        for i, ac in enumerate(facture.get("acomptes_deja_factures", []), 1):
+            if not ac.get("numero"):
+                manques.append(f"le numéro de la facture d'acompte {i} à déduire")
+            if ac.get("montant_ttc") is None and ac.get("montant_ht") is None:
+                manques.append(f"le montant de la facture d'acompte {i} à déduire")
+
+    if manques:
+        erreur("la facture ne peut pas être générée, il manque :\n  - " + "\n  - ".join(manques))
+
+
+def numero_facture(config, facture, date_emission):
+    if facture.get("numero"):
+        return str(facture["numero"]), False
+    d = config.get("facture", {})
+    if facture.get("type") == "avoir":
+        # Les avoirs ont leur propre série (admise par le BOFiP), préfixe AV
+        # par défaut, pour ne pas trouer la série des factures.
+        d = d.get("avoir") or {"prefixe_numero": "AV", "prochain_numero": 1,
+                               "format_numero": d.get("format_numero",
+                                                      "{prefixe}-{annee}-{seq:03d}")}
+    prefixe = d.get("prefixe_numero", "FA")
+    seq = int(d.get("prochain_numero", 1))
+    fmt = d.get("format_numero", "{prefixe}-{annee}-{seq:03d}")
+    # Passage d'année : quand le format contient l'année, la série est annuelle
+    # (règle BOFiP des séries distinctes) et la séquence repart à 1 au 1er
+    # janvier. C'est le script qui le fait, pas l'agent, pour qu'aucune série
+    # ne soit cassée par oubli. Ceux qui numérotent en continu d'une année sur
+    # l'autre mettent "reset_annuel": false dans le bloc facture.
+    if "{annee}" in fmt and d.get("reset_annuel", True):
+        annee_serie = d.get("annee_serie")
+        if annee_serie is not None and int(annee_serie) != date_emission.year:
+            seq = 1
+    return fmt.format(prefixe=prefixe, annee=date_emission.year, seq=seq), True
+
+
+def bloc_logo(config, base_config):
+    chemin = config.get("entreprise", {}).get("logo")
+    if not chemin:
+        return f'<div style="font-size:16pt;font-weight:700;">{e(config["entreprise"]["nom"])}</div>'
+    if not os.path.isabs(chemin):
+        chemin = os.path.join(os.path.dirname(base_config), chemin)
+    if not os.path.exists(chemin):
+        print(f"AVERTISSEMENT : logo introuvable ({chemin}), le nom de l'entreprise est "
+              "affiché à la place.", file=sys.stderr)
+        return f'<div style="font-size:16pt;font-weight:700;">{e(config["entreprise"]["nom"])}</div>'
+    mime = mimetypes.guess_type(chemin)[0] or "image/png"
+    with open(chemin, "rb") as f:
+        b64 = base64.b64encode(f.read()).decode()
+    return f'<img src="data:{mime};base64,{b64}" alt="{e(config["entreprise"]["nom"])}">'
+
+
+def champ_libre_texte(cl):
+    if isinstance(cl, str):
+        return cl
+    return f"{cl['label']} : {cl['valeur']}"
+
+
+def bloc_adresse(nom, lignes, extras):
+    out = [f'<div class="nom">{e(nom)}</div>']
+    for ligne in lignes:
+        out.append(f"<div>{e(ligne)}</div>")
+    for extra in extras:
+        out.append(f"<div>{e(extra)}</div>")
+    return "\n".join(out)
+
+
+def construire_emetteur(config):
+    ent = config["entreprise"]
+    nom = ent["nom"]
+    if ent.get("forme_juridique"):
+        nom = f"{nom} ({ent['forme_juridique']})"
+    if ent.get("mention_ei"):
+        nom = f"{nom} EI"
+    extras = []
+    if ent.get("siret"):
+        extras.append(f"SIRET {ent['siret']}" if len(re.sub(r"\D", "", str(ent["siret"]))) == 14
+                      else f"SIREN {ent['siret']}")
+    tva = config.get("tva", {})
+    if tva.get("numero_tva_intra"):
+        extras.append(f"TVA intracommunautaire : {tva['numero_tva_intra']}")
+    for champ, gabarit in [("telephone", "Tél. {}"), ("email", "{}"), ("site_web", "{}")]:
+        if ent.get(champ):
+            extras.append(gabarit.format(ent[champ]))
+    for cl in config.get("champs_libres", []):
+        extras.append(champ_libre_texte(cl))
+    return bloc_adresse(nom, ent.get("adresse_lignes", []), extras)
+
+
+def construire_client(facture):
+    c = facture["client"]
+    extras = []
+    if c.get("siret"):
+        extras.append(f"SIRET {c['siret']}")
+    if c.get("numero_tva_intra"):
+        extras.append(f"TVA intracommunautaire : {c['numero_tva_intra']}")
+    for champ in ("email", "telephone"):
+        if c.get(champ):
+            extras.append(c[champ])
+    if c.get("adresse_livraison_lignes"):
+        extras.append("Adresse de livraison : " + ", ".join(c["adresse_livraison_lignes"]))
+    for cl in c.get("champs_libres", []):
+        extras.append(champ_libre_texte(cl))
+    return bloc_adresse(c["nom"], c.get("adresse_lignes", []), extras)
+
+
+def construire_champs_facture(facture):
+    lignes = []
+    if facture.get("reference_devis"):
+        lignes.append(("Référence devis", facture["reference_devis"]))
+    if facture.get("bon_de_commande"):
+        lignes.append(("Bon de commande", facture["bon_de_commande"]))
+    for cl in facture.get("champs_libres", []):
+        if isinstance(cl, str):
+            lignes.append((None, cl))
+        else:
+            lignes.append((cl["label"], cl["valeur"]))
+    if not lignes:
+        return ""
+    interieur = "\n".join(
+        f"<div>{e(v)}</div>" if l is None else f"<div><strong>{e(l)} :</strong> {e(v)}</div>"
+        for l, v in lignes)
+    return f'<section class="champs-facture">\n{interieur}\n</section>'
+
+
+def lignes_acompte(config, facture):
+    """Construit la ou les lignes d'une facture d'acompte à partir de la base
+    (les lignes du devis, pour un prorata exact par taux de TVA) ou d'un montant."""
+    a = facture["acompte"]
+    franchise = bool(config.get("tva", {}).get("franchise"))
+    taux_defaut = config.get("tva", {}).get("taux_defaut", 20)
+    ref = facture.get("reference_devis", "")
+    libelle_base = a.get("description") or (
+        f"Acompte sur devis {ref} accepté" if ref else "Acompte sur commande")
+
+    if a.get("montant_ht") is not None:
+        taux = 0 if franchise else float(a.get("taux_tva", taux_defaut))
+        return [{"description": libelle_base, "quantite": 1,
+                 "prix_unitaire_ht": round(float(a["montant_ht"]), 2), "taux_tva": taux}]
+
+    pct = float(a["pourcentage"])
+    lignes = []
+    if a.get("base_lignes"):
+        # Prorata par taux : un acompte de 30 % porte 30 % de chaque ligne,
+        # donc la TVA de l'acompte suit exactement les taux du devis.
+        par_taux = {}
+        for l in a["base_lignes"]:
+            qte = float(l.get("quantite", 1))
+            pu = float(l["prix_unitaire_ht"])
+            taux = 0 if franchise else float(l.get("taux_tva", taux_defaut))
+            par_taux[taux] = round(par_taux.get(taux, 0.0) + qte * pu, 2)
+        for taux, base_ht in sorted(par_taux.items()):
+            desc = f"{libelle_base} : {nombre_fr(pct)} %"
+            if len(par_taux) > 1 and not franchise:
+                desc += f" (part au taux de TVA {nombre_fr(taux)} %)"
+            lignes.append({"description": desc, "quantite": 1,
+                           "prix_unitaire_ht": round(base_ht * pct / 100, 2),
+                           "taux_tva": taux})
+    else:
+        base_ht = float(a["base_total_ht"])
+        taux = 0 if franchise else float(a.get("taux_tva", taux_defaut))
+        lignes.append({"description": f"{libelle_base} : {nombre_fr(pct)} %", "quantite": 1,
+                       "prix_unitaire_ht": round(base_ht * pct / 100, 2), "taux_tva": taux})
+    return lignes
+
+
+def calculer(config, lignes_source, remise_globale=None, sans_tva=False):
+    """Totaux HT/TVA/TTC avec remises. Les remises par ligne (remise_pct ou
+    remise_montant) s'appliquent au montant de la ligne ; la remise globale
+    ({libelle, pourcentage} ou {libelle, montant_ht}) se répartit au prorata
+    des taux de TVA, et la TVA se calcule TOUJOURS sur le net après remise
+    (règle des réductions acquises, art. 242 nonies A)."""
+    franchise = bool(config.get("tva", {}).get("franchise")) or sans_tva
+    taux_defaut = config.get("tva", {}).get("taux_defaut", 20)
+    brut_par_taux = {}
+    lignes_calc = []
+    for l in lignes_source:
+        qte = float(l.get("quantite", 1))
+        taux = 0 if franchise else float(l.get("taux_tva", taux_defaut))
+        if l.get("prix_unitaire_ht") is not None:
+            pu = float(l["prix_unitaire_ht"])
+        else:
+            # Prix annoncé en TTC : la conversion vers le HT se fait ICI, jamais
+            # de tête par l'agent (en franchise, TTC = HT, le taux vaut 0).
+            pu = round(float(l["prix_unitaire_ttc"]) / (1 + taux / 100), 2)
+        brut = round(qte * pu, 2)
+        remise = 0.0
+        if l.get("remise_pct"):
+            remise = round(brut * float(l["remise_pct"]) / 100, 2)
+        elif l.get("remise_montant"):
+            remise = round(float(l["remise_montant"]), 2)
+        montant = round(brut - remise, 2)
+        brut_par_taux[taux] = round(brut_par_taux.get(taux, 0.0) + montant, 2)
+        lignes_calc.append({**l, "quantite": qte, "prix_unitaire_ht": pu,
+                            "montant_brut_ht": brut, "remise_ht": remise,
+                            "montant_ht": montant, "taux_tva": taux})
+    total_avant_remise = round(sum(brut_par_taux.values()), 2)
+    remise_g = 0.0
+    libelle_remise = ""
+    if remise_globale and total_avant_remise > 0:
+        libelle_remise = remise_globale.get("libelle", "Remise")
+        if remise_globale.get("pourcentage") is not None:
+            remise_g = round(total_avant_remise * float(remise_globale["pourcentage"]) / 100, 2)
+            libelle_remise += f" ({nombre_fr(remise_globale['pourcentage'])} %)"
+        else:
+            remise_g = round(float(remise_globale["montant_ht"]), 2)
+        # Répartition au prorata des taux pour que la TVA porte sur le net.
+        restant = remise_g
+        taux_tries = sorted(brut_par_taux)
+        for i, taux in enumerate(taux_tries):
+            part = restant if i == len(taux_tries) - 1 else \
+                round(remise_g * brut_par_taux[taux] / total_avant_remise, 2)
+            brut_par_taux[taux] = round(brut_par_taux[taux] - part, 2)
+            restant = round(restant - part, 2)
+    total_ht = round(sum(brut_par_taux.values()), 2)
+    tva_par_taux = {}
+    if not franchise:
+        for taux, base in brut_par_taux.items():
+            if taux:
+                tva_par_taux[taux] = round(base * taux / 100, 2)
+    total_tva = round(sum(tva_par_taux.values()), 2)
+    total_ttc = round(total_ht + total_tva, 2)
+    return {"franchise": franchise, "lignes": lignes_calc, "total_ht": total_ht,
+            "total_ht_avant_remise": total_avant_remise, "remise_globale_ht": remise_g,
+            "libelle_remise": libelle_remise,
+            "tva_par_taux": tva_par_taux, "total_tva": total_tva, "total_ttc": total_ttc}
+
+
+def construire_tableau(calc):
+    franchise = calc["franchise"]
+    plusieurs_taux = len(calc["tva_par_taux"]) > 1
+    entetes = ["<th>Désignation</th>", '<th class="num">Qté</th>', '<th class="num">PU HT</th>']
+    if plusieurs_taux:
+        entetes.append('<th class="num">TVA</th>')
+    entetes.append('<th class="num">Total HT</th>')
+    rangs = []
+    for l in calc["lignes"]:
+        titre = l["description"]
+        if l.get("reference"):
+            titre = f"{titre} (réf. {l['reference']})"
+        desc = f"<strong>{e(titre)}</strong>"
+        if l.get("details"):
+            desc += f'<div class="desc-details">{e(l["details"])}</div>'
+        qte = nombre_fr(l["quantite"])
+        if l.get("unite"):
+            unite = l["unite"]
+            if l["quantite"] > 1 and len(unite) > 2 and unite[-1].isalpha() \
+               and unite[-1] not in "sxz":
+                unite += "s"
+            qte += f" {e(unite)}"
+        if l.get("remise_ht"):
+            detail_remise = f"Remise : -{montant_fr(l['remise_ht'])}"
+            if l.get("remise_pct"):
+                detail_remise += f" ({nombre_fr(l['remise_pct'])} %)"
+            desc += f'<div class="desc-details">{e(detail_remise)}</div>'
+        cellules = [f"<td>{desc}</td>", f'<td class="num">{qte}</td>',
+                    f'<td class="num">{montant_fr(l["prix_unitaire_ht"])}</td>']
+        if plusieurs_taux:
+            cellules.append(f'<td class="num">{nombre_fr(l["taux_tva"])} %</td>')
+        cellules.append(f'<td class="num">{montant_fr(l["montant_ht"])}</td>')
+        rangs.append("<tr>" + "".join(cellules) + "</tr>")
+    return "".join(entetes), "\n".join(rangs)
+
+
+def montant_ttc_acompte(ac):
+    if ac.get("montant_ttc") is not None:
+        return round(float(ac["montant_ttc"]), 2)
+    return round(float(ac["montant_ht"]), 2)
+
+
+def construire_totaux(calc, facture):
+    rangs = []
+    if calc.get("remise_globale_ht"):
+        rangs.append(f"<tr><td>Total HT avant remise</td>"
+                     f"<td>{montant_fr(calc['total_ht_avant_remise'])}</td></tr>")
+        rangs.append(f'<tr class="deduction"><td>{e(calc["libelle_remise"])}</td>'
+                     f"<td>-{montant_fr(calc['remise_globale_ht'])}</td></tr>")
+    rangs.append(f"<tr><td>Total HT</td><td>{montant_fr(calc['total_ht'])}</td></tr>")
+    if not calc["franchise"]:
+        for taux in sorted(calc["tva_par_taux"]):
+            rangs.append(f"<tr><td>TVA {nombre_fr(taux)} %</td>"
+                         f"<td>{montant_fr(calc['tva_par_taux'][taux])}</td></tr>")
+        rangs.append(f"<tr><td>Total TTC</td><td>{montant_fr(calc['total_ttc'])}</td></tr>")
+    deja = facture.get("acomptes_deja_factures", []) if facture.get("type") == "solde" else []
+    net = calc["total_ht"] if calc["franchise"] else calc["total_ttc"]
+    for ac in deja:
+        m = montant_ttc_acompte(ac)
+        net = round(net - m, 2)
+        rangs.append(f'<tr class="deduction"><td>Acompte déjà facturé '
+                     f"({e(ac['numero'])})</td><td>-{montant_fr(m)}</td></tr>")
+    libelle = "Total de l'avoir (à votre crédit)" if facture.get("type") == "avoir" \
+        else "Net à payer"
+    rangs.append(f'<tr class="total-final"><td>{libelle}</td><td>{montant_fr(net)}</td></tr>')
+    return "\n".join(rangs), net
+
+
+def construire_mentions(config, facture, calc, date_echeance, net_a_payer):
+    f_cfg = config.get("facture", {})
+    pro = client_professionnel(facture)
+    type_f = facture.get("type", "complete")
+    mentions = []
+    if type_f == "avoir":
+        fi = facture["facture_initiale"]
+        mentions.append(f"Avoir sur la facture {fi['numero']} du {fi['date']}.")
+        if facture.get("net_de_taxe"):
+            mentions.append("Avoir net de taxe : la TVA de la facture initiale "
+                            "n'est pas régularisée.")
+    if config.get("tva", {}).get("franchise"):
+        mentions.append(MENTION_FRANCHISE + ".")
+    if config.get("tva", {}).get("option_debits"):
+        mentions.append("Option pour le paiement de la taxe d'après les débits.")
+    if facture.get("nature_operation"):
+        mentions.append(f"Nature de l'opération : {facture['nature_operation']}.")
+    if f_cfg.get("montant_en_lettres", True):
+        doc = "Avoir arrêté" if type_f == "avoir" else "Facture arrêtée"
+        mentions.append(f"{doc} à la somme de {montant_en_lettres(abs(net_a_payer))}.")
+    if type_f == "avoir":
+        mentions.append("Montant à valoir sur vos prochains règlements, ou remboursé "
+                        "sur demande.")
+    else:
+        modes = f_cfg.get("modes_paiement", "virement bancaire")
+        mentions.append(f"Règlement : {modes}, au plus tard le {date_fr(date_echeance)}.")
+    if f_cfg.get("iban") and type_f != "avoir":
+        mentions.append(f"IBAN : {f_cfg['iban']}.")
+    if pro and type_f != "avoir":
+        penalites = f_cfg.get("penalites") or (
+            "taux d'intérêt appliqué par la BCE à sa dernière opération de "
+            "refinancement, majoré de 10 points")
+        mentions.append(f"Pénalités de retard : {penalites}. "
+                        "Indemnité forfaitaire pour frais de recouvrement en cas de retard "
+                        "de paiement : 40 €.")
+        # « néant » est la formulation validée par la fiche officielle F31808.
+        mentions.append(f_cfg.get("escompte") or "Escompte pour paiement anticipé : néant.")
+    ass = config.get("assurance", {})
+    if ass.get("obligatoire") and ass.get("nom_assureur"):
+        # L132-1 du code de l'artisanat : la mention d'assurance professionnelle
+        # est due sur chaque devis ET chaque facture.
+        texte = (f"Assurance {ass.get('type', 'de responsabilité décennale')} souscrite auprès de "
+                 f"{ass['nom_assureur']}")
+        if ass.get("coordonnees_assureur"):
+            texte += f" ({ass['coordonnees_assureur']})"
+        if ass.get("couverture_geographique"):
+            texte += f", couverture géographique : {ass['couverture_geographique']}"
+        mentions.append(texte + ".")
+    if facture.get("type") == "acompte":
+        mentions.append("Facture d'acompte : le solde fera l'objet d'une facture finale "
+                        "après exécution.")
+    for m in f_cfg.get("mentions_libres", []):
+        mentions.append(m)
+    for m in facture.get("mentions_libres", []):
+        mentions.append(m)
+    return "\n".join(f"<p>{e(m)}</p>" for m in mentions)
+
+
+def construire_pied(config):
+    ent = config["entreprise"]
+    morceaux = [ent["nom"]]
+    if ent.get("forme_juridique"):
+        morceaux[-1] += f" — {ent['forme_juridique']}"
+    if ent.get("mention_ei"):
+        morceaux[-1] += " EI"
+    if ent.get("capital_social"):
+        morceaux.append(f"Capital social : {ent['capital_social']}")
+    if ent.get("siret"):
+        morceaux.append(f"SIRET {ent['siret']}")
+    if ent.get("rcs_ou_rm"):
+        morceaux.append(ent["rcs_ou_rm"])
+    tva = config.get("tva", {})
+    if tva.get("numero_tva_intra"):
+        morceaux.append(f"TVA intracommunautaire : {tva['numero_tva_intra']}")
+    return e(" · ".join(morceaux)).replace(" — ", " - ")
+
+
+def main():
+    p = argparse.ArgumentParser(description="Génère une facture HTML prête à imprimer en PDF.")
+    p.add_argument("--config", required=True)
+    p.add_argument("--facture", required=True)
+    p.add_argument("--sortie", default="Factures")
+    p.add_argument("--enregistrer", action="store_true",
+                   help="incrémente le compteur et mémorise le client dans le carnet")
+    args = p.parse_args()
+
+    config = charger_json(args.config, "de configuration")
+    facture = charger_json(args.facture, "de la facture")
+    valider(config, facture)
+
+    type_f = facture.get("type", "complete")
+    date_emission = parser_date(facture["date"]) if facture.get("date") else datetime.date.today()
+    # Délai de paiement : la préférence du CLIENT (fiche du carnet) prime sur
+    # le défaut de la configuration.
+    delai = int(facture.get("client", {}).get("delai_paiement_jours")
+                or config.get("facture", {}).get("delai_paiement_jours", 30))
+    if facture.get("date_echeance"):
+        date_echeance = parser_date(facture["date_echeance"])
+    else:
+        date_echeance = date_emission + datetime.timedelta(days=delai)
+    numero, numero_auto = numero_facture(config, facture, date_emission)
+
+    lignes_source = lignes_acompte(config, facture) if type_f == "acompte" else facture["lignes"]
+    calc = calculer(config, lignes_source, remise_globale=facture.get("remise"),
+                    sans_tva=bool(facture.get("net_de_taxe")))
+    entetes, rangs = construire_tableau(calc)
+    rangs_totaux, net_a_payer = construire_totaux(calc, facture)
+
+    titres = {"complete": "FACTURE", "acompte": "FACTURE D'ACOMPTE",
+              "solde": "FACTURE DE SOLDE", "avoir": "AVOIR"}
+    ligne_prestation = ""
+    if facture.get("date_prestation"):
+        ligne_prestation = (f"<div>Prestation ou vente : "
+                            f"{e(facture['date_prestation'])}</div>")
+
+    modele_chemin = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 "..", "assets", "modele-facture.html")
+    with open(modele_chemin, encoding="utf-8") as f:
+        page = f.read()
+
+    nom_doc = "Avoir" if type_f == "avoir" else "Facture"
+    if type_f == "avoir":
+        ligne_echeance = "<div>À valoir sur vos prochains règlements</div>"
+    else:
+        ligne_echeance = f"<div>À régler avant le {e(date_fr(date_echeance))}</div>"
+    remplacements = {
+        "{{TITRE_DOCUMENT}}": e(f"{nom_doc} {numero} — {facture['client']['nom']}"),
+        "{{TITRE_FACTURE}}": titres[type_f],
+        "{{BLOC_LOGO}}": bloc_logo(config, args.config),
+        "{{NUMERO}}": e(numero),
+        "{{DATE_EMISSION}}": e(date_fr(date_emission)),
+        "{{LIGNE_DATE_PRESTATION}}": ligne_prestation,
+        "{{LIGNE_ECHEANCE}}": ligne_echeance,
+        "{{BLOC_EMETTEUR}}": construire_emetteur(config),
+        "{{BLOC_CLIENT}}": construire_client(facture),
+        "{{BLOC_CHAMPS_FACTURE}}": construire_champs_facture(facture),
+        "{{ENTETES_COLONNES}}": entetes,
+        "{{LIGNES_TABLEAU}}": rangs,
+        "{{LIGNES_TOTAUX}}": rangs_totaux,
+        "{{BLOC_MENTIONS}}": construire_mentions(config, facture, calc, date_echeance,
+                                                 net_a_payer),
+        "{{PIED_DE_PAGE}}": construire_pied(config),
+    }
+    for cle, valeur in remplacements.items():
+        page = page.replace(cle, valeur)
+
+    os.makedirs(args.sortie, exist_ok=True)
+    nom_fichier = f"{nom_doc}-{slug(numero)}-{slug(facture['client']['nom'])}.html"
+    chemin_sortie = os.path.join(args.sortie, nom_fichier)
+    with open(chemin_sortie, "w", encoding="utf-8") as f:
+        f.write(page)
+
+    # Données à côté de la facture (même usage que le sidecar du devis :
+    # permettre à une facture de solde de déduire les acomptes sans ressaisie).
+    donnees = {
+        "type": f"facture_{type_f}",
+        "genere_par": "generer-facture",
+        "numero": numero,
+        "date_emission": date_emission.isoformat(),
+        "date_echeance": date_echeance.isoformat(),
+        "reference_devis": facture.get("reference_devis", ""),
+        "client": facture["client"],
+        "lignes": calc["lignes"],
+        "totaux": {
+            "total_ht": calc["total_ht"],
+            "tva_par_taux": {str(k): v for k, v in calc["tva_par_taux"].items()},
+            "total_tva": calc["total_tva"],
+            "total_ttc": calc["total_ttc"],
+            "franchise_tva": calc["franchise"],
+            "net_a_payer": net_a_payer,
+        },
+        "acomptes_deduits": facture.get("acomptes_deja_factures", []),
+    }
+    with open(chemin_sortie[:-5] + ".json", "w", encoding="utf-8") as f:
+        json.dump(donnees, f, ensure_ascii=False, indent=2)
+
+    if args.enregistrer:
+        if numero_auto:
+            if type_f == "avoir":
+                # Série des avoirs : compteur dédié, créé au premier avoir.
+                d = config.setdefault("facture", {}).setdefault(
+                    "avoir", {"prefixe_numero": "AV", "prochain_numero": 1,
+                              "format_numero": config["facture"].get(
+                                  "format_numero", "{prefixe}-{annee}-{seq:03d}")})
+                d["prochain_numero"] = int(d.get("prochain_numero", 1)) + 1
+            else:
+                d = config.setdefault("facture", {})
+                fmt = d.get("format_numero", "{prefixe}-{annee}-{seq:03d}")
+                if "{annee}" in fmt and d.get("reset_annuel", True) and \
+                   d.get("annee_serie") is not None and \
+                   int(d["annee_serie"]) != date_emission.year:
+                    d["prochain_numero"] = 2  # la 001 vient d'être émise
+                else:
+                    d["prochain_numero"] = int(d.get("prochain_numero", 1)) + 1
+                d["annee_serie"] = date_emission.year
+            with open(args.config, "w", encoding="utf-8") as f:
+                json.dump(config, f, ensure_ascii=False, indent=2)
+        carnet_chemin = os.path.join(os.path.dirname(os.path.abspath(args.config)), "clients.json")
+        carnet = {"clients": []}
+        if os.path.exists(carnet_chemin):
+            with open(carnet_chemin, encoding="utf-8") as f:
+                carnet = json.load(f)
+        c = facture["client"]
+        deja = next((x for x in carnet["clients"]
+                     if x["nom"].strip().lower() == c["nom"].strip().lower()), None)
+        if deja:
+            deja.update(c)
+        else:
+            carnet["clients"].append(c)
+        with open(carnet_chemin, "w", encoding="utf-8") as f:
+            json.dump(carnet, f, ensure_ascii=False, indent=2)
+
+        # Catalogue des prestations : même mécanisme que le carnet clients,
+        # partagé dans l'esprit avec le skill devis (même format de fichier).
+        # Les lignes d'acompte/solde purement techniques (déductions) ne sont
+        # pas des prestations : on ne mémorise que les factures complètes et
+        # les lignes de solde (qui reprennent les vraies prestations).
+        if type_f in ("complete", "solde"):
+            cat_chemin = os.path.join(os.path.dirname(os.path.abspath(args.config)),
+                                      "catalogue.json")
+            catalogue = {"prestations": []}
+            if os.path.exists(cat_chemin):
+                with open(cat_chemin, encoding="utf-8") as f:
+                    catalogue = json.load(f)
+
+            def meme_fiche(fiche, ligne):
+                if fiche.get("reference") and ligne.get("reference"):
+                    return fiche["reference"].strip().lower() == ligne["reference"].strip().lower()
+                return fiche["designation"].strip().lower() == ligne["description"].strip().lower()
+
+            for l in calc["lignes"]:
+                fiche = {"reference": l.get("reference"), "designation": l["description"],
+                         "details": l.get("details", ""), "unite": l.get("unite", ""),
+                         "prix_unitaire_ht": l["prix_unitaire_ht"], "taux_tva": l["taux_tva"]}
+                deja = next((x for x in catalogue["prestations"] if meme_fiche(x, l)), None)
+                if deja:
+                    deja.update(fiche)
+                else:
+                    catalogue["prestations"].append(fiche)
+            with open(cat_chemin, "w", encoding="utf-8") as f:
+                json.dump(catalogue, f, ensure_ascii=False, indent=2)
+
+    recap = {
+        "fichier": chemin_sortie,
+        "type": type_f,
+        "numero": numero,
+        "date": date_fr(date_emission),
+        "echeance": date_fr(date_echeance),
+        "total_ht": montant_fr(calc["total_ht"]),
+        "total_tva": montant_fr(calc["total_tva"]) if not calc["franchise"] else "franchise de TVA",
+        "total_ttc": montant_fr(calc["total_ttc"]),
+        "net_a_payer": montant_fr(net_a_payer),
+        "compteur_mis_a_jour": bool(args.enregistrer and numero_auto),
+    }
+    print(json.dumps(recap, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+===== FIN DU FICHIER =====

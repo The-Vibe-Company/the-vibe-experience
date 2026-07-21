@@ -1,0 +1,1449 @@
+Installe ce skill dans mes skills personnels (par exemple ~/.claude/skills/ pour Claude Code, ou l'équivalent de mon outil) : recrée chaque fichier listé ci-dessous, chemin et contenu identiques, sans rien reformuler. Quand c'est fait, vérifie que generer-devis/SKILL.md est en place et confirme-moi que le skill est prêt.
+
+===== FICHIER : generer-devis/LISEZMOI.md =====
+# Générer un devis : le mode d'emploi
+
+Ce skill fait tes devis à ta place. Tu lui dis « devis pour Madame Martin,
+remplacement du chauffe-eau, 980 euros », et il te sort un devis
+professionnel, avec toutes les mentions légales françaises, un numéro qui se
+suit tout seul, et ta TVA (ou ta franchise) gérée correctement. Compte 2 à 3
+minutes par devis, contre 20 à 40 minutes en bricolant un ancien fichier
+Word.
+
+Il est fait pour les indépendants et les petites entreprises françaises :
+artisans, consultants, agences, auto-entrepreneurs.
+
+## Ce qu'il te faut (honnêtement)
+
+- Un abonnement Claude payant : la version gratuite ne suffit pas,
+  l'abonnement Pro (environ 20 € par mois) suffit. Si un jour tu fais
+  tellement de devis que tu touches les limites du Pro, le plan au-dessus
+  existe, mais commence avec Pro et vois si le service te fait gagner
+  assez de temps pour en vouloir plus.
+- L'application Claude qui lit les skills et peut travailler dans un
+  dossier : Claude Code, ou l'application de bureau Claude (Mac ou
+  Windows). C'est là que ta configuration reste enregistrée d'une fois sur
+  l'autre.
+- Rien d'autre. Aucun logiciel à installer, aucun abonnement en plus. Le
+  devis sort en fichier HTML que tu transformes en PDF en l'imprimant
+  (l'ordinateur te propose « Enregistrer au format PDF » : c'est tout).
+
+## Les trois gestes
+
+**Geste 1 : installe le skill.** Le plus simple : tu n'installes rien
+toi-même, tu demandes à Claude de le faire. Ouvre Claude et écris :
+« installe le skill generer-devis qui est dans mon dossier Téléchargements »
+(ou l'endroit où tu as mis le dossier téléchargé). Il le range au bon
+endroit et te confirme.
+Si tu préfères le faire à la main dans l'application de bureau : Réglages,
+puis Capacités, puis Skills, et importe le fichier téléchargé.
+
+**Geste 2 : la première fois, laisse-le faire connaissance.** Écris
+simplement « fais-moi un devis ». Le skill voit qu'il ne te connaît pas
+encore et te pose une dizaine de questions, une par une : ton entreprise,
+ton adresse, ton SIRET, ta TVA, ton assurance si tu es dans le bâtiment,
+tes habitudes (validité, acompte). Garde ton SIRET sous la main. Ça prend
+une dizaine de minutes, UNE SEULE FOIS. Tout est enregistré : il ne te le
+redemandera plus jamais.
+
+**Geste 3 : fais tes devis.** À partir de là, chaque devis c'est une
+phrase : « Devis pour [le client] : [la prestation], [le prix] ». Il te
+montre un récapitulatif, tu dis oui, et le fichier est prêt. Tes clients
+habituels sont mémorisés : « même client que la dernière fois » suffit.
+Et si tu as plusieurs devis à sortir, donne-les tous d'un coup (« j'ai 5
+devis à faire, voici tout ») : tu réponds une fois, tu valides une fois,
+les 5 fichiers sortent en série pendant que tu fais autre chose.
+
+## Et si quelque chose change
+
+Dis-le comme tu le dirais à un collègue : « j'ai changé d'adresse », « j'ai
+un nouveau logo », « je facture la TVA maintenant ». Il met à jour juste ce
+qui a changé, sans tout te redemander. Tu peux aussi lui demander d'ajouter
+un champ à toi sur tes devis (une certification, un label, une mention
+spéciale) : il le gardera pour tous les suivants.
+
+## Ce qu'il ne fait pas
+
+Les factures, les relances et la signature électronique, ce n'est pas lui.
+Il ne donne pas non plus de conseil juridique : il applique les règles
+officielles (service-public.gouv.fr, economie.gouv.fr), les sources sont
+listées dans le dossier `references`. Si ton métier impose un devis sur
+formulaire réglementaire (optique, audioprothèse, funéraire), ce skill ne
+remplace pas ce formulaire.
+
+---
+
+Offert par The Vibe Company (thevibecompany.co). Libre d'utilisation, sans
+support garanti.
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-devis/SKILL.md =====
+---
+name: generer-devis
+description: >-
+  Génère des devis professionnels français, conformes et numérotés, prêts à
+  imprimer en PDF. Utiliser dès que l'utilisateur veut faire, créer, préparer,
+  refaire, corriger ou envoyer un devis, chiffrer une prestation pour un
+  client, donner un prix par écrit, ou dit simplement « devis pour [client] »,
+  même sans détail. Utiliser aussi quand il veut modifier ses informations
+  d'entreprise pour ses devis (adresse, logo, assurance, numérotation, TVA).
+  À la première utilisation, dérouler le setup guidé qui enregistre une fois
+  pour toutes les informations de l'entreprise ; ensuite, chaque devis ne
+  demande que le client, la prestation et le prix.
+---
+
+# Générer un devis
+
+Ce skill transforme une demande en une phrase (« devis pour Mme Martin,
+remplacement du chauffe-eau, 980 € ») en un devis professionnel conforme au
+droit français : mentions obligatoires, numérotation qui se suit, TVA ou
+franchise, prêt à imprimer en PDF.
+
+L'utilisateur est souvent non-technique et découvre peut-être l'IA. Parle-lui
+simplement, sans jargon (jamais « JSON », « script », « configuration » : dire
+« tes informations enregistrées »). Pose une question à la fois.
+
+## Les trois règles qui ne se négocient pas
+
+1. **Rien ne s'invente.** Un SIRET, une adresse, un prix, un taux de TVA, un
+   assureur : si l'information manque, elle se demande. Un devis avec une
+   donnée inventée est un faux document ; mieux vaut une question de plus.
+2. **Tous les calculs et tout le rendu passent par le script**
+   `scripts/generer_devis.py`. Ne calcule jamais un total toi-même, ne
+   fabrique jamais le HTML à la main : le script est la seule source de
+   vérité (totaux, TVA, formats de montants, mentions conditionnelles).
+3. **Récapituler avant de générer.** Avant d'appeler le script, montre en
+   2-3 lignes ce qui va figurer sur le devis (client, lignes avec prix,
+   total). Une erreur corrigée avant génération coûte une phrase ; après,
+   c'est un devis faux envoyé à un client.
+
+## Étape 0, à chaque invocation : la configuration existe-t-elle ?
+
+Cherche le fichier de configuration, dans cet ordre :
+
+1. `config/entreprise.json` dans le dossier de ce skill ;
+2. `entreprise-devis.json` dans le dossier de travail courant (cas où le
+   dossier du skill n'est pas accessible en écriture).
+
+- **Le fichier existe** : lis-le (et `clients.json` à côté s'il existe), puis
+  va directement à « Faire un devis ». Ne redemande JAMAIS une information
+  qui s'y trouve déjà : c'est la promesse centrale du skill.
+- **Le fichier n'existe pas** : c'est la première utilisation, déroule le
+  setup ci-dessous avant toute chose.
+
+## Le setup de première utilisation (une seule fois, ~10 minutes)
+
+Objectif : collecter tout ce qui est stable d'un devis à l'autre, l'écrire
+dans la configuration, et ne plus jamais le redemander.
+
+**Annonce d'abord la couleur**, en une phrase : « Première utilisation : je te
+pose une dizaine de questions sur ton entreprise (une seule fois), garde sous
+la main ton numéro SIRET et, si tu es dans le bâtiment, le nom de ton
+assureur. Ça prend une dizaine de minutes, ensuite chaque devis prendra deux
+minutes. »
+
+Puis pose les questions **bloc par bloc, une question à la fois**, dans cet
+ordre (le pourquoi de chaque bloc est dans
+`references/mentions-obligatoires.md`, à consulter en cas de doute ou de
+question de l'utilisateur ; ne jamais improviser une réponse juridique) :
+
+1. **L'entreprise** : nom ; forme (auto-entrepreneur, aussi appelé
+   micro-entrepreneur : c'est la même chose, utiliser le mot que
+   l'utilisateur emploie / entreprise individuelle / société type SARL,
+   SAS…) ; adresse ; SIRET (14 chiffres, sur l'avis INSEE ou l'extrait
+   Kbis). Si entreprise individuelle ou auto-entrepreneur : la mention
+   « EI » est obligatoire, active-la sans poser la question. Si société :
+   demander capital social et ville du RCS (sur le Kbis).
+2. **La TVA** : factures-tu la TVA ? Un auto-entrepreneur qui ne la facture
+   pas est « en franchise » : le devis portera automatiquement la mention
+   « TVA non applicable, art. 293 B du CGI » et aucun montant de TVA. Sinon,
+   demander le taux habituel (20 % en général ; 10 % ou 5,5 % dans le
+   bâtiment selon les travaux), le numéro de TVA intracommunautaire s'il
+   figure sur ses factures, ET sa convention de prix : « quand tu
+   m'annonceras un prix sans préciser, je le prends en HT ou en TTC ? »
+   (clé `prix_annonces` : « ht », « ttc » ou « demander »). Les pros entre
+   eux parlent souvent HT, ceux qui servent des particuliers pensent
+   souvent TTC : c'est à lui de choisir, pas à toi de deviner. En
+   franchise, la question ne se pose jamais : pas de TVA, le prix est le
+   prix.
+3. **Le métier** : que fait l'entreprise ? Si activité du bâtiment ou
+   artisanale avec assurance obligatoire (décennale) : nom de l'assureur,
+   ses coordonnées, la couverture géographique. C'est une mention légale
+   obligatoire sur les devis d'artisans, pas une option.
+4. **Les habitudes de devis** : durée de validité (30 jours si aucune
+   préférence) ; acompte demandé habituellement ; conditions de règlement ;
+   IBAN à afficher (optionnel) ; format de numérotation. Par défaut la
+   numérotation est DEV-ANNÉE-001 et se poursuit toute seule ; si
+   l'utilisateur a déjà des devis, demander son dernier numéro TEL QU'IL
+   L'ÉCRIT et reprendre son format à l'identique, préfixe compris (jamais
+   plaquer le format par défaut sur sa série existante), puis confirmer le
+   prochain numéro qui sera émis. Le passage d'année est géré par le
+   script (format avec année = la séquence repart à 1 au 1er janvier ;
+   `reset_annuel` à false pour une numérotation continue).
+5. **Les optionnels** : téléphone, email, site web, logo (un fichier image ;
+   le copier dans le dossier de configuration) ; pour ceux qui travaillent
+   avec des particuliers, le médiateur de la consommation. Ce mot est du
+   jargon pour un débutant : l'expliquer avec ces mots simples, « un
+   organisme gratuit de règlement des litiges avec les clients
+   particuliers ; on y adhère souvent par sa fédération professionnelle ;
+   si tu en as un je l'affiche, si tu ne sais pas on passe ». Proposer,
+   ne pas imposer.
+6. **Les champs libres** : demander s'il veut voir apparaître autre chose
+   sur tous ses devis (certification RGE, label, mention spéciale…), et OÙ :
+   sous ses coordonnées (`champs_libres`, bloc entreprise) ou en bas du
+   devis (`mentions_libres`). Un champ libre peut être une simple ligne de
+   texte (« Membre des Artisans… ») ou un couple étiquette + valeur : les
+   deux formes marchent. L'utilisateur ne doit jamais renoncer à un champ
+   dont il a besoin.
+
+Écris ensuite la configuration (modèle : `references/exemple-config.json`),
+montre un récapitulatif en clair, et propose un devis d'essai immédiat avec
+un client fictif pour valider la mise en page (logo, mentions).
+
+**Mise à jour** : « j'ai changé d'adresse », « nouveau logo », « je facture
+la TVA maintenant » : modifier la ou les clés concernées, confirmer, et ne
+surtout pas redérouler tout le setup.
+
+## Faire un devis (usage courant : 2-3 questions maximum)
+
+1. **Le client.** Si le nom donné correspond à un client de `clients.json`
+   (même approximativement), utiliser sa fiche et le dire (« Mme Martin, 8
+   avenue du Parc à Lyon, comme la dernière fois »). Si c'est un NOUVEAU
+   client, collecter sa fiche complète en une fois : nom, adresse
+   obligatoirement ; téléphone, email, et SIRET si c'est une entreprise
+   (proposés, pas imposés). Elle est mémorisée au carnet : c'est la
+   dernière fois qu'on la demande.
+2. **La prestation et le prix.** AVANT de demander quoi que ce soit,
+   regarder le CATALOGUE (`catalogue.json` à côté du carnet clients, rempli
+   automatiquement à chaque devis) : si la désignation ou la référence
+   donnée par l'utilisateur correspond à une fiche mémorisée, la PROPOSER
+   (« le radiateur X400, réf. 4521, 890 € HT comme la dernière fois ? »)
+   au lieu de redemander prix, détails ou unité. La mémoire propose,
+   l'utilisateur décide : jamais un prix mémorisé appliqué sans qu'il ait
+   confirmé, et s'il donne un nouveau prix ou de nouveaux détails, c'est sa
+   parole qui fait foi (le script met la fiche à jour tout seul). Sinon :
+   description de chaque ligne, prix HT, quantité si pertinent, et la
+   référence produit si l'utilisateur en utilise (champ `reference`,
+   affichée sur le devis). La désignation est la partie que le client final
+   lira : viser une ligne claire et professionnelle (l'objet précis, la
+   référence ou le modèle s'il y en a, le détail en dessous via le champ
+   `details`), mais c'est L'UTILISATEUR qui choisit le niveau de détail :
+   proposer d'enrichir (« tu veux que j'ajoute la référence ou une ligne de
+   détail ? »), jamais imposer ni inventer un détail technique.
+
+   **Un prix annoncé est ambigu tant qu'on ne sait pas s'il est HT ou
+   TTC**, et l'écart n'est pas un détail (1 200 € HT, c'est 1 440 € TTC).
+   La règle : en franchise de TVA, aucune ambiguïté, le prix est le prix.
+   Avec TVA : si l'utilisateur a dit « TTC », « tout compris » ou « HT »,
+   c'est réglé ; sinon appliquer sa convention enregistrée au setup
+   (`prix_annonces`) ; et si elle est sur « demander » (ou absente), poser
+   LA question courte : « 1 200 €, c'est hors taxes ou TTC ? ». Ne jamais
+   déduire en silence. Pour un prix TTC, passer `prix_unitaire_ttc` au
+   script : c'est LUI qui convertit (jamais de division de tête), et le
+   récapitulatif montre toujours HT, TVA et TTC pour que tout malentendu
+   saute aux yeux avant génération. Pour les travaux : lieu
+   d'exécution, date de début et durée estimée si connus (mentions
+   attendues sur un devis de travaux). Pour une prestation à date butoir
+   (« pour le 20 août »), utiliser le champ `echeance` (affiché « À
+   réaliser pour le »), pas `date_debut`. Si l'échéance dépasse la date de
+   validité du devis, préciser à l'utilisateur que la validité concerne la
+   signature du devis, pas la livraison : les deux peuvent coexister.
+3. **Rien d'autre**, sauf particularité du jour : acompte différent,
+   mention spéciale, ou REMISE. Les remises passent par les champs prévus
+   (jamais un prix discrètement baissé ni une ligne négative) :
+   `remise_pct` ou `remise_montant` sur une ligne, ou le bloc `remise` du
+   devis (`{"libelle": "Remise de lancement", "pourcentage": 10}` ou
+   `montant_ht`) affiché dans les totaux ; la TVA est calculée par le
+   script sur le net après remise. Une remise habituelle mémorisée dans la
+   fiche client se propose, ne s'applique jamais seule. Tout le reste
+   vient de la configuration.
+
+**Le devis type (« comme d'habitude »)** : pour un devis qui ressemble à un
+ancien, repartir du fichier de données d'un devis précédent (le `.json` à
+côté du HTML dans `Devis/`), garder les lignes, ajuster ce qui change, et
+laisser la numérotation avancer. La fiche d'un client peut aussi porter ses
+particularités durables (adresse de chantier habituelle, remise fidélité) :
+les proposer au bon moment, jamais les imposer.
+
+Puis :
+
+- construis le fichier de devis (modèle : `references/exemple-devis.json`)
+  dans un dossier temporaire ;
+- montre le récapitulatif (règle 3) et attends l'accord ;
+- appelle le script :
+
+  ```bash
+  python3 <dossier-du-skill>/scripts/generer_devis.py \
+    --config <chemin-de-la-config> --devis <fichier-du-jour> \
+    --sortie Devis --enregistrer
+  ```
+
+  `--enregistrer` fait avancer la numérotation et mémorise le client pour la
+  prochaine fois. Ne l'omettre que pour un essai ou une reprise d'un devis
+  déjà généré (dans ce cas, passer aussi son numéro dans le devis).
+- Le script affiche le chemin du fichier et les totaux. Si le script signale
+  une information manquante, pose la question à l'utilisateur et relance :
+  ne comble jamais le trou toi-même.
+
+**Livraison** : ouvre le fichier pour l'utilisateur quand c'est possible
+(`open` sur Mac, `start` sur Windows), dis-lui en clair où il se trouve
+(dossier `Devis/`, avec le chemin complet), et rappelle en une phrase
+comment en faire un PDF : imprimer (Cmd+P sur Mac, Ctrl+P sur Windows) puis
+« Enregistrer au format PDF ». Le bandeau gris d'aide en haut du fichier
+disparaît à l'impression. Propose de vérifier le devis ensemble si c'est le
+premier. Ne montre jamais la sortie brute du script (le JSON) : traduis le
+récapitulatif en français courant.
+
+La partie variable est LE cœur d'usage du skill : la rendre la plus courte
+possible tout en captant le maximum d'informations. Encourager l'utilisateur
+à tout donner en une seule phrase ou un seul message (client, lignes, prix,
+particularités) et ne poser de questions que pour ce qui manque vraiment ;
+ne jamais transformer un devis en interrogatoire.
+
+## Plusieurs devis d'un coup (mode rafale)
+
+Quand l'utilisateur annonce plusieurs devis (« j'ai 5 devis à faire »),
+basculer en mode rafale :
+
+1. Collecter d'abord TOUTES les variables, devis par devis, dans un seul
+   échange structuré : pour chacun, le client (fiche complète si nouveau,
+   juste le nom s'il est au carnet), les lignes avec prix, les
+   particularités. Accepter la liste en vrac dans un seul message, c'est le
+   but : l'utilisateur remplit tout en une passe de quelques minutes.
+2. Montrer UN récapitulatif groupé (un devis par ligne : client, objet,
+   total estimé) et attendre un seul accord.
+3. Générer les devis en série avec le script, chacun avec `--enregistrer` :
+   la numérotation avance automatiquement d'un devis à l'autre, chaque
+   nouveau client entre au carnet.
+4. Livrer la liste complète des fichiers d'un coup, avec le rappel PDF une
+   seule fois.
+
+L'intérêt pour l'utilisateur : dix minutes de réponses, puis il passe à
+autre chose pendant que les devis sortent. Ne jamais entrelacer les
+questions de plusieurs devis : toutes les questions d'abord, toute la
+génération ensuite.
+
+## Modifier ou refaire un devis
+
+Pour corriger un devis déjà généré (prix, ligne, faute) : reprendre son
+fichier de devis, appliquer la modification, regénérer avec le MÊME numéro
+(champ `numero`, sans `--enregistrer`). Pour un nouveau devis qui ressemble à
+un ancien : repartir de l'ancien fichier mais laisser la numérotation
+avancer normalement (avec `--enregistrer`).
+
+## Ce que ce skill ne fait pas
+
+Pas de factures, pas de relances, pas de signature électronique, pas de
+conseil juridique ou fiscal personnalisé. Pas non plus les secteurs à devis
+NORMALISÉ imposé par un modèle réglementaire (optique, audioprothèse,
+funéraire) : si l'utilisateur en relève, le prévenir honnêtement que ce
+skill ne remplace pas son formulaire réglementaire. Si l'utilisateur a une question de
+droit précise (seuils de TVA, obligation sectorielle), consulter
+`references/mentions-obligatoires.md` qui cite les sources officielles
+(service-public.gouv.fr, economie.gouv.fr) et l'y renvoyer ; en cas de doute
+qui persiste, le dire honnêtement plutôt que de trancher.
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-devis/assets/modele-devis.html =====
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<title>{{TITRE_DOCUMENT}}</title>
+<style>
+  /* Modèle de devis A4, sobre, noir et blanc. Pensé pour l'impression PDF (Cmd+P / Ctrl+P).
+     Le fond est forcé en blanc : un devis est un document imprimé, il doit rester
+     noir sur blanc même si le navigateur du client est en mode sombre. */
+  :root { color-scheme: only light; }
+  @page { size: A4; margin: 14mm 16mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  body {
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #111;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+  .page {
+    max-width: 178mm;
+    margin: 0 auto;
+    padding: 10mm 0;
+  }
+  @media print {
+    .page { padding: 0; }
+    .no-print { display: none; }
+  }
+  .bandeau-aide {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    font-size: 9.5pt;
+    color: #444;
+  }
+  header.entete {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 26px;
+  }
+  .logo img { max-height: 58px; max-width: 180px; }
+  .titre-bloc { text-align: right; }
+  .titre-bloc h1 {
+    margin: 0;
+    font-size: 26pt;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+  .titre-bloc .meta { margin-top: 6px; font-size: 10pt; color: #333; }
+  .adresses {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 26px;
+  }
+  .adresse {
+    width: 48%;
+  }
+  .adresse .etiquette {
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    border-bottom: 1px solid #111;
+    padding-bottom: 3px;
+    margin-bottom: 7px;
+  }
+  .adresse .nom { font-weight: 700; }
+  .adresse div { margin: 1px 0; }
+  .champs-devis { margin-bottom: 14px; font-size: 10pt; }
+  .champs-devis div { margin: 2px 0; }
+  table.lignes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14px;
+  }
+  table.lignes th {
+    text-align: left;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 1.5px solid #111;
+    padding: 6px 8px;
+  }
+  table.lignes td {
+    border-bottom: 1px solid #ddd;
+    padding: 7px 8px;
+    vertical-align: top;
+  }
+  table.lignes .num { text-align: right; white-space: nowrap; }
+  table.lignes .desc-details { color: #555; font-size: 9.5pt; margin-top: 2px; }
+  .totaux {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 22px;
+  }
+  .totaux table { border-collapse: collapse; min-width: 62mm; }
+  .totaux td { padding: 4px 10px; text-align: right; }
+  .totaux td:first-child { text-align: left; color: #333; }
+  .totaux tr.total-final td {
+    border-top: 1.5px solid #111;
+    font-weight: 700;
+    font-size: 12pt;
+    padding-top: 7px;
+  }
+  .mentions {
+    font-size: 9pt;
+    color: #333;
+    margin-bottom: 22px;
+  }
+  .mentions .etiquette {
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    border-bottom: 1px solid #111;
+    padding-bottom: 3px;
+    margin-bottom: 7px;
+  }
+  .mentions p { margin: 3px 0; }
+  .signature {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 26px;
+  }
+  .signature .cadre {
+    width: 48%;
+    border: 1px solid #111;
+    border-radius: 4px;
+    padding: 10px 12px 44px;
+    font-size: 9pt;
+  }
+  .signature .cadre .titre { font-weight: 700; margin-bottom: 4px; }
+  footer.pied {
+    border-top: 1px solid #111;
+    padding-top: 7px;
+    font-size: 8pt;
+    color: #555;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="bandeau-aide no-print">
+    Pour obtenir le PDF : imprimez cette page (menu Fichier puis Imprimer, ou Cmd+P sur Mac,
+    Ctrl+P sur Windows) et, dans la fenêtre d'impression, choisissez la destination
+    « Enregistrer au format PDF ». Si ce fichier ne s'est pas ouvert dans votre navigateur
+    (Chrome, Safari, Edge...), faites un clic droit dessus puis « Ouvrir avec » votre
+    navigateur. Ce bandeau n'apparaîtra pas sur le PDF.
+  </div>
+
+  <header class="entete">
+    <div class="logo">{{BLOC_LOGO}}</div>
+    <div class="titre-bloc">
+      <h1>DEVIS</h1>
+      <div class="meta">
+        <div>N° {{NUMERO}}</div>
+        <div>Date : {{DATE_EMISSION}}</div>
+        <div>Valable jusqu'au {{DATE_VALIDITE}}</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="adresses">
+    <div class="adresse">
+      <div class="etiquette">Émetteur</div>
+      {{BLOC_EMETTEUR}}
+    </div>
+    <div class="adresse">
+      <div class="etiquette">Client</div>
+      {{BLOC_CLIENT}}
+    </div>
+  </section>
+
+  {{BLOC_CHAMPS_DEVIS}}
+
+  <table class="lignes">
+    <thead>
+      <tr>{{ENTETES_COLONNES}}</tr>
+    </thead>
+    <tbody>
+      {{LIGNES_TABLEAU}}
+    </tbody>
+  </table>
+
+  <section class="totaux">
+    <table>
+      {{LIGNES_TOTAUX}}
+    </table>
+  </section>
+
+  <section class="mentions">
+    <div class="etiquette">Conditions et mentions</div>
+    {{BLOC_MENTIONS}}
+  </section>
+
+  <section class="signature">
+    <div class="cadre">
+      <div class="titre">Bon pour accord</div>
+      <div>Date, signature du client et mention « bon pour accord » :</div>
+    </div>
+    <div class="cadre">
+      <div class="titre">{{NOM_EMETTEUR}}</div>
+      <div>Signature :</div>
+    </div>
+  </section>
+
+  <footer class="pied">{{PIED_DE_PAGE}}</footer>
+</div>
+</body>
+</html>
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-devis/companion.json =====
+{
+  "$schema": "https://thecompanion.sh/schemas/companion-manifest.v2.schema.json",
+  "name": "generer-devis",
+  "version": "1.1.1",
+  "title": "Générer un devis",
+  "description": "Génère des devis français conformes et numérotés pour indépendants et petites boîtes : setup unique, 2-3 questions par devis, carnet de clients, catalogue de prestations, remises, mode rafale, sortie HTML imprimable en PDF. Chaîné à generer-facture : le devis accepté devient facture sans ressaisie.",
+  "notes": "# generer-devis : le topo\n\nSkill offert n°1 de The Vibe Company. Tu lui dis « devis pour Madame Martin, remplacement du chauffe-eau, 980 euros », il sort un devis professionnel conforme au droit français, numéroté, prêt à imprimer en PDF. Compagnon naturel de generer-facture : chaque devis écrit ses données à côté du fichier, la facture s'en déduit sans ressaisie.\n\n## La plus-value en une phrase\n\nUn devis pro, conforme et numéroté en 2 à 3 minutes au lieu de 20 à 40, avec les mentions légales à jour 2026 vérifiées sur les sources officielles.\n\n## Le setup (une seule fois, ~10 minutes)\n\nIdentité (nom, forme, adresse, SIRET, mention EI automatique, capital et RCS pour les sociétés), TVA (franchise avec mention 293 B automatique, ou taux + numéro intra + ta convention de prix : HT, TTC ou demander à chaque fois), assurance décennale si artisan du bâtiment, habitudes (validité, acompte, conditions, numérotation reprise à TON format exact). Optionnels proposés : téléphone, email, site, logo, IBAN, médiateur. Champs libres : tu ajoutes ce que tu veux, où tu veux.\n\n## À chaque devis (2-3 questions)\n\nLe client (juste son nom s'il est au carnet), la prestation et le prix, les particularités du jour. Trois mémoires travaillent pour toi : le CARNET de clients, le CATALOGUE de prestations (référence, désignation, prix, TVA : « le radiateur X400, 890 € comme la dernière fois ? », toujours proposé, jamais imposé), et le DEVIS TYPE (repartir d'un ancien devis). Les REMISES sont gérées proprement (par ligne ou globale, TVA recalculée sur le net). Mode rafale : 5 devis d'un coup, un récapitulatif, une validation.\n\n## Les garde-fous\n\nRien ne s'invente (une donnée manquante se demande), tous les calculs par script (y compris la conversion TTC vers HT), récapitulatif avant génération, passage d'année automatique dans la numérotation, document forcé noir sur blanc, geste PDF embarqué dans le fichier.\n\n## Éprouvé\n\nBanc d'essai avec/sans sur 3 scénarios + test débutant total + raffinerie indépendante (7 cas held-out, 24/24) + déclenchement mesuré 20/20.\n\n## Ce qu'il ne fait pas\n\nLes factures (c'est generer-facture), les relances, la signature électronique, les secteurs à devis réglementaire imposé (optique, audio, funéraire), le conseil juridique.",
+  "metadata": {
+    "changelog": [
+      {
+        "version": "1.1.1",
+        "date": "2026-07-21",
+        "changes": [
+          "Fiche Companion mise à jour : description et topo au niveau des capacités 1.1 (mémoires, remises, avoirs, export)."
+        ]
+      },
+      {
+        "version": "1.1.0",
+        "date": "2026-07-21",
+        "changes": [
+          "Remises conformes : par ligne (remise_pct/remise_montant) et globale (bloc remise), TVA calculée sur le net après remise.",
+          "Devis type : repartir des données d'un ancien devis ; préférences durables dans la fiche client (adresse de chantier, remise fidélité), proposées jamais imposées."
+        ]
+      },
+      {
+        "version": "1.0.3",
+        "date": "2026-07-21",
+        "changes": [
+          "Catalogue des prestations : chaque ligne générée est mémorisée (référence, désignation, détails, prix, TVA) et proposée à l'usage suivant, jamais appliquée sans confirmation.",
+          "Références produit affichées sur le devis (champ reference).",
+          "Passage d'année géré par le script : série annuelle remise à 1 au 1er janvier (reset_annuel:false pour numérotation continue)."
+        ]
+      },
+      {
+        "version": "1.0.2",
+        "date": "2026-07-21",
+        "changes": [
+          "Chaîne devis vers facture : le script écrit un fichier de données à côté de chaque devis (le skill generer-facture le lit pour facturer sans ressaisie).",
+          "Doctrine des prix HT/TTC : convention enregistrée au setup (prix_annonces), conversion TTC vers HT faite par le script (prix_unitaire_ttc).",
+          "Reprise d'une numérotation existante à son format exact (préfixe compris).",
+          "Bandeau d'aide PDF détaillé (menu Fichier, destination PDF, plan B navigateur)."
+        ]
+      },
+      {
+        "version": "1.0.1",
+        "date": "2026-07-21",
+        "changes": [
+          "Description de la fiche épurée."
+        ]
+      },
+      {
+        "version": "1.0.0",
+        "date": "2026-07-21",
+        "changes": [
+          "Première version : setup de première utilisation, mentions légales 2026 sourcées (service-public, Légifrance), rendu par script sans dépendance, carnet de clients, mode rafale, banc d'essai complet avec test débutant."
+        ]
+      }
+    ],
+    "companionSkillId": "5ec6d5eb-b1fc-4d8c-b2ea-1819297e3010"
+  },
+  "environment": {
+    "env": {},
+    "secrets": {}
+  },
+  "dependencies": {},
+  "commands": [],
+  "checks": {}
+}
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-devis/config/LISEZMOI.md =====
+# Dossier de configuration
+
+Ce dossier est vide à l'installation : il se remplit tout seul à ta
+première utilisation du skill.
+
+- `entreprise.json` : les informations de ton entreprise, collectées une
+  fois lors du setup (identité, TVA, assurance, habitudes de devis,
+  numérotation). C'est lui qui évite que le skill te repose les mêmes
+  questions à chaque devis.
+- `clients.json` : ton carnet de clients, enrichi automatiquement à chaque
+  devis pour ne jamais retaper une adresse.
+- `catalogue.json` : la mémoire de tes prestations et produits (référence,
+  désignation, prix, TVA), enrichie automatiquement. La prochaine fois que
+  tu vends la même chose, le skill te propose la fiche au lieu de tout
+  redemander ; c'est toujours toi qui confirmes le prix.
+- Ton logo, si tu en as donné un au setup.
+
+Pour modifier quelque chose, ne touche pas à ces fichiers : dis simplement
+au skill « j'ai changé d'adresse » (ou autre), il s'en occupe.
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-devis/references/exemple-config.json =====
+{
+  "entreprise": {
+    "nom": "Atelier Dupont",
+    "forme_juridique": "",
+    "mention_ei": true,
+    "adresse_lignes": ["12 rue des Lilas", "69003 Lyon"],
+    "siret": "123 456 789 00012",
+    "rcs_ou_rm": "",
+    "capital_social": "",
+    "telephone": "06 12 34 56 78",
+    "email": "contact@atelier-dupont.example",
+    "site_web": "",
+    "logo": null
+  },
+  "tva": {
+    "franchise": true,
+    "taux_defaut": 20,
+    "numero_tva_intra": "",
+    "prix_annonces": "demander"
+  },
+  "assurance": {
+    "obligatoire": true,
+    "type": "de responsabilité décennale",
+    "nom_assureur": "Assureur Exemple",
+    "coordonnees_assureur": "1 place de l'Assurance, 75000 Paris",
+    "couverture_geographique": "France métropolitaine"
+  },
+  "devis": {
+    "prefixe_numero": "DEV",
+    "prochain_numero": 12,
+    "format_numero": "{prefixe}-{annee}-{seq:03d}",
+    "validite_jours": 30,
+    "devis_gratuit": true,
+    "acompte": "30 % à la commande",
+    "conditions_paiement": "solde à la fin des travaux, par virement",
+    "iban": "",
+    "mentions_libres": []
+  },
+  "mediateur": {
+    "nom": "",
+    "site": ""
+  },
+  "champs_libres": [],
+  "metier": "batiment"
+}
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-devis/references/exemple-devis.json =====
+{
+  "client": {
+    "nom": "Madame Martin",
+    "adresse_lignes": ["8 avenue du Parc", "69006 Lyon"],
+    "email": "",
+    "telephone": "06 98 76 54 32",
+    "champs_libres": []
+  },
+  "lieu_execution": "8 avenue du Parc, 69006 Lyon",
+  "date_debut": "semaine du 4 août 2026",
+  "duree_estimee": "2 jours",
+  "lignes": [
+    {
+      "description": "Remplacement du chauffe-eau électrique 200 L",
+      "details": "Dépose de l'ancien appareil, fourniture et pose du nouveau, mise en service.",
+      "quantite": 1,
+      "unite": "forfait",
+      "prix_unitaire_ht": 980
+    },
+    {
+      "description": "Main d'œuvre supplémentaire : reprise de l'arrivée d'eau",
+      "quantite": 2,
+      "unite": "h",
+      "prix_unitaire_ht": 55
+    }
+  ],
+  "acompte": "",
+  "mentions_libres": [],
+  "champs_libres": []
+}
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-devis/references/mentions-obligatoires.md =====
+# Le devis en droit français : ce qui est obligatoire, ce qui est usage
+
+Référence pour répondre aux questions de l'utilisateur et remplir la
+configuration sans improviser. Chaque règle est marquée LOI (obligation
+textuelle) ou USAGE (pratique recommandée). État du droit : juillet 2026,
+sources officielles en bas de page. Ne jamais donner de conseil juridique
+personnalisé au-delà de ces règles : renvoyer aux sources.
+
+## Ce qu'est un devis
+
+LOI (droit des contrats). Le devis est une offre de contrat : il engage le
+professionnel sur le contenu et le prix pendant sa durée de validité
+(code civil, art. 1116 : l'offre ne peut pas être retirée avant l'expiration
+du délai fixé). Signé par le client, il devient un contrat qui engage les
+deux parties. La formule « bon pour accord » est un usage, pas une
+obligation : c'est la signature qui compte.
+
+## Quand le devis est obligatoire (clients particuliers)
+
+LOI. Fondement : art. L112-1 du code de la consommation + arrêtés
+sectoriels. Sanction : amende administrative jusqu'à 3 000 € (personne
+physique) / 15 000 € (société), art. L131-5.
+
+- Travaux et dépannage du bâtiment et de l'équipement de la maison
+  (plomberie, électricité, maçonnerie, toiture, serrurerie, isolation…) :
+  devis obligatoire avant exécution, SANS seuil de montant (arrêté du
+  24 janvier 2017).
+- Déménagement (arrêté du 27 avril 2010).
+- Services à la personne : devis GRATUIT obligatoire dès 100 € TTC par mois
+  (arrêté du 17 mars 2015).
+- Produits et prestations d'autonomie : dès 500 € TTC.
+- Chirurgie esthétique : dès 300 € ou anesthésie générale.
+- Location de véhicules sans chauffeur (< 3,5 t).
+- Optique, audioprothèse, funéraire : devis obligatoires sur MODÈLES
+  RÉGLEMENTAIRES imposés. Ce skill ne les couvre pas : le dire à
+  l'utilisateur de ces secteurs.
+
+Hors secteurs listés : devis non imposé, mais recommandé (il reste la
+meilleure preuve de l'accord).
+
+## Mentions générales du devis
+
+La liste la plus complète vient de l'arrêté du 24 janvier 2017 (art. 4),
+obligatoire pour le bâtiment ; ailleurs c'est l'usage conforme :
+
+- la mention « Devis » et la date de rédaction ;
+- nom, raison sociale, adresse, coordonnées du professionnel ;
+- nom et adresse du client ;
+- lieu d'exécution de la prestation (travaux) ;
+- décompte détaillé de chaque prestation et produit : quantité et prix
+  unitaire ; prix de la main-d'œuvre et frais de déplacement le cas
+  échéant ;
+- somme globale HT et TTC avec taux de TVA ;
+- durée de validité de l'offre ;
+- caractère gratuit ou payant du devis (le devis payant est légal si le
+  client en est informé AVANT) ;
+- date de début et durée estimée des travaux le cas échéant.
+
+## Mentions liées au statut (tous clients, y compris professionnels)
+
+- LOI. Sociétés : forme juridique + capital social (code de commerce,
+  art. R123-238), numéro SIREN + « RCS » et ville du greffe
+  (art. R123-237) sur les documents commerciaux.
+- LOI. Entrepreneur individuel (dont micro-entrepreneur) : le nom précédé
+  ou suivi immédiatement de « EI » ou « entrepreneur individuel » sur tout
+  document professionnel, devis compris (art. R526-27 code de commerce,
+  décret 2022-725 ; amende 750 €). Attention : le « répertoire des
+  métiers (RM) » n'existe plus, les artisans sont au Registre national des
+  entreprises (RNE) depuis 2023 ; ne pas mettre de mention RM.
+- LOI. Franchise en base de TVA (micro-entrepreneurs sous les seuils) :
+  mention exacte « TVA non applicable, art. 293 B du CGI », prix sans TVA.
+  Seuils 2026 confirmés : 85 000 € ventes / 37 500 € services (majorés
+  93 500 / 41 250). Le projet de seuil unique à 25 000 € a été ABANDONNÉ.
+
+## Artisans : l'assurance sur chaque devis
+
+LOI. Art. L132-1 du code de l'artisanat (reprend l'ancien art. 22-2 de la
+loi du 5 juillet 1996, abrogé en 2023) : les entreprises artisanales et
+micro-entrepreneurs dont le métier exige une assurance professionnelle
+(décennale du bâtiment notamment) indiquent sur CHAQUE devis et facture :
+l'assurance souscrite, les coordonnées de l'assureur, la couverture
+géographique du contrat. Le numéro de contrat est un usage utile, pas une
+obligation.
+
+## TVA réduite bâtiment (10 % et 5,5 %)
+
+LOI, règle récente. Depuis le 1er mars 2025 (loi de finances 2025,
+art. 41), plus d'attestation Cerfa : le client certifie DIRECTEMENT SUR LE
+DEVIS signé que le local d'habitation est achevé depuis plus de deux ans et
+que les conditions du taux réduit sont remplies. Le script ajoute cette
+mention automatiquement dès qu'une ligne porte un taux de 10 % ou 5,5 %.
+Chacun conserve sa copie (client : 5 ans).
+
+## Acompte, médiateur, et ce qui relève de la facture
+
+- Acompte : LOI sur la qualification. Par défaut, une somme versée d'avance
+  par un particulier est des « arrhes » (chacun peut se dédire,
+  art. L214-1 code conso). Pour un engagement ferme, écrire le mot
+  « acompte ». C'est ce que fait le modèle.
+- Médiateur de la consommation : LOI (art. L616-1 code conso), le
+  professionnel qui sert des particuliers doit communiquer son médiateur
+  (site, CGV ou bons de commande). Le devis est un bon support : champ
+  optionnel proposé au setup.
+- Pénalités de retard, escompte, indemnité de 40 € : obligatoires sur les
+  FACTURES entre professionnels (art. L441-9 code de commerce), pas sur les
+  devis. Les afficher sur un devis est un usage utile, jamais une erreur.
+- Numéro de devis : aucune obligation légale (contrairement à la facture),
+  mais indispensable en gestion : le skill numérote toujours.
+
+## Durée de validité
+
+LOI sur la mention (bâtiment), pas sur la durée : aucune durée légale.
+30 jours est l'usage courant (60 ou 90 selon les métiers). Pendant ce
+délai, l'offre engage le professionnel (art. 1116 code civil).
+
+## Sources officielles
+
+- entreprendre.service-public.gouv.fr/vosdroits/F31144 (devis
+  obligatoire : secteurs, mentions, sanctions)
+- legifrance.gouv.fr/jorf/id/JORFTEXT000033935513 (arrêté du 24 janvier
+  2017, art. 4 : contenu du devis bâtiment)
+- entreprendre.service-public.gouv.fr/vosdroits/F21746 (franchise de TVA,
+  seuils 2026, mention 293 B)
+- entreprendre.service-public.gouv.fr/actualites/A15744 (mention « EI »)
+- legifrance.gouv.fr/codes/article_lc/LEGIARTI000047362294 (L132-1 code de
+  l'artisanat : assurance sur devis et factures)
+- legifrance.gouv.fr : R123-237 et R123-238 code de commerce (SIREN, RCS,
+  forme, capital), L214-1 et L616-1 code de la consommation, art. 1116
+  code civil
+- service-public.fr/particuliers/actualites/A18088 et BOFiP
+  BOI-TVA-LIQ-30-20-90-40 (TVA réduite : certification sur devis depuis
+  mars 2025)
+===== FIN DU FICHIER =====
+
+===== FICHIER : generer-devis/scripts/generer_devis.py =====
+#!/usr/bin/env python3
+"""Générateur de devis : transforme la configuration de l'entreprise + les données
+du devis du jour en un fichier HTML A4 prêt à imprimer en PDF.
+
+Usage :
+  python3 generer_devis.py --config <config/entreprise.json> --devis <devis.json>
+                           [--sortie <dossier>] [--enregistrer]
+
+- --config    : le fichier de configuration créé au setup de première utilisation.
+- --devis     : les données du devis du jour (client, lignes, options).
+- --sortie    : dossier où écrire le devis (défaut : ./Devis).
+- --enregistrer : incrémente le compteur de numérotation dans la config et
+                  mémorise le client dans le carnet (config/clients.json).
+
+Le script est volontairement en Python standard, sans aucune dépendance :
+il doit tourner tel quel sur n'importe quelle machine.
+
+Tous les calculs (totaux, TVA) sont faits ici et seulement ici : l'agent ne
+calcule jamais un total à la main.
+"""
+
+import argparse
+import base64
+import datetime
+import html
+import json
+import mimetypes
+import os
+import re
+import sys
+import unicodedata
+
+MOIS_FR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet",
+           "août", "septembre", "octobre", "novembre", "décembre"]
+
+MENTION_FRANCHISE = "TVA non applicable, art. 293 B du CGI"
+
+
+def erreur(msg):
+    print(f"ERREUR : {msg}", file=sys.stderr)
+    sys.exit(1)
+
+
+def charger_json(chemin, nom):
+    if not os.path.exists(chemin):
+        erreur(f"fichier {nom} introuvable : {chemin}")
+    try:
+        with open(chemin, encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        erreur(f"le fichier {nom} n'est pas un JSON valide ({chemin}) : {e}")
+
+
+def date_fr(d):
+    return f"{d.day} {MOIS_FR[d.month - 1]} {d.year}"
+
+
+def parser_date(texte):
+    """Accepte AAAA-MM-JJ ou JJ/MM/AAAA."""
+    for fmt in ("%Y-%m-%d", "%d/%m/%Y"):
+        try:
+            return datetime.datetime.strptime(texte, fmt).date()
+        except ValueError:
+            continue
+    erreur(f"date illisible : « {texte} » (formats acceptés : AAAA-MM-JJ ou JJ/MM/AAAA)")
+
+
+def montant_fr(valeur):
+    """1234.5 -> « 1 234,50 € » (espace insécable fine pour les milliers)."""
+    entier, decimales = f"{valeur:,.2f}".split(".")
+    entier = entier.replace(",", " ")
+    return f"{entier},{decimales} €"
+
+
+def nombre_fr(valeur):
+    """Quantité : sans décimales inutiles (2.0 -> 2 ; 2.5 -> 2,5)."""
+    if float(valeur) == int(float(valeur)):
+        return str(int(float(valeur)))
+    return f"{float(valeur):g}".replace(".", ",")
+
+
+def slug(texte):
+    texte = unicodedata.normalize("NFKD", texte).encode("ascii", "ignore").decode()
+    texte = re.sub(r"[^A-Za-z0-9]+", "-", texte).strip("-")
+    return texte or "client"
+
+
+def e(texte):
+    return html.escape(str(texte), quote=True)
+
+
+def valider(config, devis):
+    """Vérifie que rien d'obligatoire ne manque. Les messages sont écrits pour
+    être montrés tels quels à l'utilisateur : clairs, en français, actionnables."""
+    manques = []
+
+    ent = config.get("entreprise", {})
+    for champ, libelle in [("nom", "le nom de l'entreprise"),
+                           ("adresse_lignes", "l'adresse de l'entreprise"),
+                           ("siret", "le numéro SIREN ou SIRET")]:
+        if not ent.get(champ):
+            manques.append(f"{libelle} (configuration, bloc « entreprise »)")
+
+    client = devis.get("client", {})
+    if not client.get("nom"):
+        manques.append("le nom du client (devis, bloc « client »)")
+    if not client.get("adresse_lignes"):
+        manques.append("l'adresse du client (devis, bloc « client »)")
+
+    lignes = devis.get("lignes", [])
+    if not lignes:
+        manques.append("au moins une ligne de prestation (devis, « lignes »)")
+    for i, l in enumerate(lignes, 1):
+        if not l.get("description"):
+            manques.append(f"la description de la ligne {i}")
+        if l.get("prix_unitaire_ht") is None and l.get("prix_unitaire_ttc") is None:
+            manques.append(f"le prix unitaire de la ligne {i} (HT ou TTC)")
+
+    tva = config.get("tva", {})
+    if not tva.get("franchise") and tva.get("taux_defaut") is None:
+        manques.append("le taux de TVA par défaut (configuration, bloc « tva ») "
+                       "ou le régime de franchise en base")
+
+    if config.get("assurance", {}).get("obligatoire"):
+        ass = config["assurance"]
+        if not ass.get("nom_assureur"):
+            manques.append("le nom de l'assureur (configuration, bloc « assurance » : "
+                           "obligatoire pour les activités du bâtiment)")
+
+    if manques:
+        erreur("le devis ne peut pas être généré, il manque :\n  - " + "\n  - ".join(manques))
+
+
+def numero_devis(config, devis, date_emission):
+    if devis.get("numero"):
+        return str(devis["numero"]), False
+    d = config.get("devis", {})
+    prefixe = d.get("prefixe_numero", "DEV")
+    seq = int(d.get("prochain_numero", 1))
+    fmt = d.get("format_numero", "{prefixe}-{annee}-{seq:03d}")
+    # Passage d'année : format avec année = série annuelle, la séquence repart
+    # à 1 au 1er janvier (désactivable avec "reset_annuel": false).
+    if "{annee}" in fmt and d.get("reset_annuel", True):
+        annee_serie = d.get("annee_serie")
+        if annee_serie is not None and int(annee_serie) != date_emission.year:
+            seq = 1
+    return fmt.format(prefixe=prefixe, annee=date_emission.year, seq=seq), True
+
+
+def bloc_logo(config, base_config):
+    chemin = config.get("entreprise", {}).get("logo")
+    if not chemin:
+        return f'<div style="font-size:16pt;font-weight:700;">{e(config["entreprise"]["nom"])}</div>'
+    if not os.path.isabs(chemin):
+        chemin = os.path.join(os.path.dirname(base_config), chemin)
+    if not os.path.exists(chemin):
+        print(f"AVERTISSEMENT : logo introuvable ({chemin}), le nom de l'entreprise est "
+              "affiché à la place.", file=sys.stderr)
+        return f'<div style="font-size:16pt;font-weight:700;">{e(config["entreprise"]["nom"])}</div>'
+    mime = mimetypes.guess_type(chemin)[0] or "image/png"
+    with open(chemin, "rb") as f:
+        b64 = base64.b64encode(f.read()).decode()
+    return f'<img src="data:{mime};base64,{b64}" alt="{e(config["entreprise"]["nom"])}">'
+
+
+def bloc_adresse(nom, lignes, extras):
+    out = [f'<div class="nom">{e(nom)}</div>']
+    for ligne in lignes:
+        out.append(f"<div>{e(ligne)}</div>")
+    for extra in extras:
+        out.append(f"<div>{e(extra)}</div>")
+    return "\n".join(out)
+
+
+def champ_libre_texte(cl):
+    """Un champ libre est soit une simple chaîne (affichée telle quelle), soit
+    un couple {label, valeur}. Les deux formes sont acceptées partout : un
+    utilisateur qui veut juste une ligne (« Membre des Artisans... ») ne doit
+    pas être forcé dans un format étiquette/valeur."""
+    if isinstance(cl, str):
+        return cl
+    return f"{cl['label']} : {cl['valeur']}"
+
+
+def construire_emetteur(config):
+    ent = config["entreprise"]
+    nom = ent["nom"]
+    if ent.get("forme_juridique"):
+        nom = f"{nom} ({ent['forme_juridique']})"
+    if ent.get("mention_ei"):
+        nom = f"{nom} EI"
+    extras = []
+    if ent.get("siret"):
+        extras.append(f"SIRET {ent['siret']}" if len(re.sub(r"\D", "", str(ent["siret"]))) == 14
+                      else f"SIREN {ent['siret']}")
+    for champ, gabarit in [("telephone", "Tél. {}"), ("email", "{}"), ("site_web", "{}")]:
+        if ent.get(champ):
+            extras.append(gabarit.format(ent[champ]))
+    for cl in config.get("champs_libres", []):
+        extras.append(champ_libre_texte(cl))
+    return bloc_adresse(nom, ent.get("adresse_lignes", []), extras)
+
+
+def construire_client(devis):
+    c = devis["client"]
+    extras = []
+    if c.get("siret"):
+        extras.append(f"SIRET {c['siret']}")
+    for champ in ("email", "telephone"):
+        if c.get(champ):
+            extras.append(c[champ])
+    for cl in c.get("champs_libres", []):
+        extras.append(champ_libre_texte(cl))
+    return bloc_adresse(c["nom"], c.get("adresse_lignes", []), extras)
+
+
+def construire_champs_devis(devis):
+    """Champs du jour hors tableau : lieu d'exécution, date de début, durée, champs libres."""
+    lignes = []
+    if devis.get("lieu_execution"):
+        lignes.append(("Lieu d'exécution", devis["lieu_execution"]))
+    if devis.get("date_debut"):
+        lignes.append(("Début de la prestation", devis["date_debut"]))
+    if devis.get("duree_estimee"):
+        lignes.append(("Durée estimée", devis["duree_estimee"]))
+    if devis.get("echeance"):
+        lignes.append(("À réaliser pour le", devis["echeance"]))
+    for cl in devis.get("champs_libres", []):
+        if isinstance(cl, str):
+            lignes.append((None, cl))
+        else:
+            lignes.append((cl["label"], cl["valeur"]))
+    if not lignes:
+        return ""
+    interieur = "\n".join(
+        f"<div>{e(v)}</div>" if l is None else f"<div><strong>{e(l)} :</strong> {e(v)}</div>"
+        for l, v in lignes)
+    return f'<section class="champs-devis">\n{interieur}\n</section>'
+
+
+def calculer(config, devis):
+    """Totaux HT, TVA par taux, TTC, avec remises. Les remises par ligne
+    (remise_pct ou remise_montant) s'appliquent au montant de la ligne ; la
+    remise globale du devis ({libelle, pourcentage} ou {libelle, montant_ht})
+    se répartit au prorata des taux, et la TVA se calcule TOUJOURS sur le net
+    après remise. Seule source de vérité des calculs."""
+    franchise = bool(config.get("tva", {}).get("franchise"))
+    taux_defaut = config.get("tva", {}).get("taux_defaut", 20)
+    brut_par_taux = {}
+    lignes_calc = []
+    for l in devis["lignes"]:
+        qte = float(l.get("quantite", 1))
+        taux = 0 if franchise else float(l.get("taux_tva", taux_defaut))
+        if l.get("prix_unitaire_ht") is not None:
+            pu = float(l["prix_unitaire_ht"])
+        else:
+            # Prix annoncé en TTC : la conversion vers le HT se fait ICI, jamais
+            # de tête par l'agent (en franchise, TTC = HT, le taux vaut 0).
+            pu = round(float(l["prix_unitaire_ttc"]) / (1 + taux / 100), 2)
+        brut = round(qte * pu, 2)
+        remise = 0.0
+        if l.get("remise_pct"):
+            remise = round(brut * float(l["remise_pct"]) / 100, 2)
+        elif l.get("remise_montant"):
+            remise = round(float(l["remise_montant"]), 2)
+        montant = round(brut - remise, 2)
+        brut_par_taux[taux] = round(brut_par_taux.get(taux, 0.0) + montant, 2)
+        lignes_calc.append({**l, "quantite": qte, "prix_unitaire_ht": pu,
+                            "montant_brut_ht": brut, "remise_ht": remise,
+                            "montant_ht": montant, "taux_tva": taux})
+    total_avant_remise = round(sum(brut_par_taux.values()), 2)
+    remise_g = 0.0
+    libelle_remise = ""
+    rg = devis.get("remise")
+    if rg and total_avant_remise > 0:
+        libelle_remise = rg.get("libelle", "Remise")
+        if rg.get("pourcentage") is not None:
+            remise_g = round(total_avant_remise * float(rg["pourcentage"]) / 100, 2)
+            libelle_remise += f" ({nombre_fr(rg['pourcentage'])} %)"
+        else:
+            remise_g = round(float(rg["montant_ht"]), 2)
+        restant = remise_g
+        taux_tries = sorted(brut_par_taux)
+        for i, taux in enumerate(taux_tries):
+            part = restant if i == len(taux_tries) - 1 else \
+                round(remise_g * brut_par_taux[taux] / total_avant_remise, 2)
+            brut_par_taux[taux] = round(brut_par_taux[taux] - part, 2)
+            restant = round(restant - part, 2)
+    total_ht = round(sum(brut_par_taux.values()), 2)
+    tva_par_taux = {}
+    if not franchise:
+        for taux, base in brut_par_taux.items():
+            if taux:
+                tva_par_taux[taux] = round(base * taux / 100, 2)
+    total_tva = round(sum(tva_par_taux.values()), 2)
+    total_ttc = round(total_ht + total_tva, 2)
+    return {"franchise": franchise, "lignes": lignes_calc, "total_ht": total_ht,
+            "total_ht_avant_remise": total_avant_remise, "remise_globale_ht": remise_g,
+            "libelle_remise": libelle_remise,
+            "tva_par_taux": tva_par_taux, "total_tva": total_tva, "total_ttc": total_ttc}
+
+
+def construire_tableau(calc):
+    franchise = calc["franchise"]
+    plusieurs_taux = len(calc["tva_par_taux"]) > 1
+    entetes = ["<th>Désignation</th>", '<th class="num">Qté</th>',
+               '<th class="num">PU HT</th>']
+    if plusieurs_taux:
+        entetes.append('<th class="num">TVA</th>')
+    entetes.append('<th class="num">Total HT</th>')
+    rangs = []
+    for l in calc["lignes"]:
+        titre = l["description"]
+        if l.get("reference"):
+            titre = f"{titre} (réf. {l['reference']})"
+        desc = f"<strong>{e(titre)}</strong>"
+        if l.get("details"):
+            desc += f'<div class="desc-details">{e(l["details"])}</div>'
+        if l.get("remise_ht"):
+            detail_remise = f"Remise : -{montant_fr(l['remise_ht'])}"
+            if l.get("remise_pct"):
+                detail_remise += f" ({nombre_fr(l['remise_pct'])} %)"
+            desc += f'<div class="desc-details">{e(detail_remise)}</div>'
+        qte = nombre_fr(l["quantite"])
+        if l.get("unite"):
+            unite = l["unite"]
+            # Accord du pluriel des unités en toutes lettres (« 3 paires », « 2 jours »).
+            # Les symboles courts (h, m2, kg...) et les mots déjà au pluriel restent tels quels.
+            if l["quantite"] > 1 and len(unite) > 2 and unite[-1].isalpha() \
+               and unite[-1] not in "sxz":
+                unite += "s"
+            qte += f" {e(unite)}"
+        cellules = [f"<td>{desc}</td>", f'<td class="num">{qte}</td>',
+                    f'<td class="num">{montant_fr(l["prix_unitaire_ht"])}</td>']
+        if plusieurs_taux:
+            cellules.append(f'<td class="num">{nombre_fr(l["taux_tva"])} %</td>')
+        cellules.append(f'<td class="num">{montant_fr(l["montant_ht"])}</td>')
+        rangs.append("<tr>" + "".join(cellules) + "</tr>")
+    return "".join(entetes), "\n".join(rangs)
+
+
+def construire_totaux(calc):
+    rangs = []
+    if calc.get("remise_globale_ht"):
+        rangs.append(f"<tr><td>Total HT avant remise</td>"
+                     f"<td>{montant_fr(calc['total_ht_avant_remise'])}</td></tr>")
+        rangs.append(f"<tr><td>{e(calc['libelle_remise'])}</td>"
+                     f"<td>-{montant_fr(calc['remise_globale_ht'])}</td></tr>")
+    rangs.append(f"<tr><td>Total HT</td><td>{montant_fr(calc['total_ht'])}</td></tr>")
+    if calc["franchise"]:
+        rangs.append(f'<tr class="total-final"><td>Total à payer</td>'
+                     f"<td>{montant_fr(calc['total_ht'])}</td></tr>")
+    else:
+        for taux in sorted(calc["tva_par_taux"]):
+            rangs.append(f"<tr><td>TVA {nombre_fr(taux)} %</td>"
+                         f"<td>{montant_fr(calc['tva_par_taux'][taux])}</td></tr>")
+        rangs.append(f'<tr class="total-final"><td>Total TTC</td>'
+                     f"<td>{montant_fr(calc['total_ttc'])}</td></tr>")
+    return "\n".join(rangs)
+
+
+def construire_mentions(config, devis, calc, date_validite):
+    d = config.get("devis", {})
+    mentions = []
+    mentions.append(f"Devis {'gratuit' if d.get('devis_gratuit', True) else 'payant'}, "
+                    f"valable jusqu'au {date_fr(date_validite)}.")
+    if calc["franchise"]:
+        mentions.append(MENTION_FRANCHISE + ".")
+    if devis.get("acompte") or d.get("acompte"):
+        mentions.append(f"Acompte : {devis.get('acompte') or d.get('acompte')}.")
+    if d.get("conditions_paiement"):
+        mentions.append(f"Règlement : {d['conditions_paiement']}.")
+    if d.get("iban"):
+        mentions.append(f"IBAN : {d['iban']}.")
+    ass = config.get("assurance", {})
+    if ass.get("obligatoire") and ass.get("nom_assureur"):
+        texte = (f"Assurance {ass.get('type', 'de responsabilité décennale')} souscrite auprès de "
+                 f"{ass['nom_assureur']}")
+        if ass.get("coordonnees_assureur"):
+            texte += f" ({ass['coordonnees_assureur']})"
+        if ass.get("couverture_geographique"):
+            texte += f", couverture géographique : {ass['couverture_geographique']}"
+        mentions.append(texte + ".")
+    taux_reduits = [t for t in calc["tva_par_taux"] if t in (5.5, 10.0)]
+    if taux_reduits:
+        # Depuis le 1er mars 2025 (LF 2025, art. 41), l'attestation Cerfa est remplacée
+        # par une certification portée directement sur le devis signé.
+        mentions.append("En signant ce devis, le client certifie que les travaux portent sur "
+                        "un local d'habitation achevé depuis plus de deux ans et que les "
+                        "conditions d'application du taux réduit de TVA sont remplies.")
+    med = config.get("mediateur", {})
+    if med.get("nom"):
+        texte = f"Médiateur de la consommation : {med['nom']}"
+        if med.get("site"):
+            texte += f" (site : {med['site']})"
+        mentions.append(texte + ".")
+    for m in d.get("mentions_libres", []):
+        mentions.append(m)
+    for m in devis.get("mentions_libres", []):
+        mentions.append(m)
+    mentions.append("Le devis signé avec la mention « bon pour accord » engage les deux parties.")
+    return "\n".join(f"<p>{e(m)}</p>" for m in mentions)
+
+
+def construire_pied(config):
+    ent = config["entreprise"]
+    morceaux = [ent["nom"]]
+    if ent.get("forme_juridique"):
+        morceaux[-1] += f" — {ent['forme_juridique']}"
+    if ent.get("mention_ei"):
+        morceaux[-1] += " EI"
+    if ent.get("capital_social"):
+        morceaux.append(f"Capital social : {ent['capital_social']}")
+    if ent.get("siret"):
+        morceaux.append(f"SIRET {ent['siret']}")
+    if ent.get("rcs_ou_rm"):
+        morceaux.append(ent["rcs_ou_rm"])
+    tva = config.get("tva", {})
+    if tva.get("numero_tva_intra"):
+        morceaux.append(f"TVA intracommunautaire : {tva['numero_tva_intra']}")
+    return e(" · ".join(morceaux))
+
+
+def main():
+    p = argparse.ArgumentParser(description="Génère un devis HTML prêt à imprimer en PDF.")
+    p.add_argument("--config", required=True)
+    p.add_argument("--devis", required=True)
+    p.add_argument("--sortie", default="Devis")
+    p.add_argument("--enregistrer", action="store_true",
+                   help="incrémente le compteur et mémorise le client dans le carnet")
+    args = p.parse_args()
+
+    config = charger_json(args.config, "de configuration")
+    devis = charger_json(args.devis, "du devis")
+    valider(config, devis)
+
+    date_emission = parser_date(devis["date"]) if devis.get("date") else datetime.date.today()
+    validite_jours = int(config.get("devis", {}).get("validite_jours", 30))
+    date_validite = date_emission + datetime.timedelta(days=validite_jours)
+    numero, numero_auto = numero_devis(config, devis, date_emission)
+
+    calc = calculer(config, devis)
+    entetes, rangs = construire_tableau(calc)
+
+    modele_chemin = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 "..", "assets", "modele-devis.html")
+    with open(modele_chemin, encoding="utf-8") as f:
+        page = f.read()
+
+    remplacements = {
+        "{{TITRE_DOCUMENT}}": e(f"Devis {numero} — {devis['client']['nom']}"),
+        "{{BLOC_LOGO}}": bloc_logo(config, args.config),
+        "{{NUMERO}}": e(numero),
+        "{{DATE_EMISSION}}": e(date_fr(date_emission)),
+        "{{DATE_VALIDITE}}": e(date_fr(date_validite)),
+        "{{BLOC_EMETTEUR}}": construire_emetteur(config),
+        "{{BLOC_CLIENT}}": construire_client(devis),
+        "{{BLOC_CHAMPS_DEVIS}}": construire_champs_devis(devis),
+        "{{ENTETES_COLONNES}}": entetes,
+        "{{LIGNES_TABLEAU}}": rangs,
+        "{{LIGNES_TOTAUX}}": construire_totaux(calc),
+        "{{BLOC_MENTIONS}}": construire_mentions(config, devis, calc, date_validite),
+        "{{NOM_EMETTEUR}}": e(config["entreprise"]["nom"]),
+        "{{PIED_DE_PAGE}}": construire_pied(config),
+    }
+    for cle, valeur in remplacements.items():
+        page = page.replace(cle, valeur)
+
+    os.makedirs(args.sortie, exist_ok=True)
+    nom_fichier = f"Devis-{slug(numero)}-{slug(devis['client']['nom'])}.html"
+    chemin_sortie = os.path.join(args.sortie, nom_fichier)
+    with open(chemin_sortie, "w", encoding="utf-8") as f:
+        f.write(page)
+
+    # Fichier de données à côté du devis (même nom, extension .json) : c'est lui
+    # qui permet à un autre outil (ex. le générateur de factures) de reprendre le
+    # devis sans aucune ressaisie. Il contient les données du jour ET les totaux
+    # calculés, figés au moment de la génération.
+    donnees = {
+        "type": "devis",
+        "genere_par": "generer-devis",
+        "numero": numero,
+        "date_emission": date_emission.isoformat(),
+        "valable_jusquau": date_validite.isoformat(),
+        "client": devis["client"],
+        "lignes": calc["lignes"],
+        "totaux": {
+            "total_ht": calc["total_ht"],
+            "tva_par_taux": {str(k): v for k, v in calc["tva_par_taux"].items()},
+            "total_tva": calc["total_tva"],
+            "total_ttc": calc["total_ttc"],
+            "franchise_tva": calc["franchise"],
+        },
+        "acompte": devis.get("acompte") or config.get("devis", {}).get("acompte", ""),
+        "lieu_execution": devis.get("lieu_execution", ""),
+        "date_debut": devis.get("date_debut", ""),
+        "duree_estimee": devis.get("duree_estimee", ""),
+        "echeance": devis.get("echeance", ""),
+    }
+    with open(chemin_sortie[:-5] + ".json", "w", encoding="utf-8") as f:
+        json.dump(donnees, f, ensure_ascii=False, indent=2)
+
+    if args.enregistrer:
+        if numero_auto:
+            d = config.setdefault("devis", {})
+            fmt = d.get("format_numero", "{prefixe}-{annee}-{seq:03d}")
+            if "{annee}" in fmt and d.get("reset_annuel", True) and \
+               d.get("annee_serie") is not None and int(d["annee_serie"]) != date_emission.year:
+                d["prochain_numero"] = 2  # le 001 vient d'être émis
+            else:
+                d["prochain_numero"] = int(d.get("prochain_numero", 1)) + 1
+            d["annee_serie"] = date_emission.year
+            with open(args.config, "w", encoding="utf-8") as f:
+                json.dump(config, f, ensure_ascii=False, indent=2)
+        carnet_chemin = os.path.join(os.path.dirname(os.path.abspath(args.config)), "clients.json")
+        carnet = {"clients": []}
+        if os.path.exists(carnet_chemin):
+            with open(carnet_chemin, encoding="utf-8") as f:
+                carnet = json.load(f)
+        c = devis["client"]
+        deja = next((x for x in carnet["clients"]
+                     if x["nom"].strip().lower() == c["nom"].strip().lower()), None)
+        if deja:
+            deja.update(c)
+        else:
+            carnet["clients"].append(c)
+        with open(carnet_chemin, "w", encoding="utf-8") as f:
+            json.dump(carnet, f, ensure_ascii=False, indent=2)
+
+        # Catalogue des prestations : même mécanisme que le carnet clients.
+        # Chaque ligne générée est mémorisée (référence, désignation, détails,
+        # unité, prix, taux) pour être PROPOSÉE la prochaine fois, jamais
+        # appliquée en silence. Une ligne redonnée avec un nouveau prix met
+        # sa fiche à jour.
+        cat_chemin = os.path.join(os.path.dirname(os.path.abspath(args.config)), "catalogue.json")
+        catalogue = {"prestations": []}
+        if os.path.exists(cat_chemin):
+            with open(cat_chemin, encoding="utf-8") as f:
+                catalogue = json.load(f)
+
+        def meme_fiche(fiche, ligne):
+            if fiche.get("reference") and ligne.get("reference"):
+                return fiche["reference"].strip().lower() == ligne["reference"].strip().lower()
+            return fiche["designation"].strip().lower() == ligne["description"].strip().lower()
+
+        for l in calc["lignes"]:
+            fiche = {"reference": l.get("reference"), "designation": l["description"],
+                     "details": l.get("details", ""), "unite": l.get("unite", ""),
+                     "prix_unitaire_ht": l["prix_unitaire_ht"], "taux_tva": l["taux_tva"]}
+            deja = next((x for x in catalogue["prestations"] if meme_fiche(x, l)), None)
+            if deja:
+                deja.update(fiche)
+            else:
+                catalogue["prestations"].append(fiche)
+        with open(cat_chemin, "w", encoding="utf-8") as f:
+            json.dump(catalogue, f, ensure_ascii=False, indent=2)
+
+    recap = {
+        "fichier": chemin_sortie,
+        "numero": numero,
+        "date": date_fr(date_emission),
+        "valable_jusquau": date_fr(date_validite),
+        "total_ht": montant_fr(calc["total_ht"]),
+        "total_tva": montant_fr(calc["total_tva"]) if not calc["franchise"] else "franchise de TVA",
+        "total_ttc": montant_fr(calc["total_ttc"]),
+        "compteur_mis_a_jour": bool(args.enregistrer and numero_auto),
+    }
+    print(json.dumps(recap, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+===== FIN DU FICHIER =====
