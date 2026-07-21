@@ -66,8 +66,16 @@ a.pp-row:hover .pp-row-t { color: var(--orange); }
 .pp-hero1 { margin-top: 2.6rem; border: 1px solid var(--orange); border-radius: 12px; padding: 1.6rem 1.7rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; background: var(--bg-2); }
 .pp-hero1 .pp-row-d { max-width: 60ch; }
 .pp-suite-h { font-size: 1.15rem; font-weight: 700; letter-spacing: -.015em; margin: 0; }
+.pp-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin-top: 2.6rem; align-items: start; }
+.pp-panel { position: relative; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 1.6rem 0.4rem; }
+.pp-panel.reco { border-color: var(--orange); }
+.pp-panel-count { font-family: var(--font-geist-mono), monospace; font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); white-space: nowrap; }
+.pp-panel .pp-rows { border-bottom: none; margin-top: 1rem; }
+.pp-surf { margin-top: 1.15rem; background: var(--bg-2); border-radius: 10px; padding: .2rem 1.2rem; }
+.pp-surf .pp-rows { border-bottom: none; margin-top: 0; }
+.pp-reco-line { margin: .55rem 0 0; font-family: var(--font-geist-mono), monospace; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--orange); }
 @media (max-width: 860px) {
-  .pp-cols { grid-template-columns: 1fr; }
+  .pp-cols, .pp-panels { grid-template-columns: 1fr; }
   .pp-col + .pp-col { border-left: none; padding-left: 0; margin-top: 2.5rem; }
   .pp-hero1 { grid-template-columns: 1fr; }
 }
@@ -194,6 +202,73 @@ export default async function Proto({
             </div>
           </div>
           <div style={{ marginTop: "2.6rem" }}>
+            <Quiz compact />
+          </div>
+        </>
+      )}
+
+      {v === "4" && (
+        <>
+          <div className="pp-panels">
+            <div className="pp-panel reco">
+              <span className="pc-reco-tag">Conseillé d&apos;après ton quiz</span>
+              <div className="pp-sec-head">
+                <h2 className="pp-cat-h" style={{ fontSize: "1.6rem" }}>
+                  Apprendre à construire
+                </h2>
+                <span className="pp-panel-count">3 modules</span>
+              </div>
+              <p className="pp-cat-sub">
+                Tu fabriques tes propres trucs, pas à pas, et tu montes en compétence.
+              </p>
+              <RowsConstruire compactCols />
+            </div>
+            <div className="pp-panel">
+              <div className="pp-sec-head">
+                <h2 className="pp-cat-h" style={{ fontSize: "1.6rem" }}>
+                  Automatiser ton business
+                </h2>
+                <span className="pp-panel-count">En préparation</span>
+              </div>
+              <p className="pp-cat-sub">
+                Tu mets l&apos;IA au travail sur les tâches qui te font perdre du temps.
+              </p>
+              <RowsAutomatiser compactCols />
+            </div>
+          </div>
+          <div style={{ marginTop: "2rem" }}>
+            <Quiz compact />
+          </div>
+        </>
+      )}
+
+      {v === "5" && (
+        <>
+          <div className="pp-cols" style={{ gap: "0 3.5rem" }}>
+            <div className="pp-col">
+              <h2 className="pp-cat-h">Apprendre à construire</h2>
+              <p className="pp-reco-line">Conseillé d&apos;après ton quiz</p>
+              <p className="pp-cat-sub">
+                Tu fabriques tes propres trucs, pas à pas, et tu montes en compétence.
+              </p>
+              <div className="pp-surf">
+                <RowsConstruire compactCols />
+              </div>
+            </div>
+            <div className="pp-col" style={{ borderLeft: "none", paddingLeft: 0 }}>
+              <div className="pp-sec-head">
+                <h2 className="pp-cat-h">Automatiser ton business</h2>
+                <span className="pp-soon-tag">En préparation</span>
+              </div>
+              <p className="pp-cat-sub" style={{ marginTop: "1.5rem" }}>
+                Tu mets l&apos;IA au travail sur les tâches qui te font perdre du temps.
+              </p>
+              <div className="pp-surf">
+                <RowsAutomatiser compactCols />
+              </div>
+            </div>
+          </div>
+          <div style={{ marginTop: "2.4rem" }}>
             <Quiz compact />
           </div>
         </>
