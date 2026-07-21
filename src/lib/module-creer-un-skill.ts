@@ -190,7 +190,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         ceQueTuDoisVoir:
           `Une fois le skill collé et envoyé, Claude Code te confirme qu'il est installé et disponible.
 
-Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne « Skill : create-skill-tools » qui s'affiche. Si elle n'apparaît pas, ferme et rouvre Claude Code puis redemande.
+Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne au nom du skill (du genre « Skill : create-skill-tools ») qui s'affiche. Si elle n'apparaît pas, ferme et rouvre Claude Code puis redemande.
 
 Le Skill Creator peut te poser quelques questions avant de créer, parfois trois ou quatre, y compris « quel format de sortie ? », autrement dit sous quelle forme tu veux le résultat. Réponds avec tes mots (« un texte dans la conversation », « un fichier »), ou dis simplement « choisis pour moi » : il n'y a pas de mauvaise réponse.
 
