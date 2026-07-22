@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
+import { etapesDetailAutomatisation, prerequisAutomatisation } from "@/lib/module-automatisation";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
+import PrerequisSection from "@/components/Prerequis";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Automatise ton travail — The Vibe Experience" };
@@ -52,6 +53,9 @@ export default function ModuleAutomatisation() {
             un garde-fou qui t&apos;empêche de casser, un bilan qui t&apos;attend chaque vendredi.
             Rien de neuf à installer : tu branches ce que tu as déjà.
           </p>
+
+          {/* Volontairement AVANT les étapes : on rassemble, puis on déroule. */}
+          <PrerequisSection items={prerequisAutomatisation} intro="Rien de neuf à installer : tout est déjà chez toi si tu as fait les modules précédents. La seule contrainte nouvelle, c'est ton Mac allumé à l'heure de tes rendez-vous." />
 
           <ModuleSidePanel
             moduleKey="/automatiser-ton-travail"

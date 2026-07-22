@@ -30,6 +30,12 @@ export default function ModuleSidePanel({
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const started = mounted && stats.doneCount > 0;
 
+  // Toujours accessible, dans les trois états et depuis une page d'étape :
+  // le lien absolu ramène à la section de la page du module, jamais un cul-de-sac.
+  const prerequis = (
+    <Link href={`${basePath}#ce-quil-te-faut`}>Ce qu&apos;il te faut sous la main →</Link>
+  );
+
   if (started && stats.allDone) {
     return (
       <aside className="module-side" aria-label="Où tu en es dans le module">
@@ -41,6 +47,7 @@ export default function ModuleSidePanel({
         </Link>
         <div className="module-side-links">
           <Link href={`${basePath}/${etapes[0]?.slug}`}>Revoir le module →</Link>
+          {prerequis}
         </div>
       </aside>
     );
@@ -78,6 +85,7 @@ export default function ModuleSidePanel({
             <em>fait</em>
           </span>
         </div>
+        <div className="module-side-links">{prerequis}</div>
       </aside>
     );
   }
@@ -97,6 +105,7 @@ export default function ModuleSidePanel({
         <span>Par ici</span>
         <strong>Commencer le module →</strong>
       </Link>
+      <div className="module-side-links">{prerequis}</div>
     </aside>
   );
 }

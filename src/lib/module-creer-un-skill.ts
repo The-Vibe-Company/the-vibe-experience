@@ -1,4 +1,4 @@
-import type { EtapeDetail } from "./module-faire-un-site";
+import type { EtapeDetail, Prerequis } from "./module-faire-un-site";
 
 const F = {
   claudecode: {
@@ -37,6 +37,29 @@ export const skillToolbox: { n: string; d: string; cost: "gratuit" | "gratuit-de
     d: "Le seul outil du module. Tu l'as depuis ton premier projet, rien de neuf à installer.",
     cost: "payant",
     costNote: "Le même abonnement Claude Pro que pour ton site. Rien de plus.",
+  },
+];
+
+export const prerequisSkill: Prerequis[] = [
+  {
+    quoi: "Claude Code installé et connecté",
+    niveau: "obligatoire",
+    ou: "Avec son abonnement payant. Si tu as fait le module « Fais ton premier site », tu l'as déjà. Sinon, son étape 0 te guide clic par clic.",
+  },
+  {
+    quoi: "Un dossier de projet à ouvrir",
+    niveau: "obligatoire",
+    ou: "Ton site du module précédent, de préférence : l'étape 1 s'en sert pour repérer ce que tu réexpliques tout le temps. N'importe quel dossier marche aussi, un skill se range chez toi, pas dans un projet.",
+  },
+  {
+    quoi: "Une répétition en tête",
+    niveau: "conseille",
+    ou: "Ce que tu réexpliques sans arrêt à l'IA : ton style visuel, ta vérif avant de publier. On la trouve ensemble à l'étape 1, mais y avoir pensé aide.",
+  },
+  {
+    quoi: "De quoi noter",
+    niveau: "conseille",
+    ou: "Une note sur ton ordi ou un papier : tu vas écrire ta répétition en une phrase, et ça matérialise la décision.",
   },
 ];
 

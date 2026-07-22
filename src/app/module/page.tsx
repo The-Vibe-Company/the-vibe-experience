@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { etapesDetail } from "@/lib/module-faire-un-site";
+import { etapesDetail, prerequisSite } from "@/lib/module-faire-un-site";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
+import PrerequisSection from "@/components/Prerequis";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
@@ -75,6 +76,9 @@ export default function Module() {
             mise en ligne, en apprenant les vrais outils au passage. On ne t&apos;impose rien, on
             t&apos;accompagne pas à pas.
           </p>
+
+          {/* Volontairement AVANT les étapes : on rassemble, puis on déroule. */}
+          <PrerequisSection items={prerequisSite} intro="Rassemble ça avant de commencer. Le seul point qui peut te bloquer net, c'est l'abonnement : sans lui, Claude Code ne s'ouvre pas." />
 
           <ModuleSidePanel
             moduleKey="/module"

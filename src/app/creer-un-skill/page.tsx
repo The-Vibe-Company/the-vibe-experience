@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { etapesDetailSkill, skillToolbox, skillGifts } from "@/lib/module-creer-un-skill";
+import { etapesDetailSkill, skillToolbox, skillGifts, prerequisSkill } from "@/lib/module-creer-un-skill";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
+import PrerequisSection from "@/components/Prerequis";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
@@ -58,6 +59,9 @@ export default function ModuleSkill() {
             fabriques le tien : une compétence que tu apprends une fois à l&apos;IA et qu&apos;elle
             réutilise ensuite toute seule, sur tous tes projets.
           </p>
+
+          {/* Volontairement AVANT les étapes : on rassemble, puis on déroule. */}
+          <PrerequisSection items={prerequisSkill} intro="Presque rien, si tu sors du module précédent : tu as déjà tout. Ce qui compte ici, c'est d'ouvrir un vrai projet plutôt qu'un dossier vide." />
 
           <ModuleSidePanel
             moduleKey="/creer-un-skill"

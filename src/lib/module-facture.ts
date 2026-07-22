@@ -1,5 +1,4 @@
-import type { EtapeDetail } from "./module-faire-un-site";
-import type { Prerequis } from "./module-devis";
+import type { EtapeDetail, Prerequis } from "./module-faire-un-site";
 
 // Module « Automatise tes factures » — famille RÉSULTAT (Automatiser ton business).
 // BROUILLON en review. Deuxième module de la famille, compagnon du module devis :
@@ -60,7 +59,7 @@ export const etapesDetailFacture: EtapeDetail[] = [
   {
     slug: "0",
     num: "0",
-    titre: "Ce qu'il te faut",
+    titre: "Prépare ton poste",
     tag: ["Setup", "t-build"],
     dur: "≈ 5 min (0 si tu as déjà l'app)",
     obj: "Deux choses. Un outil : l'app Claude Code avec un abonnement payant (Pro, autour de 20 € par mois, suffit). Et tes papiers : IBAN, délai de paiement, numéro de ta dernière facture. La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Si tu utilises déjà le skill devis, il récupère le reste tout seul et le setup sera encore plus court.",
