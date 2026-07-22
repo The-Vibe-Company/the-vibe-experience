@@ -4,8 +4,8 @@ import type { EtapeDetail } from "./module-faire-un-site";
 // BROUILLON en review sur /automatiser-ton-travail (pages câblées, listé dans le
 // parcours avec le statut « En écriture »). Vécus Victor intégrés le 2026-07-20.
 // Captures en place : le hook installé (1.2), le garde-fou qui bloque (2.2), les
-// Routines de la barre latérale (3.2). Reste la dernière [CAPTURE] (la tâche
-// programmée qui se déclenche), et les cadeaux (décision Victor :
+// Routines de la barre latérale (3.2), la routine qui tourne seule (3.3).
+// Reste : les cadeaux (décision Victor :
 // rien de confidentiel, offrir les hooks maison réplicables à forte valeur ;
 // candidats : le garde-fou prod « pas de mise en ligne sans OK explicite » et le
 // hook de documentation ; à packager depuis les vrais configs, comme au module 2).
@@ -267,7 +267,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         // [À VÉRIFIER avant publication : le comportement si le Mac est éteint à l'heure dite
         // (rattrapage au réveil ou passage sauté ?). Le libellé de la barre latérale
         // (« Routines ») est confirmé par la capture de Victor du 21/07.]
-        // [CAPTURE] La tâche d'essai qui se déclenche toute seule + le fichier bilan.md apparu.
+        // [CAPTURE optionnelle] Le passage d'essai qui se déclenche + bilan.md apparu.
+        // Le principe (une routine qui tourne seule) est déjà illustré en 3.3.
         monExemple:
           "Dans ma barre latérale (capture ci-dessus), il y a aujourd'hui deux rendez-vous : la proposition de sujets de contenu de la semaine, et le bilan du soir. C'est devenu le rythme normal de mes semaines : ces trucs-là arrivent, que j'y pense ou non.",
         conseil:
@@ -280,7 +281,12 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Une routine se juge sur la durée. Celle-ci va tourner vendredi, puis tous les vendredis. Ton seul travail : lire le bilan, et ajuster la consigne si le résultat ne te plaît pas.",
         attendu: "Ta routine vit sa vie. Toi, tu lis le résultat et tu affines la consigne de temps en temps.",
         ceQueTuDoisVoir:
-          "Vendredi soir, un bilan.md mis à jour t'attend dans ton projet, sans que tu aies rien demandé. Si le contenu ne te convient pas, ne supprime pas la routine : dis simplement « à partir de maintenant, ajoute aussi [ce qui manque] dans le bilan ».",
+          "Vendredi soir, un bilan.md mis à jour t'attend dans ton projet, sans que tu aies rien demandé. Dans l'app, la routine a laissé sa trace : elle a travaillé toute seule et s'est terminée par une ligne de conclusion (capture ci-dessous). Si le contenu ne te convient pas, ne supprime pas la routine : dis simplement « à partir de maintenant, ajoute aussi [ce qui manque] dans le bilan ».",
+        visuel: {
+          src: "/module/3-3-routine-tourne.png",
+          alt: "Une routine programmée en train de travailler dans Claude Code : elle lance un skill, enchaîne plusieurs commandes, puis conclut par « Bilan du soir du 21 juillet, fait ».",
+          legende: "Mon bilan du soir, un vrai rendez-vous programmé : il part sans moi, enchaîne son travail et se termine tout seul. Mon app est en anglais, la tienne parlera français.",
+        },
         siCaBloque:
           "Vendredi est passé et pas de bilan ? Premier réflexe : ton Mac était-il allumé à 17h ? Si non, c'est la limite honnête de la routine locale (déplace l'horaire). Si oui, demande « pourquoi ma tâche du vendredi n'a pas tourné ? ».",
         monExemple:
