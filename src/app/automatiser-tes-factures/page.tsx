@@ -98,7 +98,7 @@ export default function ModuleFacture() {
             <div className="tfilet">
               <span className="tfilet-name">
                 Générer une facture
-                <span className="cost cost-gratuit">Offert</span>
+                <span className="cost cost-gratuit">Gratuit</span>
               </span>
               <span className="tfilet-desc">
                 Notre skill, compagnon du skill devis : configuration partagée, zéro ressaisie.
@@ -107,16 +107,16 @@ export default function ModuleFacture() {
             </div>
           </div>
 
-          <div className="mov-after">
+          <Link href="/parcours" className="mov-cta">
             <span className="label">Et après ?</span>
-            <span className="mov-after-title">Le reste de la famille arrive</span>
-            <p>
+            <span className="mov-cta-title">Retourne au parcours choisir la suite →</span>
+            <span className="mov-cta-desc">
               La compta, les mails, l&apos;agenda : les prochains modules de la famille
               « Automatiser ton business » suivent le même principe, un skill prêt à
               l&apos;emploi et un résultat immédiat. Et si le chemin te plaît, la famille
               « Apprendre à construire » t&apos;apprend à fabriquer les tiens.
-            </p>
-          </div>
+            </span>
+          </Link>
         </div>
       </div>
     </section>

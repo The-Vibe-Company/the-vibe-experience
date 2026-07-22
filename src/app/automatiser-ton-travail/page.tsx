@@ -96,17 +96,16 @@ export default function ModuleAutomatisation() {
             </div>
           </div>
 
-          <div className="mov-after">
+          <Link href="/parcours" className="mov-cta">
             <span className="label">Et après ?</span>
-            <span className="mov-after-title">Ton prochain produit</span>
-            <p>
+            <span className="mov-cta-title">Ton prochain produit →</span>
+            <span className="mov-cta-desc">
               Tu repars avec un produit en ligne, un skill à toi, et des automatisations qui
               travaillent pendant que tu fais autre chose. Ton prochain produit profitera de tout
-              ça. Et un cran plus loin, il existe des automatisations qui tournent dans le cloud,
-              sans ton Mac : c&apos;est le monde de la famille « Automatiser ton business », qui
-              arrive.
-            </p>
-          </div>
+              ça. Et si tu veux du prêt à l&apos;emploi tout de suite, la famille « Automatiser ton
+              business » a déjà ses premiers modules : tes devis et tes factures.
+            </span>
+          </Link>
         </div>
       </div>
     </section>

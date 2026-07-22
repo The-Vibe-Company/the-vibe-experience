@@ -105,14 +105,22 @@ function deburr(s: string): string {
 }
 
 export async function POST(request: Request) {
-  let body: { contenu?: string };
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
     return Response.json({ error: "Requête invalide." }, { status: 400 });
   }
+  // Un corps `null` ou non-objet est un JSON valide : sans ce garde, la lecture
+  // du champ plante en 500 au lieu de renvoyer une erreur propre.
+  if (!body || typeof body !== "object") {
+    return Response.json({ error: "Requête invalide." }, { status: 400 });
+  }
 
-  const contenu = (body.contenu ?? "").slice(0, MAX_LEN);
+  // Le champ peut arriver dans n'importe quel type (client tiers, appel manuel) :
+  // on ne suppose pas que c'est une chaîne, sinon .slice() plante en 500.
+  const champ = (body as { contenu?: unknown }).contenu;
+  const contenu = typeof champ === "string" ? champ.slice(0, MAX_LEN) : "";
   if (!contenu.trim()) {
     return Response.json(
       { error: "Colle le contenu de ton fichier SKILL.md pour que le juge puisse le lire." },

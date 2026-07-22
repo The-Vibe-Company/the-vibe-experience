@@ -260,7 +260,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         visuel: {
           src: "/module/3-2-routines.png",
           alt: "La barre latérale de Claude Code : l'entrée Routines du menu, puis la section Routines listant deux tâches programmées.",
-          legende: "Chez moi : la section « Routines » de ma barre latérale, avec mes deux vrais rendez-vous : le menu de sujets du vendredi et le bilan du soir.",
+          legende: "Chez moi : la section « Routines » de ma barre latérale, avec mes deux vrais rendez-vous, le menu de sujets du vendredi et le bilan du soir. Mon app est en anglais, la tienne parlera français.",
         },
         siCaBloque:
           "Les deux minutes passent et rien ne se lance ? Demande « où en est ma tâche programmée ? » : selon la configuration, il peut y avoir un léger décalage, c'est prévu. Toujours rien ? « Ma tâche d'essai ne s'est pas lancée, diagnostique et reprogramme-la. » Et pour tout arrêter un jour : « supprime ma tâche programmée du vendredi », c'est tout.",
@@ -338,7 +338,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         lien: { label: "Ouvrir le juge des automatisations", href: "/juge-automatisation" },
         pasAPas: [
           "Ouvre le juge avec le bouton juste au-dessus.",
-          "Colle la consigne de ton automatisation (le texte que tu as donné à Claude Code : celle de ton usine, ou n'importe laquelle) et lance l'évaluation.",
+          "Colle la consigne complète de ton usine (le texte que tu viens de donner à Claude Code à la sous-étape précédente) et lance l'évaluation. C'est l'automatisation entière qui se juge, pas un hook isolé.",
         ],
         ceQueTuDoisVoir:
           "Trois lignes cochées : le déclencheur (avec sa famille, un événement ou l'heure), l'action, le garde-fou. Si l'une est rouge, le juge te dit ce qui manque et te renvoie à l'étape à reprendre : tu corriges ta consigne, et tu repasses.",
@@ -350,7 +350,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         titre: "Garde le réflexe (et regarde un cran plus loin).",
         duree: "≈ 5 min",
         cestquoi:
-          "Tu as monté les quatre rangs : le réflexe, le garde-fou, le rendez-vous, l'usine. Le réflexe à garder, c'est la question : « qu'est-ce que je fais à la main qui a un déclencheur évident ? ». À chaque oui, tu sais maintenant quoi faire. Et un cran plus loin, il existe des routines qui tournent dans le cloud, sans ton Mac : c'est le monde des automatisations d'équipe, celui de la famille « Automatiser ton business » qui arrive.",
+          "Tu as monté les quatre rangs : le réflexe, le garde-fou, le rendez-vous, l'usine. Le réflexe à garder, c'est la question : « qu'est-ce que je fais à la main qui a un déclencheur évident ? ». À chaque oui, tu sais maintenant quoi faire. Et un cran plus loin, il existe des routines qui tournent dans le cloud, sans ton Mac : c'est le monde des automatisations d'équipe. Et si tu veux du prêt à l'emploi tout de suite, la famille « Automatiser ton business » a déjà ses premiers modules : tes devis et tes factures, avec un skill qui fait le travail.",
         attendu: "Le réflexe d'automatiser installé pour de bon, et la suite en vue.",
         ceQueTuDoisVoir:
           "La preuve, c'est ton quotidien de la semaine prochaine : la sauvegarde qui part seule, le garde-fou qui veille, le bilan du vendredi, les propositions du lundi. Quatre choses qui travaillent pendant que tu fais autre chose.",

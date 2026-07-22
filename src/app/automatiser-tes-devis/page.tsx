@@ -97,7 +97,7 @@ export default function ModuleDevis() {
             <div className="tfilet">
               <span className="tfilet-name">
                 Générer un devis
-                <span className="cost cost-gratuit">Offert</span>
+                <span className="cost cost-gratuit">Gratuit</span>
               </span>
               <span className="tfilet-desc">
                 Notre skill, éprouvé sur banc d&apos;essai et testé avec une vraie débutante.
@@ -106,16 +106,16 @@ export default function ModuleDevis() {
             </div>
           </div>
 
-          <div className="mov-after">
+          <Link href="/automatiser-tes-factures" className="mov-cta">
             <span className="label">Et après ?</span>
-            <span className="mov-after-title">Automatise tes factures</span>
-            <p>
+            <span className="mov-cta-title">Automatise tes factures →</span>
+            <span className="mov-cta-desc">
               Quand un devis est accepté, son compagnon prend le relais : le module suivant
               installe le skill facture, qui transforme ton devis signé en facture d&apos;acompte
               ou de solde sans une seule ressaisie. Ta configuration d&apos;ici lui servira telle
               quelle.
-            </p>
-          </div>
+            </span>
+          </Link>
         </div>
       </div>
     </section>

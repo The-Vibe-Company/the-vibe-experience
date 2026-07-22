@@ -18,11 +18,12 @@ export default function JugeAutomatisation() {
         Le juge <em>lit ta consigne</em>.
       </h1>
       <p className="pg-lead">
-        Colle la consigne de ton automatisation : le texte que tu as donné à Claude Code (celle de
-        ton usine, ou n&apos;importe laquelle). Le juge vérifie les trois morceaux de l&apos;étape
-        0 : un déclencheur clair, une action claire, un garde-fou. S&apos;il en manque un, il te
-        dit lequel et où le reprendre. Ce n&apos;est pas une note, juste un coup de main pour
-        finir solide.
+        Colle la consigne de ton automatisation complète : le texte que tu as donné à Claude Code
+        pour ton usine de l&apos;étape 4. Le juge vérifie les trois morceaux de l&apos;étape 0 : un
+        déclencheur clair, une action claire, un garde-fou. S&apos;il en manque un, il te dit
+        lequel et où le reprendre. Ce n&apos;est pas une note, juste un coup de main pour finir
+        solide. Un hook seul, sorti de son contexte, n&apos;a souvent pas de garde-fou : c&apos;est
+        normal, c&apos;est l&apos;ensemble qui doit tenir.
       </p>
       <div style={{ marginTop: "2rem" }}>
         <JugeAutomatisationForm />

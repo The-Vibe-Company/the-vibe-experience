@@ -87,7 +87,7 @@ il applique les règles officielles, sourcées dans le dossier `references`.
 
 ---
 
-Offert par The Vibe Company (thevibecompany.co). Libre d'utilisation, sans
+Un skill The Vibe Company (thevibecompany.co). Libre d'utilisation, sans
 support garanti.
 ===== FIN DU FICHIER =====
 
@@ -243,7 +243,10 @@ seules questions restantes sont celles que le devis ne contient pas :
   souvent déjà sur le devis (« acompte 30 % à la commande ») : le proposer,
   ne demander que s'il diffère. Type `acompte`, avec les lignes du devis en
   `base_lignes` : le script calcule le prorata exact, y compris par taux de
-  TVA.
+  TVA et remises de ligne comprises. Si le devis portait une remise
+  GLOBALE, donner plutôt `base_total_ht` = le total HT après remise (dans
+  les totaux des données du devis) : l'acompte porte sur ce que le client
+  doit vraiment.
 - **Facture de solde** (la prestation est finie) : type `solde`, toutes les
   lignes du devis, plus la déduction des acomptes déjà facturés. Cherche
   les factures d'acompte liées dans `Factures/` (leurs fichiers de données
@@ -552,12 +555,19 @@ officielles, et en cas de doute persistant, le dire plutôt que trancher.
 {
   "$schema": "https://thecompanion.sh/schemas/companion-manifest.v2.schema.json",
   "name": "generer-facture",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "title": "Générer une facture",
   "description": "Génère des factures françaises conformes et numérotées : complète, acompte, solde avec déduction automatique, et avoirs. Remises, montant en toutes lettres, préférences par client, facture récurrente, export du journal pour le comptable. Chaîné à generer-devis (zéro ressaisie) mais autonome.",
-  "notes": "# generer-facture : le topo\n\nSkill offert n°2 de The Vibe Company, le compagnon de generer-devis. Il produit les quatre documents de la vraie vie : facture classique, facture d'acompte, facture de solde qui déduit les acomptes déjà facturés, et AVOIR quand une facture envoyée doit être corrigée.\n\n## La plus-value en une phrase\n\nTon devis accepté devient facture en une phrase, zéro ressaisie ; sans devis, une facture conforme en 2-3 questions.\n\n## Le lien avec generer-devis\n\nDepuis un devis : « le devis DEV-2026-001 est signé, facture d'acompte de 30 % » : il retrouve les données du devis tout seul, calcule le prorata (par taux de TVA), référence le devis. La facture de solde retrouve aussi les factures d'acompte liées et les déduit. Config partagée : au premier lancement il importe la configuration du skill devis et ne pose que les questions factures (2 minutes). Sans le skill devis : setup complet autonome (une quinzaine de questions, 5 à 10 minutes, une seule fois).\n\n## Ce qu'il sait faire au quotidien\n\n- REMISES conformes : par ligne ou globale, affichées proprement, TVA calculée sur le net (mention obligatoire des réductions acquises).\n- AVOIRS : référence obligatoire à la facture initiale, série AV dédiée qui ne troue pas ta numérotation, option net de taxe ; le skill connaît la marche à suivre (facture pas partie = régénération même numéro ; partie = avoir, total ou de la différence).\n- MÉMOIRES : carnet de clients (avec préférences par client : un client à 45 jours de délai est facturé à 45 jours automatiquement), catalogue de prestations partagé avec le devis, facture récurrente (« comme chaque mois »).\n- MONTANT EN TOUTES LETTRES (« arrêtée à la somme de... »), désactivable.\n- EXPORT COMPTABLE : le journal de tes factures en CSV Excel français, avoirs en négatif.\n- Mode rafale, doctrine HT/TTC (ta convention enregistrée, jamais de déduction silencieuse), passage d'année automatique, numérotation continue sans trou reprise à ton format exact.\n\n## Conformité 2026 (sourcée service-public, Légifrance, BOFiP)\n\nÉchéance, pénalités et indemnité de 40 € entre pros (retirées pour les particuliers), « Escompte pour paiement anticipé : néant », franchise 293 B, décennale des artisans, TVA au prorata sur les acomptes, 15 € d'amende par mention manquante évitée par construction. Et l'honnêteté sur la facturation électronique : PDF légal pour les particuliers sans limite, pour le B2B d'une TPE jusqu'au 31/08/2027 ; le skill ne télétransmet pas.\n\n## Éprouvé\n\nBanc d'essai avec/sans (3 scénarios), test débutant total (9 frictions corrigées), raffinerie indépendante (catalogue, refus d'avoir sauvage, passage d'année), 36/36 tests déterministes sur le lot 1.1, déclenchement mesuré 20/20.\n\n## Ce qu'il ne fait pas\n\nLes devis (generer-devis), les relances d'impayés, la comptabilité au-delà de l'export du journal, la télétransmission (plateformes agréées), le conseil juridique.",
+  "notes": "# generer-facture : le topo\n\nLe générateur de factures de The Vibe Company, compagnon de generer-devis. Il produit les quatre documents de la vraie vie : facture classique, facture d'acompte, facture de solde qui déduit les acomptes déjà facturés, et AVOIR quand une facture envoyée doit être corrigée.\n\n## La plus-value en une phrase\n\nTon devis accepté devient facture en une phrase, zéro ressaisie ; sans devis, une facture conforme en 2-3 questions.\n\n## Le lien avec generer-devis\n\nDepuis un devis : « le devis DEV-2026-001 est signé, facture d'acompte de 30 % » : il retrouve les données du devis tout seul, calcule le prorata (par taux de TVA), référence le devis. La facture de solde retrouve aussi les factures d'acompte liées et les déduit. Config partagée : au premier lancement il importe la configuration du skill devis et ne pose que les questions factures (2 minutes). Sans le skill devis : setup complet autonome (une quinzaine de questions, 5 à 10 minutes, une seule fois).\n\n## Ce qu'il sait faire au quotidien\n\n- REMISES conformes : par ligne ou globale, affichées proprement, TVA calculée sur le net (mention obligatoire des réductions acquises).\n- AVOIRS : référence obligatoire à la facture initiale, série AV dédiée qui ne troue pas ta numérotation, option net de taxe ; le skill connaît la marche à suivre (facture pas partie = régénération même numéro ; partie = avoir, total ou de la différence).\n- MÉMOIRES : carnet de clients (avec préférences par client : un client à 45 jours de délai est facturé à 45 jours automatiquement), catalogue de prestations partagé avec le devis, facture récurrente (« comme chaque mois »).\n- MONTANT EN TOUTES LETTRES (« arrêtée à la somme de... »), désactivable.\n- EXPORT COMPTABLE : le journal de tes factures en CSV Excel français, avoirs en négatif.\n- Mode rafale, doctrine HT/TTC (ta convention enregistrée, jamais de déduction silencieuse), passage d'année automatique, numérotation continue sans trou reprise à ton format exact.\n\n## Conformité 2026 (sourcée service-public, Légifrance, BOFiP)\n\nÉchéance, pénalités et indemnité de 40 € entre pros (retirées pour les particuliers), « Escompte pour paiement anticipé : néant », franchise 293 B, décennale des artisans, TVA au prorata sur les acomptes, 15 € d'amende par mention manquante évitée par construction. Et l'honnêteté sur la facturation électronique : PDF légal pour les particuliers sans limite, pour le B2B d'une TPE jusqu'au 31/08/2027 ; le skill ne télétransmet pas.\n\n## Éprouvé\n\nBanc d'essai avec/sans (3 scénarios), test débutant total (9 frictions corrigées), raffinerie indépendante (catalogue, refus d'avoir sauvage, passage d'année), 36/36 tests déterministes sur le lot 1.1, déclenchement mesuré 20/20.\n\n## Ce qu'il ne fait pas\n\nLes devis (generer-devis), les relances d'impayés, la comptabilité au-delà de l'export du journal, la télétransmission (plateformes agréées), le conseil juridique.",
   "metadata": {
     "changelog": [
+      {
+        "version": "1.1.2",
+        "date": "2026-07-21",
+        "changes": [
+          "Présentation : le skill se présente par sa valeur, sans se qualifier lui-même."
+        ]
+      },
       {
         "version": "1.1.1",
         "date": "2026-07-21",
@@ -1392,13 +1402,22 @@ def lignes_acompte(config, facture):
     lignes = []
     if a.get("base_lignes"):
         # Prorata par taux : un acompte de 30 % porte 30 % de chaque ligne,
-        # donc la TVA de l'acompte suit exactement les taux du devis.
+        # donc la TVA de l'acompte suit exactement les taux du devis. Quand la
+        # ligne vient des données d'un devis, montant_ht est déjà net de sa
+        # remise de ligne : on le préfère au recalcul brut. (Pour un devis
+        # avec remise GLOBALE, utiliser base_total_ht = total HT après remise.)
         par_taux = {}
         for l in a["base_lignes"]:
-            qte = float(l.get("quantite", 1))
-            pu = float(l["prix_unitaire_ht"])
             taux = 0 if franchise else float(l.get("taux_tva", taux_defaut))
-            par_taux[taux] = round(par_taux.get(taux, 0.0) + qte * pu, 2)
+            if l.get("montant_ht") is not None:
+                montant = float(l["montant_ht"])
+            else:
+                montant = float(l.get("quantite", 1)) * float(l["prix_unitaire_ht"])
+                if l.get("remise_pct"):
+                    montant -= montant * float(l["remise_pct"]) / 100
+                elif l.get("remise_montant"):
+                    montant -= float(l["remise_montant"])
+            par_taux[taux] = round(par_taux.get(taux, 0.0) + montant, 2)
         for taux, base_ht in sorted(par_taux.items()):
             desc = f"{libelle_base} : {nombre_fr(pct)} %"
             if len(par_taux) > 1 and not franchise:

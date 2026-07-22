@@ -139,19 +139,42 @@ const GARDEFOU_CUES = [
   "sinon",
 ];
 
-function hasCue(text: string, cues: string[]): boolean {
-  return cues.some((c) => text.includes(deburr(c)));
+// Les repères se cherchent sur des MOTS entiers, jamais en sous-chaîne : sinon
+// « industrie » contient « trie », « permets » contient « mets », et n'importe
+// quelle phrase finit par cocher les trois critères.
+function compile(cues: string[]): RegExp[] {
+  return cues.map((c) => {
+    const motif = deburr(c).trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp(`(?:^|[^a-z0-9])${motif}(?:[^a-z0-9]|$)`);
+  });
 }
 
+function hasCue(text: string, cues: RegExp[]): boolean {
+  return cues.some((re) => re.test(text));
+}
+
+const EVENT_RE = compile(EVENT_CUES);
+const TIME_RE = compile(TIME_CUES);
+const ACTION_RE = compile(ACTION_CUES);
+const GARDEFOU_RE = compile(GARDEFOU_CUES);
+
 export async function POST(request: Request) {
-  let body: { consigne?: string };
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
     return Response.json({ error: "Requête invalide." }, { status: 400 });
   }
+  // Un corps `null` ou non-objet est un JSON valide : sans ce garde, la lecture
+  // du champ plante en 500 au lieu de renvoyer une erreur propre.
+  if (!body || typeof body !== "object") {
+    return Response.json({ error: "Requête invalide." }, { status: 400 });
+  }
+  const champ = (body as { consigne?: unknown }).consigne;
 
-  const consigne = (body.consigne ?? "").slice(0, MAX_LEN);
+  // Le champ peut arriver dans n'importe quel type (client tiers, appel manuel) :
+  // on ne suppose pas que c'est une chaîne, sinon .slice() plante en 500.
+  const consigne = typeof champ === "string" ? champ.slice(0, MAX_LEN) : "";
   if (consigne.trim().length < 15) {
     return Response.json(
       {
@@ -164,8 +187,8 @@ export async function POST(request: Request) {
 
   const text = deburr(consigne);
 
-  const eventOk = hasCue(text, EVENT_CUES);
-  const timeOk = hasCue(text, TIME_CUES) || HOUR_RE.test(text);
+  const eventOk = hasCue(text, EVENT_RE);
+  const timeOk = hasCue(text, TIME_RE) || HOUR_RE.test(text);
   const declencheurOk = eventOk || timeOk;
   const famille =
     eventOk && timeOk ? "un événement et l'heure" : eventOk ? "un événement" : "l'heure";
@@ -175,8 +198,8 @@ export async function POST(request: Request) {
   const actionText = text
     .replace(/\bne\s+\S+(?:\s+\S+)?\s+(?:pas|rien|jamais)\b/g, " ")
     .replace(/\bn'\S+\s+(?:pas|rien|jamais)\b/g, " ");
-  const actionOk = hasCue(actionText, ACTION_CUES);
-  const gardefouOk = hasCue(text, GARDEFOU_CUES);
+  const actionOk = hasCue(actionText, ACTION_RE);
+  const gardefouOk = hasCue(text, GARDEFOU_RE);
 
   const criteres: Critere[] = [
     {
@@ -204,7 +227,7 @@ export async function POST(request: Request) {
       etape: "2",
       detail: gardefouOk
         ? undefined
-        : "ajoute la phrase de contrôle : « ne modifie pas mon site directement », « bloque si ça casse » ou « je choisis moi-même ce qui part »",
+        : "ajoute la phrase de contrôle : « ne modifie pas mon site directement », « bloque si ça casse » ou « je choisis moi-même ce qui part ». Si tu as collé un seul hook et que ton garde-fou est ailleurs, colle plutôt ton automatisation complète : c'est l'ensemble qui doit tenir",
     },
   ];
 

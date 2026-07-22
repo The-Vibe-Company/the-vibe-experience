@@ -120,15 +120,21 @@ function judgeSubject(sujet: string, pageText: string): { ok: boolean; detail?: 
 }
 
 export async function POST(request: Request) {
-  let body: { url?: string; sujet?: string; repoUrl?: string };
+  let raw: unknown;
   try {
-    body = await request.json();
+    raw = await request.json();
   } catch {
     return Response.json({ error: "Requête invalide." }, { status: 400 });
   }
+  // Un corps `null` ou non-objet est un JSON valide : sans ce garde, la lecture
+  // des champs plante en 500 au lieu de renvoyer une erreur propre.
+  if (!raw || typeof raw !== "object") {
+    return Response.json({ error: "Requête invalide." }, { status: 400 });
+  }
+  const body = raw as { url?: unknown; sujet?: unknown; repoUrl?: unknown };
 
-  const url = normalizeUrl(body.url ?? "");
-  const sujet = (body.sujet ?? "").trim();
+  const url = normalizeUrl(typeof body.url === "string" ? body.url : "");
+  const sujet = (typeof body.sujet === "string" ? body.sujet : "").trim();
   if (!url) {
     return Response.json(
       { error: "Donne l'adresse en ligne de ton site (ton lien .vercel.app, pas localhost)." },
@@ -213,7 +219,7 @@ export async function POST(request: Request) {
   ];
 
   // Repo GitHub, seulement si fourni.
-  const repoRaw = (body.repoUrl ?? "").trim();
+  const repoRaw = (typeof body.repoUrl === "string" ? body.repoUrl : "").trim();
   if (repoRaw) {
     const repoUrl = /^https?:\/\//i.test(repoRaw) ? repoRaw : `https://${repoRaw}`;
     let repoOk = false;

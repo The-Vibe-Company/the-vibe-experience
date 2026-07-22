@@ -73,7 +73,7 @@ remplace pas ce formulaire.
 
 ---
 
-Offert par The Vibe Company (thevibecompany.co). Libre d'utilisation, sans
+Un skill The Vibe Company (thevibecompany.co). Libre d'utilisation, sans
 support garanti.
 ===== FIN DU FICHIER =====
 
@@ -568,12 +568,19 @@ qui persiste, le dire honnêtement plutôt que de trancher.
 {
   "$schema": "https://thecompanion.sh/schemas/companion-manifest.v2.schema.json",
   "name": "generer-devis",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "title": "Générer un devis",
   "description": "Génère des devis français conformes et numérotés pour indépendants et petites boîtes : setup unique, 2-3 questions par devis, carnet de clients, catalogue de prestations, remises, mode rafale, sortie HTML imprimable en PDF. Chaîné à generer-facture : le devis accepté devient facture sans ressaisie.",
-  "notes": "# generer-devis : le topo\n\nSkill offert n°1 de The Vibe Company. Tu lui dis « devis pour Madame Martin, remplacement du chauffe-eau, 980 euros », il sort un devis professionnel conforme au droit français, numéroté, prêt à imprimer en PDF. Compagnon naturel de generer-facture : chaque devis écrit ses données à côté du fichier, la facture s'en déduit sans ressaisie.\n\n## La plus-value en une phrase\n\nUn devis pro, conforme et numéroté en 2 à 3 minutes au lieu de 20 à 40, avec les mentions légales à jour 2026 vérifiées sur les sources officielles.\n\n## Le setup (une seule fois, ~10 minutes)\n\nIdentité (nom, forme, adresse, SIRET, mention EI automatique, capital et RCS pour les sociétés), TVA (franchise avec mention 293 B automatique, ou taux + numéro intra + ta convention de prix : HT, TTC ou demander à chaque fois), assurance décennale si artisan du bâtiment, habitudes (validité, acompte, conditions, numérotation reprise à TON format exact). Optionnels proposés : téléphone, email, site, logo, IBAN, médiateur. Champs libres : tu ajoutes ce que tu veux, où tu veux.\n\n## À chaque devis (2-3 questions)\n\nLe client (juste son nom s'il est au carnet), la prestation et le prix, les particularités du jour. Trois mémoires travaillent pour toi : le CARNET de clients, le CATALOGUE de prestations (référence, désignation, prix, TVA : « le radiateur X400, 890 € comme la dernière fois ? », toujours proposé, jamais imposé), et le DEVIS TYPE (repartir d'un ancien devis). Les REMISES sont gérées proprement (par ligne ou globale, TVA recalculée sur le net). Mode rafale : 5 devis d'un coup, un récapitulatif, une validation.\n\n## Les garde-fous\n\nRien ne s'invente (une donnée manquante se demande), tous les calculs par script (y compris la conversion TTC vers HT), récapitulatif avant génération, passage d'année automatique dans la numérotation, document forcé noir sur blanc, geste PDF embarqué dans le fichier.\n\n## Éprouvé\n\nBanc d'essai avec/sans sur 3 scénarios + test débutant total + raffinerie indépendante (7 cas held-out, 24/24) + déclenchement mesuré 20/20.\n\n## Ce qu'il ne fait pas\n\nLes factures (c'est generer-facture), les relances, la signature électronique, les secteurs à devis réglementaire imposé (optique, audio, funéraire), le conseil juridique.",
+  "notes": "# generer-devis : le topo\n\nLe générateur de devis de The Vibe Company. Tu lui dis « devis pour Madame Martin, remplacement du chauffe-eau, 980 euros », il sort un devis professionnel conforme au droit français, numéroté, prêt à imprimer en PDF. Compagnon naturel de generer-facture : chaque devis écrit ses données à côté du fichier, la facture s'en déduit sans ressaisie.\n\n## La plus-value en une phrase\n\nUn devis pro, conforme et numéroté en 2 à 3 minutes au lieu de 20 à 40, avec les mentions légales à jour 2026 vérifiées sur les sources officielles.\n\n## Le setup (une seule fois, ~10 minutes)\n\nIdentité (nom, forme, adresse, SIRET, mention EI automatique, capital et RCS pour les sociétés), TVA (franchise avec mention 293 B automatique, ou taux + numéro intra + ta convention de prix : HT, TTC ou demander à chaque fois), assurance décennale si artisan du bâtiment, habitudes (validité, acompte, conditions, numérotation reprise à TON format exact). Optionnels proposés : téléphone, email, site, logo, IBAN, médiateur. Champs libres : tu ajoutes ce que tu veux, où tu veux.\n\n## À chaque devis (2-3 questions)\n\nLe client (juste son nom s'il est au carnet), la prestation et le prix, les particularités du jour. Trois mémoires travaillent pour toi : le CARNET de clients, le CATALOGUE de prestations (référence, désignation, prix, TVA : « le radiateur X400, 890 € comme la dernière fois ? », toujours proposé, jamais imposé), et le DEVIS TYPE (repartir d'un ancien devis). Les REMISES sont gérées proprement (par ligne ou globale, TVA recalculée sur le net). Mode rafale : 5 devis d'un coup, un récapitulatif, une validation.\n\n## Les garde-fous\n\nRien ne s'invente (une donnée manquante se demande), tous les calculs par script (y compris la conversion TTC vers HT), récapitulatif avant génération, passage d'année automatique dans la numérotation, document forcé noir sur blanc, geste PDF embarqué dans le fichier.\n\n## Éprouvé\n\nBanc d'essai avec/sans sur 3 scénarios + test débutant total + raffinerie indépendante (7 cas held-out, 24/24) + déclenchement mesuré 20/20.\n\n## Ce qu'il ne fait pas\n\nLes factures (c'est generer-facture), les relances, la signature électronique, les secteurs à devis réglementaire imposé (optique, audio, funéraire), le conseil juridique.",
   "metadata": {
     "changelog": [
+      {
+        "version": "1.1.2",
+        "date": "2026-07-21",
+        "changes": [
+          "Présentation : le skill se présente par sa valeur, sans se qualifier lui-même."
+        ]
+      },
       {
         "version": "1.1.1",
         "date": "2026-07-21",
