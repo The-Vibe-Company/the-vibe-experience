@@ -197,6 +197,31 @@ export default function SousEtapes({
                           </ul>
                         </div>
                       )}
+                      {s.prerequis && s.prerequis.length > 0 && (
+                        <div className="se-block">
+                          <span className="se-l">Ce qu&apos;il te faut sous la main</span>
+                          <ul className="se-ex">
+                            {s.prerequis.map((p) => (
+                              <li key={p.quoi}>
+                                <span className="se-dash">-</span>
+                                <span>
+                                  <strong>{p.quoi}</strong>
+                                  <span
+                                    className={
+                                      p.niveau === "obligatoire"
+                                        ? "cost cost-payant"
+                                        : "cost cost-gratuit"
+                                    }
+                                  >
+                                    {p.niveau === "obligatoire" ? "Obligatoire" : "Conseillé"}
+                                  </span>{" "}
+                                  {p.ou}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                       {s.prompt && (
                         <div className="se-prompt">
                           <div className="se-prompt-head">

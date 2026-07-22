@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { etapesDetailDevis, prerequisDevis } from "@/lib/module-devis";
+import { etapesDetailDevis } from "@/lib/module-devis";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
-import PrerequisSection from "@/components/Prerequis";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Automatise tes devis — The Vibe Experience" };
@@ -55,11 +54,6 @@ export default function ModuleDevis() {
             40 à bricoler un vieux fichier Word.
           </p>
 
-          {/* Volontairement AVANT les étapes : on rassemble, puis on déroule. */}
-          <PrerequisSection
-            items={prerequisDevis}
-            intro="Rassemble ça avant de commencer : on te le demandera une seule fois, au setup, et tu dérouleras ensuite sans avoir à te lever."
-          />
 
           <ModuleSidePanel
             moduleKey="/automatiser-tes-devis"

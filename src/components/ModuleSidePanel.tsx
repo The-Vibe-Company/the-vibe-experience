@@ -30,10 +30,10 @@ export default function ModuleSidePanel({
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const started = mounted && stats.doneCount > 0;
 
-  // Toujours accessible, dans les trois états et depuis une page d'étape :
-  // le lien absolu ramène à la section de la page du module, jamais un cul-de-sac.
+  // Toujours accessible, dans les trois états et depuis n'importe quelle page
+  // d'étape : la liste vit dans la sous-étape 0.1, avec les outils du module.
   const prerequis = (
-    <Link href={`${basePath}#ce-quil-te-faut`}>Ce qu&apos;il te faut sous la main →</Link>
+    <Link href={`${basePath}/${etapes[0]?.slug}`}>Ce qu&apos;il te faut sous la main →</Link>
   );
 
   if (started && stats.allDone) {

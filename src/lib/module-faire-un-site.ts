@@ -19,6 +19,10 @@ export type SousEtape = {
   pasAPas?: string[];
   exemples?: string[];
   outils?: Fiche[];
+  // Ce qu'il faut avoir sous la main pour faire le module : un compte, une carte,
+  // des papiers. Vit dans la sous-étape qui présente les outils (0.1), au même
+  // endroit que le reste du matériel nécessaire.
+  prerequis?: Prerequis[];
   prompt?: string;
   ceQueTuDoisVoir?: string;
   siCaBloque?: string;
@@ -102,6 +106,7 @@ export const etapesDetail: EtapeDetail[] = [
         attendu: "L'app Claude Code installée et ouverte, connectée à ton compte.",
         lien: { label: "Ouvrir claude.com/claude-code", href: "https://claude.com/claude-code" },
         outils: [F.claudecode],
+        prerequis: prerequisSite,
         pasAPas: [
           "Crée d'abord ton compte Claude si tu n'en as pas : va sur claude.ai et inscris-toi.",
           "Prends l'abonnement Pro : sur claude.ai, ouvre les réglages de ton compte (ton initiale, en bas à gauche), rubrique abonnement, et choisis Pro. C'est le moins cher qui donne accès à Claude Code. Tu passeras par un paiement par carte classique, parfois en anglais : tu es sur le site officiel de Claude, et tu peux arrêter l'abonnement quand tu veux.",

@@ -78,6 +78,7 @@ export const etapesDetailDevis: EtapeDetail[] = [
         attendu: "L'app Claude Code installée, connectée, prête à recevoir un message.",
         lien: { label: "Ouvrir claude.com/claude-code", href: "https://claude.com/claude-code" },
         outils: [F.claudecode],
+        prerequis: prerequisDevis,
         pasAPas: [
           "Tu as déjà l'app (tu as fait un module de la famille « Apprendre à construire ») ? Tu as tout, passe à l'étape 1.",
           "Sinon : crée ton compte sur claude.ai, prends l'abonnement Pro, puis télécharge l'app sur claude.com/claude-code (bouton juste au-dessus) et connecte-toi. L'étape 0 du module « Fais ton premier site » détaille chaque clic si tu veux être pris par la main.",

@@ -81,6 +81,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         attendu:
           "Claude Code rouvert, comme au module précédent. Le plus simple : rouvre ton dossier de site, l'étape 1 t'y fera repérer tes répétitions. Mais un skill se range chez toi, pas dans un projet précis, donc n'importe quel dossier marcherait aussi.",
         outils: [F.claudecode],
+        prerequis: prerequisSkill,
         ceQueTuDoisVoir:
           "Claude Code s'ouvre et tu retrouves la zone où tu écris tes messages, exactement comme au module précédent. Si l'app te redemande de te connecter, fais-le, c'est normal après une fermeture. Dès que tu vois la zone de discussion, tu es prêt.",
         siCaBloque:

@@ -74,6 +74,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Ce module n'ajoute aucun outil. Une automatisation, ce n'est pas un logiciel en plus : c'est une façon de brancher ce que tu as déjà (ton site du module 1, tes skills du module 2, Claude Code) pour que ça travaille sans toi. Rien à payer, rien à installer.",
         attendu: "Claude Code rouvert sur ton dossier de site, comme aux modules précédents.",
         outils: [F.claudecode],
+        prerequis: prerequisAutomatisation,
         ceQueTuDoisVoir:
           "Claude Code ouvert sur ton dossier de site, comme tu l'as laissé au module précédent. Rien d'autre : tout ce que ce module installe passera par cette fenêtre.",
         siCaBloque:

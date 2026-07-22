@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { etapesDetailFacture, prerequisFacture } from "@/lib/module-facture";
+import { etapesDetailFacture } from "@/lib/module-facture";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
-import PrerequisSection from "@/components/Prerequis";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Automatise tes factures — The Vibe Experience" };
@@ -55,11 +54,6 @@ export default function ModuleFacture() {
             fait aussi tes factures de zéro.
           </p>
 
-          {/* Volontairement AVANT les étapes : on rassemble, puis on déroule. */}
-          <PrerequisSection
-            items={prerequisFacture}
-            intro="Rassemble ça avant de commencer. Si tu utilises déjà le skill devis, il récupère la plupart de ces informations tout seul : il ne te restera que les trois premières."
-          />
 
           <ModuleSidePanel
             moduleKey="/automatiser-tes-factures"

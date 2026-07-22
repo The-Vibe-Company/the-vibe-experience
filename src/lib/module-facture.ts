@@ -73,6 +73,7 @@ export const etapesDetailFacture: EtapeDetail[] = [
         attendu: "L'app Claude Code installée et connectée.",
         lien: { label: "Ouvrir claude.com/claude-code", href: "https://claude.com/claude-code" },
         outils: [F.claudecode],
+        prerequis: prerequisFacture,
         pasAPas: [
           "Tu as déjà l'app (module devis, ou un module de l'autre famille) ? Tu as tout, passe à l'étape 1.",
           "Sinon : crée ton compte sur claude.ai, prends l'abonnement Pro, télécharge l'app sur claude.com/claude-code (bouton juste au-dessus) et connecte-toi. L'étape 0 du module « Fais ton premier site » détaille chaque clic.",
