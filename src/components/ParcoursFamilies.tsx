@@ -6,6 +6,8 @@ import type { EtapeDetail } from "@/lib/module-faire-un-site";
 import { etapesDetail } from "@/lib/module-faire-un-site";
 import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
 import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
+import { etapesDetailDevis } from "@/lib/module-devis";
+import { etapesDetailFacture } from "@/lib/module-facture";
 import { computeStats, useAnyModuleStarted, useModuleProgress } from "@/lib/progress";
 
 type Branche = "construire" | "automatiser";
@@ -16,14 +18,6 @@ type Branche = "construire" | "automatiser";
 // modules : le cadre dit l'appartenance.
 
 const businessSoon = [
-  {
-    titre: "Automatiser mes devis",
-    desc: "Ton devis prêt en quelques minutes au lieu d'une heure, au bon format à chaque fois.",
-  },
-  {
-    titre: "Automatiser mes factures",
-    desc: "Tes factures générées et suivies sans que tu y penses.",
-  },
   {
     titre: "Tenir ma compta",
     desc: "Le récap qui sort tout seul, chaque mois, prêt à envoyer au comptable.",
@@ -53,7 +47,11 @@ function ModuleRow({
       ? etapesDetail
       : moduleKey === "/creer-un-skill"
         ? etapesDetailSkill
-        : etapesDetailAutomatisation;
+        : moduleKey === "/automatiser-tes-devis"
+          ? etapesDetailDevis
+          : moduleKey === "/automatiser-tes-factures"
+            ? etapesDetailFacture
+            : etapesDetailAutomatisation;
   const lite = etapes.map((e) => ({
     slug: e.slug,
     num: e.num,
@@ -188,8 +186,22 @@ export default function ParcoursFamilies() {
           "automatiser",
           "Automatiser ton business",
           "Tu mets l'IA au travail sur les tâches qui te font perdre du temps. Un résultat, sans devoir tout construire.",
-          "En préparation",
+          null,
           <>
+            <ModuleRow
+              moduleKey="/automatiser-tes-devis"
+              href="/automatiser-tes-devis"
+              title="Automatise tes devis"
+              desc="« Devis pour Madame Martin : chauffe-eau, 980 euros », et le devis conforme sort, numéroté, prêt en PDF. Un skill offert."
+              idleStatus="En écriture"
+            />
+            <ModuleRow
+              moduleKey="/automatiser-tes-factures"
+              href="/automatiser-tes-factures"
+              title="Automatise tes factures"
+              desc="Ton devis signé devient facture en une phrase : acompte, solde, avoir. Un skill offert, compagnon du skill devis."
+              idleStatus="En écriture"
+            />
             {businessSoon.map((m) => (
               <div className="pcat-row soon" key={m.titre}>
                 <span>
