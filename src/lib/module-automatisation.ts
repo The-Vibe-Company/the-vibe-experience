@@ -192,6 +192,11 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Installe-moi un garde-fou : avant chaque envoi de mon code sur GitHub, vérifie que mon site se construit sans erreur. Si ça casse, bloque l'envoi et explique-moi le problème en français simple. Ensuite, pour tester, introduis une petite erreur volontaire dans mon site, essaie d'envoyer, et montre-moi le blocage. Puis répare l'erreur et confirme que l'envoi repasse.",
         ceQueTuDoisVoir:
           "Trois actes. Un : le garde-fou s'installe (même mécanique qu'à l'étape 1). Deux : avec l'erreur volontaire, l'envoi est BLOQUÉ, avec l'explication. C'est le moment important : ton filet marche. Trois : l'erreur réparée, l'envoi repasse tout seul. Ton site en ligne n'a jamais été touché pendant tout ce temps.",
+        visuel: {
+          src: "/module/3-2-garde-fou-bloque.png",
+          alt: "Une conversation où l'utilisateur écrit « merge » et où le garde-fou refuse, rappelle ce qui partirait en ligne, et exige une confirmation explicite.",
+          legende: "Mon vrai garde-fou, pris sur le fait : je tape « merge », il refuse, me rappelle ce qui partirait en ligne, et exige que je le dise en toutes lettres. C'est ça, une automatisation qui protège.",
+        },
         siCaBloque:
           "Le test t'angoisse ? C'est prévu pour être sans risque : l'erreur volontaire reste sur ta machine, le garde-fou empêche justement qu'elle parte en ligne, et Claude Code la répare dans la foulée. Si quelque chose semble coincé après le test, demande « confirme-moi que mon site est propre et que tout est réparé ».",
         // [CAPTURE] Le blocage du garde-fou : le message qui refuse l'envoi et explique pourquoi.
