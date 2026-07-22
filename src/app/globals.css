@@ -543,6 +543,9 @@ a { color: inherit; text-decoration: none; }
 .livret-row { display: grid; grid-template-columns: 110px 1fr; gap: 1rem; align-items: baseline; }
 .livret-row .se-l { margin: 0; }
 .livret-row p { margin: 0; font-size: .95rem; line-height: 1.55; color: var(--muted); }
+/* Colonne de libellé fixe à 110px : sur téléphone il ne resterait presque rien
+   pour le texte. On empile le libellé et son contenu. */
+@media (max-width: 700px) { .livret-row { grid-template-columns: 1fr; gap: .3rem; } }
 
 /* ACCUEIL DE MODULE (design 3a) */
 .mov-h1 { font-size: clamp(2rem, 3.4vw, 2.6rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; margin: 1rem 0 .7rem; }
@@ -610,6 +613,9 @@ a { color: inherit; text-decoration: none; }
 .tfilet-link { color: inherit; }
 .tfilet-link:hover { color: var(--orange); }
 .tfilet-desc { font-size: .9rem; line-height: 1.5; color: var(--muted); }
+/* Colonne de nom fixe à 210px : sur un écran de 375px il ne resterait que ~130px
+   pour la description. On empile le nom de l'outil et son texte. */
+@media (max-width: 700px) { .tfilet { grid-template-columns: 1fr; gap: .3rem; } }
 
 .mov-cta { display: flex; flex-direction: column; gap: .35rem; margin-top: 2.6rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
 .mov-cta-title { font-size: 1.12rem; font-weight: 700; letter-spacing: -.015em; transition: color .15s; }
@@ -796,7 +802,6 @@ a.frow:hover .frow-n { color: var(--orange); }
 
 /* Mon compte */
 .acct-card { border: 1px solid var(--border); border-radius: 12px; padding: 1.3rem 1.5rem; margin-top: 1.8rem; }
-.acct-caphead { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .acct-mtitle { font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; margin: .5rem 0 .9rem; }
 .acct-row { display: grid; grid-template-columns: 180px 1fr; gap: 1rem; padding: .7rem 0; border-top: 1px solid var(--border); font-size: .95rem; }
 .acct-row:first-child { border-top: none; }

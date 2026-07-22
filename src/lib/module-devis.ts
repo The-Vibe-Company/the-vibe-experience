@@ -135,6 +135,8 @@ export const etapesDetailDevis: EtapeDetail[] = [
           "Un récapitulatif clair avant de produire : le client, les lignes, les montants. Tu dis oui, et le fichier arrive dans un dossier Devis. Pour le PDF : ouvre le fichier, imprime (cmd + P), et choisis « Enregistrer au format PDF ». C'est le geste, il te l'explique aussi.",
         visuel: {
           src: "/module/devis-3-1-apercu.png",
+          w: 835,
+          h: 1120,
           alt: "Un devis produit par le skill : en-tête DEVIS numéroté, émetteur et client, lignes chiffrées, total, conditions et mentions légales, cadres de signature.",
           legende: "Le résultat, tel quel : un devis sorti par le skill avec ses données d'exemple. Numéro, mentions légales, acompte, assurance, bon pour accord : tout y est.",
         },
