@@ -1,6 +1,9 @@
 export type Fiche = { n: string; d: string };
 
-export type Visuel = { src: string; alt: string; legende?: string };
+// w et h = dimensions réelles du fichier, en pixels. Elles servent au navigateur à
+// réserver la place avant le chargement : sans elles, le texte saute quand l'image
+// arrive. À mettre à jour si le fichier change (`sips -g pixelWidth -g pixelHeight`).
+export type Visuel = { src: string; alt: string; legende?: string; w: number; h: number };
 
 export type SousEtape = {
   titre: string;
@@ -75,6 +78,8 @@ export const etapesDetail: EtapeDetail[] = [
           "Au premier lancement, l'app te demande de te connecter à ton compte Claude : une page s'ouvre, tu te connectes, tu reviens. Elle peut te poser une question ou deux (thème clair ou sombre…), réponds, il n'y a pas de mauvais choix. Quand tu arrives sur une zone où écrire ton message, tu es prêt.",
         visuel: {
           src: "/module/0-1-claude-code.png",
+          w: 1400,
+          h: 610,
           alt: "La page officielle de Claude Code, avec le bouton « Download for macOS ».",
           legende: "La page officielle de Claude Code : c'est de là que tu télécharges l'app (bouton « Download for macOS »).",
         },
@@ -147,6 +152,8 @@ export const etapesDetail: EtapeDetail[] = [
           "Avant d'agir, Claude Code te demande souvent la permission : une petite fenêtre (capture ci-dessous) avec l'action qu'il veut lancer et trois boutons, « Autoriser une fois », « Toujours autoriser » et « Refuser » (« Allow once », « Always allow » et « Deny » si ton app est en anglais). C'est normal, et c'est toi le chef : clique « Autoriser une fois » pour le laisser travailler. Ensuite, du texte se met à défiler tout seul : l'IA t'explique ce qu'elle fait et crée des fichiers. Ça peut prendre plusieurs minutes, parfois cinq à dix la première fois (elle télécharge tout ce qu'il faut) : tant que ça bouge, c'est bon signe. Ne ferme pas la fenêtre pendant ce temps.",
         visuel: {
           src: "/module/1-2-allow-deny.png",
+          w: 1436,
+          h: 496,
           alt: "La fenêtre de permission de Claude Code : « Autoriser Claude à écriture test.txt ? », le fichier concerné, et les boutons Refuser, Toujours autoriser et Autoriser une fois.",
           legende: "Chez moi : Claude Code demande la permission avant d'écrire un fichier. Il dit exactement ce qu'il veut faire, et il attend ton feu vert.",
         },
@@ -224,6 +231,8 @@ export const etapesDetail: EtapeDetail[] = [
           "Ton compte GitHub qui marche (tu es connecté sur github.com), et la fenêtre du Terminal ouverte : une ligne de texte, un curseur qui clignote, rien d'autre. Il ne se passe rien tant que tu ne colles rien dedans.",
         visuel: {
           src: "/module/2-1-terminal.png",
+          w: 1700,
+          h: 982,
           alt: "Le Terminal du Mac à l'ouverture : une fenêtre au fond sombre, une ligne « Last login », un prompt et un curseur.",
           legende: "Le Terminal à l'ouverture : une fenêtre presque vide, une ligne, un curseur qui clignote. C'est tout, et c'est normal.",
         },
@@ -265,6 +274,8 @@ export const etapesDetail: EtapeDetail[] = [
           "Après une modif, l'IA te dit une ligne du genre « changements sauvegardés et envoyés sur GitHub ». Tu peux aller vérifier sur github.com que la date de dernière mise à jour vient de changer.",
         visuel: {
           src: "/module/2-3-github-commits.png",
+          w: 1400,
+          h: 460,
           alt: "L'historique des sauvegardes (commits) d'un projet sur GitHub, avec la date de la dernière mise à jour.",
           legende: "L'historique de ton projet sur GitHub : chaque sauvegarde apparaît avec sa date. Tu vois tout de suite que ta dernière mise à jour est bien partie.",
         },
@@ -303,6 +314,8 @@ export const etapesDetail: EtapeDetail[] = [
           "Le résultat ne te plaît pas du tout ? On ne repart pas de zéro, on ajuste. Pour montrer une image à l'IA, attrape le fichier avec ta souris et lâche-le directement dans la fenêtre de Claude Code : son chemin s'écrit tout seul, tu ajoutes ta phrase après (« inspire-toi de cette image pour les couleurs ») et Entrée. Et si l'IA dit avoir appliqué mais que ta page n'a pas bougé, rafraîchis l'onglet (cmd + R), le réflexe de l'étape 1 : la nouvelle version apparaît presque toujours.",
         visuel: {
           src: "/module/da-avant-apres.webp",
+          w: 1745,
+          h: 895,
           alt: "Avant / après de la DA du site d'animés : à gauche un rendu générique, à droite une identité façon planche de manga noir et blanc.",
           legende: "Mon site d'animés, avant et après avoir travaillé la DA. Même contenu, mais là il a une vraie identité.",
         },
@@ -399,6 +412,8 @@ export const etapesDetail: EtapeDetail[] = [
         ],
         visuel: {
           src: "/module/4-1-supabase.png",
+          w: 1400,
+          h: 860,
           alt: "La page d'accueil de Supabase, avec ses briques Postgres Database, Authentication et Edge Functions.",
           legende: "Supabase, un des services que l'IA peut brancher pour toi : il gère les comptes (Authentication) et la base de données de tes utilisateurs.",
         },
@@ -518,6 +533,8 @@ export const etapesDetail: EtapeDetail[] = [
         ],
         visuel: {
           src: "/module/5-4-juge.png",
+          w: 1400,
+          h: 762,
           alt: "La page du juge : un champ pour l'adresse du site, un pour le sujet, un pour le repo GitHub, et le bouton « Faire évaluer mon site ».",
           legende: "La page du juge : tu colles l'adresse de ton site en ligne, ton sujet en une phrase, et il fait le tour de la checklist.",
         },

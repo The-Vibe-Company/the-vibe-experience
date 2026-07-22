@@ -133,6 +133,8 @@ export const etapesDetailFacture: EtapeDetail[] = [
           "Un récapitulatif avant de produire, puis le fichier dans un dossier Factures. Le PDF, c'est le même geste que les devis : ouvre le fichier, imprime (cmd + P), « Enregistrer au format PDF ».",
         visuel: {
           src: "/module/facture-3-1-apercu.png",
+          w: 835,
+          h: 1120,
           alt: "Une facture produite par le skill : en-tête FACTURE numérotée, référence au devis d'origine, remise déduite, net à payer, montant en toutes lettres, IBAN et mentions.",
           legende: "Le résultat, tel quel : une facture sortie par le skill (données d'exemple), avec la référence au devis, la remise déduite, le montant en toutes lettres et l'IBAN.",
         },

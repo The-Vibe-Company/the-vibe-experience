@@ -127,6 +127,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Il te propose plusieurs façons de faire et tu ne sais pas choisir ? Réponds « choisis la plus simple et la plus fiable pour un débutant, et explique-moi ton choix en deux phrases ». Il te parle d'un fichier de réglages avec un nom technique ? Pas besoin de l'ouvrir : c'est son rangement à lui, comme pour les skills.",
         visuel: {
           src: "/module/3-1-hook-installe.png",
+          w: 1424,
+          h: 1180,
           alt: "La confirmation d'installation d'un hook dans Claude Code : les questions de précision et leurs réponses, le script créé, puis ce qui a été installé, où, et ce que ça fait à chaque déclenchement.",
           legende: "Un vrai hook qui vient d'être installé chez moi : il dit ce qu'il a créé, où il l'a branché, et ce que ça fera à chaque fois. C'est cette réponse-là que tu attends.",
         },
@@ -201,6 +203,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Trois actes. Un : le garde-fou s'installe (même mécanique qu'à l'étape 1). Deux : avec l'erreur volontaire, l'envoi est BLOQUÉ, avec l'explication. C'est le moment important : ton filet marche. Trois : l'erreur réparée, l'envoi repasse tout seul. Ton site en ligne n'a jamais été touché pendant tout ce temps.",
         visuel: {
           src: "/module/3-2-garde-fou-bloque.png",
+          w: 1482,
+          h: 530,
           alt: "Une conversation où l'utilisateur écrit « merge » et où le garde-fou refuse, rappelle ce qui partirait en ligne, et exige une confirmation explicite.",
           legende: "Mon vrai garde-fou, pris sur le fait : je tape « merge », il refuse, me rappelle ce qui partirait en ligne, et exige que je le dise en toutes lettres. C'est ça, une automatisation qui protège.",
         },
@@ -259,6 +263,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Claude Code confirme la programmation. Deux minutes plus tard, sans que tu touches à rien, la tâche se lance : tu vois le travail se faire, puis le fichier bilan.md apparaître dans ton projet. C'est ton premier rendez-vous honoré. Quand tu passes au rythme hebdo, demande « montre-moi mes tâches programmées » : elle doit y figurer avec son horaire. Tu peux aussi la voir dans la barre latérale de l'app, section « Routines ».",
         visuel: {
           src: "/module/3-2-routines.png",
+          w: 484,
+          h: 431,
           alt: "La barre latérale de Claude Code : l'entrée Routines du menu, puis la section Routines listant deux tâches programmées.",
           legende: "Chez moi : la section « Routines » de ma barre latérale, avec mes deux vrais rendez-vous, le menu de sujets du vendredi et le bilan du soir. Mon app est en anglais, la tienne parlera français.",
         },
@@ -284,6 +290,8 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Vendredi soir, un bilan.md mis à jour t'attend dans ton projet, sans que tu aies rien demandé. Dans l'app, la routine a laissé sa trace : elle a travaillé toute seule et s'est terminée par une ligne de conclusion (capture ci-dessous). Si le contenu ne te convient pas, ne supprime pas la routine : dis simplement « à partir de maintenant, ajoute aussi [ce qui manque] dans le bilan ».",
         visuel: {
           src: "/module/3-3-routine-tourne.png",
+          w: 1640,
+          h: 600,
           alt: "Une routine programmée en train de travailler dans Claude Code : elle lance un skill, enchaîne plusieurs commandes, puis conclut par « Bilan du soir du 21 juillet, fait ».",
           legende: "Mon bilan du soir, un vrai rendez-vous programmé : il part sans moi, enchaîne son travail et se termine tout seul. Mon app est en anglais, la tienne parlera français.",
         },
