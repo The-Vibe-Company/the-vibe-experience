@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { etapesDetailDevis } from "@/lib/module-devis";
+import { etapesDetailDevis, prerequisDevis } from "@/lib/module-devis";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
@@ -79,6 +79,25 @@ export default function ModuleDevis() {
             basePath="/automatiser-tes-devis"
             etapes={cards}
           />
+
+          <div className="label mov-sec">Ce qu&apos;il te faut sous la main</div>
+          <p className="mov-toolintro">
+            Rassemble ça avant de commencer : on te le demandera une seule fois, au setup, et tu
+            dérouleras sans avoir à te lever.
+          </p>
+          <div className="tfilets">
+            {prerequisDevis.map((p) => (
+              <div className="tfilet" key={p.quoi}>
+                <span className="tfilet-name">
+                  {p.quoi}
+                  <span className={p.niveau === "obligatoire" ? "cost cost-payant" : "cost cost-gratuit"}>
+                    {p.niveau === "obligatoire" ? "Obligatoire" : "Conseillé"}
+                  </span>
+                </span>
+                <span className="tfilet-desc">{p.ou}</span>
+              </div>
+            ))}
+          </div>
 
           <div className="label mov-sec">Ta boîte à outils</div>
           <p className="mov-toolintro">
