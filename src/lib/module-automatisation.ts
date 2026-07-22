@@ -125,13 +125,13 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Il te propose plusieurs façons de faire et tu ne sais pas choisir ? Réponds « choisis la plus simple et la plus fiable pour un débutant, et explique-moi ton choix en deux phrases ». Il te parle d'un fichier de réglages avec un nom technique ? Pas besoin de l'ouvrir : c'est son rangement à lui, comme pour les skills.",
         visuel: {
           src: "/module/3-1-hook-installe.png",
-          alt: "La confirmation d'installation d'un hook dans Claude Code : les questions de précision et leurs réponses, le script créé, puis « ce que tu as maintenant », « ce qu'il fait » et « les garde-fous que j'ai mis ».",
-          legende: "Un vrai hook qui vient d'être installé chez moi : il dit ce qu'il a créé, où il l'a branché, ce que ça fait à chaque fois, et les garde-fous qu'il a posés au passage. C'est cette réponse que tu attends.",
+          alt: "La confirmation d'installation d'un hook dans Claude Code : les questions de précision et leurs réponses, le script créé, puis ce qui a été installé, où, et ce que ça fait à chaque déclenchement.",
+          legende: "Un vrai hook qui vient d'être installé chez moi : il dit ce qu'il a créé, où il l'a branché, et ce que ça fera à chaque fois. C'est cette réponse-là que tu attends.",
         },
         monExemple:
           "Chez moi, un hook enregistre chaque fichier modifié, sur tous mes projets, pour que ma documentation n'oublie rien. Je l'ai décrit une fois, il tourne depuis des semaines sans que j'y pense.",
         conseil:
-          "Décris toujours un hook dans cet ordre : le déclencheur (« à chaque fois que... »), puis l'action (« fais... »). C'est le format qui marche à tous les coups. Et regarde bien sa réponse : souvent, il ajoute de lui-même des garde-fous que tu n'avais pas demandés (ne rien envoyer depuis telle branche, refuser si un fichier secret traîne). C'est le sujet de l'étape suivante, et c'est bon signe.",
+          "Décris toujours un hook dans cet ordre : le déclencheur (« à chaque fois que... »), puis l'action (« fais... »). C'est le format qui marche à tous les coups. Et lis sa réponse en entier : c'est là que tu vois ce qu'il a vraiment installé, et donc ce qui va partir tout seul à partir de maintenant.",
       },
       {
         titre: "Vois-le vivre, et garde le contrôle.",
