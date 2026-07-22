@@ -20,6 +20,49 @@ const F = {
   },
 };
 
+// Ce qu'il faut avoir sous la main AVANT de commencer, listé sur la page du
+// module : la personne rassemble tout une fois, puis déroule sans être coupée.
+// Même logique que la boîte à outils, mais pour les papiers.
+export type Prerequis = { quoi: string; niveau: "obligatoire" | "conseille"; ou: string };
+
+export const prerequisDevis: Prerequis[] = [
+  {
+    quoi: "Ton SIRET",
+    niveau: "obligatoire",
+    ou: "Sur ton extrait d'immatriculation, ou en cherchant le nom de ton entreprise sur annuaire-entreprises.data.gouv.fr.",
+  },
+  {
+    quoi: "Ta situation TVA",
+    niveau: "obligatoire",
+    ou: "Tu la factures, ou tu es en franchise (le cas de beaucoup d'auto-entrepreneurs). Si tu la factures, ton taux habituel et ton numéro de TVA.",
+  },
+  {
+    quoi: "Ton adresse d'entreprise",
+    niveau: "obligatoire",
+    ou: "Celle qui doit apparaître sur tes devis, telle que tu l'écris.",
+  },
+  {
+    quoi: "Ton attestation d'assurance décennale",
+    niveau: "obligatoire",
+    ou: "Uniquement si tu es artisan du bâtiment : assureur, coordonnées, zone couverte. C'est une mention obligatoire sur chaque devis.",
+  },
+  {
+    quoi: "Le numéro de ton dernier devis",
+    niveau: "conseille",
+    ou: "Si tu en as déjà fait, écrit exactement comme tu l'écris (par exemple 2026-014). Le skill reprendra la suite au même format.",
+  },
+  {
+    quoi: "Ton capital social et ta ville de RCS",
+    niveau: "conseille",
+    ou: "Uniquement si tu es en société : tout est sur ton Kbis.",
+  },
+  {
+    quoi: "Ton logo, ton IBAN, ton téléphone",
+    niveau: "conseille",
+    ou: "Facultatifs, mais ils rendent tes devis plus pros. Le logo se glisse directement dans la fenêtre de Claude Code.",
+  },
+];
+
 export const etapesDetailDevis: EtapeDetail[] = [
   {
     slug: "0",
@@ -102,16 +145,11 @@ export const etapesDetailDevis: EtapeDetail[] = [
         titre: "Sors ce qu'il va te demander.",
         duree: "≈ 2 min",
         cestquoi:
-          "Rien de compliqué, mais autant l'avoir sous la main : il va te demander l'identité de ton entreprise et tes habitudes. Si tu dois partir chercher ton SIRET au milieu, tu perds le fil.",
+          "La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». C'est le moment de tout rassembler : si tu pars chercher ton SIRET au milieu de la conversation, tu perds le fil.",
         attendu: "Tes informations à portée de main, avant de commencer.",
-        exemples: [
-          "Ton SIRET (sur ton extrait d'immatriculation, ou en cherchant le nom de ton entreprise sur annuaire-entreprises.data.gouv.fr).",
-          "Ta situation TVA : tu la factures, ou tu es en franchise (le cas de beaucoup d'auto-entrepreneurs).",
-          "Si tu es artisan du bâtiment : ton attestation d'assurance décennale (assureur, coordonnées, zone couverte).",
-          "Si tu as déjà fait des devis : le numéro du dernier, écrit exactement comme tu l'écris (par exemple 2026-014).",
-        ],
+        lien: { label: "Revoir la liste sur la page du module", href: "/automatiser-tes-devis" },
         ceQueTuDoisVoir:
-          "Rien à l'écran pour l'instant : cette sous-étape se passe sur ton bureau, pas dans l'app. Tu es prêt quand tu peux répondre sans te lever.",
+          "Rien à l'écran pour l'instant : cette sous-étape se passe sur ton bureau, pas dans l'app. Tu es prêt quand tu peux répondre à ces questions sans te lever : quel est ton SIRET, est-ce que tu factures la TVA, et quel numéro portait ton dernier devis.",
         siCaBloque:
           "Tu es en société et on te parle de capital social ou de ville du RCS ? Tout est sur ton Kbis. Tu ne trouves pas ton SIRET ? Cherche le nom de ton entreprise sur annuaire-entreprises.data.gouv.fr, il y est. Et si une information te manque vraiment, commence quand même : tu pourras la donner plus tard.",
         conseil:

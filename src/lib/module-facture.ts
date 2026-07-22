@@ -1,4 +1,5 @@
 import type { EtapeDetail } from "./module-faire-un-site";
+import type { Prerequis } from "./module-devis";
 
 // Module « Automatise tes factures » — famille RÉSULTAT (Automatiser ton business).
 // BROUILLON en review. Deuxième module de la famille, compagnon du module devis :
@@ -18,6 +19,42 @@ const F = {
     d: "Notre skill qui fait tes factures : classiques, d'acompte, de solde qui déduit tout seul, et l'avoir quand il faut corriger. Conformes, numérotées, prêtes à imprimer en PDF.",
   },
 };
+
+// Ce qu'il faut avoir sous la main AVANT de commencer, listé sur la page du
+// module. Deux cas très différents : avec le skill devis déjà configuré, il ne
+// reste presque rien à sortir ; sans lui, c'est la liste complète.
+export const prerequisFacture: Prerequis[] = [
+  {
+    quoi: "Ton IBAN",
+    niveau: "obligatoire",
+    ou: "Tes clients doivent savoir où payer. Il apparaîtra sur chaque facture.",
+  },
+  {
+    quoi: "Ton délai de paiement habituel",
+    niveau: "obligatoire",
+    ou: "30 jours, 45 jours, paiement à réception… C'est lui qui fixe l'échéance affichée.",
+  },
+  {
+    quoi: "Le numéro de ta dernière facture",
+    niveau: "obligatoire",
+    ou: "Si tu en as déjà émis, écrit exactement comme tu l'écris. Ta numérotation doit se suivre sans trou, c'est la loi : ne devine pas, regarde ta dernière facture.",
+  },
+  {
+    quoi: "Ton SIRET, ton adresse, ta situation TVA",
+    niveau: "obligatoire",
+    ou: "Seulement si tu n'as pas déjà le skill devis. Avec lui, tout est récupéré automatiquement et tu ne redonnes rien.",
+  },
+  {
+    quoi: "Ton attestation d'assurance décennale",
+    niveau: "conseille",
+    ou: "Uniquement si tu es artisan du bâtiment, et seulement si tu n'as pas déjà le skill devis : la mention est obligatoire sur tes factures aussi.",
+  },
+  {
+    quoi: "Le numéro d'un devis accepté",
+    niveau: "conseille",
+    ou: "Pour essayer le cas le plus parlant dès la première facture : le devis signé qui devient facture sans rien ressaisir.",
+  },
+];
 
 export const etapesDetailFacture: EtapeDetail[] = [
   {
@@ -101,15 +138,11 @@ export const etapesDetailFacture: EtapeDetail[] = [
         titre: "Sors ce qu'il va te demander.",
         duree: "≈ 2 min",
         cestquoi:
-          "Ce qu'il demande dépend de ton cas. Si tu as déjà le skill devis, il ne te faut presque rien : il récupère ton entreprise, ta TVA et ton carnet de clients, et ne pose que les questions propres aux factures. Si tu pars de zéro, prévois la même liste qu'au module devis, plus deux choses.",
+          "La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Ce qu'il te faudra vraiment dépend de ton cas : si tu as déjà le skill devis, il récupère ton entreprise, ta TVA et ton carnet de clients, et ne pose que les questions propres aux factures.",
         attendu: "Tes informations à portée de main, avant de commencer.",
-        exemples: [
-          "Dans tous les cas : ton IBAN (tes clients doivent savoir où payer) et ton délai de paiement habituel (30 jours, 45 jours...).",
-          "Si tu as déjà émis des factures : le numéro de la dernière, écrit exactement comme tu l'écris. C'est important, on y revient juste en dessous.",
-          "Si tu pars de zéro : SIRET, forme juridique, adresse, situation TVA, et ton assurance décennale si tu es artisan du bâtiment.",
-        ],
+        lien: { label: "Revoir la liste sur la page du module", href: "/automatiser-tes-factures" },
         ceQueTuDoisVoir:
-          "Rien à l'écran : cette sous-étape se passe sur ton bureau. Tu es prêt quand tu peux répondre sans aller chercher.",
+          "Rien à l'écran : cette sous-étape se passe sur ton bureau. Tu es prêt quand tu peux répondre sans aller chercher : ton IBAN, ton délai de paiement, et le numéro de ta dernière facture.",
         siCaBloque:
           "Tu ne retrouves pas ton dernier numéro de facture ? Regarde ta dernière facture envoyée, ou demande à ton comptable. Ne devine pas : la numérotation doit se suivre sans trou, c'est la loi, et il vaut mieux la reprendre juste dès le départ.",
         conseil:
