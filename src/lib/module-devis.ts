@@ -70,7 +70,7 @@ export const etapesDetailDevis: EtapeDetail[] = [
     titre: "Ce qu'il te faut",
     tag: ["Setup", "t-build"],
     dur: "≈ 5 min (0 si tu as déjà l'app)",
-    obj: "Un seul outil : l'app Claude Code, avec un abonnement payant (l'offre Pro, autour de 20 € par mois, suffit). Rien d'autre : aucun logiciel de devis, aucun abonnement en plus. Si tu as déjà fait un module de l'autre famille, tu as tout, passe direct à l'étape 1.",
+    obj: "Deux choses. Un outil : l'app Claude Code, avec un abonnement payant (l'offre Pro, autour de 20 € par mois, suffit) ; aucun logiciel de devis, aucun abonnement en plus. Et tes papiers : SIRET, situation TVA, assurance décennale si tu es artisan. La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Rassemble-les maintenant, tu ne seras pas coupé au milieu du setup.",
     detailPret: true,
     sous: [
       {
@@ -90,7 +90,7 @@ export const etapesDetailDevis: EtapeDetail[] = [
         siCaBloque:
           "L'installation coince quelque part ? Le module « Fais ton premier site » a une étape 0 entièrement guidée pour ça, avec les captures et les cas qui bloquent. Fais-la, et reviens ici.",
         conseil:
-          "Garde ce réflexe pour tout le module : quand quelque chose cloche ou te surprend, décris ton problème à Claude Code (ce que tu as fait, ce que tu attendais, ce que tu vois) et discute avec lui, en français, comme à un collègue.",
+          "Pendant que l'app s'installe, sors tes papiers : la liste « Ce qu'il te faut sous la main » est en haut de la page du module. Et garde ce réflexe pour tout le reste : quand quelque chose cloche ou te surprend, décris ton problème à Claude Code (ce que tu as fait, ce que tu attendais, ce que tu vois) et discute avec lui, en français, comme à un collègue.",
       },
     ],
     livrable: "L'app Claude Code prête.",
