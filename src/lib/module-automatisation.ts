@@ -3,7 +3,9 @@ import type { EtapeDetail } from "./module-faire-un-site";
 // Module 3 — « Automatise ton travail » (famille savoir-faire).
 // BROUILLON en review sur /automatiser-ton-travail (pages câblées, listé dans le
 // parcours avec le statut « En écriture »). Vécus Victor intégrés le 2026-07-20.
-// Reste avant publication : les 3 captures [CAPTURE], et les cadeaux (décision Victor :
+// Captures en place : le hook installé (1.2), le garde-fou qui bloque (2.2), les
+// Routines de la barre latérale (3.2). Reste la dernière [CAPTURE] (la tâche
+// programmée qui se déclenche), et les cadeaux (décision Victor :
 // rien de confidentiel, offrir les hooks maison réplicables à forte valeur ;
 // candidats : le garde-fou prod « pas de mise en ligne sans OK explicite » et le
 // hook de documentation ; à packager depuis les vrais configs, comme au module 2).
@@ -204,7 +206,6 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         },
         siCaBloque:
           "Le test t'angoisse ? C'est prévu pour être sans risque : l'erreur volontaire reste sur ta machine, le garde-fou empêche justement qu'elle parte en ligne, et Claude Code la répare dans la foulée. Si quelque chose semble coincé après le test, demande « confirme-moi que mon site est propre et que tout est réparé ».",
-        // [CAPTURE] Le blocage du garde-fou : le message qui refuse l'envoi et explique pourquoi.
         conseil:
           "Retiens la combinaison des étapes 1 et 2 : un réflexe qui fait + un garde-fou qui vérifie. C'est le duo de base de toute automatisation sérieuse, tu le retrouveras partout.",
       },
