@@ -54,6 +54,27 @@ export default function ModuleDevis() {
             40 à bricoler un vieux fichier Word.
           </p>
 
+          {/* Volontairement AVANT les étapes : la personne rassemble ses papiers
+              une fois, puis déroule le module sans être coupée au milieu du setup. */}
+          <div className="label mov-sec">Ce qu&apos;il te faut sous la main</div>
+          <p className="mov-toolintro">
+            Rassemble ça avant de commencer : on te le demandera une seule fois, au setup, et tu
+            dérouleras ensuite sans avoir à te lever.
+          </p>
+          <div className="tfilets">
+            {prerequisDevis.map((p) => (
+              <div className="tfilet" key={p.quoi}>
+                <span className="tfilet-name">
+                  {p.quoi}
+                  <span className={p.niveau === "obligatoire" ? "cost cost-payant" : "cost cost-gratuit"}>
+                    {p.niveau === "obligatoire" ? "Obligatoire" : "Conseillé"}
+                  </span>
+                </span>
+                <span className="tfilet-desc">{p.ou}</span>
+              </div>
+            ))}
+          </div>
+
           <ModuleSidePanel
             moduleKey="/automatiser-tes-devis"
             basePath="/automatiser-tes-devis"
@@ -79,25 +100,6 @@ export default function ModuleDevis() {
             basePath="/automatiser-tes-devis"
             etapes={cards}
           />
-
-          <div className="label mov-sec">Ce qu&apos;il te faut sous la main</div>
-          <p className="mov-toolintro">
-            Rassemble ça avant de commencer : on te le demandera une seule fois, au setup, et tu
-            dérouleras sans avoir à te lever.
-          </p>
-          <div className="tfilets">
-            {prerequisDevis.map((p) => (
-              <div className="tfilet" key={p.quoi}>
-                <span className="tfilet-name">
-                  {p.quoi}
-                  <span className={p.niveau === "obligatoire" ? "cost cost-payant" : "cost cost-gratuit"}>
-                    {p.niveau === "obligatoire" ? "Obligatoire" : "Conseillé"}
-                  </span>
-                </span>
-                <span className="tfilet-desc">{p.ou}</span>
-              </div>
-            ))}
-          </div>
 
           <div className="label mov-sec">Ta boîte à outils</div>
           <p className="mov-toolintro">

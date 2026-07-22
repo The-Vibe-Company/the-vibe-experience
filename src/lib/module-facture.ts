@@ -63,7 +63,7 @@ export const etapesDetailFacture: EtapeDetail[] = [
     titre: "Ce qu'il te faut",
     tag: ["Setup", "t-build"],
     dur: "≈ 5 min (0 si tu as déjà l'app)",
-    obj: "Un seul outil : l'app Claude Code avec un abonnement payant (Pro, autour de 20 € par mois, suffit). Si tu utilises déjà le skill devis, tu as déjà tout, et le setup d'après sera encore plus court.",
+    obj: "Deux choses. Un outil : l'app Claude Code avec un abonnement payant (Pro, autour de 20 € par mois, suffit). Et tes papiers : IBAN, délai de paiement, numéro de ta dernière facture. La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Si tu utilises déjà le skill devis, il récupère le reste tout seul et le setup sera encore plus court.",
     detailPret: true,
     sous: [
       {
@@ -83,7 +83,7 @@ export const etapesDetailFacture: EtapeDetail[] = [
         siCaBloque:
           "L'installation coince ? L'étape 0 du module « Fais ton premier site » est entièrement guidée, avec les captures et les cas qui bloquent. Fais-la, et reviens.",
         conseil:
-          "Le réflexe du parcours vaut ici aussi : quand quelque chose cloche, décris ton problème à Claude Code en français et discute avec lui.",
+          "Pendant que l'app s'installe, sors tes papiers : la liste « Ce qu'il te faut sous la main » est en haut de la page du module. Et le réflexe du parcours vaut ici aussi : quand quelque chose cloche, décris ton problème à Claude Code en français et discute avec lui.",
       },
     ],
     livrable: "L'app Claude Code prête.",
