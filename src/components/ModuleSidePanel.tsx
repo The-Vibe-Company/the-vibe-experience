@@ -36,7 +36,7 @@ export default function ModuleSidePanel({
   if (started && stats.allDone) {
     return (
       <aside className="module-side" aria-label="Où tu en es dans le module">
-        <span className="label">Où tu en es</span>
+        <span className="erail-cap module-side-cap">Où tu en es</span>
         <p className="module-side-state">✓ Module terminé. Bien joué.</p>
         <Link className="module-side-next" href={finishedHref}>
           <span>Prochaine action</span>
@@ -56,7 +56,7 @@ export default function ModuleSidePanel({
 
     return (
       <aside className="module-side" aria-label="Où tu en es dans le module">
-        <span className="label">Où tu en es</span>
+        <span className="erail-cap module-side-cap">Où tu en es</span>
         <Link className="module-side-next" href={`${basePath}/${current.etapeSlug}`}>
           <span>Prochaine action</span>
           <strong>
@@ -90,7 +90,7 @@ export default function ModuleSidePanel({
 
   return (
     <aside className="module-side" aria-label="Avant de te lancer">
-      <span className="label">Avant de te lancer</span>
+      <span className="erail-cap module-side-cap">Avant de te lancer</span>
       <div className="module-side-list">
         {facts.map((fact) => (
           <div className="module-side-row" key={fact.label}>
