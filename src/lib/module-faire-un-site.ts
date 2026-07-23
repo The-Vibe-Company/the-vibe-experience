@@ -150,7 +150,7 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "1",
     num: "1",
-    titre: "Ton idée devient une page",
+    titre: "Transforme ton idée en page",
     tag: ["Build", "t-build"],
     dur: "≈ 30 min · en local",
     obj: "Passer de ton idée à une vraie page qui tourne sur ta machine (c'est ça, travailler « en local ») et commencer à la façonner. On reste simple.",
@@ -229,7 +229,7 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "2",
     num: "2",
-    titre: "Pose ton projet sur GitHub",
+    titre: "Sauvegarde ton projet sur GitHub",
     tag: ["Build", "t-build"],
     dur: "≈ 25 à 30 min · en local",
     obj: "Sauvegarder ton code et automatiser la sauvegarde, pour ne plus jamais perdre ton travail. C'est aussi ici que tu croises le Terminal, une seule fois, pour connecter GitHub : Claude Code te donne tout, tu colles, c'est fait.",
@@ -430,7 +430,7 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "4",
     num: "4",
-    titre: "Ajoute une ou plusieurs fonctionnalités",
+    titre: "Ajoute une fonctionnalité à ton site",
     tag: ["Produit", "t-product"],
     dur: "≈ 1 h à 1 h 20 · en local",
     obj: "Donne des super-pouvoirs à ton site. Une seule fonctionnalité ou plusieurs, on ne limite pas.",
@@ -507,7 +507,7 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "5",
     num: "5",
-    titre: "Mets-le en ligne et partage",
+    titre: "Mets ton site en ligne et partage-le",
     tag: ["Ship", "t-ship"],
     dur: "≈ 30 à 45 min",
     obj: "Rends ton site officiel. C'est ici que le juge valide ton travail.",
@@ -558,7 +558,7 @@ export const etapesDetail: EtapeDetail[] = [
         conseil: "Teste sur ton propre téléphone, c'est le plus simple et le plus parlant.",
       },
       {
-        titre: "Le juge visite ton site et coche la checklist.",
+        titre: "Fais évaluer ton site par le juge.",
         duree: "≈ 5 min",
         cestquoi:
           "Le juge, c'est une IA qui regarde ton site fini et vérifie les critères techniques du module : il répond en ligne, il a un vrai titre et du contenu, des boutons ou des liens, et il est prêt pour le mobile. Ta fonctionnalité (comptes, formulaire…), lui ne peut pas la tester : c'est toi qui l'as vérifiée à l'étape 4, et il te le rappellera.",
