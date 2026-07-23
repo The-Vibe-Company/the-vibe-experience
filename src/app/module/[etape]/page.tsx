@@ -3,10 +3,12 @@ import { notFound } from "next/navigation";
 import { etapesDetail } from "@/lib/module-faire-un-site";
 import SousEtapes from "./SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
 import EtapeNeeds from "@/components/EtapeNeeds";
 import EtapeSummary from "@/components/EtapeSummary";
 import ModuleAfter from "@/components/ModuleAfter";
 import { siteAfter } from "@/lib/module-after-config";
+import { siteOverview } from "@/lib/module-overview-config";
 
 export function generateStaticParams() {
   return etapesDetail.map((e) => ({ etape: e.slug }));
@@ -29,7 +31,7 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
 
   return (
     <section className="etape-section">
-      <div className="etape-shell">
+      <div className="etape-shell etape-shell-with-context">
         <ModuleRail
           etapes={etapesDetail}
           currentSlug={e.slug}
@@ -106,6 +108,20 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
             )}
           </div>
         </div>
+
+        <ModuleSidePanel
+          moduleKey="/module"
+          basePath="/module"
+          etapes={etapesDetail.map(({ slug, num, titre, sous }) => ({
+            slug,
+            num,
+            titre,
+            sousCount: sous.length,
+          }))}
+          facts={siteOverview.facts}
+          finishedHref={siteOverview.finishedHref}
+          finishedLabel={siteOverview.finishedLabel}
+        />
       </div>
     </section>
   );

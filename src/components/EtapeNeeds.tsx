@@ -4,7 +4,7 @@ export default function EtapeNeeds({ items }: { items?: Fiche[] }) {
   if (!items || items.length === 0) return null;
 
   return (
-    <section className="etape-needs" aria-labelledby="etape-needs-title">
+    <section className="etape-needs" id="ce-quil-te-faut" aria-labelledby="etape-needs-title">
       <h2 className="label etape-needs-title" id="etape-needs-title">
         Ce qu&apos;il te faut
       </h2>
