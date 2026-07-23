@@ -4,7 +4,6 @@ import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
-import ModuleToolbox from "@/components/ModuleToolbox";
 import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import { quoteOverview } from "@/lib/module-overview-config";
@@ -66,7 +65,6 @@ export default function ModuleDevis() {
             basePath="/automatiser-tes-devis"
             etapes={cards}
           />
-          <ModuleToolbox intro={quoteOverview.intro} tools={quoteOverview.tools} />
         </div>
 
         <ModuleSidePanel

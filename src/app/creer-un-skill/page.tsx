@@ -4,7 +4,6 @@ import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
-import ModuleToolbox from "@/components/ModuleToolbox";
 import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import { skillOverview } from "@/lib/module-overview-config";
@@ -60,7 +59,6 @@ export default function ModuleSkill() {
 
           <div className="label mov-sec">Les étapes</div>
           <ModuleEtapes moduleKey="/creer-un-skill" basePath="/creer-un-skill" etapes={cards} />
-          <ModuleToolbox intro={skillOverview.intro} tools={skillOverview.tools} />
         </div>
 
         <ModuleSidePanel

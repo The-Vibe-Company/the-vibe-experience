@@ -4,7 +4,6 @@ import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
-import ModuleToolbox from "@/components/ModuleToolbox";
 import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import { siteOverview } from "@/lib/module-overview-config";
@@ -54,7 +53,6 @@ export default function Module() {
 
           <div className="label mov-sec">Les étapes</div>
           <ModuleEtapes moduleKey="/module" basePath="/module" etapes={cards} />
-          <ModuleToolbox intro={siteOverview.intro} tools={siteOverview.tools} />
         </div>
 
         <ModuleSidePanel

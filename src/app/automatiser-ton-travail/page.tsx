@@ -4,7 +4,6 @@ import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
-import ModuleToolbox from "@/components/ModuleToolbox";
 import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import { automationOverview } from "@/lib/module-overview-config";
@@ -65,7 +64,6 @@ export default function ModuleAutomatisation() {
             basePath="/automatiser-ton-travail"
             etapes={cards}
           />
-          <ModuleToolbox intro={automationOverview.intro} tools={automationOverview.tools} />
         </div>
 
         <ModuleSidePanel

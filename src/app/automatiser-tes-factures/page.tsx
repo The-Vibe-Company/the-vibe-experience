@@ -4,7 +4,6 @@ import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
-import ModuleToolbox from "@/components/ModuleToolbox";
 import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 import { invoiceOverview } from "@/lib/module-overview-config";
@@ -66,7 +65,6 @@ export default function ModuleFacture() {
             basePath="/automatiser-tes-factures"
             etapes={cards}
           />
-          <ModuleToolbox intro={invoiceOverview.intro} tools={invoiceOverview.tools} />
         </div>
 
         <ModuleSidePanel
