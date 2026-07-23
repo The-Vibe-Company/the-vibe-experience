@@ -38,7 +38,7 @@ export default function Module() {
 
           <ModuleOverviewIntro
             eyebrow="Module · Produit"
-            title={<>Faire un site, <em>de ton idée à en ligne</em>.</>}
+            title={<>Crée ton site, <em>de zéro jusqu&apos;à la mise en ligne</em>.</>}
             meta="6 étapes · ≈ 3 à 4 h de travail, souvent en plusieurs fois · Débutant"
           >
             Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la

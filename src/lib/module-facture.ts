@@ -61,13 +61,13 @@ export const etapesDetailFacture: EtapeDetail[] = [
     num: "0",
     titre: "Prépare ton poste",
     tag: ["Setup", "t-build"],
-    dur: "≈ 5 min (0 si tu as déjà l'app)",
+    dur: "5 min environ (0 si tu as déjà l'app)",
     obj: "Deux choses. Un outil : l'app Claude Code avec un abonnement payant (Pro, autour de 20 € par mois, suffit). Et tes papiers : IBAN, délai de paiement, numéro de ta dernière facture. La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Si tu utilises déjà le skill devis, il récupère le reste tout seul et le setup sera encore plus court.",
     detailPret: true,
     sous: [
       {
-        titre: "Claude Code prêt (et un mot honnête sur la facture électronique).",
-        duree: "≈ 5 min (0 si tu l'as déjà)",
+        titre: "Vérifie que Claude Code est prêt (et un mot sur la facture électronique).",
+        duree: "5 min environ (0 si tu l'as déjà)",
         cestquoi:
           "Le skill vit dans l'app Claude Code, avec un abonnement payant (Pro suffit). Rien d'autre : aucun logiciel de facturation, aucun abonnement en plus. Un point d'honnêteté avant de commencer : une réforme française impose progressivement (2026-2027) la facture électronique entre entreprises via des plateformes agréées. Ce skill produit des factures classiques en PDF, qui restent valables pour tes clients particuliers et, selon le calendrier, pour ta taille d'entreprise. Pose-lui la question, il t'expliquera où tu en es sans te vendre du rêve.",
         attendu: "L'app Claude Code installée et connectée.",
@@ -94,13 +94,13 @@ export const etapesDetailFacture: EtapeDetail[] = [
     num: "1",
     titre: "Installe le skill",
     tag: ["Install", "t-build"],
-    dur: "≈ 2 min",
+    dur: "2 min environ",
     obj: "Un copier-coller, une confirmation, et le skill est chez toi. Exactement le même geste que pour le skill devis.",
     detailPret: true,
     sous: [
       {
         titre: "Copie le skill, colle-le, c'est installé.",
-        duree: "≈ 2 min",
+        duree: "2 min environ",
         cestquoi:
           "Le bouton ci-dessous copie le skill en entier. Tu le colles dans Claude Code, il recrée les fichiers chez toi et te confirme. Une seule fois, et il te suit ensuite sur toutes tes conversations.",
         attendu: "Claude Code te confirme que le skill generer-facture est installé et prêt.",
@@ -128,15 +128,15 @@ export const etapesDetailFacture: EtapeDetail[] = [
   {
     slug: "2",
     num: "2",
-    titre: "Le setup : deux minutes si tu as le skill devis",
+    titre: "Configure le skill (deux minutes si tu as déjà le devis)",
     tag: ["Setup", "t-product"],
-    dur: "≈ 4 à 12 min · une seule fois",
+    dur: "4 à 12 min, une seule fois",
     obj: "Deux cas : tu utilises déjà le skill devis, il retrouve tout (entreprise, TVA, clients) et ne demande que le propre aux factures. Tu pars de zéro, il fait connaissance une fois pour toutes.",
     detailPret: true,
     sous: [
       {
         titre: "Sors ce qu'il va te demander.",
-        duree: "≈ 2 min",
+        duree: "2 min environ",
         cestquoi:
           "La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Ce qu'il te faudra vraiment dépend de ton cas : si tu as déjà le skill devis, il récupère ton entreprise, ta TVA et ton carnet de clients, et ne pose que les questions propres aux factures.",
         attendu: "Tes informations à portée de main, avant de commencer.",
@@ -150,7 +150,7 @@ export const etapesDetailFacture: EtapeDetail[] = [
       },
       {
         titre: "Dis « fais-moi une facture », il s'occupe du reste.",
-        duree: "≈ 2 min avec le skill devis, 5 à 10 min sinon",
+        duree: "2 min environ avec le skill devis, 5 à 10 min sinon",
         cestquoi:
           "Comme pour les devis : tu écris une phrase, il voit qu'il ne te connaît pas encore et fait connaissance. Si le skill devis est déjà configuré chez toi, il importe tout et ne pose que les questions factures. Sinon, une quinzaine de questions, une seule fois.",
         attendu: "Ta configuration de facturation enregistrée une fois pour toutes.",
@@ -176,15 +176,15 @@ export const etapesDetailFacture: EtapeDetail[] = [
   {
     slug: "3",
     num: "3",
-    titre: "Ta première facture",
+    titre: "Crée ta première facture",
     tag: ["Résultat", "t-ship"],
-    dur: "≈ 8 min",
+    dur: "8 min environ",
     obj: "Le cas magique : ton devis accepté devient facture en une phrase, sans rien ressaisir. Et sans devis, une facture de zéro tient en une phrase aussi.",
     detailPret: true,
     sous: [
       {
-        titre: "Depuis un devis accepté, ou de zéro.",
-        duree: "≈ 5 min (≈ 2 min par facture ensuite)",
+        titre: "Pars d'un devis accepté, ou de zéro.",
+        duree: "5 min environ (2 min environ par facture ensuite)",
         cestquoi:
           "Depuis un devis accepté : tu donnes son numéro et ce que tu factures (un acompte, le solde, la totalité). Il retrouve le devis, reprend les lignes, calcule, et la facture sort. De zéro : le client, la prestation, le prix, et la date de la prestation (c'est une mention obligatoire). L'échéance, les pénalités et le montant en toutes lettres se posent tout seuls.",
         attendu: "Ta première facture conforme et numérotée.",
@@ -212,7 +212,7 @@ export const etapesDetailFacture: EtapeDetail[] = [
       },
       {
         titre: "Récupère ton PDF et envoie-le.",
-        duree: "≈ 3 min",
+        duree: "3 min environ",
         cestquoi:
           "Même geste qu'au module devis : la facture s'ouvre dans ton navigateur, et tu en fais un PDF en l'imprimant vers « Enregistrer au format PDF ». Rien à télécharger.",
         attendu: "Un PDF propre, prêt à envoyer à ton client.",
@@ -237,15 +237,15 @@ export const etapesDetailFacture: EtapeDetail[] = [
   {
     slug: "4",
     num: "4",
-    titre: "Le quotidien (acomptes, soldes, avoirs)",
+    titre: "Gère acomptes, soldes et avoirs",
     tag: ["Résultat", "t-ship"],
-    dur: "≈ 8 min · à lire",
+    dur: "8 min environ, à lire",
     obj: "Les quatre documents de la vraie vie : la facture classique, l'acompte, le solde qui déduit tout seul, et l'avoir quand une facture envoyée doit être corrigée. Plus l'export pour ton comptable.",
     detailPret: true,
     sous: [
       {
-        titre: "Acompte, solde, et la règle d'or de l'avoir.",
-        duree: "≈ 4 min",
+        titre: "Maîtrise acompte, solde et avoir (la règle d'or).",
+        duree: "4 min environ",
         cestquoi:
           "Le solde : tu le demandes, il déduit tout seul les acomptes déjà facturés. L'avoir : c'est LA règle à connaître, une facture déjà envoyée ne se corrige jamais, elle s'annule par un avoir, avec sa propre numérotation et la référence à la facture d'origine. Le skill connaît la marche à suivre et te guidera le moment venu.",
         attendu: "Tu sais gérer un chantier complet : acompte, solde, et correction.",
@@ -262,8 +262,8 @@ export const etapesDetailFacture: EtapeDetail[] = [
           "Retiens juste la frontière : tant que le client ne l'a pas reçue, ça se corrige ; une fois partie, ça s'annule proprement. Le skill fait le reste.",
       },
       {
-        titre: "L'export pour ton comptable, et ce qu'il ne fait pas.",
-        duree: "≈ 4 min · à lire",
+        titre: "Exporte pour ton comptable (et ce qu'il ne fait pas).",
+        duree: "4 min environ, à lire",
         cestquoi:
           "Le skill tient le journal de tes factures et sait le sortir en fichier Excel, celui que ton comptable attend. Et comme pour le devis, autant savoir tout de suite ce qu'il ne fait pas.",
         attendu: "Tu sais sortir ton journal, et tu connais les limites du skill.",

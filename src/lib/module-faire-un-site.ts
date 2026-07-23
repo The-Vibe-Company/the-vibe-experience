@@ -93,13 +93,13 @@ export const etapesDetail: EtapeDetail[] = [
     num: "0",
     titre: "Prépare ta machine",
     tag: ["Setup", "t-build"],
-    dur: "≈ 10 à 15 min · une seule fois",
+    dur: "10 à 15 min, une seule fois",
     obj: "Ce parcours est écrit pour Mac : si tu es sur Windows, certaines manipulations seront un peu différentes. Avant de créer quoi que ce soit, on installe l'outil principal : l'app Claude Code. Tu ne vas pas coder, tu vas lui parler en français. C'est à faire une fois.",
     detailPret: true,
     sous: [
       {
         titre: "Installe l'app Claude Code.",
-        duree: "≈ 5 min (15 si tu crées ton compte Claude)",
+        duree: "5 min (15 si tu crées ton compte Claude)",
         cestquoi:
           "Claude Code, c'est une application que tu télécharges et installes en cliquant, comme n'importe quelle app. Pas de commande, pas de terminal. Il te faut un compte Claude avec un abonnement payant : l'offre Pro, autour de 20 € par mois, suffit pour tout ce module. Le plan gratuit ne donne pas accès à Claude Code, c'est cet abonnement qui la fait marcher.",
         attendu: "L'app Claude Code installée et ouverte, connectée à ton compte.",
@@ -128,7 +128,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Fais créer ton dossier de projet par Claude Code.",
-        duree: "≈ 2 min",
+        duree: "2 min",
         cestquoi:
           "Ton site va vivre dans un dossier à lui. Pas besoin de le créer toi-même : tu ouvres Claude Code, et tu lui demandes de le créer et de travailler dedans. C'est ta toute première demande, et elle donne le ton : c'est lui qui fait, toi tu diriges. Petit cas possible : si l'app te demande de choisir un dossier dès son ouverture, choisis ton Bureau, puis envoie ta demande.",
         attendu: "Un dossier « mon-site » créé par Claude Code, dans lequel il travaille.",
@@ -149,15 +149,15 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "1",
     num: "1",
-    titre: "Ton idée devient une page",
+    titre: "Transforme ton idée en page",
     tag: ["Build", "t-build"],
-    dur: "≈ 30 min · en local",
+    dur: "30 min, en local",
     obj: "Passer de ton idée à une vraie page qui tourne sur ta machine (c'est ça, travailler « en local ») et commencer à la façonner. On reste simple.",
     detailPret: true,
     sous: [
       {
         titre: "Trouve ton sujet, et garde-le simple.",
-        duree: "≈ 5 min",
+        duree: "5 min",
         cestquoi:
           "Ton sujet, c'est ce dont parle ton site. Ça peut être ton activité, une passion, une idée que tu as en tête depuis longtemps.",
         attendu:
@@ -175,7 +175,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Décris ta page à l'IA (avec déjà un peu de ce que tu veux).",
-        duree: "≈ 10 min (l'IA construit, toi tu regardes)",
+        duree: "10 min (l'IA construit, toi tu regardes)",
         cestquoi:
           "Tu expliques à Claude Code ce que tu veux, en langage normal. Et tu peux déjà glisser un peu de ce que ton site doit faire, pas seulement à quoi il ressemble.",
         attendu:
@@ -202,7 +202,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Regarde ta page en local et commence à la modifier.",
-        duree: "≈ 15 min",
+        duree: "15 min",
         cestquoi:
           "« En local », c'est sur ta machine, avant toute mise en ligne. Mais ta page ne s'ouvre pas toute seule : il faut la « lancer », puis l'ouvrir dans ton navigateur, et surtout commencer à la changer.",
         attendu:
@@ -228,15 +228,15 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "2",
     num: "2",
-    titre: "Pose ton projet sur GitHub",
+    titre: "Sauvegarde ton projet sur GitHub",
     tag: ["Build", "t-build"],
-    dur: "≈ 25 à 30 min · en local",
+    dur: "25 à 30 min, en local",
     obj: "Sauvegarder ton code et automatiser la sauvegarde, pour ne plus jamais perdre ton travail. C'est aussi ici que tu croises le Terminal, une seule fois, pour connecter GitHub : Claude Code te donne tout, tu colles, c'est fait.",
     detailPret: true,
     sous: [
       {
         titre: "Laisse Claude Code installer Git.",
-        duree: "≈ 5 min (plus si l'installateur d'Apple se lance)",
+        duree: "5 min (plus si l'installateur d'Apple se lance)",
         cestquoi:
           "Pour sauvegarder ton code, il faut l'outil Git. Deux noms qui se ressemblent, deux choses différentes : Git, c'est l'outil qui travaille sur ta machine ; GitHub, le coffre en ligne, arrive à la sous-étape suivante. Bonne nouvelle : tu n'as rien à installer toi-même, et pas besoin du Terminal ici. Tu demandes à Claude Code, il s'en occupe, et ta seule mission est de cliquer « Installer » si une fenêtre d'Apple apparaît.",
         attendu: "Git prêt sur ta machine, sans avoir rien installé à la main.",
@@ -253,7 +253,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Crée ton compte GitHub et ouvre le Terminal.",
-        duree: "≈ 5 min",
+        duree: "5 min",
         cestquoi:
           "GitHub, c'est un service en ligne où tu ranges ton code. Ça sert à deux choses : ne jamais perdre ton travail (tout est sauvegardé, avec l'historique) et pouvoir mettre ton site en ligne ensuite (c'est depuis GitHub que l'étape 5 le déploiera). Un « repo », c'est le dossier de ton projet là-bas. Ici, tu prépares juste le terrain : ton compte, et ta première ouverture du Terminal, cette fameuse fenêtre. Pas de panique : c'est juste une zone de texte, et tu ne vas encore rien y taper.",
         attendu: "Ton compte GitHub créé et vérifié, et le Terminal ouvert devant toi. C'est tout.",
@@ -280,7 +280,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Connecte ta machine à GitHub et envoie ton code.",
-        duree: "≈ 10 à 15 min",
+        duree: "10 à 15 min",
         cestquoi:
           "Connecter ta machine à ton compte GitHub, c'est LE moment Terminal du parcours : ça se passe dedans, une seule fois. Claude Code te donne tout ce qu'il faut y coller, toi tu colles et tu suis. C'est la seule étape où le parcours te fait ouvrir le Terminal exprès.",
         attendu: "Ta machine connectée à GitHub, ton code copié dessus, avec un premier enregistrement. Et le Terminal apprivoisé au passage.",
@@ -301,7 +301,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Automatise les sauvegardes.",
-        duree: "≈ 5 min",
+        duree: "5 min",
         cestquoi:
           "Une fois GitHub branché, tu peux demander à Claude Code d'enregistrer et d'envoyer tes changements tout seul, sans le refaire à la main à chaque fois. Pas besoin de toucher au Terminal : Claude Code lance les commandes lui-même.",
         attendu: "Tu bosses, et tes sauvegardes partent automatiquement.",
@@ -327,15 +327,15 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "3",
     num: "3",
-    titre: "Rends ton site à ton image",
+    titre: "Travaille le visuel de ton site",
     tag: ["Build", "t-build"],
-    dur: "≈ 40 min à 1 h (hors pages en option) · en local",
+    dur: "40 min à 1 h (hors pages en option), en local",
     obj: "Fais en sorte que ton site te ressemble et te plaise, et rends-le propre. Les pages en plus ? Optionnel.",
     detailPret: true,
     sous: [
       {
         titre: "Travaille l'apparence : couleurs, style, ton, ta DA.",
-        duree: "≈ 15 à 25 min (c'est toi qui décides quand t'arrêter)",
+        duree: "15 à 25 min (c'est toi qui décides quand t'arrêter)",
         cestquoi:
           "Ta DA (direction artistique), c'est l'ambiance visuelle de ton site : les couleurs, les polices, le ton. Ce qui fait qu'il te ressemble.",
         attendu: "Un site qui a une identité, pas juste la mise en page par défaut. Il commence à te plaire.",
@@ -362,7 +362,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Si tu veux, ajoute des pages et un menu.",
-        duree: "≈ 0 à 15 min (souvent, on saute)",
+        duree: "0 à 15 min (souvent, on saute)",
         cestquoi: "Une page en plus (à propos, contact…) et un menu pour naviguer entre elles. Totalement optionnel.",
         attendu: "Si tu en as besoin, un site à plusieurs pages qui se tient. Sinon, une seule page suffit.",
         exemples: ["Ajouter une page « À propos ».", "Un menu en haut avec Accueil / Contact."],
@@ -374,7 +374,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Nettoie le tout avec Impeccable.",
-        duree: "≈ 10 min",
+        duree: "10 min",
         cestquoi:
           "Impeccable, c'est un skill (une compétence qu'on donne à l'IA) qui remet de l'ordre. À l'écran, la différence n'est pas toujours spectaculaire ; ce qu'il fait surtout, c'est trier et nettoyer le code derrière.",
         attendu: "Un code plus propre et mieux rangé. Tu ne le vois pas forcément à l'écran, mais ça pose des bases saines pour la suite.",
@@ -396,7 +396,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Fais boucler Impeccable et Agent Browser (ta première loop).",
-        duree: "≈ 15 à 25 min (ça tourne surtout tout seul)",
+        duree: "15 à 25 min (ça tourne surtout tout seul)",
         cestquoi:
           "Agent Browser, lui, clique partout sur ton site comme le ferait un visiteur, et note tout ce qui cloche. Une « loop », c'est quand tu demandes à l'IA de répéter un cycle toute seule jusqu'à ce que ce soit bon. Ici, tu fais travailler tes deux skills ensemble : Impeccable soigne, Agent Browser teste, et ça tourne en boucle sans que tu relances à la main.",
         attendu: "Tes deux skills qui s'enchaînent tout seuls : vérifie → teste → corrige → re-teste, jusqu'à ce que tout soit bon.",
@@ -429,15 +429,15 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "4",
     num: "4",
-    titre: "Ajoute une ou plusieurs fonctionnalités",
+    titre: "Ajoute une fonctionnalité à ton site",
     tag: ["Produit", "t-product"],
-    dur: "≈ 1 h à 1 h 20 · en local",
+    dur: "1 h à 1 h 20, en local",
     obj: "Donne des super-pouvoirs à ton site. Une seule fonctionnalité ou plusieurs, on ne limite pas.",
     detailPret: true,
     sous: [
       {
         titre: "Choisis ta ou tes fonctionnalités (comptes, multilingue, formulaire…).",
-        duree: "≈ 5 min",
+        duree: "5 min",
         cestquoi:
           "Une fonctionnalité, c'est quelque chose que ton site sait FAIRE (pas juste afficher) : gérer des comptes, envoyer un formulaire, parler plusieurs langues.",
         attendu: "Tu choisis une ou plusieurs fonctionnalités qui ont du sens pour ton projet.",
@@ -461,7 +461,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Implémente-la avec l'IA.",
-        duree: "≈ 40 min à 1 h (la première fois, la création du compte et des clés prend du temps)",
+        duree: "40 min à 1 h (la première fois, la création du compte et des clés prend du temps)",
         cestquoi:
           "Tu demandes à Claude Code de construire la fonctionnalité choisie, en te guidant. Pour beaucoup de fonctionnalités (comptes, formulaire dont tu gardes les messages), il branche Supabase : c'est le service qui garde les comptes et les données de tes utilisateurs. Ton site en ligne a besoin d'un endroit où ranger tout ça, et c'est lui. Gratuit pour commencer.",
         attendu: "La fonctionnalité en place dans ton code, expliquée au passage.",
@@ -482,7 +482,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Teste de bout en bout.",
-        duree: "≈ 15 min",
+        duree: "15 min",
         cestquoi: "Vérifier que la fonctionnalité marche vraiment, du début à la fin, en te mettant à la place de l'utilisateur.",
         attendu: "La fonctionnalité fonctionne sans bug (tu crées un compte test, tu soumets le formulaire…).",
         exemples: [
@@ -506,15 +506,15 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "5",
     num: "5",
-    titre: "Mets-le en ligne et partage",
+    titre: "Mets ton site en ligne et partage-le",
     tag: ["Ship", "t-ship"],
-    dur: "≈ 30 à 45 min",
+    dur: "30 à 45 min",
     obj: "Rends ton site officiel. C'est ici que le juge valide ton travail.",
     detailPret: true,
     sous: [
       {
         titre: "Connecte Vercel et déploie.",
-        duree: "≈ 10 à 15 min",
+        duree: "10 à 15 min",
         cestquoi: "Vercel, c'est l'hébergeur : il prend ton site et le met en ligne, accessible par tout le monde, avec une vraie adresse.",
         attendu: "Ton site en ligne, avec un lien qui marche.",
         lien: { label: "Créer mon compte sur vercel.com", href: "https://vercel.com" },
@@ -534,7 +534,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "En option, ajoute un nom de domaine.",
-        duree: "≈ 0 à 20 min (optionnel)",
+        duree: "0 à 20 min (optionnel)",
         cestquoi: "Un nom de domaine, c'est une adresse à toi (tonsite.com) au lieu de l'adresse par défaut de Vercel. Ça s'achète quelques euros par an, directement dans Vercel (rubrique Domains de ton projet) ou chez un vendeur de domaines.",
         attendu: "Si tu veux, une adresse personnalisée et pro.",
         exemples: ["Acheter un nom de domaine et le brancher sur Vercel."],
@@ -544,7 +544,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Vérifie le mobile et la vitesse.",
-        duree: "≈ 10 min",
+        duree: "10 min",
         cestquoi: "T'assurer que ton site s'affiche bien sur téléphone et qu'il se charge vite.",
         attendu: "Un site propre sur mobile, qui ne rame pas.",
         exemples: ["Envoie-toi le lien .vercel.app par message et ouvre-le directement sur ton téléphone."],
@@ -557,8 +557,8 @@ export const etapesDetail: EtapeDetail[] = [
         conseil: "Teste sur ton propre téléphone, c'est le plus simple et le plus parlant.",
       },
       {
-        titre: "Le juge visite ton site et coche la checklist.",
-        duree: "≈ 5 min",
+        titre: "Fais évaluer ton site par le juge.",
+        duree: "5 min",
         cestquoi:
           "Le juge, c'est une IA qui regarde ton site fini et vérifie les critères techniques du module : il répond en ligne, il a un vrai titre et du contenu, des boutons ou des liens, et il est prêt pour le mobile. Ta fonctionnalité (comptes, formulaire…), lui ne peut pas la tester : c'est toi qui l'as vérifiée à l'étape 4, et il te le rappellera.",
         attendu: "Un verdict clair : réussi, ou ce qui manque avec l'étape à reprendre.",
@@ -583,7 +583,7 @@ export const etapesDetail: EtapeDetail[] = [
       },
       {
         titre: "Partage ton lien.",
-        duree: "≈ 2 min",
+        duree: "2 min",
         cestquoi: "Envoyer l'adresse de ton site à d'autres personnes.",
         attendu: "Ton site vu par quelqu'un d'autre que toi. Ton premier vrai retour.",
         exemples: ["Commence par une personne bienveillante (un proche), avant la place publique."],

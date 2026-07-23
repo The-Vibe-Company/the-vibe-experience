@@ -43,7 +43,7 @@ export default function ModuleAutomatisation() {
 
           <ModuleOverviewIntro
             eyebrow="Module · Savoir-faire · En écriture"
-            title={<>Automatise ton travail, <em>déclenché, pas demandé</em>.</>}
+            title={<>Automatise ton travail, <em>ce qui se répète se fait tout seul</em>.</>}
             meta="5 étapes · ≈ 2 h à 2 h 45 · Débutant"
           >
             Jusqu&apos;ici, il se passait des choses parce que tu demandais. Dans ce module, il va se

@@ -43,7 +43,7 @@ export default function ModuleSkill() {
 
           <ModuleOverviewIntro
             eyebrow="Module · Savoir-faire"
-            title={<>Créer ton premier skill, <em>construit une fois, réutilisé partout</em>.</>}
+            title={<>Crée ton premier skill, <em>réutilisable sur tous tes projets</em>.</>}
             meta="5 étapes · ≈ 1 h 40 à 2 h · Débutant"
           >
             Tu viens d&apos;utiliser des skills tout faits (Impeccable, Agent Browser). Là, tu
