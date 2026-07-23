@@ -3,10 +3,10 @@ import { notFound } from "next/navigation";
 import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
+import { ModuleStepIntro } from "@/components/ModuleIntro";
 import ModuleAfter from "@/components/ModuleAfter";
 import ModulePrerequisites from "@/components/ModulePrerequisites";
-import { skillShell } from "@/lib/module-shell-config";
+import { skillAfter } from "@/lib/module-after-config";
 
 export function generateStaticParams() {
   return etapesDetailSkill.map((e) => ({ etape: e.slug }));
@@ -37,7 +37,7 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
           moduleLabel="Créer ton premier skill"
         />
 
-        <div className="ecol ecol-with-side">
+        <div className="ecol">
           <div className="crumb">
             <Link href="/parcours">Modules</Link>
             <span className="sep">/</span>
@@ -45,27 +45,7 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
             <span className="sep">/</span>
             <span>Étape {e.num}</span>
           </div>
-          <div className="etape-head" style={{ marginTop: "1.2rem" }}>
-            <span className="etape-num">{e.num}</span>
-            <h1 style={{ fontSize: "clamp(1.8rem,3.4vw,2.6rem)", letterSpacing: "-0.03em", fontWeight: 800, lineHeight: 1.05, flex: 1, margin: 0 }}>
-              {e.titre}
-            </h1>
-          </div>
-          <div style={{ display: "flex", gap: ".8rem", alignItems: "center", marginTop: ".8rem" }}>
-            <span className={`tag ${e.tag[1]}`}>{e.tag[0]}</span>
-            <span className="etape-dur">{e.dur}</span>
-          </div>
-          <p className="etape-obj">{e.obj}</p>
-
-          <ModuleSidePanel
-            moduleKey="/creer-un-skill"
-            basePath="/creer-un-skill"
-            etapes={etapesDetailSkill.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
-            facts={skillShell.facts}
-            resources={skillShell.resources}
-            jugeHref={skillShell.finishedHref}
-            jugeLabel={skillShell.finishedLabel}
-          />
+          <ModuleStepIntro etape={e} />
 
           {idx === 0 && <ModulePrerequisites items={e.sous[0]?.prerequis} />}
 
@@ -92,7 +72,7 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
             </div>
           </div>
 
-          {!next && <ModuleAfter content={skillShell.after} />}
+          {!next && <ModuleAfter content={skillAfter} />}
 
           <div className="pager">
             {prev ? (

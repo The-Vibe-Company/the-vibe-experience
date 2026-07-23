@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ModuleAfter as ModuleAfterContent } from "@/lib/module-shell-config";
+import type { ModuleAfterContent } from "@/lib/module-after-config";
 
 export default function ModuleAfter({ content }: { content: ModuleAfterContent }) {
   return (

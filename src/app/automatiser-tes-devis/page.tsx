@@ -3,9 +3,8 @@ import { etapesDetailDevis } from "@/lib/module-devis";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
+import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
-import { quoteShell } from "@/lib/module-shell-config";
 
 export const metadata = { title: "Module · Automatise tes devis — The Vibe Experience" };
 
@@ -31,7 +30,7 @@ export default function ModuleDevis() {
           moduleLabel="Automatise tes devis"
         />
 
-        <div className="ecol ecol-with-side">
+        <div className="ecol">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -40,31 +39,17 @@ export default function ModuleDevis() {
             <span>Automatise tes devis</span>
           </div>
 
-          <div className="label" style={{ marginTop: "1.1rem" }}>
-            Module · Résultat · En écriture
-          </div>
-          <h1 className="mov-h1">
-            Automatise tes devis, <em>une phrase, un devis conforme</em>.
-          </h1>
-          <p className="mov-meta">5 étapes · ≈ 35 min (dont 10 de setup, une seule fois) · Débutant</p>
-          <p className="etape-obj">
+          <ModuleOverviewIntro
+            eyebrow="Module · Résultat · En écriture"
+            title={<>Automatise tes devis, <em>une phrase, un devis conforme</em>.</>}
+            meta="5 étapes · ≈ 35 min (dont 10 de setup, une seule fois) · Débutant"
+          >
             Tu dis « devis pour Madame Martin, remplacement du chauffe-eau, 980 euros », et tu
             obtiens un devis professionnel conforme au droit français, numéroté, prêt à imprimer
             en PDF. Ici, tu n&apos;apprends pas à construire : tu installes un skill prêt à
             l&apos;emploi et tu repars avec tes devis en 2 à 3 minutes au lieu de 20 à
             40 à bricoler un vieux fichier Word.
-          </p>
-
-
-          <ModuleSidePanel
-            moduleKey="/automatiser-tes-devis"
-            basePath="/automatiser-tes-devis"
-            etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
-            facts={quoteShell.facts}
-            resources={quoteShell.resources}
-            jugeHref={quoteShell.finishedHref}
-            jugeLabel={quoteShell.finishedLabel}
-          />
+          </ModuleOverviewIntro>
 
           <ModuleProgress
             moduleKey="/automatiser-tes-devis"

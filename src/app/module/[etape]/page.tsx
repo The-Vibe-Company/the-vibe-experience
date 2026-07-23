@@ -3,10 +3,10 @@ import { notFound } from "next/navigation";
 import { etapesDetail } from "@/lib/module-faire-un-site";
 import SousEtapes from "./SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
+import { ModuleStepIntro } from "@/components/ModuleIntro";
 import ModuleAfter from "@/components/ModuleAfter";
 import ModulePrerequisites from "@/components/ModulePrerequisites";
-import { siteShell } from "@/lib/module-shell-config";
+import { siteAfter } from "@/lib/module-after-config";
 
 export function generateStaticParams() {
   return etapesDetail.map((e) => ({ etape: e.slug }));
@@ -37,7 +37,7 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
           moduleLabel="Faire un site"
         />
 
-        <div className="ecol ecol-with-side">
+        <div className="ecol">
           <div className="crumb">
             <Link href="/parcours">Modules</Link>
             <span className="sep">/</span>
@@ -45,27 +45,7 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
             <span className="sep">/</span>
             <span>Étape {e.num}</span>
           </div>
-          <div className="etape-head" style={{ marginTop: "1.2rem" }}>
-            <span className="etape-num">{e.num}</span>
-            <h1 style={{ fontSize: "clamp(1.8rem,3.4vw,2.6rem)", letterSpacing: "-0.03em", fontWeight: 800, lineHeight: 1.05, flex: 1, margin: 0 }}>
-              {e.titre}
-            </h1>
-          </div>
-          <div style={{ display: "flex", gap: ".8rem", alignItems: "center", marginTop: ".8rem" }}>
-            <span className={`tag ${e.tag[1]}`}>{e.tag[0]}</span>
-            <span className="etape-dur">{e.dur}</span>
-          </div>
-          <p className="etape-obj">{e.obj}</p>
-
-          <ModuleSidePanel
-            moduleKey="/module"
-            basePath="/module"
-            etapes={etapesDetail.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
-            facts={siteShell.facts}
-            resources={siteShell.resources}
-            jugeHref={siteShell.finishedHref}
-            jugeLabel={siteShell.finishedLabel}
-          />
+          <ModuleStepIntro etape={e} />
 
           {idx === 0 && <ModulePrerequisites items={e.sous[0]?.prerequis} />}
 
@@ -92,7 +72,7 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
             </div>
           </div>
 
-          {!next && <ModuleAfter content={siteShell.after} />}
+          {!next && <ModuleAfter content={siteAfter} />}
 
           <div className="pager">
             {prev ? (
