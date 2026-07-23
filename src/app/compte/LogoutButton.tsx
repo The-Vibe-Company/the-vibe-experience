@@ -8,7 +8,7 @@ export default function LogoutButton() {
     window.location.assign("/");
   }
   return (
-    <button className="btn btn-ghost" onClick={logout}>
+    <button type="button" className="btn btn-ghost" onClick={logout}>
       Se déconnecter
     </button>
   );

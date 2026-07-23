@@ -52,7 +52,7 @@ export default function ModuleSkill() {
           <h1 className="mov-h1">
             Créer ton premier skill, <em>construit une fois, réutilisé partout</em>.
           </h1>
-          <p className="mov-meta">5 étapes · ≈ 1 h 40 à 2 h · Débutant</p>
+          <p className="mov-meta">5 étapes, 1 h 40 à 2 h environ, niveau débutant</p>
           <p className="etape-obj">
             Tu viens d&apos;utiliser des skills tout faits (Impeccable, Agent Browser). Là, tu
             fabriques le tien : une compétence que tu apprends une fois à l&apos;IA et qu&apos;elle
@@ -66,7 +66,7 @@ export default function ModuleSkill() {
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
             facts={[
               { label: "Livrable", value: "Un skill que Claude Code peut réutiliser" },
-              { label: "Durée", value: "5 étapes · ≈ 1 h 40 à 2 h" },
+              { label: "Durée", value: "1 h 40 à 2 h environ" },
               { label: "Outil", value: "Claude Code, plus les deux skills offerts" },
             ]}
             jugeHref="/juge-skill"

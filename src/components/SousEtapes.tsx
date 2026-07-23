@@ -81,6 +81,7 @@ export default function SousEtapes({
         const done = mounted && isDone(id);
         const isOpen = open === i;
         const label = `${etapeNum}.${i + 1}`;
+        const panelId = `sous-etape-${etapeSlug}-${i}`;
         const isLast = i === sous.length - 1;
         // Le panneau de droite n'existe que s'il a quelque chose à apporter en
         // plus de la colonne principale : conseil, exemples, vécu. La durée et
@@ -104,7 +105,13 @@ export default function SousEtapes({
               >
                 {done ? "✓" : ""}
               </button>
-              <button className="se-head" onClick={() => setOpen(isOpen ? null : i)}>
+              <button
+                type="button"
+                className="se-head"
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                onClick={() => setOpen(isOpen ? null : i)}
+              >
                 <span className="se-num">{label}</span>
                 <span className="se-title">{s.titre}</span>
                 <span className="se-tog" aria-hidden>
@@ -114,7 +121,7 @@ export default function SousEtapes({
             </div>
 
             {isOpen && (
-              <div className="se-panel">
+              <div className="se-panel" id={panelId}>
                 {s.duree && <div className="se-pdur">{s.duree}</div>}
                 {!detailPret ? (
                   <p className="se-todo">

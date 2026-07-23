@@ -44,11 +44,9 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
           </div>
           <div className="etape-head" style={{ marginTop: "1.2rem" }}>
             <span className="etape-num">{e.num}</span>
-            <h1 style={{ fontSize: "clamp(1.8rem,3.4vw,2.6rem)", letterSpacing: "-0.03em", fontWeight: 800, lineHeight: 1.05, flex: 1, margin: 0 }}>
-              {e.titre}
-            </h1>
+            <h1 className="etape-title">{e.titre}</h1>
           </div>
-          <div style={{ display: "flex", gap: ".8rem", alignItems: "center", marginTop: ".8rem" }}>
+          <div className="etape-meta">
             <span className={`tag ${e.tag[1]}`}>{e.tag[0]}</span>
             <span className="etape-dur">{e.dur}</span>
           </div>
@@ -60,7 +58,7 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
             etapes={etapesDetail.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
             facts={[
               { label: "Livrable", value: "Ton site en ligne, partagé" },
-              { label: "Durée", value: "6 étapes · ≈ 3 à 4 h" },
+              { label: "Durée", value: "3 à 4 h environ" },
             ]}
             jugeHref="/juge"
             jugeLabel="Fais évaluer ton site par le juge"
