@@ -45,7 +45,7 @@ export default function ModuleFacture() {
           <h1 className="mov-h1">
             Automatise tes factures, <em>ton devis signé devient facture</em>.
           </h1>
-          <p className="mov-meta">5 étapes · ≈ 30 min (setup compris, une seule fois) · Débutant</p>
+          <p className="mov-meta">5 étapes, 30 min environ (setup compris, une seule fois), niveau débutant</p>
           <p className="etape-obj">
             Le cas magique : « le devis DEV-2026-012 est accepté, facture d&apos;acompte de
             30 % », et la facture sort, sans rien ressaisir. Le skill sait faire les quatre
@@ -61,7 +61,7 @@ export default function ModuleFacture() {
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
             facts={[
               { label: "Livrable", value: "Tes factures conformes, en une phrase" },
-              { label: "Durée", value: "5 étapes · ≈ 30 min" },
+              { label: "Durée", value: "30 min environ" },
               { label: "Outil", value: "Claude Code + le skill offert" },
             ]}
             jugeHref="/parcours"

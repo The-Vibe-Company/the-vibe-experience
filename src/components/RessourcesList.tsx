@@ -21,6 +21,7 @@ export default function RessourcesList() {
       <div className="rfilters">
         {filters.map((f) => (
           <button
+            type="button"
             key={f.key}
             className={`rfilter ${active === f.key ? "active" : ""}`}
             aria-pressed={active === f.key}

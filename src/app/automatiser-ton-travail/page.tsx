@@ -45,7 +45,7 @@ export default function ModuleAutomatisation() {
           <h1 className="mov-h1">
             Automatise ton travail, <em>déclenché, pas demandé</em>.
           </h1>
-          <p className="mov-meta">5 étapes · ≈ 2 h à 2 h 45 · Débutant</p>
+          <p className="mov-meta">5 étapes, 2 h à 2 h 45, niveau débutant</p>
           <p className="etape-obj">
             Jusqu&apos;ici, il se passait des choses parce que tu demandais. Dans ce module, il va se
             passer des choses parce que c&apos;est déclenché : une sauvegarde qui part toute seule,
@@ -60,7 +60,7 @@ export default function ModuleAutomatisation() {
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
             facts={[
               { label: "Livrable", value: "Des automatisations qui se déclenchent seules" },
-              { label: "Durée", value: "5 étapes · ≈ 2 h à 2 h 45" },
+              { label: "Durée", value: "2 h à 2 h 45" },
               { label: "Outil", value: "Claude Code, rien de neuf à installer" },
             ]}
             jugeHref="/juge-automatisation"
