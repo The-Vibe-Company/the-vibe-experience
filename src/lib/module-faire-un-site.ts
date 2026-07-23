@@ -298,7 +298,7 @@ export const etapesDetail: EtapeDetail[] = [
         monExemple:
           "La première fois que j'ai collé une ligne dans le Terminal et que ça a marché, la peur est tombée d'un coup. Depuis, ce n'est plus un obstacle.",
         conseil:
-          "C'est un vrai cap, c'est normal que ça impressionne. Tu vas juste coller ce qu'on te donne et regarder. Une fois que c'est fait, tu sais que cette fenêtre n'a rien de magique : une zone de texte, des erreurs rouges qui ne cassent rien. Te voilà passé de l'autre côté.",
+          "Tu colles ce qu'on te donne et tu regardes. Cette fenêtre n'a rien de magique : une zone de texte, et des erreurs rouges qui ne cassent rien.",
       },
       {
         titre: "Automatise les sauvegardes.",
@@ -382,7 +382,7 @@ export const etapesDetail: EtapeDetail[] = [
         telechargements: [{ n: "Impeccable", href: "/skills/impeccable.zip" }],
         outils: [F.impeccable],
         pasAPas: [
-          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Copier le skill » juste au-dessus : ça copie le skill en entier.",
+          "C'est ta première installation de skill. Clique sur « Copier le skill » juste au-dessus : ça copie le skill en entier.",
           "Ouvre Claude Code, colle le skill copié dans la zone où tu écris tes messages, puis envoie. Claude Code range les fichiers du skill au bon endroit et te confirme.",
           "Tu ne fais ça qu'une fois : ensuite, le skill reste disponible, ici et sur tous tes prochains projets.",
           "Puis lance-le avec le prompt fourni ci-dessous.",
@@ -461,7 +461,7 @@ export const etapesDetail: EtapeDetail[] = [
         conseil: "Prends le plus simple pour ta première fois. Un formulaire de contact est plus doux que des comptes. Tu en rajouteras si tu veux.",
       },
       {
-        titre: "Implémente-la avec l'IA, qui t'accompagne.",
+        titre: "Implémente-la avec l'IA.",
         duree: "≈ 40 min à 1 h (la première fois, la création du compte et des clés prend du temps)",
         cestquoi:
           "Tu demandes à Claude Code de construire la fonctionnalité choisie, en te guidant. Pour beaucoup de fonctionnalités (comptes, formulaire dont tu gardes les messages), il branche Supabase : c'est le service qui garde les comptes et les données de tes utilisateurs. Ton site en ligne a besoin d'un endroit où ranger tout ça, et c'est lui. Gratuit pour commencer.",

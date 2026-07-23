@@ -70,7 +70,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
     titre: "C'est quoi un skill",
     tag: ["Setup", "t-build"],
     dur: "≈ 8 min · rien à installer",
-    obj: "Tu as déjà Claude Code de ton premier projet, rien de neuf à installer. Un skill, c'est une compétence que tu apprends une fois à l'IA et qu'elle réutilise ensuite toute seule. Tu viens d'en utiliser des tout faits (Impeccable, Agent Browser), là tu fais le tien. Et rassure-toi : créer un skill n'abîme rien, ça s'ajoute à côté.",
+    obj: "Tu as déjà Claude Code de ton premier projet, rien de neuf à installer. Un skill, c'est une compétence que tu apprends une fois à l'IA et qu'elle réutilise ensuite toute seule. Tu viens d'en utiliser des tout faits (Impeccable, Agent Browser), là tu fais le tien. Créer un skill n'abîme rien, ça s'ajoute à côté.",
     detailPret: true,
     sous: [
       {
@@ -176,7 +176,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
     titre: "Crée ton skill",
     tag: ["Build", "t-build"],
     dur: "≈ 30 min",
-    obj: "Créer un skill, c'est simple : tu peux le demander directement à Claude Code, juste avec un prompt. Et pour un skill vraiment carré, on te donne notre Skill Creator, en option, qui garantit le bon format et t'assure un skill propre et fonctionnel, sans que tu touches à la technique.",
+    obj: "Tu peux demander ton skill directement à Claude Code, juste avec un prompt. On te donne aussi le Skill Creator, en option, qui s'occupe du format à ta place.",
     detailPret: true,
     sous: [
       {
@@ -199,11 +199,11 @@ export const etapesDetailSkill: EtapeDetail[] = [
         conseil: "Sois précis sur le QUAND (la description) : c'est ce qui fait que l'IA lance ton skill toute seule au bon moment.",
       },
       {
-        titre: "Pour un skill au top : le Skill Creator (offert, en option).",
+        titre: "Le Skill Creator, en option.",
         duree: "≈ 15 min (le temps de répondre à ses questions)",
         cestquoi:
-          "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools), c'est notre vrai outil de travail, celui qu'on utilise nous-mêmes tous les jours, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Mais c'est un vrai plus : il crée le skill en suivant la bonne méthode, au bon format, et s'assure qu'il est propre et fonctionnel. C'est un outil de pro : il sait faire beaucoup plus que ce qu'on utilise ici (des tests, des mesures), et il est écrit en anglais à l'intérieur. Aucun souci : tu lui parles en français, et on lui demande la version simple. Et le geste d'installation, tu le connais déjà : le même copier-coller qu'Impeccable et Agent Browser au module précédent.",
-        attendu: "Un skill créé avec le Skill Creator, encore plus carré.",
+          "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools) est l'outil qu'on utilise nous-mêmes, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Lui, il crée le skill en suivant la bonne méthode et le bon format, et il sait faire plus (des tests, des mesures). Il est écrit en anglais à l'intérieur : tu lui parles en français, et on lui demande la version simple. Le geste d'installation, tu le connais déjà : le même copier-coller qu'Impeccable et Agent Browser au module précédent.",
+        attendu: "Un skill créé avec le Skill Creator.",
         telechargements: [{ n: "le Skill Creator", href: "/skills/create-skill-tools.zip" }],
         outils: [F.skillcreator],
         pasAPas: [

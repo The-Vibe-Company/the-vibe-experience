@@ -50,7 +50,7 @@ export default function ModuleDevis() {
             Tu dis « devis pour Madame Martin, remplacement du chauffe-eau, 980 euros », et tu
             obtiens un devis professionnel conforme au droit français, numéroté, prêt à imprimer
             en PDF. Ici, tu n&apos;apprends pas à construire : tu installes un skill prêt à
-            l&apos;emploi, offert, et tu repars avec tes devis en 2 à 3 minutes au lieu de 20 à
+            l&apos;emploi et tu repars avec tes devis en 2 à 3 minutes au lieu de 20 à
             40 à bricoler un vieux fichier Word.
           </p>
 

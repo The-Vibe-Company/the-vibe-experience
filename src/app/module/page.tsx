@@ -72,8 +72,7 @@ export default function Module() {
           <p className="mov-meta">6 étapes · ≈ 3 à 4 h de travail, souvent en plusieurs fois · Débutant</p>
           <p className="etape-obj">
             Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la
-            mise en ligne, en apprenant les vrais outils au passage. On ne t&apos;impose rien, on
-            t&apos;accompagne pas à pas.
+            mise en ligne, en apprenant les vrais outils au passage.
           </p>
 
 
