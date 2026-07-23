@@ -50,7 +50,7 @@ export default function ModuleSkill() {
             Module · Savoir-faire
           </div>
           <h1 className="mov-h1">
-            Créer ton premier skill, <em>construit une fois, réutilisé partout</em>.
+            Crée ton premier skill, <em>réutilisable sur tous tes projets</em>.
           </h1>
           <p className="mov-meta">5 étapes, 1 h 40 à 2 h environ, niveau débutant</p>
           <p className="etape-obj">

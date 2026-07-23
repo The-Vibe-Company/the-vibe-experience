@@ -328,7 +328,7 @@ export const etapesDetail: EtapeDetail[] = [
   {
     slug: "3",
     num: "3",
-    titre: "Rends ton site à ton image",
+    titre: "Travaille le visuel de ton site",
     tag: ["Build", "t-build"],
     dur: "40 min à 1 h (hors pages en option), en local",
     obj: "Fais en sorte que ton site te ressemble et te plaise, et rends-le propre. Les pages en plus ? Optionnel.",

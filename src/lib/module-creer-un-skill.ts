@@ -121,7 +121,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
   {
     slug: "1",
     num: "1",
-    titre: "Trouve ton premier skill",
+    titre: "Trouve l'idée de ton premier skill",
     tag: ["Savoir-faire", "t-product"],
     dur: "8 min",
     obj: "Le meilleur premier skill, c'est un truc que tu réexpliques sans arrêt à l'IA. On repère cette répétition, et on en choisit un qui te resservira, idéalement dès ton prochain projet.",

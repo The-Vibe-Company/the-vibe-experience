@@ -113,7 +113,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "1",
     num: "1",
-    titre: "Automatise ton premier réflexe",
+    titre: "Crée ta première automatisation",
     tag: ["Hook", "t-build"],
     dur: "30 à 40 min",
     obj: "Installer ton premier hook : une consigne qui se déclenche toute seule quand un événement arrive. Tu vas automatiser la sauvegarde de ton site, la voir partir sans toi, et apprendre à garder le contrôle (lister, retirer).",

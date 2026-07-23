@@ -67,7 +67,7 @@ export default function Module() {
             Module · Produit
           </div>
           <h1 className="mov-h1">
-            Faire un site, <em>de ton idée à en ligne</em>.
+            Crée ton site, <em>de zéro jusqu&apos;à la mise en ligne</em>.
           </h1>
           <p className="mov-meta">6 étapes, 3 à 4 h de travail, souvent en plusieurs fois, niveau débutant</p>
           <p className="etape-obj">
