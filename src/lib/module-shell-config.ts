@@ -4,6 +4,11 @@ export type ModuleResource = {
   href: string;
 };
 
+export type ModuleResourceGroup = {
+  label: string;
+  items: ModuleResource[];
+};
+
 export type ModuleAfter = {
   href: string;
   title: string;
@@ -12,7 +17,7 @@ export type ModuleAfter = {
 
 export type ModuleShellConfig = {
   facts: { label: string; value: string }[];
-  resources: ModuleResource[];
+  resources: ModuleResourceGroup[];
   finishedHref: string;
   finishedLabel: string;
   after: ModuleAfter;
@@ -26,19 +31,33 @@ export const siteShell: ModuleShellConfig = {
   ],
   resources: [
     {
-      label: "Ce qu'il te faut",
-      value: "Carte, email et une idée de site",
-      href: "/module/0#ce-quil-te-faut",
+      label: "Avant de commencer",
+      items: [
+        {
+          label: "Ce qu'il te faut",
+          value: "Carte, email et une idée de site",
+          href: "/module/0#ce-quil-te-faut",
+        },
+      ],
     },
     {
       label: "Boîte à outils",
-      value: "Claude Code, GitHub, Vercel et Supabase",
-      href: "/module/0",
+      items: [
+        { label: "Claude Code", value: "Étape 0", href: "/module/0" },
+        { label: "GitHub", value: "Étape 2", href: "/module/2" },
+        { label: "Supabase", value: "Étape 4", href: "/module/4" },
+        { label: "Vercel", value: "Étape 5", href: "/module/5" },
+      ],
     },
     {
       label: "Skills offerts",
-      value: "Impeccable et Agent Browser",
-      href: "/module/3",
+      items: [
+        {
+          label: "Impeccable et Agent Browser",
+          value: "Étape 3",
+          href: "/module/3",
+        },
+      ],
     },
   ],
   finishedHref: "/juge",
@@ -59,19 +78,25 @@ export const skillShell: ModuleShellConfig = {
   ],
   resources: [
     {
-      label: "Ce qu'il te faut",
-      value: "Claude Code et une tâche répétée",
-      href: "/creer-un-skill/0#ce-quil-te-faut",
+      label: "Avant de commencer",
+      items: [
+        {
+          label: "Ce qu'il te faut",
+          value: "Claude Code et une tâche répétée",
+          href: "/creer-un-skill/0#ce-quil-te-faut",
+        },
+      ],
     },
     {
       label: "Boîte à outils",
-      value: "Claude Code",
-      href: "/creer-un-skill/0",
+      items: [{ label: "Claude Code", value: "Étape 0", href: "/creer-un-skill/0" }],
     },
     {
       label: "Skills offerts",
-      value: "Skill Creator puis Improve",
-      href: "/creer-un-skill/2",
+      items: [
+        { label: "Skill Creator", value: "Étape 2", href: "/creer-un-skill/2" },
+        { label: "Improve", value: "Étape 3", href: "/creer-un-skill/3" },
+      ],
     },
   ],
   finishedHref: "/juge-skill",
@@ -92,14 +117,20 @@ export const automationShell: ModuleShellConfig = {
   ],
   resources: [
     {
-      label: "Ce qu'il te faut",
-      value: "Ton site, tes skills et Claude Code",
-      href: "/automatiser-ton-travail/0#ce-quil-te-faut",
+      label: "Avant de commencer",
+      items: [
+        {
+          label: "Ce qu'il te faut",
+          value: "Ton site, tes skills et Claude Code",
+          href: "/automatiser-ton-travail/0#ce-quil-te-faut",
+        },
+      ],
     },
     {
       label: "Boîte à outils",
-      value: "Claude Code",
-      href: "/automatiser-ton-travail/0",
+      items: [
+        { label: "Claude Code", value: "Étape 0", href: "/automatiser-ton-travail/0" },
+      ],
     },
   ],
   finishedHref: "/juge-automatisation",
@@ -120,19 +151,30 @@ export const quoteShell: ModuleShellConfig = {
   ],
   resources: [
     {
-      label: "Ce qu'il te faut",
-      value: "Claude Pro et tes informations d'entreprise",
-      href: "/automatiser-tes-devis/0#ce-quil-te-faut",
+      label: "Avant de commencer",
+      items: [
+        {
+          label: "Ce qu'il te faut",
+          value: "Claude Pro et tes informations d'entreprise",
+          href: "/automatiser-tes-devis/0#ce-quil-te-faut",
+        },
+      ],
     },
     {
       label: "Boîte à outils",
-      value: "Claude Code",
-      href: "/automatiser-tes-devis/0",
+      items: [
+        { label: "Claude Code", value: "Étape 0", href: "/automatiser-tes-devis/0" },
+      ],
     },
     {
       label: "Skill offert",
-      value: "Générer un devis",
-      href: "/automatiser-tes-devis/1",
+      items: [
+        {
+          label: "Générer un devis",
+          value: "Étape 1",
+          href: "/automatiser-tes-devis/1",
+        },
+      ],
     },
   ],
   finishedHref: "/automatiser-tes-factures",
@@ -153,19 +195,30 @@ export const invoiceShell: ModuleShellConfig = {
   ],
   resources: [
     {
-      label: "Ce qu'il te faut",
-      value: "Claude Pro, tes informations et tes devis",
-      href: "/automatiser-tes-factures/0#ce-quil-te-faut",
+      label: "Avant de commencer",
+      items: [
+        {
+          label: "Ce qu'il te faut",
+          value: "Claude Pro, tes informations et tes devis",
+          href: "/automatiser-tes-factures/0#ce-quil-te-faut",
+        },
+      ],
     },
     {
       label: "Boîte à outils",
-      value: "Claude Code",
-      href: "/automatiser-tes-factures/0",
+      items: [
+        { label: "Claude Code", value: "Étape 0", href: "/automatiser-tes-factures/0" },
+      ],
     },
     {
       label: "Skill offert",
-      value: "Générer une facture",
-      href: "/automatiser-tes-factures/1",
+      items: [
+        {
+          label: "Générer une facture",
+          value: "Étape 1",
+          href: "/automatiser-tes-factures/1",
+        },
+      ],
     },
   ],
   finishedHref: "/parcours",

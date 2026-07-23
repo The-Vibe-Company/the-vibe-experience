@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { computeStats, useModuleProgress, type EtapeLite } from "@/lib/progress";
-import type { ModuleResource } from "@/lib/module-shell-config";
+import type { ModuleResourceGroup } from "@/lib/module-shell-config";
 
 type SideItem = {
   label: string;
@@ -24,7 +24,7 @@ export default function ModuleSidePanel({
   basePath: string;
   etapes: EtapeLite[];
   facts: SideItem[];
-  resources: ModuleResource[];
+  resources: ModuleResourceGroup[];
   jugeHref?: string;
   jugeLabel?: string;
 }) {
@@ -33,21 +33,18 @@ export default function ModuleSidePanel({
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const started = mounted && stats.doneCount > 0;
 
-  // Toujours accessible, dans les trois états et depuis n'importe quelle page
-  // d'étape : la liste vit dans la sous-étape 0.1, avec les outils du module.
-  const prerequis = (
-    <Link href={`${basePath}/${etapes[0]?.slug}#ce-quil-te-faut`}>
-      Ce qu&apos;il te faut sous la main →
-    </Link>
-  );
   const resourceList = (
     <nav className="module-side-resources" aria-label="Repères utiles du module">
-      <span className="module-side-section-label">Dans ce module</span>
-      {resources.map((resource) => (
-        <Link href={resource.href} key={`${resource.label}-${resource.href}`}>
-          <span>{resource.label}</span>
-          <strong>{resource.value}</strong>
-        </Link>
+      {resources.map((group) => (
+        <div className="module-side-resource-group" key={group.label}>
+          <span className="module-side-section-label">{group.label}</span>
+          {group.items.map((resource) => (
+            <Link href={resource.href} key={`${resource.label}-${resource.href}`}>
+              <strong>{resource.label}</strong>
+              <span>{resource.value}</span>
+            </Link>
+          ))}
+        </div>
       ))}
     </nav>
   );
@@ -63,7 +60,6 @@ export default function ModuleSidePanel({
         </Link>
         <div className="module-side-links">
           <Link href={`${basePath}/${etapes[0]?.slug}`}>Revoir le module →</Link>
-          {prerequis}
         </div>
         {resourceList}
       </aside>
@@ -102,7 +98,6 @@ export default function ModuleSidePanel({
             <em>fait</em>
           </span>
         </div>
-        <div className="module-side-links">{prerequis}</div>
         {resourceList}
       </aside>
     );
@@ -123,7 +118,6 @@ export default function ModuleSidePanel({
         <span>Par ici</span>
         <strong>Commencer le module →</strong>
       </Link>
-      <div className="module-side-links">{prerequis}</div>
       {resourceList}
     </aside>
   );
