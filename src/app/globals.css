@@ -563,9 +563,31 @@ a { color: inherit; text-decoration: none; }
 /* ACCUEIL DE MODULE (design 3a) */
 .mov-h1 { font-size: clamp(2rem, 3.4vw, 2.6rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; margin: 1rem 0 .7rem; }
 .mov-h1 em { font-style: normal; color: var(--orange); }
-.mov-meta { font-size: .86rem; line-height: 1.5; color: var(--muted-2); margin: 0 0 1rem; }
+.mov-meta { font-family: var(--font-geist-mono), monospace; font-size: .78rem; line-height: 1.5; color: var(--muted-2); margin: 0 0 1rem; }
+.module-intro { margin: 1.1rem 0 2.4rem; }
+.module-intro .etape-obj { margin: 1rem 0 0; }
 .mov-sec { margin: 2.6rem 0 .2rem; }
 .mov-toolintro { font-size: .95rem; color: var(--muted); line-height: 1.55; margin: .5rem 0 1rem; max-width: 42rem; }
+.module-overview-shell {
+  grid-template-columns: clamp(250px, 18vw, 290px) minmax(0, 1fr) minmax(240px, 340px);
+  justify-content: stretch;
+}
+.module-overview-shell > .erail {
+  width: 100%;
+  max-width: 435px;
+  justify-self: start;
+}
+.module-overview-main {
+  grid-column: 2;
+  grid-row: 1;
+  display: block;
+  width: min(100%, 820px);
+  justify-self: center;
+}
+.module-overview-shell > .module-side {
+  grid-column: 3;
+  grid-row: 1;
+}
 .module-side {
   position: sticky;
   top: 84px;
@@ -603,6 +625,29 @@ a { color: inherit; text-decoration: none; }
 .module-side-links a:hover { color: var(--orange); }
 @media (max-width: 1399px) {
   .module-side { position: static; top: auto; justify-self: stretch; width: auto; margin: 1.4rem 0 0; padding: 1rem 0 0; border-left: none; border-top: 1px solid var(--border); }
+  .module-overview-shell {
+    grid-template-columns: clamp(250px, 22vw, 290px) minmax(0, 820px);
+  }
+  .module-overview-main {
+    grid-column: 2;
+  }
+  .module-overview-shell > .module-side {
+    grid-column: 2;
+    grid-row: 2;
+    width: min(100%, 820px);
+    justify-self: center;
+  }
+}
+@media (max-width: 900px) {
+  .module-overview-shell { grid-template-columns: 1fr; }
+  .module-overview-main {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .module-overview-shell > .module-side {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }
 .cost { font-family: var(--font-geist-mono), monospace; font-size: .6rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; color: var(--muted-2); background: none; padding: 0; border: none; border-radius: 0; }
 .cost-gratuit, .cost-gratuit-debut, .cost-payant { color: var(--muted-2); background: none; }
