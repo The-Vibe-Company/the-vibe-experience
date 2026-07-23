@@ -61,7 +61,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "0",
     num: "0",
-    titre: "C'est quoi une automatisation",
+    titre: "Comprends ce qu'est une automatisation",
     tag: ["Comprendre", "t-build"],
     dur: "15 min, rien à installer",
     obj: "Avant d'automatiser quoi que ce soit, comprendre LE déplacement de ce module : jusqu'ici, il se passait des choses parce que tu demandais. Maintenant, il va se passer des choses parce que c'est déclenché. Tu as déjà tous les outils.",
@@ -113,7 +113,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "1",
     num: "1",
-    titre: "Ton premier réflexe automatique",
+    titre: "Crée ta première automatisation",
     tag: ["Hook", "t-build"],
     dur: "30 à 40 min",
     obj: "Installer ton premier hook : une consigne qui se déclenche toute seule quand un événement arrive. Tu vas automatiser la sauvegarde de ton site, la voir partir sans toi, et apprendre à garder le contrôle (lister, retirer).",
@@ -193,14 +193,14 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "2",
     num: "2",
-    titre: "Ton garde-fou",
+    titre: "Installe un garde-fou qui bloque les erreurs",
     tag: ["Sécurité", "t-build"],
     dur: "20 à 30 min",
     obj: "Le deuxième visage de l'automatisation : celle qui ne fait rien à ta place, mais qui t'empêche de casser. Tu vas poser un garde-fou qui bloque la mise en ligne d'un site cassé, et le déclencher exprès pour le voir te protéger.",
     detailPret: true,
     sous: [
       {
-        titre: "L'automatisation qui protège (au lieu de faire).",
+        titre: "Comprends l'automatisation qui protège (au lieu de faire).",
         duree: "5 min, rien à faire, juste à retenir",
         cestquoi:
           "Depuis le module 1, chaque envoi sur GitHub peut mettre ton site en ligne. C'est exactement pour ça qu'il faut une barrière : un garde-fou, c'est un hook dont l'action est de VÉRIFIER et, si besoin, de BLOQUER. Les pros en mettent partout, pas parce qu'ils sont maladroits, mais parce que tout le monde finit par pousser une bêtise un jour.",
@@ -249,14 +249,14 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "3",
     num: "3",
-    titre: "Ton rendez-vous programmé",
+    titre: "Programme une routine chaque semaine",
     tag: ["Routine", "t-product"],
     dur: "25 à 35 min",
     obj: "Le deuxième déclencheur : l'heure. Tu programmes une tâche récurrente qui travaille pour toi à heure fixe, chaque semaine, que tu y penses ou non.",
     detailPret: true,
     sous: [
       {
-        titre: "Choisis ton rendez-vous (quoi, et quand).",
+        titre: "Choisis ta routine (quoi, et quand).",
         duree: "5 à 10 min",
         cestquoi:
           "Une tâche programmée, c'est une consigne avec l'heure comme déclencheur. Le bon candidat : quelque chose d'utile régulièrement, que tu oublierais de faire toi-même. Tu choisis l'action et le rendez-vous.",
@@ -310,7 +310,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "L'astuce du passage d'essai vaut pour TOUTES tes futures routines : d'abord dans 2 minutes pour voir, ensuite au vrai rythme. Ne programme jamais à l'aveugle.",
       },
       {
-        titre: "Le rendez-vous d'après : laisse-la vivre.",
+        titre: "Laisse ta routine tourner toute seule.",
         duree: "5 min (et rendez-vous vendredi)",
         cestquoi:
           "Une routine se juge sur la durée. Celle-ci va tourner vendredi, puis tous les vendredis. Ton seul travail : lire le bilan, et ajuster la consigne si le résultat ne te plaît pas.",
@@ -338,14 +338,14 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "4",
     num: "4",
-    titre: "Ta petite usine",
+    titre: "Assemble ta première chaîne automatique",
     tag: ["Assemble", "t-ship"],
     dur: "30 à 45 min",
     obj: "Le dernier rang : assembler. Une automatisation qui combine ta routine, TON skill du module 2 et ton garde-fou, et qui te livre un résultat fini. C'est le même principe que les grosses automatisations des pros, en version à toi.",
     detailPret: true,
     sous: [
       {
-        titre: "Assemble : une veille qui te propose du contenu prêt à ajouter.",
+        titre: "Branche une veille qui te propose du contenu prêt à ajouter.",
         duree: "20 à 30 min",
         cestquoi:
           "Jusqu'ici, chaque brique travaillait seule. Une usine, c'est des briques branchées ensemble : une routine (le déclencheur), ton skill mon-style du module 2 (le savoir-faire), et ton garde-fou (la sécurité). Résultat : chaque semaine, des propositions de contenu pour ton site, écrites dans TON style, prêtes à valider.",

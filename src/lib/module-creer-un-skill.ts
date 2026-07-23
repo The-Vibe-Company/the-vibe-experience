@@ -67,7 +67,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
   {
     slug: "0",
     num: "0",
-    titre: "C'est quoi un skill",
+    titre: "Comprends ce qu'est un skill",
     tag: ["Setup", "t-build"],
     dur: "8 min, rien à installer",
     obj: "Tu as déjà Claude Code de ton premier projet, rien de neuf à installer. Un skill, c'est une compétence que tu apprends une fois à l'IA et qu'elle réutilise ensuite toute seule. Tu viens d'en utiliser des tout faits (Impeccable, Agent Browser), là tu fais le tien. Créer un skill n'abîme rien, ça s'ajoute à côté.",
@@ -92,7 +92,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
           "Si tu as sauté le module « Faire un site », installe d'abord Claude Code (son étape 0). Tout part de là. Et garde ce réflexe pour tout le module : quand quelque chose cloche ou te surprend, décris ton problème à Claude Code (ce que tu as fait, ce que tu attendais, ce que tu vois) et discute avec lui. Il y aura toujours des cas imprévus, et c'est comme ça qu'ils se résolvent.",
       },
       {
-        titre: "Comprends ce qu'est un skill (et pourquoi ça change tout).",
+        titre: "Comprends à quoi sert un skill.",
         duree: "5 min",
         cestquoi:
           "Un skill, c'est le petit dossier dont on parlait, et dedans il y a trois choses : un nom, une description (quand l'IA doit l'utiliser) et des instructions (ce qu'elle doit faire). Techniquement, tout ça tient dans un simple fichier texte appelé SKILL.md. Tu n'auras jamais à l'écrire toi-même, Claude Code s'en occupe, retiens juste le mot, tu le reverras. Tu l'appelles en tapant /nom dans la zone où tu écris à Claude Code, comme un message (par exemple /impeccable), ou l'IA le déclenche toute seule quand ta demande colle à la description. Tu l'apprends une fois à l'IA, et elle s'en ressert toujours.",
@@ -121,7 +121,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
   {
     slug: "1",
     num: "1",
-    titre: "Trouve ton premier skill",
+    titre: "Trouve l'idée de ton premier skill",
     tag: ["Savoir-faire", "t-product"],
     dur: "8 min",
     obj: "Le meilleur premier skill, c'est un truc que tu réexpliques sans arrêt à l'IA. On repère cette répétition, et on en choisit un qui te resservira, idéalement dès ton prochain projet.",
@@ -180,7 +180,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
     detailPret: true,
     sous: [
       {
-        titre: "Le plus simple : demande ton skill à Claude Code.",
+        titre: "Demande ton skill à Claude Code (le plus simple).",
         duree: "8 min",
         cestquoi:
           "Tu n'as besoin de rien d'autre que Claude Code. Tu lui dis en français ce que tu veux capturer, quand ça doit se déclencher, et ce que ça doit faire. Il crée le skill. C'est aussi direct que ça : pas besoin d'outil spécial pour commencer.",
@@ -199,7 +199,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         conseil: "Sois précis sur le QUAND (la description) : c'est ce qui fait que l'IA lance ton skill toute seule au bon moment.",
       },
       {
-        titre: "Le Skill Creator, en option.",
+        titre: "Crée ton skill avec le Skill Creator (en option).",
         duree: "15 min (le temps de répondre à ses questions)",
         cestquoi:
           "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools) est l'outil qu'on utilise nous-mêmes, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Lui, il crée le skill en suivant la bonne méthode et le bon format, et il sait faire plus (des tests, des mesures). Il est écrit en anglais à l'intérieur : tu lui parles en français, et on lui demande la version simple. Le geste d'installation, tu le connais déjà : le même copier-coller qu'Impeccable et Agent Browser au module précédent.",
@@ -322,7 +322,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         conseil: "Une bonne description dit clairement dans quels cas utiliser le skill, avec les mots que tu emploies vraiment. Et c'est normal de s'y reprendre à deux ou trois fois : c'est juste une question de formulation.",
       },
       {
-        titre: "En option : fais réviser ton skill avec l'Improve (offert).",
+        titre: "Fais réviser ton skill avec l'Improve (en option).",
         duree: "10 à 15 min",
         cestquoi:
           "L'Improve (vrai nom : improve-skill-tools), c'est notre deuxième vrai outil, offert lui aussi. Il lit ton fichier SKILL.md, celui-là même que l'IA regarde pour décider quand lancer ton skill, et il le passe en revue comme un relecteur expert. Il te propose des améliorations, sur le fond (est-ce clair, utile) et sur la technique (le format, la description). Un point important sur sa façon de travailler : l'Improve RELIT, il ne modifie jamais rien lui-même, c'est voulu (un relecteur ne touche pas au texte). Pour appliquer ses remarques, c'est à Claude Code que tu le demandes ensuite.",

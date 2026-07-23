@@ -43,7 +43,7 @@ export default function ModuleAutomatisation() {
             Module · Savoir-faire · En écriture
           </div>
           <h1 className="mov-h1">
-            Automatise ton travail, <em>déclenché, pas demandé</em>.
+            Automatise ton travail, <em>ce qui se répète se fait tout seul</em>.
           </h1>
           <p className="mov-meta">5 étapes, 2 h à 2 h 45, niveau débutant</p>
           <p className="etape-obj">
