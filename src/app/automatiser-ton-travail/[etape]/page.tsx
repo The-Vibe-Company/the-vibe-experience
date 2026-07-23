@@ -53,17 +53,16 @@ export default async function EtapeAutomatisationPage({
 
           {idx === 0 && <ModulePrerequisites items={e.sous[0]?.prerequis} />}
 
-          <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
-            Les sous-étapes
-          </div>
-
-          <SousEtapes
-            sous={e.sous}
-            detailPret={e.detailPret}
-            moduleKey="/automatiser-ton-travail"
-            etapeSlug={e.slug}
-            etapeNum={e.num}
-          />
+          <section className="substeps-section">
+            <div className="label substeps-label">Les sous-étapes</div>
+            <SousEtapes
+              sous={e.sous}
+              detailPret={e.detailPret}
+              moduleKey="/automatiser-ton-travail"
+              etapeSlug={e.slug}
+              etapeNum={e.num}
+            />
+          </section>
 
           <div className="livret">
             <div className="livret-row">
