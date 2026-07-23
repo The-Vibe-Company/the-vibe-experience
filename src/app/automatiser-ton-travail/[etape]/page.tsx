@@ -3,10 +3,7 @@ import { notFound } from "next/navigation";
 import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import { ModuleStepIntro } from "@/components/ModuleIntro";
-import ModuleAfter from "@/components/ModuleAfter";
-import ModulePrerequisites from "@/components/ModulePrerequisites";
-import { automationAfter } from "@/lib/module-after-config";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
 
 export function generateStaticParams() {
   return etapesDetailAutomatisation.map((e) => ({ etape: e.slug }));
@@ -41,7 +38,7 @@ export default async function EtapeAutomatisationPage({
           moduleLabel="Automatise ton travail"
         />
 
-        <div className="ecol">
+        <div className="ecol ecol-with-side">
           <div className="crumb">
             <Link href="/parcours">Modules</Link>
             <span className="sep">/</span>
@@ -49,20 +46,39 @@ export default async function EtapeAutomatisationPage({
             <span className="sep">/</span>
             <span>Étape {e.num}</span>
           </div>
-          <ModuleStepIntro etape={e} />
+          <div className="etape-head" style={{ marginTop: "1.2rem" }}>
+            <span className="etape-num">{e.num}</span>
+            <h1 className="etape-title">{e.titre}</h1>
+          </div>
+          <div className="etape-meta">
+            <span className={`tag ${e.tag[1]}`}>{e.tag[0]}</span>
+            <span className="etape-dur">{e.dur}</span>
+          </div>
+          <p className="etape-obj">{e.obj}</p>
 
-          {idx === 0 && <ModulePrerequisites items={e.sous[0]?.prerequis} />}
+          <ModuleSidePanel
+            moduleKey="/automatiser-ton-travail"
+            basePath="/automatiser-ton-travail"
+            etapes={etapesDetailAutomatisation.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
+            facts={[
+              { label: "Livrable", value: "Des automatisations qui se déclenchent seules" },
+              { label: "Durée", value: "2 h à 2 h 45 environ" },
+            ]}
+            jugeHref="/juge-automatisation"
+            jugeLabel="Fais évaluer ton automatisation par le juge"
+          />
 
-          <section className="substeps-section">
-            <div className="label substeps-label">Les sous-étapes</div>
-            <SousEtapes
-              sous={e.sous}
-              detailPret={e.detailPret}
-              moduleKey="/automatiser-ton-travail"
-              etapeSlug={e.slug}
-              etapeNum={e.num}
-            />
-          </section>
+          <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
+            Les sous-étapes
+          </div>
+
+          <SousEtapes
+            sous={e.sous}
+            detailPret={e.detailPret}
+            moduleKey="/automatiser-ton-travail"
+            etapeSlug={e.slug}
+            etapeNum={e.num}
+          />
 
           <div className="livret">
             <div className="livret-row">
@@ -74,8 +90,6 @@ export default async function EtapeAutomatisationPage({
               <p>{e.reussite}</p>
             </div>
           </div>
-
-          {!next && <ModuleAfter content={automationAfter} />}
 
           <div className="pager">
             {prev ? (

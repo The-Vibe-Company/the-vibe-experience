@@ -8,29 +8,32 @@ type SideItem = {
   value: string;
 };
 
+// Panneau latéral de la page module : contexte, progression et lien secondaire.
+// Le bouton principal de démarrage ou de reprise reste dans la colonne centrale.
 export default function ModuleSidePanel({
   moduleKey,
   basePath,
   etapes,
   facts,
-  finishedHref,
-  finishedLabel,
+  jugeHref = "/juge",
+  jugeLabel = "Fais évaluer ton site par le juge",
 }: {
   moduleKey: string;
   basePath: string;
   etapes: EtapeLite[];
   facts: SideItem[];
-  finishedHref: string;
-  finishedLabel: string;
+  jugeHref?: string;
+  jugeLabel?: string;
 }) {
   const { done, mounted, started: moduleStarted } = useModuleProgress(moduleKey);
   const stats = computeStats(etapes, mounted ? done : [], mounted && moduleStarted);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const started = mounted && stats.doneCount > 0;
-  const prerequisites = (
-    <Link href={`${basePath}/${etapes[0]?.slug}#ce-quil-te-faut`}>
-      Ce qu&apos;il te faut sous la main →
-    </Link>
+
+  // Toujours accessible, dans les trois états et depuis n'importe quelle page
+  // d'étape : la liste vit dans la sous-étape 0.1, avec les outils du module.
+  const prerequis = (
+    <Link href={`${basePath}/${etapes[0]?.slug}`}>Ce qu&apos;il te faut sous la main →</Link>
   );
 
   if (started && stats.allDone) {
@@ -38,36 +41,35 @@ export default function ModuleSidePanel({
       <aside className="module-side" aria-label="Où tu en es dans le module">
         <span className="label">Où tu en es</span>
         <p className="module-side-state">✓ Module terminé. Bien joué.</p>
-        <Link className="module-side-next" href={finishedHref}>
+        <Link className="module-side-next" href={jugeHref}>
           <span>Prochaine action</span>
-          <strong>{finishedLabel} →</strong>
+          <strong>{jugeLabel} →</strong>
         </Link>
         <div className="module-side-links">
           <Link href={`${basePath}/${etapes[0]?.slug}`}>Revoir le module →</Link>
-          {prerequisites}
+          {prerequis}
         </div>
       </aside>
     );
   }
 
   if (started && stats.current) {
-    const current = stats.current;
-    const currentStep = etapes.find((etape) => etape.slug === current.etapeSlug);
-
+    const cur = stats.current;
+    const curEtape = etapes.find((e) => e.slug === cur.etapeSlug);
     return (
       <aside className="module-side" aria-label="Où tu en es dans le module">
         <span className="label">Où tu en es</span>
-        <Link className="module-side-next" href={`${basePath}/${current.etapeSlug}`}>
+        <Link className="module-side-next" href={`${basePath}/${cur.etapeSlug}`}>
           <span>Prochaine action</span>
           <strong>
-            Reprendre à la sous-étape {current.etapeNum}.{current.subIndex + 1} →
+            Reprendre à la sous-étape {cur.etapeNum}.{cur.subIndex + 1} →
           </strong>
         </Link>
         <div className="module-side-list">
           <div className="module-side-row">
             <span>Étape en cours</span>
             <strong>
-              {current.etapeNum} · {currentStep?.titre}
+              {cur.etapeNum} · {curEtape?.titre}
             </strong>
           </div>
         </div>
@@ -83,7 +85,7 @@ export default function ModuleSidePanel({
             <em>fait</em>
           </span>
         </div>
-        <div className="module-side-links">{prerequisites}</div>
+        <div className="module-side-links">{prerequis}</div>
       </aside>
     );
   }
@@ -103,7 +105,7 @@ export default function ModuleSidePanel({
         <span>Par ici</span>
         <strong>Commencer le module →</strong>
       </Link>
-      <div className="module-side-links">{prerequisites}</div>
+      <div className="module-side-links">{prerequis}</div>
     </aside>
   );
 }

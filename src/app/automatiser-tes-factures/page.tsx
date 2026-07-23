@@ -4,9 +4,7 @@ import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
-import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
-import { invoiceOverview } from "@/lib/module-overview-config";
 
 export const metadata = { title: "Module · Automatise tes factures — The Vibe Experience" };
 
@@ -24,7 +22,7 @@ export default function ModuleFacture() {
   return (
     <section className="etape-section">
       <MarkSelectedPath path="automatiser" />
-      <div className="etape-shell module-overview-shell">
+      <div className="etape-shell">
         <ModuleRail
           etapes={etapesDetailFacture}
           currentSlug=""
@@ -32,7 +30,7 @@ export default function ModuleFacture() {
           moduleLabel="Automatise tes factures"
         />
 
-        <div className="ecol module-overview-main">
+        <div className="ecol ecol-with-side">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -41,17 +39,34 @@ export default function ModuleFacture() {
             <span>Automatise tes factures</span>
           </div>
 
-          <ModuleOverviewIntro
-            eyebrow="Module · Résultat · En écriture"
-            title={<>Automatise tes factures, <em>ton devis signé devient facture</em>.</>}
-            meta="5 étapes · ≈ 30 min (setup compris, une seule fois) · Débutant"
-          >
+          <div className="label" style={{ marginTop: "1.1rem" }}>
+            Module · Résultat · En écriture
+          </div>
+          <h1 className="mov-h1">
+            Automatise tes factures, <em>ton devis signé devient facture</em>.
+          </h1>
+          <p className="mov-meta">5 étapes, 30 min environ (setup compris, une seule fois), niveau débutant</p>
+          <p className="etape-obj">
             Le cas magique : « le devis DEV-2026-012 est accepté, facture d&apos;acompte de
             30 % », et la facture sort, sans rien ressaisir. Le skill sait faire les quatre
             documents de la vraie vie : la facture classique, l&apos;acompte, le solde qui déduit
             tout seul, et l&apos;avoir quand il faut corriger. Et si tu ne fais pas de devis, il
             fait aussi tes factures de zéro.
-          </ModuleOverviewIntro>
+          </p>
+
+
+          <ModuleSidePanel
+            moduleKey="/automatiser-tes-factures"
+            basePath="/automatiser-tes-factures"
+            etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            facts={[
+              { label: "Livrable", value: "Tes factures conformes, en une phrase" },
+              { label: "Durée", value: "30 min environ" },
+              { label: "Outil", value: "Claude Code + le skill offert" },
+            ]}
+            jugeHref="/parcours"
+            jugeLabel="Retourne au parcours choisir la suite"
+          />
 
           <ModuleProgress
             moduleKey="/automatiser-tes-factures"
@@ -65,16 +80,45 @@ export default function ModuleFacture() {
             basePath="/automatiser-tes-factures"
             etapes={cards}
           />
-        </div>
 
-        <ModuleSidePanel
-          moduleKey="/automatiser-tes-factures"
-          basePath="/automatiser-tes-factures"
-          etapes={cards}
-          facts={invoiceOverview.facts}
-          finishedHref={invoiceOverview.finishedHref}
-          finishedLabel={invoiceOverview.finishedLabel}
-        />
+          <div className="label mov-sec">Ta boîte à outils</div>
+          <p className="mov-toolintro">
+            Un outil payant, un skill offert. Aucun logiciel de facturation, aucun abonnement en
+            plus.
+          </p>
+          <div className="tfilets">
+            <div className="tfilet">
+              <span className="tfilet-name">
+                Claude Code
+                <span className="cost cost-payant">Payant</span>
+              </span>
+              <span className="tfilet-desc">
+                L&apos;app où vit le skill. L&apos;abonnement Pro (environ 20 € par mois) suffit.
+              </span>
+            </div>
+            <div className="tfilet">
+              <span className="tfilet-name">
+                Générer une facture
+                <span className="cost cost-gratuit">Gratuit</span>
+              </span>
+              <span className="tfilet-desc">
+                Notre skill, compagnon du skill devis : configuration partagée, zéro ressaisie.
+                Il marche aussi tout seul.
+              </span>
+            </div>
+          </div>
+
+          <Link href="/parcours" className="mov-cta">
+            <span className="label">Et après ?</span>
+            <span className="mov-cta-title">Retourne au parcours choisir la suite →</span>
+            <span className="mov-cta-desc">
+              La compta, les mails, l&apos;agenda : les prochains modules de la famille
+              « Automatiser ton business » suivent le même principe, un skill prêt à
+              l&apos;emploi et un résultat immédiat. Et si le chemin te plaît, la famille
+              « Apprendre à construire » t&apos;apprend à fabriquer les tiens.
+            </span>
+          </Link>
+        </div>
       </div>
     </section>
   );
