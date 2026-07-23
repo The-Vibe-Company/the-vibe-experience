@@ -203,7 +203,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         titre: "L'automatisation qui protège (au lieu de faire).",
         duree: "≈ 5 min · rien à faire, juste à retenir",
         cestquoi:
-          "Depuis le module 1, chaque envoi sur GitHub peut mettre ton site en ligne. C'est puissant, et c'est exactement pour ça qu'il faut une barrière : un garde-fou, c'est un hook dont l'action est de VÉRIFIER et, si besoin, de BLOQUER. Les pros en mettent partout, pas parce qu'ils sont maladroits, mais parce que tout le monde finit par pousser une bêtise un jour.",
+          "Depuis le module 1, chaque envoi sur GitHub peut mettre ton site en ligne. C'est exactement pour ça qu'il faut une barrière : un garde-fou, c'est un hook dont l'action est de VÉRIFIER et, si besoin, de BLOQUER. Les pros en mettent partout, pas parce qu'ils sont maladroits, mais parce que tout le monde finit par pousser une bêtise un jour.",
         attendu: "Tu as compris qu'un garde-fou est un hook comme un autre, avec une action de blocage.",
         exemples: [
           "« Avant chaque mise en ligne, vérifie que le site se construit. Sinon, bloque et explique. »",
