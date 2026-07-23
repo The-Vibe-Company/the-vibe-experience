@@ -1,4 +1,4 @@
-import type { EtapeDetail } from "./module-faire-un-site";
+import type { EtapeDetail, Prerequis } from "./module-faire-un-site";
 
 const F = {
   claudecode: {
@@ -31,6 +31,28 @@ export const skillGifts = [
   },
 ];
 
+export const prerequisSkill: Prerequis[] = [
+  {
+    quoi: "Claude Code installé et connecté",
+    niveau: "obligatoire",
+    ou: "Avec son abonnement payant. Si tu as fait le module « Fais ton premier site », tu l'as déjà. Sinon, son étape 0 te guide clic par clic.",
+  },
+  {
+    quoi: "Un dossier de projet à ouvrir",
+    niveau: "obligatoire",
+    ou: "Ton site du module précédent, de préférence : l'étape 1 s'en sert pour repérer ce que tu réexpliques tout le temps. N'importe quel dossier marche aussi, un skill se range chez toi, pas dans un projet.",
+  },
+  {
+    quoi: "Une répétition en tête",
+    niveau: "conseille",
+    ou: "Ce que tu réexpliques sans arrêt à l'IA : ton style visuel, ta vérif avant de publier. On la trouve ensemble à l'étape 1, mais y avoir pensé aide.",
+  },
+  {
+    quoi: "De quoi noter",
+    niveau: "conseille",
+    ou: "Une note sur ton ordi ou un papier : tu vas écrire ta répétition en une phrase, et ça matérialise la décision.",
+  },
+];
 export const etapesDetailSkill: EtapeDetail[] = [
   {
     slug: "0",
@@ -49,6 +71,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         attendu:
           "Claude Code rouvert, comme au module précédent. Le plus simple : rouvre ton dossier de site, l'étape 1 t'y fera repérer tes répétitions. Mais un skill se range chez toi, pas dans un projet précis, donc n'importe quel dossier marcherait aussi.",
         outils: [F.claudecode],
+        prerequis: prerequisSkill,
         ceQueTuDoisVoir:
           "Claude Code s'ouvre et tu retrouves la zone où tu écris tes messages, exactement comme au module précédent. Si l'app te redemande de te connecter, fais-le, c'est normal après une fermeture. Dès que tu vois la zone de discussion, tu es prêt.",
         siCaBloque:
@@ -68,6 +91,8 @@ export const etapesDetailSkill: EtapeDetail[] = [
         exemples: ["Les skills tout faits que tu as déjà utilisés au module précédent : Impeccable, Agent Browser."],
         visuel: {
           src: "/module/skill-0-2-docs.png",
+          w: 1400,
+          h: 415,
           alt: "La documentation officielle de Claude Code sur les skills : un skill est un fichier SKILL.md, déclenché tout seul ou avec /nom.",
           legende: "Un skill n'est pas un truc maison : c'est le standard officiel de Claude Code. Un fichier SKILL.md avec tes instructions, que l'IA lance toute seule au bon moment ou que tu appelles avec /nom.",
         },
@@ -173,8 +198,8 @@ export const etapesDetailSkill: EtapeDetail[] = [
         titre: "Pour un skill au top : le Skill Creator (offert, en option).",
         duree: "15 min (le temps de répondre à ses questions)",
         cestquoi:
-          "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools), c'est notre vrai outil de travail, celui qu'on utilise nous-mêmes tous les jours, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Mais c'est un vrai plus : il crée le skill en suivant la bonne méthode, au bon format, et s'assure qu'il est propre et fonctionnel. C'est un outil de pro : il sait faire beaucoup plus que ce qu'on utilise ici (des tests, des mesures), et il est écrit en anglais à l'intérieur. Aucun souci : tu lui parles en français, et on lui demande la version simple. Et le geste d'installation, tu le connais déjà : le même copier-coller qu'Impeccable et Agent Browser au module précédent.",
-        attendu: "Un skill créé avec le Skill Creator, encore plus carré.",
+          "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools) est l'outil qu'on utilise nous-mêmes, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Lui, il crée le skill en suivant la bonne méthode et le bon format, et il sait faire plus (des tests, des mesures). Il est écrit en anglais à l'intérieur : tu lui parles en français, et on lui demande la version simple. Le geste d'installation, tu le connais déjà : le même copier-coller qu'Impeccable et Agent Browser au module précédent.",
+        attendu: "Un skill créé avec le Skill Creator.",
         telechargements: [{ n: "le Skill Creator", href: "/skills/create-skill-tools.zip" }],
         outils: [F.skillcreator],
         pasAPas: [
@@ -187,7 +212,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         ceQueTuDoisVoir:
           `Une fois le skill collé et envoyé, Claude Code te confirme qu'il est installé et disponible.
 
-Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne « Skill : create-skill-tools » qui s'affiche. Si elle n'apparaît pas, ferme et rouvre Claude Code puis redemande.
+Ensuite, quand tu l'utilises, la preuve qu'il tourne vraiment, c'est la ligne au nom du skill (du genre « Ran skill /create-skill-tools ») qui s'affiche. Attention, elle est souvent rangée dans une ligne-résumé repliée (du genre « Ran 6 commands... ») : clique dessus pour la déplier. Si elle n'apparaît vraiment pas, ferme et rouvre Claude Code puis redemande.
 
 Le Skill Creator peut te poser quelques questions avant de créer, parfois trois ou quatre, y compris « quel format de sortie ? », autrement dit sous quelle forme tu veux le résultat. Réponds avec tes mots (« un texte dans la conversation », « un fichier »), ou dis simplement « choisis pour moi » : il n'y a pas de mauvaise réponse.
 
@@ -217,6 +242,8 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
           "Claude Code te montre ton fichier SKILL.md : en haut, entre deux lignes de tirets, le nom et la description ; en dessous, les instructions. Tu n'as pas besoin d'aller le chercher toi-même, il te l'affiche. Pas besoin de tout comprendre : vérifie surtout que la description dit bien quand l'utiliser.",
         visuel: {
           src: "/module/skill-2-3-skillmd.png",
+          w: 1230,
+          h: 664,
           alt: "Le haut d'un SKILL.md ouvert dans Claude Code : le nom du skill, puis sa longue description qui explique quand l'utiliser.",
           legende: "Un de mes vrais SKILL.md : le nom en haut, puis la description. C'est elle que tu relis en priorité, elle dit à l'IA quand utiliser ton skill.",
         },
@@ -250,9 +277,11 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
           "Écrire « applique mon style à cette page » et voir le skill se déclencher tout seul.",
         ],
         ceQueTuDoisVoir:
-          "Dès que tu tapes la barre oblique /, une petite liste de noms s'ouvre au-dessus de la zone d'écriture. Ton skill doit y figurer : le fait qu'il soit dans la liste, c'est déjà la preuve qu'il est installé. Choisis-le, ou finis de taper son nom, puis envoie. Quand le skill part, une ligne à son nom s'affiche (du genre « Skill : mon-style »), et l'IA enchaîne en suivant tes instructions au lieu de te reposer les mêmes questions. Pour le déclenchement tout seul, c'est le même repère : sans que tu aies tapé le moindre /, cette ligne au nom de ton skill apparaît. Attention par contre : dans CETTE conversation, où vous venez de créer le skill ensemble, ce test ne prouve rien, l'IA l'a en tête de toute façon. La vraie preuve du déclenchement tout seul, c'est la sous-étape suivante, dans une conversation neuve. Ici, contente-toi de vérifier le /nom.",
+          "Dès que tu tapes la barre oblique /, une petite liste de noms s'ouvre au-dessus de la zone d'écriture. Ton skill doit y figurer : le fait qu'il soit dans la liste, c'est déjà la preuve qu'il est installé. Choisis-le, ou finis de taper son nom, puis envoie. Quand le skill part, une ligne à son nom s'affiche (du genre « Ran skill /mon-style », parfois repliée dans la ligne-résumé des actions : clique pour déplier), et l'IA enchaîne en suivant tes instructions au lieu de te reposer les mêmes questions. Pour le déclenchement tout seul, c'est le même repère : sans que tu aies tapé le moindre /, cette ligne au nom de ton skill apparaît. Attention par contre : dans CETTE conversation, où vous venez de créer le skill ensemble, ce test ne prouve rien, l'IA l'a en tête de toute façon. La vraie preuve du déclenchement tout seul, c'est la sous-étape suivante, dans une conversation neuve. Ici, contente-toi de vérifier le /nom.",
         visuel: {
           src: "/module/skill-3-1-slash-menu.png",
+          w: 1864,
+          h: 716,
           alt: "Le menu « / » de Claude Code : le nom du skill s'affiche dans la liste pendant la frappe, avec sa description au-dessus.",
           legende: "Chez moi : je tape / et mon skill apparaît dans la liste, avec sa description. S'il est là, il est installé.",
         },
@@ -269,8 +298,8 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
           "La description, c'est ce qui dit à l'IA QUAND utiliser le skill. Si elle est floue, l'IA ne le déclenche pas. Tu n'ouvres rien toi-même : tu testes, et si besoin tu demandes à Claude Code de la retravailler, jusqu'à ce que ça marche.",
         attendu: "Un skill qui se déclenche tout seul quand la situation s'y prête.",
         pasAPas: [
-          "Ouvre une NOUVELLE conversation dans Claude Code : son bouton « New session » (« Nouvelle session » si ton app est en français), pas besoin de fermer l'app. C'est le seul vrai test : dans la conversation où vous avez créé le skill, l'IA l'a en tête de toute façon.",
-          "Refais ta demande normale, sans taper de /. Si la ligne au nom de ton skill apparaît, c'est gagné : ta description est bonne, passe à la sous-étape suivante.",
+          "Ouvre une NOUVELLE conversation dans Claude Code : son bouton « Nouvelle session » (« New session » si ton app est en anglais), pas besoin de fermer l'app. C'est le seul vrai test : dans la conversation où vous avez créé le skill, l'IA l'a en tête de toute façon.",
+          "Refais ta demande normale, sans taper de /. Si la ligne au nom de ton skill apparaît (déplie la ligne-résumé des actions si besoin), c'est gagné : ta description est bonne, passe à la sous-étape suivante.",
           "Il n'est pas parti ? Envoie le prompt ci-dessous, puis reteste dans une nouvelle conversation. C'est normal de s'y reprendre à deux ou trois fois.",
         ],
         exemples: [
@@ -303,9 +332,11 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
         prompt:
           "Utilise le skill improve-skill-tools pour passer mon skill [nom] en revue et propose-moi des améliorations, sur le fond et sur la technique. Résume-moi la revue en français simple.",
         ceQueTuDoisVoir:
-          "L'Improve lit ton skill et te répond une liste de remarques numérotées : ce qui est déjà bien, et ce qui gagnerait à être plus clair, comme la description, le format ou une instruction floue. Il peut aussi ranger sa revue dans un dossier « plans » de ton projet : c'est son carnet de notes, tu n'as pas à l'ouvrir. S'il te demande « quels constats veux-tu transformer en plans ? », réponds simplement « aucun, la liste me suffit ». Lui ne change rien, c'est son rôle de relecteur. Pour appliquer, copie d'abord les points qui te parlent, puis ouvre une NOUVELLE conversation (le bouton « New session », comme à la sous-étape précédente) et colle-les à Claude Code : « applique ces points de la revue de mon skill [nom] ». Le copier-coller est important : une conversation neuve ne se souvient pas de l'ancienne. Et tant que le relecteur est chargé dans la conversation en cours, il refusera de modifier, c'est voulu. Tu n'es pas obligé de tout prendre.",
+          "L'Improve lit ton skill et te répond une liste de remarques numérotées : ce qui est déjà bien, et ce qui gagnerait à être plus clair, comme la description, le format ou une instruction floue. Il peut aussi ranger sa revue dans un dossier « plans » de ton projet : c'est son carnet de notes, tu n'as pas à l'ouvrir. S'il te demande « quels constats veux-tu transformer en plans ? », réponds simplement « aucun, la liste me suffit ». Lui ne change rien, c'est son rôle de relecteur. Pour appliquer, copie d'abord les points qui te parlent, puis ouvre une NOUVELLE conversation (le bouton « Nouvelle session », comme à la sous-étape précédente) et colle-les à Claude Code : « applique ces points de la revue de mon skill [nom] ». Le copier-coller est important : une conversation neuve ne se souvient pas de l'ancienne. Et tant que le relecteur est chargé dans la conversation en cours, il refusera de modifier, c'est voulu. Tu n'es pas obligé de tout prendre.",
         visuel: {
           src: "/module/skill-3-3-improve.png",
+          w: 984,
+          h: 1466,
           alt: "La sortie de l'Improve : un tableau de constats numérotés avec pour chacun une catégorie, un impact, un effort et une preuve.",
           legende: "Une vraie revue de l'Improve sur un de mes skills : chaque remarque est numérotée, avec son impact. Tu choisis celles que tu appliques.",
         },

@@ -5,6 +5,8 @@ import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
 import EtapeNeeds from "@/components/EtapeNeeds";
 import EtapeSummary from "@/components/EtapeSummary";
+import ModuleAfter from "@/components/ModuleAfter";
+import { skillAfter } from "@/lib/module-after-config";
 
 export function generateStaticParams() {
   return etapesDetailSkill.map((e) => ({ etape: e.slug }));
@@ -57,22 +59,23 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
 
           <EtapeNeeds items={e.ceQuilTeFaut} />
 
-          <div className="label etape-substeps-title">
-            Les sous-étapes
-          </div>
-
-          <SousEtapes
-            sous={e.sous}
-            detailPret={e.detailPret}
-            moduleKey="/creer-un-skill"
-            etapeSlug={e.slug}
-            etapeNum={e.num}
-          />
+          <section className="substeps-section">
+            <div className="label substeps-label">Les sous-étapes</div>
+            <SousEtapes
+              sous={e.sous}
+              detailPret={e.detailPret}
+              moduleKey="/creer-un-skill"
+              etapeSlug={e.slug}
+              etapeNum={e.num}
+            />
+          </section>
 
           <EtapeSummary
             livrable={e.livrable}
             reussite={e.reussite}
           />
+
+          {!next && <ModuleAfter content={skillAfter} />}
 
           <div className="pager">
             {prev ? (

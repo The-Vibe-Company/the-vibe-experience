@@ -169,23 +169,38 @@ export function computeReco(answers: Answers): Reco {
   const basePts = optPts(baseQuestion, answers["base"]);
 
   if (branche === "automatiser") {
-    const cible = tacheLabels[answers["tache"] ?? "autre"] ?? tacheLabels.autre;
+    const tache = answers["tache"] ?? "autre";
+    const cible = tacheLabels[tache] ?? tacheLabels.autre;
     const niveau: Niveau = basePts >= 3 ? "Intermédiaire" : basePts >= 1 ? "Débutant" : "Néophyte";
-    const note =
-      `On prépare un module pour automatiser ${cible}. ` +
-      (basePts === 0
-        ? "Comme tu débutes, il commencera par les bases : c'est quoi un skill, comment s'en servir."
-        : "Tu as déjà les bases, tu iras droit au but.");
+
+    // Les modules devis et factures existent : on envoie directement dessus.
+    // Les autres tâches (compta, mails, agenda) sont encore à venir.
+    const modulesPrets: Record<string, { titre: string; href: string }> = {
+      devis: { titre: "Automatise tes devis", href: "/automatiser-tes-devis" },
+      factures: { titre: "Automatise tes factures", href: "/automatiser-tes-factures" },
+    };
+    const pret = modulesPrets[tache];
+
+    const note = pret
+      ? `Le module est prêt : tu installes un skill qui fait le travail, et tu repars avec ${cible} en une phrase. ` +
+        (basePts === 0
+          ? "Tu débutes ? Il commence par la mise en place, pas à pas."
+          : "Tu as déjà les bases, la mise en place te prendra quelques minutes.")
+      : `On prépare un module pour automatiser ${cible}. ` +
+        (basePts === 0
+          ? "Comme tu débutes, il commencera par les bases : c'est quoi un skill, comment s'en servir."
+          : "Tu as déjà les bases, tu iras droit au but.");
+
     return {
       branche,
       niveau,
       cible,
       hero: {
         famille: "Automatise ton business",
-        titre: `Automatiser ${cible}`,
+        titre: pret ? pret.titre : `Automatiser ${cible}`,
         note,
-        cta: null,
-        enPreparation: true,
+        cta: pret ? { label: `Ouvrir « ${pret.titre} »`, href: pret.href } : null,
+        enPreparation: !pret,
       },
       autre: {
         famille: "Apprendre à construire",
@@ -231,7 +246,7 @@ export function computeReco(answers: Answers): Reco {
     autre: {
       famille: "Automatise ton business",
       teaser:
-        "Tu as aussi des tâches qui te font perdre du temps ? Des modules arrivent pour automatiser les devis, la compta et les mails.",
+        "Tu as aussi des tâches qui te font perdre du temps ? Les modules devis et factures sont déjà là. Ceux sur la compta et les mails arrivent.",
     },
   };
 }

@@ -223,8 +223,15 @@ export default function SousEtapes({
                                 <span className="se-dot" />
                                 <span className="se-dot" />
                               </div>
+                              {/* width et height réservent la place avant le chargement :
+                                  sans elles, le texte saute quand l'image arrive. */}
                               {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img src={s.visuel.src} alt={s.visuel.alt} />
+                              <img
+                                src={s.visuel.src}
+                                alt={s.visuel.alt}
+                                width={s.visuel.w}
+                                height={s.visuel.h}
+                              />
                               {s.visuel.legende && <figcaption>{s.visuel.legende}</figcaption>}
                             </figure>
                           )}

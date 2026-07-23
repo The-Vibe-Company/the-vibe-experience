@@ -1,5 +1,7 @@
 import { etapesDetail, type EtapeDetail } from "./module-faire-un-site";
 import { etapesDetailSkill, skillGifts } from "./module-creer-un-skill";
+import { etapesDetailDevis } from "./module-devis";
+import { etapesDetailFacture } from "./module-facture";
 
 export type Cost = "gratuit" | "gratuit-debut" | "payant";
 
@@ -138,6 +140,20 @@ export const ressources: Ressource[] = [
     text: `${improve.d} Offert lui aussi, au même module.`,
     action: { kind: "installer", href: improve.href, name: improve.n },
   },
+  {
+    cat: "skills",
+    type: "Skill",
+    title: "Générer un devis",
+    text: "Le skill qui fait tes devis : conformes au droit français, numérotés, prêts à imprimer en PDF. Tu l'installes au module Automatise tes devis.",
+    action: { kind: "installer", href: "/skills/generer-devis.zip", name: "Générer un devis" },
+  },
+  {
+    cat: "skills",
+    type: "Skill",
+    title: "Générer une facture",
+    text: "Le compagnon du précédent : ton devis signé devient facture en une phrase, acomptes et soldes déduits tout seuls. Tu l'installes au module Automatise tes factures.",
+    action: { kind: "installer", href: "/skills/generer-facture.zip", name: "Générer une facture" },
+  },
 
   // Prompts : les prompts exacts fournis dans les modules, prêts à copier.
   {
@@ -154,6 +170,22 @@ export const ressources: Ressource[] = [
     title: "Voir ton site en local",
     text: "Le prompt de l'étape 1.3, pour lancer ton site sur ta machine et l'ouvrir dans ton navigateur.",
     prompt: promptDuParcours(etapesDetail, "1", 2, "Lance mon site en local"),
+    action: { kind: "copier" },
+  },
+  {
+    cat: "prompts",
+    type: "Prompt",
+    title: "Faire un devis",
+    text: "Le prompt de l'étape 3 du module Automatise tes devis. Une fois le skill installé et configuré, chaque devis tient dans cette phrase.",
+    prompt: promptDuParcours(etapesDetailDevis, "3", 0, "Devis pour"),
+    action: { kind: "copier" },
+  },
+  {
+    cat: "prompts",
+    type: "Prompt",
+    title: "Facturer un devis accepté",
+    text: "Le prompt de l'étape 3 du module Automatise tes factures. Ton devis signé devient facture, sans rien ressaisir.",
+    prompt: promptDuParcours(etapesDetailFacture, "3", 0, "Le devis"),
     action: { kind: "copier" },
   },
   {

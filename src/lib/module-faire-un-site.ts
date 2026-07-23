@@ -1,6 +1,9 @@
 export type Fiche = { n: string; d: string };
 
-export type Visuel = { src: string; alt: string; legende?: string };
+// w et h = dimensions réelles du fichier, en pixels. Elles servent au navigateur à
+// réserver la place avant le chargement : sans elles, le texte saute quand l'image
+// arrive. À mettre à jour si le fichier change (`sips -g pixelWidth -g pixelHeight`).
+export type Visuel = { src: string; alt: string; legende?: string; w: number; h: number };
 
 export type SousEtape = {
   titre: string;
@@ -16,6 +19,9 @@ export type SousEtape = {
   pasAPas?: string[];
   exemples?: string[];
   outils?: Fiche[];
+  // Ce qu'il faut avoir sous la main pour faire le module : un compte, une carte,
+  // des papiers. Porté par la première sous-étape, puis affiché juste avant 0.1.
+  prerequis?: Prerequis[];
   prompt?: string;
   ceQueTuDoisVoir?: string;
   siCaBloque?: string;
@@ -23,6 +29,11 @@ export type SousEtape = {
   monExemple?: string;
   conseil?: string;
 };
+
+// Ce qu'il faut avoir sous la main AVANT de commencer un module : un compte, une
+// carte, des papiers. Listé sur la page du module, avant les étapes, et rappelé
+// depuis le panneau latéral. « obligatoire » = sans ça on se fait couper en route.
+export type Prerequis = { quoi: string; niveau: "obligatoire" | "conseille"; ou: string };
 
 export type EtapeDetail = {
   slug: string;
@@ -49,6 +60,34 @@ const F = {
   vercel: { n: "Vercel", d: "L'hébergeur : il met ton site en ligne en un clic et te donne un lien à partager." },
 };
 
+export const prerequisSite: Prerequis[] = [
+  {
+    quoi: "Un moyen de paiement",
+    niveau: "obligatoire",
+    ou: "L'abonnement Claude Pro (environ 20 € par mois) est indispensable : le plan gratuit ne donne pas accès à Claude Code. Prépare ta carte, tu la sortiras à l'étape 0.",
+  },
+  {
+    quoi: "Une adresse email que tu peux consulter",
+    niveau: "obligatoire",
+    ou: "Trois services t'enverront un lien de confirmation à cliquer : Claude, GitHub à l'étape 2, et Supabase à l'étape 4 si tu ajoutes des comptes. Un email non confirmé bloque la suite.",
+  },
+  {
+    quoi: "Une idée de sujet pour ton site",
+    niveau: "obligatoire",
+    ou: "Ton activité, une passion, une idée en tête. Résumable en une phrase. On la choisit ensemble à l'étape 1, mais y avoir pensé avant fait gagner du temps.",
+  },
+  {
+    quoi: "Deux ou trois heures devant toi",
+    niveau: "conseille",
+    ou: "Le module se fait très bien en plusieurs fois, et l'étape 2 explique comment reprendre. Mais les deux premières étapes s'enchaînent mieux d'une traite.",
+  },
+  {
+    quoi: "Des images ou un logo",
+    niveau: "conseille",
+    ou: "Si tu en as. Ils serviront à l'étape 3, quand ton site prendra son identité. Sinon, ce n'est pas bloquant du tout.",
+  },
+];
+
 export const etapesDetail: EtapeDetail[] = [
   {
     slug: "0",
@@ -67,6 +106,7 @@ export const etapesDetail: EtapeDetail[] = [
         attendu: "L'app Claude Code installée et ouverte, connectée à ton compte.",
         lien: { label: "Ouvrir claude.com/claude-code", href: "https://claude.com/claude-code" },
         outils: [F.claudecode],
+        prerequis: prerequisSite,
         pasAPas: [
           "Crée d'abord ton compte Claude si tu n'en as pas : va sur claude.ai et inscris-toi.",
           "Prends l'abonnement Pro : sur claude.ai, ouvre les réglages de ton compte (ton initiale, en bas à gauche), rubrique abonnement, et choisis Pro. C'est le moins cher qui donne accès à Claude Code. Tu passeras par un paiement par carte classique, parfois en anglais : tu es sur le site officiel de Claude, et tu peux arrêter l'abonnement quand tu veux.",
@@ -76,6 +116,8 @@ export const etapesDetail: EtapeDetail[] = [
           "Au premier lancement, l'app te demande de te connecter à ton compte Claude : une page s'ouvre, tu te connectes, tu reviens. Elle peut te poser une question ou deux, par exemple sur le thème clair ou sombre. Réponds, il n'y a pas de mauvais choix. Quand tu arrives sur une zone où écrire ton message, tu es prêt.",
         visuel: {
           src: "/module/0-1-claude-code.png",
+          w: 1400,
+          h: 610,
           alt: "La page officielle de Claude Code, avec le bouton « Download for macOS ».",
           legende: "La page officielle de Claude Code : c'est de là que tu télécharges l'app (bouton « Download for macOS »).",
         },
@@ -151,7 +193,14 @@ export const etapesDetail: EtapeDetail[] = [
         prompt:
           "Fais-moi un site pour [ton sujet], où les gens peuvent [ce qu'ils peuvent y faire]. Ce serait bien qu'on puisse aussi [une petite fonctionnalité]. Construis-le avec Next.js, avec le contenu visible directement dans le HTML de la page (rendu côté serveur). Et dis-moi quand je pourrai voir la page dans mon navigateur.",
         ceQueTuDoisVoir:
-          "Avant d'agir, Claude Code te demande souvent la permission : des boutons en anglais du genre « Allow » (autoriser) et « Deny » (refuser), avec l'action qu'il veut lancer. C'est normal, et c'est toi le chef : clique Allow pour le laisser travailler. Ensuite, du texte se met à défiler tout seul : l'IA t'explique ce qu'elle fait et crée des fichiers. Ça peut prendre plusieurs minutes, parfois cinq à dix la première fois (elle télécharge tout ce qu'il faut) : tant que ça bouge, c'est bon signe. Ne ferme pas la fenêtre pendant ce temps.",
+          "Avant d'agir, Claude Code te demande souvent la permission : une petite fenêtre (capture ci-dessous) avec l'action qu'il veut lancer et trois boutons, « Autoriser une fois », « Toujours autoriser » et « Refuser » (« Allow once », « Always allow » et « Deny » si ton app est en anglais). C'est normal, et c'est toi le chef : clique « Autoriser une fois » pour le laisser travailler. Ensuite, du texte se met à défiler tout seul : l'IA t'explique ce qu'elle fait et crée des fichiers. Ça peut prendre plusieurs minutes, parfois cinq à dix la première fois (elle télécharge tout ce qu'il faut) : tant que ça bouge, c'est bon signe. Ne ferme pas la fenêtre pendant ce temps.",
+        visuel: {
+          src: "/module/1-2-allow-deny.png",
+          w: 1436,
+          h: 496,
+          alt: "La fenêtre de permission de Claude Code : « Autoriser Claude à écriture test.txt ? », le fichier concerné, et les boutons Refuser, Toujours autoriser et Autoriser une fois.",
+          legende: "Chez moi : Claude Code demande la permission avant d'écrire un fichier. Il dit exactement ce qu'il veut faire, et il attend ton feu vert.",
+        },
         siCaBloque:
           "Si l'IA te pose une question au lieu de foncer (« tu veux plutôt X ou Y ? »), c'est bon signe : réponds simplement en français. Elle ne fait rien contre ta volonté.",
         monExemple:
@@ -201,7 +250,7 @@ export const etapesDetail: EtapeDetail[] = [
         prompt:
           "Vérifie si Git est installé sur ma machine. S'il ne l'est pas, installe-le, et dis-moi exactement quoi faire si tu as besoin de moi.",
         ceQueTuDoisVoir:
-          "Claude Code vérifie et te dit où il en est. Si Git manque, une fenêtre grise d'Apple peut s'ouvrir toute seule pour installer les « command line developer tools » : clique « Installer » et laisse-la finir (plusieurs minutes, selon ta connexion, c'est prévu). À la fin, demande « est-ce que Git est bien installé ? » : il te répond un numéro de version, par exemple « git version 2.39 ». Ce numéro, c'est ta preuve.",
+          "Claude Code vérifie et te dit où il en est. Si Git manque, une fenêtre grise d'Apple peut s'ouvrir toute seule pour te proposer d'installer ses outils de développement (son texte dépend de la langue de ton Mac) : clique « Installer » et laisse-la finir (plusieurs minutes, selon ta connexion, c'est prévu). À la fin, demande « est-ce que Git est bien installé ? » : il te répond un numéro de version, par exemple « git version 2.39 ». Ce numéro, c'est ta preuve.",
         siCaBloque:
           "L'installation Apple échoue, ou Claude Code te propose de passer par Homebrew (un installateur d'outils) ? Laisse-le te guider : au pire, il te donnera une commande à coller dans le Terminal, la fenêtre qu'on apprivoise justement à la sous-étape suivante (pour l'ouvrir : cmd + espace, tape « Terminal », Entrée ; colle avec cmd + V, puis Entrée). Tous les réflexes du Terminal arrivent juste après, tu peux aussi faire cette sous-étape-là d'abord. Et si quelque chose finit en rouge, copie tout et colle-le à Claude Code : il te donne la suite.",
         monExemple:
@@ -226,6 +275,8 @@ export const etapesDetail: EtapeDetail[] = [
           "Ton compte GitHub qui marche (tu es connecté sur github.com), et la fenêtre du Terminal ouverte : une ligne de texte, un curseur qui clignote, rien d'autre. Il ne se passe rien tant que tu ne colles rien dedans.",
         visuel: {
           src: "/module/2-1-terminal.png",
+          w: 1700,
+          h: 982,
           alt: "Le Terminal du Mac à l'ouverture : une fenêtre au fond sombre, une ligne « Last login », un prompt et un curseur.",
           legende: "Le Terminal à l'ouverture : une fenêtre presque vide, une ligne, un curseur qui clignote. C'est tout, et c'est normal.",
         },
@@ -247,13 +298,13 @@ export const etapesDetail: EtapeDetail[] = [
         prompt:
           "Connecte ma machine à mon compte GitHub, puis envoie mon projet dessus. Quand tu as besoin de moi, donne-moi la commande exacte à coller dans le Terminal, et dis-moi quoi répondre aux questions qu'il me posera.",
         ceQueTuDoisVoir:
-          "Pour relier ta machine à ton compte, Claude Code lance souvent un petit assistant DANS le Terminal, en anglais : des questions avec des choix à sélectionner avec les FLÈCHES du clavier (haut et bas, puis Entrée), pas avec la souris. Réponds « GitHub.com », puis « HTTPS », puis « Login with a web browser » : il t'affiche alors un code à 8 caractères (du genre XXXX-XXXX). Appuie sur Entrée, une page GitHub s'ouvre dans ton navigateur, tape ce code et clique le bouton vert « Authorize ». Si la fenêtre semble figée sans rien afficher, clique dedans puis appuie sur Entrée. On va aussi peut-être te demander si ton projet doit être « public » (visible par tout le monde) ou « private » (visible par toi seul) : dans le doute, choisis « private », tu pourras changer plus tard en deux clics. Quand c'est bon, va sur github.com : ton dossier de projet (ton « repo ») apparaît avec tes fichiers dedans. C'est la preuve que ton travail est en sécurité en ligne.",
+          "Pour relier ta machine à ton compte, Claude Code lance souvent un petit assistant DANS le Terminal, en anglais : des questions avec des choix à sélectionner avec les FLÈCHES du clavier (haut et bas, puis Entrée), pas avec la souris. Réponds « GitHub.com », puis « HTTPS », puis « Login with a web browser » : il t'affiche alors un code à 8 caractères (du genre XXXX-XXXX). Appuie sur Entrée, une page GitHub s'ouvre dans ton navigateur : tape ce code, valide, puis clique le bouton vert qui commence par « Authorize ». Si la fenêtre semble figée sans rien afficher, clique dedans puis appuie sur Entrée. On va aussi peut-être te demander si ton projet doit être « Public » (visible par tout le monde) ou « Private » (visible par toi seul) : dans le doute, choisis « Private », tu pourras changer plus tard en deux clics. Quand c'est bon, va sur github.com : ton dossier de projet (ton « repo ») apparaît avec tes fichiers dedans. C'est la preuve que ton travail est en sécurité en ligne.",
         siCaBloque:
           "Pour coller dans le Terminal, c'est cmd + V (la touche Command, pas Ctrl). Si le Terminal demande ton mot de passe Mac, rien ne s'affiche quand tu tapes, pas même des points : c'est voulu, tape à l'aveugle et fais Entrée. Si une installation d'outil passe par Homebrew et que le Terminal affiche à la fin deux commandes sous « Next steps », colle-les aussi, l'une après l'autre. Une page va peut-être s'ouvrir dans ton navigateur pour demander « oui, j'autorise » : c'est normal et attendu, ce n'est pas une arnaque. Si tu vois « authentication failed » ou « permission denied », dis à Claude Code « je n'arrive pas à me connecter à GitHub, aide-moi à m'authentifier étape par étape » : c'est le blocage numéro un des débutants, il est prévu. Si tu vois « please tell me who you are » ou « Author identity unknown », c'est juste que Git ne sait pas encore qui tu es : dis à Claude Code « configure mon identité Git avec mon nom et mon email GitHub », donne-lui les deux, tu ne le refais qu'une seule fois. Et si une commande finit en rouge, copie tout et colle-le à Claude Code : il te donne la version corrigée.",
         monExemple:
           "La première fois que j'ai collé une ligne dans le Terminal et que ça a marché, la peur est tombée d'un coup. Depuis, ce n'est plus un obstacle.",
         conseil:
-          "C'est un vrai cap, c'est normal que ça impressionne. Tu vas juste coller ce qu'on te donne et regarder. Une fois que c'est fait, tu sais que cette fenêtre n'a rien de magique : une zone de texte, des erreurs rouges qui ne cassent rien. Te voilà passé de l'autre côté.",
+          "Tu colles ce qu'on te donne et tu regardes. Cette fenêtre n'a rien de magique : une zone de texte, et des erreurs rouges qui ne cassent rien.",
       },
       {
         titre: "Automatise les sauvegardes.",
@@ -267,6 +318,8 @@ export const etapesDetail: EtapeDetail[] = [
           "Après une modif, l'IA te dit une ligne du genre « changements sauvegardés et envoyés sur GitHub ». Tu peux aller vérifier sur github.com que la date de dernière mise à jour vient de changer.",
         visuel: {
           src: "/module/2-3-github-commits.png",
+          w: 1400,
+          h: 460,
           alt: "L'historique des sauvegardes (commits) d'un projet sur GitHub, avec la date de la dernière mise à jour.",
           legende: "L'historique de ton projet sur GitHub : chaque sauvegarde apparaît avec sa date. Tu vois tout de suite que ta dernière mise à jour est bien partie.",
         },
@@ -305,6 +358,8 @@ export const etapesDetail: EtapeDetail[] = [
           "Le résultat ne te plaît pas du tout ? On ne repart pas de zéro, on ajuste. Pour montrer une image à l'IA, attrape le fichier avec ta souris et lâche-le directement dans la fenêtre de Claude Code : son chemin s'écrit tout seul, tu ajoutes ta phrase après (« inspire-toi de cette image pour les couleurs ») et Entrée. Et si l'IA dit avoir appliqué mais que ta page n'a pas bougé, rafraîchis l'onglet (cmd + R), le réflexe de l'étape 1 : la nouvelle version apparaît presque toujours.",
         visuel: {
           src: "/module/da-avant-apres.webp",
+          w: 1745,
+          h: 895,
           alt: "Avant / après de la DA du site d'animés : à gauche un rendu générique, à droite une identité façon planche de manga noir et blanc.",
           legende: "Mon site d'animés, avant et après avoir travaillé la DA. Même contenu, mais là il a une vraie identité.",
         },
@@ -333,14 +388,14 @@ export const etapesDetail: EtapeDetail[] = [
         telechargements: [{ n: "Impeccable", href: "/skills/impeccable.zip" }],
         outils: [F.impeccable],
         pasAPas: [
-          "C'est ta première installation de skill, on y va pas à pas. Clique sur « Copier le skill » juste au-dessus : ça copie le skill en entier.",
+          "C'est ta première installation de skill. Clique sur « Copier le skill » juste au-dessus : ça copie le skill en entier.",
           "Ouvre Claude Code, colle le skill copié dans la zone où tu écris tes messages, puis envoie. Claude Code range les fichiers du skill au bon endroit et te confirme.",
           "Tu ne fais ça qu'une fois : ensuite, le skill reste disponible, ici et sur tous tes prochains projets.",
           "Puis lance-le avec le prompt fourni ci-dessous.",
         ],
         prompt: "Utilise le skill Impeccable sur tout mon site pour nettoyer et ranger le code.",
         ceQueTuDoisVoir:
-          "Quand le skill part, une ligne « Skill : impeccable » s'affiche dans la conversation : c'est ta preuve qu'il tourne. À l'écran du site, souvent presque aucune différence, et c'est normal : le travail se passe dans les coulisses, sur le code.",
+          "Quand le skill part, une ligne au nom du skill (du genre « Ran skill /impeccable ») s'affiche dans la conversation : c'est ta preuve qu'il tourne. Attention, elle est souvent rangée dans une ligne-résumé repliée (du genre « Ran 6 commands... ») : clique sur cette ligne-résumé pour la déplier et voir le détail. À l'écran du site, souvent presque aucune différence, et c'est normal : le travail se passe dans les coulisses, sur le code.",
         siCaBloque:
           "Claude Code te répond qu'il ne connaît pas Impeccable juste après l'installation ? Ferme et rouvre Claude Code : un skill tout juste installé n'est parfois pris en compte qu'au redémarrage. Le collage ne marche pas ? Recopie le skill depuis cette page et renvoie-le dans Claude Code.",
         monExemple: "Honnêtement, à l'écran il n'y avait pas une grande différence avant/après. Ce que ça a fait, c'est nettoyer et trier le code : tu ne le vois pas forcément, mais c'est plus propre.",
@@ -370,7 +425,7 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Ça va enchaîner tout seul pendant plusieurs minutes : du texte défile, l'IA teste, corrige, re-teste. Tu sauras que c'est fini quand le texte arrête de défiler et que l'IA te fait un petit résumé du genre « tout est propre et fonctionnel ». À ce moment-là, la main te revient et tu peux réécrire dans la fenêtre. Tant que ça défile, c'est qu'elle travaille encore, laisse-la.",
         siCaBloque:
-          "Si Agent Browser dit qu'il n'arrive pas à ouvrir ton site ou reste bloqué à « j'attends la page », c'est presque toujours que ton site ne tourne plus en local : écris « relance mon site en local avant de tester avec Agent Browser », puis redemande la boucle. Si Claude Code ne connaît pas encore le skill Agent Browser (ou Impeccable), installe-le : les deux skills à copier sont juste au-dessus, dans cette sous-étape, et tant que les deux ne sont pas installés, la boucle ne peut pas tourner. Pour Agent Browser, il finit son installation tout seul au premier usage : il récupère alors son propre navigateur, ce qui peut prendre plusieurs minutes sans grand-chose à l'écran, c'est prévu. Et pour que la boucle tourne vraiment toute seule, quand Claude Code demande une permission, choisis l'option du style « ne plus demander pour cette session » : sinon tu devras cliquer Allow à chaque tour. Si la boucle repasse sans fin sur les mêmes corrections au-delà de la durée annoncée, arrête avec Échap puis écris « fais un dernier passage et arrête-toi, dis-moi ce qui reste ». Une boucle consomme pas mal : si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, ce n'est pas un bug. Attends qu'elle se réinitialise (l'app te dit quand) et reprends là où tu en étais. Pas besoin de passer à l'offre Max juste pour cet exercice.",
+          "Si Agent Browser dit qu'il n'arrive pas à ouvrir ton site ou reste bloqué à « j'attends la page », c'est presque toujours que ton site ne tourne plus en local : écris « relance mon site en local avant de tester avec Agent Browser », puis redemande la boucle. Si Claude Code ne connaît pas encore le skill Agent Browser (ou Impeccable), installe-le : les deux skills à copier sont juste au-dessus, dans cette sous-étape, et tant que les deux ne sont pas installés, la boucle ne peut pas tourner. Pour Agent Browser, il finit son installation tout seul au premier usage : il récupère alors son propre navigateur, ce qui peut prendre plusieurs minutes sans grand-chose à l'écran, c'est prévu. Et pour que la boucle tourne vraiment toute seule, quand Claude Code demande une permission, clique « Toujours autoriser » (« Always allow » en anglais) : sinon tu devras cliquer « Autoriser une fois » à chaque tour. Si la boucle repasse sans fin sur les mêmes corrections au-delà de la durée annoncée, arrête avec Échap puis écris « fais un dernier passage et arrête-toi, dis-moi ce qui reste ». Une boucle consomme pas mal : si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation, ce n'est pas un bug. Attends qu'elle se réinitialise (l'app te dit quand) et reprends là où tu en étais. Pas besoin de passer à l'offre Max juste pour cet exercice.",
         monExemple: "C'était ma toute première loop, et franchement c'était cool. Tu expliques à Claude Code de faire tourner les deux skills ensemble, et il enchaîne vérif, test et correction tout seul. Là tu comprends la puissance du truc.",
         conseil: "Copie-colle le prompt ci-dessus tel quel dans Claude Code : tu n'as plus qu'à le laisser boucler.",
       },
@@ -401,6 +456,8 @@ export const etapesDetail: EtapeDetail[] = [
         ],
         visuel: {
           src: "/module/4-1-supabase.png",
+          w: 1400,
+          h: 860,
           alt: "La page d'accueil de Supabase, avec ses briques Postgres Database, Authentication et Edge Functions.",
           legende: "Supabase, un des services que l'IA peut brancher pour toi : il gère les comptes (Authentication) et la base de données de tes utilisateurs.",
         },
@@ -417,8 +474,8 @@ export const etapesDetail: EtapeDetail[] = [
         attendu: "La fonctionnalité en place dans ton code, expliquée au passage.",
         lien: { label: "Créer mon compte sur supabase.com", href: "https://supabase.com" },
         pasAPas: [
-          "Si ta fonctionnalité utilise Supabase, crée d'abord ton compte : bouton juste au-dessus, puis « Sign in with GitHub », le plus simple, tu as déjà ton compte GitHub depuis l'étape 2.",
-          "Crée ensuite un projet (bouton « New project ») : donne-lui un nom, note quelque part le mot de passe de base de données qu'il te demande, et choisis une région en Europe. L'écran « Setting up your project » tourne une à deux minutes, c'est normal, ne recharge pas la page.",
+          "Si ta fonctionnalité utilise Supabase, crée d'abord ton compte : bouton juste au-dessus, puis « Continue with GitHub », le plus simple, tu as déjà ton compte GitHub depuis l'étape 2.",
+          "Crée ensuite un projet (bouton « New project ») : donne-lui un nom, note quelque part le mot de passe de base de données qu'il te demande, et choisis une région en Europe. L'écran d'attente « Setting up project » tourne ensuite une à deux minutes pendant qu'il prépare ta base, c'est normal, ne recharge pas la page.",
           "Puis reviens dans Claude Code et envoie le prompt ci-dessous : c'est lui qui te guide pour brancher ton site, écran par écran, y compris pour retrouver les clés.",
         ],
         prompt:
@@ -478,7 +535,7 @@ export const etapesDetail: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Avant le bouton Deploy, Vercel te montre un écran de configuration avec plusieurs cases : bonne nouvelle, il a déjà tout deviné (il a reconnu ton site), tu n'as rien à changer, clique Deploy. La seule case qui peut servir, c'est Environment Variables, celle du pas-à-pas ci-dessus si tu as branché Supabase. Ensuite : une barre de progression et des logs qui défilent, puis un écran de félicitations avec une petite image de ton site et un lien en .vercel.app. Clique dessus : ton site est en ligne, accessible par n'importe qui.",
         siCaBloque:
-          "Ta liste de projets à importer est vide ? C'est que Vercel n'a pas encore le droit de regarder ton GitHub : clique sur « Import Git Repository » ou « Adjust GitHub App Permissions », choisis « All repositories », valide, ton projet apparaît. Le déploiement échoue avec « Build failed » en rouge ? Ça arrive tout le temps au premier essai : copie tout le message d'erreur et colle-le à Claude Code, « mon déploiement Vercel a échoué, voici l'erreur, corrige et on renvoie sur GitHub ». Une fois corrigé et renvoyé, tu n'as rien à relancer : Vercel redéploie tout seul à chaque envoi sur GitHub. Retourne sur la page de ton projet Vercel, un nouveau déploiement apparaît en haut de la liste, attends qu'il passe au vert. Ta page s'affiche mais ta fonctionnalité (comptes, formulaire) ne marche plus alors qu'elle marchait en local ? C'est presque toujours tes clés qui manquent sur Vercel : elles sont restées sur ton ordi, pas sur GitHub (normal, ce sont des secrets). Dans Vercel, va dans Settings puis Environment Variables et ajoute-les (demande à Claude Code lesquelles et où les retrouver), puis clique Redeploy.",
+          "Ta liste de projets à importer est vide ? C'est que Vercel n'a pas encore le droit de regarder ton GitHub : clique sur « Import Git Repository » ou « Adjust GitHub App Permissions », choisis « All repositories », valide, ton projet apparaît. Le déploiement échoue, avec une erreur en rouge du genre « Build Failed » ? Ça arrive tout le temps au premier essai : copie tout le message d'erreur et colle-le à Claude Code, « mon déploiement Vercel a échoué, voici l'erreur, corrige et on renvoie sur GitHub ». Une fois corrigé et renvoyé, tu n'as rien à relancer : Vercel redéploie tout seul à chaque envoi sur GitHub. Retourne sur la page de ton projet Vercel, un nouveau déploiement apparaît en haut de la liste, attends qu'il passe au vert. Ta page s'affiche mais ta fonctionnalité (comptes, formulaire) ne marche plus alors qu'elle marchait en local ? C'est presque toujours tes clés qui manquent sur Vercel : elles sont restées sur ton ordi, pas sur GitHub (normal, ce sont des secrets). Dans Vercel, va dans Settings puis Environment Variables et ajoute-les (demande à Claude Code lesquelles et où les retrouver), puis clique Redeploy.",
         monExemple: "Le déploiement sur Vercel, c'est un clic (et si le premier essai échoue, ça se corrige vite). Le plus dur, c'est tout ce qu'on a fait avant.",
         conseil: "Déploie seulement quand ton site est prêt en local. Pas avant, ça complique pour rien.",
       },
@@ -520,6 +577,8 @@ export const etapesDetail: EtapeDetail[] = [
         ],
         visuel: {
           src: "/module/5-4-juge.png",
+          w: 1400,
+          h: 762,
           alt: "La page du juge : un champ pour l'adresse du site, un pour le sujet, un pour le repo GitHub, et le bouton « Faire évaluer mon site ».",
           legende: "La page du juge : tu colles l'adresse de ton site en ligne, ton sujet en une phrase, et il fait le tour de la checklist.",
         },
