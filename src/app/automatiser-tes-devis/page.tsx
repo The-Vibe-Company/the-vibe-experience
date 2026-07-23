@@ -3,8 +3,11 @@ import { etapesDetailDevis } from "@/lib/module-devis";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleToolbox from "@/components/ModuleToolbox";
 import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
+import { quoteOverview } from "@/lib/module-overview-config";
 
 export const metadata = { title: "Module · Automatise tes devis — The Vibe Experience" };
 
@@ -22,7 +25,7 @@ export default function ModuleDevis() {
   return (
     <section className="etape-section">
       <MarkSelectedPath path="automatiser" />
-      <div className="etape-shell">
+      <div className="etape-shell module-overview-shell">
         <ModuleRail
           etapes={etapesDetailDevis}
           currentSlug=""
@@ -30,7 +33,7 @@ export default function ModuleDevis() {
           moduleLabel="Automatise tes devis"
         />
 
-        <div className="ecol">
+        <div className="ecol module-overview-main">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -63,7 +66,17 @@ export default function ModuleDevis() {
             basePath="/automatiser-tes-devis"
             etapes={cards}
           />
+          <ModuleToolbox intro={quoteOverview.intro} tools={quoteOverview.tools} />
         </div>
+
+        <ModuleSidePanel
+          moduleKey="/automatiser-tes-devis"
+          basePath="/automatiser-tes-devis"
+          etapes={cards}
+          facts={quoteOverview.facts}
+          finishedHref={quoteOverview.finishedHref}
+          finishedLabel={quoteOverview.finishedLabel}
+        />
       </div>
     </section>
   );

@@ -567,6 +567,149 @@ a { color: inherit; text-decoration: none; }
 }
 .mov-sec { margin: 2.6rem 0 .2rem; }
 .mov-toolintro { font-size: .95rem; color: var(--muted); line-height: 1.55; margin: .5rem 0 1rem; max-width: 42rem; }
+/* Accueil de module : trois colonnes sur grand écran, comme la version de base. */
+.module-overview-shell {
+  max-width: none;
+  margin: 0;
+  grid-template-columns: clamp(250px, 18vw, 290px) minmax(0, 820px) minmax(240px, 1fr);
+  column-gap: clamp(1.5rem, 2.5vw, 2.25rem);
+  justify-content: stretch;
+}
+.module-overview-shell > .erail {
+  width: 100%;
+  max-width: 435px;
+  justify-self: start;
+}
+.module-overview-main {
+  grid-column: 2;
+  width: 100%;
+}
+.module-overview-main .module-intro {
+  max-width: none;
+  margin: 1.1rem 0 2.4rem;
+  text-align: left;
+}
+.module-overview-main .module-intro > .label { justify-content: flex-start; }
+.module-overview-main .module-intro .etape-obj { margin: 1rem 0 0; }
+.module-toolbox { margin-top: 0; }
+.module-side {
+  grid-column: 3;
+  grid-row: 1;
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  justify-self: end;
+  width: min(100%, 340px);
+  border-left: 1px solid var(--border);
+  padding-left: 1.4rem;
+  color: var(--muted);
+}
+.module-side > .label { display: flex; margin-bottom: .6rem; }
+.module-side p { font-size: .94rem; line-height: 1.55; margin: 0 0 1.15rem; }
+.module-side-state { font-weight: 650; color: var(--fg); }
+.module-side-list + .module-side-next { border-top: none; }
+.module-side-next {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  padding: .95rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  color: inherit;
+}
+.module-side-next span {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: .64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--orange-ink);
+}
+.module-side-next strong {
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--fg);
+  transition: color .15s;
+}
+.module-side-next:hover strong { color: var(--orange); }
+.module-side-progress {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.module-side-progress span { display: flex; flex-direction: column; gap: .15rem; }
+.module-side-progress strong {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--fg);
+  letter-spacing: -.025em;
+}
+.module-side-progress em {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: .62rem;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted-2);
+}
+.module-side-list {
+  display: flex;
+  flex-direction: column;
+  padding: .65rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.module-side-row { display: flex; flex-direction: column; gap: .22rem; padding: .45rem 0; }
+.module-side-row span {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted-2);
+}
+.module-side-row strong { font-size: .92rem; line-height: 1.45; color: var(--fg); font-weight: 650; }
+.module-side-links { display: flex; flex-direction: column; gap: .45rem; padding-top: .95rem; }
+.module-side-links a {
+  font-size: .92rem;
+  font-weight: 650;
+  color: var(--orange-ink);
+  transition: color .15s;
+}
+.module-side-links a:hover { color: var(--orange); }
+@media (max-width: 1399px) and (min-width: 1051px) {
+  .module-overview-shell {
+    grid-template-columns: clamp(230px, 21vw, 290px) minmax(0, 820px);
+  }
+  .module-overview-main { grid-column: 2; }
+  .module-overview-shell > .module-side {
+    grid-column: 2;
+    grid-row: 2;
+    position: static;
+    justify-self: stretch;
+    width: auto;
+    margin-top: 2.4rem;
+    padding: 1.25rem 0 0;
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+}
+@media (max-width: 1050px) {
+  .module-overview-shell { grid-template-columns: 1fr; }
+  .module-overview-main { grid-column: 1; grid-row: auto; }
+  .module-overview-shell > .module-side {
+    grid-column: 1;
+    grid-row: auto;
+    position: static;
+    justify-self: center;
+    width: min(100%, 820px);
+    margin-top: 2.4rem;
+    padding: 1.25rem 0 0;
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+}
 .module-prerequisites { scroll-margin-top: 100px; margin-top: 2.4rem; }
 .module-prerequisites > .label { display: block; margin-bottom: .9rem; }
 .module-prerequisites .tfilets { margin-top: 0; }

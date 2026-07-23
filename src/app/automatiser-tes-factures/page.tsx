@@ -3,8 +3,11 @@ import { etapesDetailFacture } from "@/lib/module-facture";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleToolbox from "@/components/ModuleToolbox";
 import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
+import { invoiceOverview } from "@/lib/module-overview-config";
 
 export const metadata = { title: "Module · Automatise tes factures — The Vibe Experience" };
 
@@ -22,7 +25,7 @@ export default function ModuleFacture() {
   return (
     <section className="etape-section">
       <MarkSelectedPath path="automatiser" />
-      <div className="etape-shell">
+      <div className="etape-shell module-overview-shell">
         <ModuleRail
           etapes={etapesDetailFacture}
           currentSlug=""
@@ -30,7 +33,7 @@ export default function ModuleFacture() {
           moduleLabel="Automatise tes factures"
         />
 
-        <div className="ecol">
+        <div className="ecol module-overview-main">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -63,7 +66,17 @@ export default function ModuleFacture() {
             basePath="/automatiser-tes-factures"
             etapes={cards}
           />
+          <ModuleToolbox intro={invoiceOverview.intro} tools={invoiceOverview.tools} />
         </div>
+
+        <ModuleSidePanel
+          moduleKey="/automatiser-tes-factures"
+          basePath="/automatiser-tes-factures"
+          etapes={cards}
+          facts={invoiceOverview.facts}
+          finishedHref={invoiceOverview.finishedHref}
+          finishedLabel={invoiceOverview.finishedLabel}
+        />
       </div>
     </section>
   );
