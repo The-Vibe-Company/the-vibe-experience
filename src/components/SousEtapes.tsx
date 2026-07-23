@@ -55,6 +55,14 @@ function GuidanceParagraphs({ text }: { text: string }) {
   );
 }
 
+function containsSideNotes(sousEtape: SousEtape) {
+  return Boolean(
+    (sousEtape.exemples && sousEtape.exemples.length > 0) ||
+      sousEtape.monExemple ||
+      sousEtape.conseil,
+  );
+}
+
 export default function SousEtapes({
   sous,
   detailPret,
@@ -73,9 +81,10 @@ export default function SousEtapes({
 
   // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
   const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
+  const openHasSideNotes = open !== null && containsSideNotes(sous[open]);
 
   return (
-    <div className="se-list">
+    <div className={`se-list ${openHasSideNotes ? "has-open-side" : ""}`}>
       {sous.map((s, i) => {
         const id = sousId(etapeSlug, i);
         const done = mounted && isDone(id);
@@ -86,9 +95,7 @@ export default function SousEtapes({
         // Le panneau de droite n'existe que s'il a quelque chose à apporter en
         // plus de la colonne principale : conseil, exemples, vécu. La durée et
         // « ce qu'on attend » sont déjà dans la colonne principale.
-        const hasSideNotes = Boolean(
-          (s.exemples && s.exemples.length > 0) || s.monExemple || s.conseil,
-        );
+        const hasSideNotes = containsSideNotes(s);
 
         return (
           <div

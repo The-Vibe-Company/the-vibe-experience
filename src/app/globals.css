@@ -445,13 +445,13 @@ a { color: inherit; text-decoration: none; }
 
 /* SOUS-ÉTAPES — accordéon (design 2a) */
 @keyframes rise { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
-.substeps-section { width: min(100%, 920px); margin: 2.4rem auto 0; }
+.substeps-section { width: min(100%, 1180px); margin: 2.4rem auto 0; }
 .substeps-label {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
 }
-.se-list { display: flex; flex-direction: column; }
+.se-list { display: flex; flex-direction: column; width: min(100%, 920px); margin-inline: auto; }
 .se-item { border-top: 1px solid var(--border); position: relative; }
 .se-item:first-child { border-top: none; }
 .se-item.open::before { content: ""; position: absolute; left: -24px; top: 1.15rem; bottom: 1.2rem; width: 2px; background: var(--orange); border-radius: 2px; }
@@ -485,9 +485,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--muted);
 }
 @media (min-width: 1500px) {
-  .substeps-section:has(.se-panel-layout.has-side) {
-    width: min(100%, 1180px);
-  }
+  .se-list.has-open-side { width: 100%; }
   .se-panel-layout.has-side {
     grid-template-columns: minmax(0, 820px) minmax(260px, 1fr);
     column-gap: clamp(1.5rem, 2.5vw, 2.25rem);
