@@ -69,7 +69,7 @@ export default function Module() {
           <h1 className="mov-h1">
             Faire un site, <em>de ton idée à en ligne</em>.
           </h1>
-          <p className="mov-meta">6 étapes · ≈ 3 à 4 h de travail, souvent en plusieurs fois · Débutant</p>
+          <p className="mov-meta">6 étapes, 3 à 4 h de travail, souvent en plusieurs fois, niveau débutant</p>
           <p className="etape-obj">
             Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la
             mise en ligne, en apprenant les vrais outils au passage.
@@ -82,7 +82,7 @@ export default function Module() {
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
             facts={[
               { label: "Livrable", value: "Un site en ligne, partageable" },
-              { label: "Durée", value: "6 étapes · ≈ 3 à 4 h" },
+              { label: "Durée", value: "3 à 4 h, souvent en plusieurs fois" },
               { label: "Budget", value: "Claude Pro (~20 €/mois), le reste gratuit" },
             ]}
           />

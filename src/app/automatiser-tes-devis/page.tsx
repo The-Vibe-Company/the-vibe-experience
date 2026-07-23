@@ -45,7 +45,7 @@ export default function ModuleDevis() {
           <h1 className="mov-h1">
             Automatise tes devis, <em>une phrase, un devis conforme</em>.
           </h1>
-          <p className="mov-meta">5 étapes · ≈ 35 min (dont 10 de setup, une seule fois) · Débutant</p>
+          <p className="mov-meta">5 étapes, 35 min environ (dont 10 min de setup, une seule fois), niveau débutant</p>
           <p className="etape-obj">
             Tu dis « devis pour Madame Martin, remplacement du chauffe-eau, 980 euros », et tu
             obtiens un devis professionnel conforme au droit français, numéroté, prêt à imprimer
@@ -61,7 +61,7 @@ export default function ModuleDevis() {
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
             facts={[
               { label: "Livrable", value: "Tes devis conformes, en une phrase" },
-              { label: "Durée", value: "5 étapes · ≈ 35 min" },
+              { label: "Durée", value: "35 min environ" },
               { label: "Outil", value: "Claude Code + le skill offert" },
             ]}
             jugeHref="/automatiser-tes-factures"
