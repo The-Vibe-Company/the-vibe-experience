@@ -20,8 +20,7 @@ export type SousEtape = {
   exemples?: string[];
   outils?: Fiche[];
   // Ce qu'il faut avoir sous la main pour faire le module : un compte, une carte,
-  // des papiers. Vit dans la sous-étape qui présente les outils (0.1), au même
-  // endroit que le reste du matériel nécessaire.
+  // des papiers. Porté par la première sous-étape, puis affiché juste avant 0.1.
   prerequis?: Prerequis[];
   prompt?: string;
   ceQueTuDoisVoir?: string;

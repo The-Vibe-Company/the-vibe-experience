@@ -4,6 +4,9 @@ import { etapesDetailDevis } from "@/lib/module-devis";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleAfter from "@/components/ModuleAfter";
+import ModulePrerequisites from "@/components/ModulePrerequisites";
+import { quoteShell } from "@/lib/module-shell-config";
 
 export function generateStaticParams() {
   return etapesDetailDevis.map((e) => ({ etape: e.slug }));
@@ -62,13 +65,13 @@ export default async function EtapeDevisPage({
             moduleKey="/automatiser-tes-devis"
             basePath="/automatiser-tes-devis"
             etapes={etapesDetailDevis.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
-            facts={[
-              { label: "Livrable", value: "Tes devis conformes, en une phrase" },
-              { label: "Durée", value: "5 étapes · ≈ 35 min" },
-            ]}
-            jugeHref="/automatiser-tes-factures"
-            jugeLabel="Enchaîne : Automatise tes factures"
+            facts={quoteShell.facts}
+            resources={quoteShell.resources}
+            jugeHref={quoteShell.finishedHref}
+            jugeLabel={quoteShell.finishedLabel}
           />
+
+          {idx === 0 && <ModulePrerequisites items={e.sous[0]?.prerequis} />}
 
           <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
             Les sous-étapes
@@ -92,6 +95,8 @@ export default async function EtapeDevisPage({
               <p>{e.reussite}</p>
             </div>
           </div>
+
+          {!next && <ModuleAfter content={quoteShell.after} />}
 
           <div className="pager">
             {prev ? (

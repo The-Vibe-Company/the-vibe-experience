@@ -4,6 +4,9 @@ import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleAfter from "@/components/ModuleAfter";
+import ModulePrerequisites from "@/components/ModulePrerequisites";
+import { skillShell } from "@/lib/module-shell-config";
 
 export function generateStaticParams() {
   return etapesDetailSkill.map((e) => ({ etape: e.slug }));
@@ -58,13 +61,13 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
             moduleKey="/creer-un-skill"
             basePath="/creer-un-skill"
             etapes={etapesDetailSkill.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
-            facts={[
-              { label: "Livrable", value: "Un skill que Claude Code peut réutiliser" },
-              { label: "Durée", value: "5 étapes · ≈ 1 h 40 à 2 h" },
-            ]}
-            jugeHref="/juge-skill"
-            jugeLabel="Fais évaluer ton skill par le juge"
+            facts={skillShell.facts}
+            resources={skillShell.resources}
+            jugeHref={skillShell.finishedHref}
+            jugeLabel={skillShell.finishedLabel}
           />
+
+          {idx === 0 && <ModulePrerequisites items={e.sous[0]?.prerequis} />}
 
           <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
             Les sous-étapes
@@ -88,6 +91,8 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
               <p>{e.reussite}</p>
             </div>
           </div>
+
+          {!next && <ModuleAfter content={skillShell.after} />}
 
           <div className="pager">
             {prev ? (

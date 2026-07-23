@@ -593,6 +593,16 @@ a { color: inherit; text-decoration: none; }
 .module-side-links { display: flex; flex-direction: column; gap: .45rem; padding-top: .95rem; }
 .module-side-links a { font-size: .92rem; font-weight: 650; color: var(--orange-ink); transition: color .15s; }
 .module-side-links a:hover { color: var(--orange); }
+.module-side-resources { display: flex; flex-direction: column; margin-top: 1.15rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.module-side-section-label { font-family: var(--font-geist-mono), monospace; font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); margin-bottom: .45rem; }
+.module-side-resources a { display: flex; flex-direction: column; gap: .18rem; padding: .62rem 0; border-bottom: 1px solid var(--border); }
+.module-side-resources a:last-child { border-bottom: 0; }
+.module-side-resources a > span { font-size: .78rem; font-weight: 750; color: var(--orange-ink); }
+.module-side-resources a > strong { font-size: .88rem; line-height: 1.4; font-weight: 620; color: var(--fg); transition: color .15s; }
+.module-side-resources a:hover > strong { color: var(--orange); }
+.module-prerequisites { scroll-margin-top: 100px; margin-top: 2.4rem; }
+.module-prerequisites > .label { display: block; margin-bottom: .9rem; }
+.module-prerequisites .tfilets { margin-top: 0; }
 @media (max-width: 1399px) {
   .module-side { position: static; top: auto; justify-self: stretch; width: auto; margin: 1.4rem 0 0; padding: 1rem 0 0; border-left: none; border-top: 1px solid var(--border); }
 }

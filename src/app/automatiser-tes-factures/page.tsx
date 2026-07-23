@@ -5,6 +5,7 @@ import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
+import { invoiceShell } from "@/lib/module-shell-config";
 
 export const metadata = { title: "Module · Automatise tes factures — The Vibe Experience" };
 
@@ -59,13 +60,10 @@ export default function ModuleFacture() {
             moduleKey="/automatiser-tes-factures"
             basePath="/automatiser-tes-factures"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
-            facts={[
-              { label: "Livrable", value: "Tes factures conformes, en une phrase" },
-              { label: "Durée", value: "5 étapes · ≈ 30 min" },
-              { label: "Outil", value: "Claude Code + le skill offert" },
-            ]}
-            jugeHref="/parcours"
-            jugeLabel="Retourne au parcours choisir la suite"
+            facts={invoiceShell.facts}
+            resources={invoiceShell.resources}
+            jugeHref={invoiceShell.finishedHref}
+            jugeLabel={invoiceShell.finishedLabel}
           />
 
           <ModuleProgress
@@ -80,44 +78,6 @@ export default function ModuleFacture() {
             basePath="/automatiser-tes-factures"
             etapes={cards}
           />
-
-          <div className="label mov-sec">Ta boîte à outils</div>
-          <p className="mov-toolintro">
-            Un outil payant, un skill offert. Aucun logiciel de facturation, aucun abonnement en
-            plus.
-          </p>
-          <div className="tfilets">
-            <div className="tfilet">
-              <span className="tfilet-name">
-                Claude Code
-                <span className="cost cost-payant">Payant</span>
-              </span>
-              <span className="tfilet-desc">
-                L&apos;app où vit le skill. L&apos;abonnement Pro (environ 20 € par mois) suffit.
-              </span>
-            </div>
-            <div className="tfilet">
-              <span className="tfilet-name">
-                Générer une facture
-                <span className="cost cost-gratuit">Gratuit</span>
-              </span>
-              <span className="tfilet-desc">
-                Notre skill, compagnon du skill devis : configuration partagée, zéro ressaisie.
-                Il marche aussi tout seul.
-              </span>
-            </div>
-          </div>
-
-          <Link href="/parcours" className="mov-cta">
-            <span className="label">Et après ?</span>
-            <span className="mov-cta-title">Retourne au parcours choisir la suite →</span>
-            <span className="mov-cta-desc">
-              La compta, les mails, l&apos;agenda : les prochains modules de la famille
-              « Automatiser ton business » suivent le même principe, un skill prêt à
-              l&apos;emploi et un résultat immédiat. Et si le chemin te plaît, la famille
-              « Apprendre à construire » t&apos;apprend à fabriquer les tiens.
-            </span>
-          </Link>
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
+import { quoteShell } from "@/lib/module-shell-config";
 
 export const metadata = { title: "Module · Automatise tes devis — The Vibe Experience" };
 
@@ -59,13 +60,10 @@ export default function ModuleDevis() {
             moduleKey="/automatiser-tes-devis"
             basePath="/automatiser-tes-devis"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
-            facts={[
-              { label: "Livrable", value: "Tes devis conformes, en une phrase" },
-              { label: "Durée", value: "5 étapes · ≈ 35 min" },
-              { label: "Outil", value: "Claude Code + le skill offert" },
-            ]}
-            jugeHref="/automatiser-tes-factures"
-            jugeLabel="Enchaîne : Automatise tes factures"
+            facts={quoteShell.facts}
+            resources={quoteShell.resources}
+            jugeHref={quoteShell.finishedHref}
+            jugeLabel={quoteShell.finishedLabel}
           />
 
           <ModuleProgress
@@ -80,43 +78,6 @@ export default function ModuleDevis() {
             basePath="/automatiser-tes-devis"
             etapes={cards}
           />
-
-          <div className="label mov-sec">Ta boîte à outils</div>
-          <p className="mov-toolintro">
-            Un outil payant, un skill offert. Aucun logiciel de devis, aucun abonnement en plus.
-          </p>
-          <div className="tfilets">
-            <div className="tfilet">
-              <span className="tfilet-name">
-                Claude Code
-                <span className="cost cost-payant">Payant</span>
-              </span>
-              <span className="tfilet-desc">
-                L&apos;app où vit le skill. L&apos;abonnement Pro (environ 20 € par mois) suffit.
-              </span>
-            </div>
-            <div className="tfilet">
-              <span className="tfilet-name">
-                Générer un devis
-                <span className="cost cost-gratuit">Gratuit</span>
-              </span>
-              <span className="tfilet-desc">
-                Notre skill, éprouvé sur banc d&apos;essai et testé avec une vraie débutante.
-                Mentions légales à jour, vérifiées sur les sources officielles.
-              </span>
-            </div>
-          </div>
-
-          <Link href="/automatiser-tes-factures" className="mov-cta">
-            <span className="label">Et après ?</span>
-            <span className="mov-cta-title">Automatise tes factures →</span>
-            <span className="mov-cta-desc">
-              Quand un devis est accepté, son compagnon prend le relais : le module suivant
-              installe le skill facture, qui transforme ton devis signé en facture d&apos;acompte
-              ou de solde sans une seule ressaisie. Ta configuration d&apos;ici lui servira telle
-              quelle.
-            </span>
-          </Link>
         </div>
       </div>
     </section>

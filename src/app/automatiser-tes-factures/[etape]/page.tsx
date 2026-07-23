@@ -4,6 +4,9 @@ import { etapesDetailFacture } from "@/lib/module-facture";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleAfter from "@/components/ModuleAfter";
+import ModulePrerequisites from "@/components/ModulePrerequisites";
+import { invoiceShell } from "@/lib/module-shell-config";
 
 export function generateStaticParams() {
   return etapesDetailFacture.map((e) => ({ etape: e.slug }));
@@ -62,13 +65,13 @@ export default async function EtapeFacturePage({
             moduleKey="/automatiser-tes-factures"
             basePath="/automatiser-tes-factures"
             etapes={etapesDetailFacture.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
-            facts={[
-              { label: "Livrable", value: "Tes factures conformes, en une phrase" },
-              { label: "Durée", value: "5 étapes · ≈ 30 min" },
-            ]}
-            jugeHref="/parcours"
-            jugeLabel="Retourne au parcours choisir la suite"
+            facts={invoiceShell.facts}
+            resources={invoiceShell.resources}
+            jugeHref={invoiceShell.finishedHref}
+            jugeLabel={invoiceShell.finishedLabel}
           />
+
+          {idx === 0 && <ModulePrerequisites items={e.sous[0]?.prerequis} />}
 
           <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
             Les sous-étapes
@@ -92,6 +95,8 @@ export default async function EtapeFacturePage({
               <p>{e.reussite}</p>
             </div>
           </div>
+
+          {!next && <ModuleAfter content={invoiceShell.after} />}
 
           <div className="pager">
             {prev ? (

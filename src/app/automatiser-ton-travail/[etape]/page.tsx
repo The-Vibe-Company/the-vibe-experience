@@ -4,6 +4,9 @@ import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleAfter from "@/components/ModuleAfter";
+import ModulePrerequisites from "@/components/ModulePrerequisites";
+import { automationShell } from "@/lib/module-shell-config";
 
 export function generateStaticParams() {
   return etapesDetailAutomatisation.map((e) => ({ etape: e.slug }));
@@ -62,13 +65,13 @@ export default async function EtapeAutomatisationPage({
             moduleKey="/automatiser-ton-travail"
             basePath="/automatiser-ton-travail"
             etapes={etapesDetailAutomatisation.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
-            facts={[
-              { label: "Livrable", value: "Des automatisations qui se déclenchent seules" },
-              { label: "Durée", value: "5 étapes · ≈ 2 h à 2 h 45" },
-            ]}
-            jugeHref="/juge-automatisation"
-            jugeLabel="Fais évaluer ton automatisation par le juge"
+            facts={automationShell.facts}
+            resources={automationShell.resources}
+            jugeHref={automationShell.finishedHref}
+            jugeLabel={automationShell.finishedLabel}
           />
+
+          {idx === 0 && <ModulePrerequisites items={e.sous[0]?.prerequis} />}
 
           <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
             Les sous-étapes
@@ -92,6 +95,8 @@ export default async function EtapeAutomatisationPage({
               <p>{e.reussite}</p>
             </div>
           </div>
+
+          {!next && <ModuleAfter content={automationShell.after} />}
 
           <div className="pager">
             {prev ? (

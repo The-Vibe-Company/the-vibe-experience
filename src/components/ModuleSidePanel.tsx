@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { computeStats, useModuleProgress, type EtapeLite } from "@/lib/progress";
+import type { ModuleResource } from "@/lib/module-shell-config";
 
 type SideItem = {
   label: string;
@@ -15,6 +16,7 @@ export default function ModuleSidePanel({
   basePath,
   etapes,
   facts,
+  resources,
   jugeHref = "/juge",
   jugeLabel = "Fais évaluer ton site par le juge",
 }: {
@@ -22,6 +24,7 @@ export default function ModuleSidePanel({
   basePath: string;
   etapes: EtapeLite[];
   facts: SideItem[];
+  resources: ModuleResource[];
   jugeHref?: string;
   jugeLabel?: string;
 }) {
@@ -33,7 +36,20 @@ export default function ModuleSidePanel({
   // Toujours accessible, dans les trois états et depuis n'importe quelle page
   // d'étape : la liste vit dans la sous-étape 0.1, avec les outils du module.
   const prerequis = (
-    <Link href={`${basePath}/${etapes[0]?.slug}`}>Ce qu&apos;il te faut sous la main →</Link>
+    <Link href={`${basePath}/${etapes[0]?.slug}#ce-quil-te-faut`}>
+      Ce qu&apos;il te faut sous la main →
+    </Link>
+  );
+  const resourceList = (
+    <nav className="module-side-resources" aria-label="Repères utiles du module">
+      <span className="module-side-section-label">Dans ce module</span>
+      {resources.map((resource) => (
+        <Link href={resource.href} key={`${resource.label}-${resource.href}`}>
+          <span>{resource.label}</span>
+          <strong>{resource.value}</strong>
+        </Link>
+      ))}
+    </nav>
   );
 
   if (started && stats.allDone) {
@@ -49,6 +65,7 @@ export default function ModuleSidePanel({
           <Link href={`${basePath}/${etapes[0]?.slug}`}>Revoir le module →</Link>
           {prerequis}
         </div>
+        {resourceList}
       </aside>
     );
   }
@@ -86,6 +103,7 @@ export default function ModuleSidePanel({
           </span>
         </div>
         <div className="module-side-links">{prerequis}</div>
+        {resourceList}
       </aside>
     );
   }
@@ -106,6 +124,7 @@ export default function ModuleSidePanel({
         <strong>Commencer le module →</strong>
       </Link>
       <div className="module-side-links">{prerequis}</div>
+      {resourceList}
     </aside>
   );
 }
