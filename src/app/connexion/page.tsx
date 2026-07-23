@@ -56,7 +56,7 @@ export default function Connexion() {
             />
           </div>
           <button type="submit" className="btn btn-full" disabled={loading}>
-            {loading ? "Connexion..." : "Se connecter"}
+            {loading ? "Connexion en cours" : "Se connecter"}
           </button>
         </form>
 

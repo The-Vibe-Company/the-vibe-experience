@@ -17,19 +17,19 @@ type Branche = "construire" | "automatiser";
 
 const businessSoon = [
   {
-    titre: "Automatiser mes devis",
+    titre: "Automatise tes devis",
     desc: "Ton devis prêt en quelques minutes au lieu d'une heure, au bon format à chaque fois.",
   },
   {
-    titre: "Automatiser mes factures",
+    titre: "Automatise tes factures",
     desc: "Tes factures générées et suivies sans que tu y penses.",
   },
   {
-    titre: "Tenir ma compta",
+    titre: "Tiens ta compta",
     desc: "Le récap qui sort tout seul, chaque mois, prêt à envoyer au comptable.",
   },
-  { titre: "Gérer mes mails", desc: "Trier, répondre, retrouver, sans y passer ta matinée." },
-  { titre: "Gérer mon agenda", desc: "Tes rendez-vous et tes rappels organisés à ta place." },
+  { titre: "Gère tes mails", desc: "Trie, réponds et retrouve tes messages sans y passer ta matinée." },
+  { titre: "Gère ton agenda", desc: "Tes rendez-vous et tes rappels organisés à ta place." },
 ];
 
 function ModuleRow({
@@ -157,14 +157,14 @@ export default function ParcoursFamilies() {
         {colonne(
           "construire",
           "Apprendre à construire",
-          "Tu fabriques tes propres trucs, pas à pas, et tu montes en compétence. Le chemin fait partie de la valeur.",
+          "Tu fabriques tes propres outils, pas à pas, et tu apprends en le faisant.",
           null,
           <>
             <ModuleRow
               moduleKey="/module"
               href="/module"
               title="Faire un site"
-              desc="De ton idée à en ligne : tu construis TON site en apprenant les vrais outils au passage."
+              desc="De ton idée à sa mise en ligne : tu construis ton propre site en découvrant les outils au bon moment."
               idleStatus="Commence ici →"
               starter
             />
@@ -179,15 +179,15 @@ export default function ParcoursFamilies() {
               moduleKey="/automatiser-ton-travail"
               href="/automatiser-ton-travail"
               title="Automatise ton travail"
-              desc="Il ne se passe plus des choses parce que tu demandes, mais parce que c'est déclenché : sauvegardes toutes seules, garde-fous, rendez-vous programmés."
-              idleStatus="En écriture"
+              desc="Des sauvegardes, des garde-fous et des rendez-vous qui se déclenchent au bon moment."
+              idleStatus="En préparation"
             />
           </>,
         )}
         {colonne(
           "automatiser",
-          "Automatiser ton business",
-          "Tu mets l'IA au travail sur les tâches qui te font perdre du temps. Un résultat, sans devoir tout construire.",
+          "Automatise ton business",
+          "Tu confies à l'IA les tâches qui te font perdre du temps pour obtenir un résultat sans tout construire toi-même.",
           "En préparation",
           <>
             {businessSoon.map((m) => (

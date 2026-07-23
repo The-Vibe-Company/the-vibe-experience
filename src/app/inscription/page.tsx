@@ -96,7 +96,7 @@ export default function Inscription() {
               />
             </div>
             <button type="submit" className="btn btn-full" disabled={loading}>
-              {loading ? "Création..." : "Créer mon compte"}
+              {loading ? "Création du compte" : "Créer mon compte"}
             </button>
           </form>
         )}

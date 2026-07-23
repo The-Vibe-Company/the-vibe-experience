@@ -75,7 +75,7 @@ export default function ChangePassword() {
             autoComplete="new-password"
           />
           <button type="submit" className="btn" disabled={state === "saving"}>
-            {state === "saving" ? "Enregistrement…" : "Enregistrer"}
+            {state === "saving" ? "Enregistrement en cours" : "Enregistrer"}
           </button>
         </form>
       )}

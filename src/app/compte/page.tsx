@@ -6,7 +6,7 @@ import ApplyPendingReco from "./ApplyPendingReco";
 import ChangePassword from "./ChangePassword";
 import AccountPathActions from "@/components/AccountPathActions";
 
-export const metadata = { title: "Mon compte — The Vibe Experience" };
+export const metadata = { title: "Mon compte | The Vibe Experience" };
 
 export default async function Compte() {
   const supabase = await createClient();

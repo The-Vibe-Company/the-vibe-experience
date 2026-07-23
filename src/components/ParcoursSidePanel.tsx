@@ -78,7 +78,7 @@ export default function ParcoursSidePanel() {
     if (reco?.branche === "construire" || reco?.branche === "automatiser") {
       const branche = reco.branche;
       const brancheLabel =
-        branche === "automatiser" ? "Automatiser ton business" : "Apprendre à construire";
+        branche === "automatiser" ? "Automatise ton business" : "Apprendre à construire";
       const objectif = reco.objectif
         ? `${branche === "automatiser" ? "Automatiser" : "Créer"} ${reco.objectif}`
         : null;
@@ -129,7 +129,7 @@ export default function ParcoursSidePanel() {
           </div>
           <div className="module-side-row">
             <span>Budget</span>
-            <strong>Claude Pro (~20 €/mois), le reste gratuit</strong>
+            <strong>Claude Pro, environ 20 € par mois. Le reste est gratuit.</strong>
           </div>
           <div className="module-side-row">
             <span>Rythme</span>

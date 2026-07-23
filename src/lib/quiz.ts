@@ -24,16 +24,16 @@ export const branchQuestions: QuizQuestion[] = [
     role: "Ton envie",
     question: "Qu'est-ce que tu as le plus envie de faire ?",
     options: [
-      { value: "produit", label: "Créer mon propre produit (un site, une app, un jeu...)", lean: "construire" },
+      { value: "produit", label: "Créer mon propre produit, comme un site, une app ou un jeu", lean: "construire" },
       { value: "competence", label: "Monter en compétence avec l'IA et ses outils", lean: "construire" },
-      { value: "taches", label: "Automatiser des tâches précises qui me prennent du temps (devis, compta, mails...)", lean: "automatiser" },
+      { value: "taches", label: "Automatiser des tâches précises qui me prennent du temps, comme les devis, la compta ou les mails", lean: "automatiser" },
       { value: "temps", label: "Gagner du temps sur mon travail", lean: "automatiser" },
     ],
   },
   {
     id: "facon",
     role: "Ta façon",
-    question: "Tu préfères...",
+    question: "Tu préfères :",
     options: [
       { value: "comprendre", label: "Prendre le temps de comprendre comment ça marche, pour être vraiment autonome", lean: "construire" },
       { value: "resultat", label: "Aller droit au résultat, en comprenant juste ce qu'il faut pour que ça tourne", lean: "automatiser" },
@@ -42,7 +42,7 @@ export const branchQuestions: QuizQuestion[] = [
   {
     id: "vision",
     role: "L'IA pour toi",
-    question: "L'IA, pour toi, ce serait plutôt...",
+    question: "L'IA, pour toi, ce serait plutôt :",
     options: [
       { value: "maitriser", label: "Un truc à apprendre et à maîtriser", lean: "construire" },
       { value: "executant", label: "Un exécutant qui te débarrasse des corvées", lean: "automatiser" },
@@ -181,7 +181,7 @@ export function computeReco(answers: Answers): Reco {
       niveau,
       cible,
       hero: {
-        famille: "Automatiser ton business",
+        famille: "Automatise ton business",
         titre: `Automatiser ${cible}`,
         note,
         cta: null,
@@ -229,9 +229,9 @@ export function computeReco(answers: Answers): Reco {
       enPreparation: false,
     },
     autre: {
-      famille: "Automatiser ton business",
+      famille: "Automatise ton business",
       teaser:
-        "Tu as aussi des tâches qui te font perdre du temps ? Devis, compta, mails... des modules arrivent pour les automatiser.",
+        "Tu as aussi des tâches qui te font perdre du temps ? Des modules arrivent pour automatiser les devis, la compta et les mails.",
     },
   };
 }

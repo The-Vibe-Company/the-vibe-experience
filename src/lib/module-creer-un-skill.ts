@@ -31,28 +31,19 @@ export const skillGifts = [
   },
 ];
 
-export const skillToolbox: { n: string; d: string; cost: "gratuit" | "gratuit-debut" | "payant"; costNote?: string }[] = [
-  {
-    n: "Claude Code",
-    d: "Le seul outil du module. Tu l'as depuis ton premier projet, rien de neuf à installer.",
-    cost: "payant",
-    costNote: "Le même abonnement Claude Pro que pour ton site. Rien de plus.",
-  },
-];
-
 export const etapesDetailSkill: EtapeDetail[] = [
   {
     slug: "0",
     num: "0",
     titre: "C'est quoi un skill",
     tag: ["Setup", "t-build"],
-    dur: "≈ 8 min · rien à installer",
+    dur: "8 min · rien à installer",
     obj: "Tu as déjà Claude Code de ton premier projet, rien de neuf à installer. Un skill, c'est une compétence que tu apprends une fois à l'IA et qu'elle réutilise ensuite toute seule. Tu viens d'en utiliser des tout faits (Impeccable, Agent Browser), là tu fais le tien. Et rassure-toi : créer un skill n'abîme rien, ça s'ajoute à côté.",
     detailPret: true,
     sous: [
       {
         titre: "Tu as déjà ton seul outil : Claude Code.",
-        duree: "≈ 2 min",
+        duree: "2 min",
         cestquoi:
           "Le seul outil de ce module, c'est Claude Code, déjà installé depuis ton premier projet. Un skill, c'est juste un dossier rangé chez toi, dont Claude Code s'occupe tout seul : tu n'as jamais à aller le chercher à la main. Et tout se passe en parlant à Claude Code, jamais dans le Terminal.",
         attendu:
@@ -69,7 +60,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
       },
       {
         titre: "Comprends ce qu'est un skill (et pourquoi ça change tout).",
-        duree: "≈ 5 min",
+        duree: "5 min",
         cestquoi:
           "Un skill, c'est le petit dossier dont on parlait, et dedans il y a trois choses : un nom, une description (quand l'IA doit l'utiliser) et des instructions (ce qu'elle doit faire). Techniquement, tout ça tient dans un simple fichier texte appelé SKILL.md. Tu n'auras jamais à l'écrire toi-même, Claude Code s'en occupe, retiens juste le mot, tu le reverras. Tu l'appelles en tapant /nom dans la zone où tu écris à Claude Code, comme un message (par exemple /impeccable), ou l'IA le déclenche toute seule quand ta demande colle à la description. Tu l'apprends une fois à l'IA, et elle s'en ressert toujours.",
         attendu:
@@ -91,19 +82,25 @@ export const etapesDetailSkill: EtapeDetail[] = [
     ],
     livrable: "Tu sais ce qu'est un skill et pourquoi en faire un.",
     reussite: "Tu peux expliquer en une phrase à quoi sert un skill.",
+    ceQuilTeFaut: [
+      {
+        n: "Claude Code",
+        d: "Le même outil que pour ton site. Rien d'autre à installer.",
+      },
+    ],
   },
   {
     slug: "1",
     num: "1",
     titre: "Trouve ton premier skill",
     tag: ["Savoir-faire", "t-product"],
-    dur: "≈ 8 min",
+    dur: "8 min",
     obj: "Le meilleur premier skill, c'est un truc que tu réexpliques sans arrêt à l'IA. On repère cette répétition, et on en choisit un qui te resservira, idéalement dès ton prochain projet.",
     detailPret: true,
     sous: [
       {
         titre: "Repère ce que tu réexpliques tout le temps.",
-        duree: "≈ 5 min",
+        duree: "5 min",
         cestquoi:
           "Un bon skill part d'une répétition : une consigne, une vérif, une façon de faire que tu redonnes à l'IA à chaque fois. Tu sors d'un seul projet et tu n'as pas encore l'impression de te répéter ? C'est le cas normal ici, pas un problème. Pars alors d'une répétition que tu sais à venir : ton style visuel, pour ne plus le redécrire à chaque fois, ou ta vérif avant de mettre en ligne. Petit truc à savoir : Claude Code ne se souvient pas de vos conversations passées, il regarde seulement les fichiers de ton projet. Ouvre donc ton dossier de site avant de lui demander.",
         attendu: "Une répétition identifiée, écrite en une phrase quelque part.",
@@ -125,7 +122,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
       },
       {
         titre: "Réduis ton idée à une seule chose (et garde le réflexe).",
-        duree: "≈ 3 min · surtout à comprendre",
+        duree: "3 min · surtout à comprendre",
         cestquoi:
           "Pour un premier skill, prends-en un utile tout de suite. Le plus important, ce n'est pas ce skill précis, c'est le réflexe : repérer une répétition et la capturer. Ce skill-là te resservira peut-être tel quel, ou tu en créeras d'autres selon tes besoins.",
         attendu:
@@ -149,13 +146,13 @@ export const etapesDetailSkill: EtapeDetail[] = [
     num: "2",
     titre: "Crée ton skill",
     tag: ["Build", "t-build"],
-    dur: "≈ 30 min",
+    dur: "30 min",
     obj: "Créer un skill, c'est simple : tu peux le demander directement à Claude Code, juste avec un prompt. Et pour un skill vraiment carré, on te donne notre Skill Creator, en option, qui garantit le bon format et t'assure un skill propre et fonctionnel, sans que tu touches à la technique.",
     detailPret: true,
     sous: [
       {
         titre: "Le plus simple : demande ton skill à Claude Code.",
-        duree: "≈ 8 min",
+        duree: "8 min",
         cestquoi:
           "Tu n'as besoin de rien d'autre que Claude Code. Tu lui dis en français ce que tu veux capturer, quand ça doit se déclencher, et ce que ça doit faire. Il crée le skill. C'est aussi direct que ça : pas besoin d'outil spécial pour commencer.",
         attendu: "Un skill créé, juste en le demandant.",
@@ -174,7 +171,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
       },
       {
         titre: "Pour un skill au top : le Skill Creator (offert, en option).",
-        duree: "≈ 15 min (le temps de répondre à ses questions)",
+        duree: "15 min (le temps de répondre à ses questions)",
         cestquoi:
           "Le Skill Creator (son vrai nom technique, celui que tu verras, c'est create-skill-tools), c'est notre vrai outil de travail, celui qu'on utilise nous-mêmes tous les jours, et tu repars avec. Ce n'est pas obligatoire, tu sais déjà créer un skill avec un simple prompt. Mais c'est un vrai plus : il crée le skill en suivant la bonne méthode, au bon format, et s'assure qu'il est propre et fonctionnel. C'est un outil de pro : il sait faire beaucoup plus que ce qu'on utilise ici (des tests, des mesures), et il est écrit en anglais à l'intérieur. Aucun souci : tu lui parles en français, et on lui demande la version simple. Et le geste d'installation, tu le connais déjà : le même copier-coller qu'Impeccable et Agent Browser au module précédent.",
         attendu: "Un skill créé avec le Skill Creator, encore plus carré.",
@@ -211,7 +208,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
       },
       {
         titre: "Relis ton skill.",
-        duree: "≈ 7 min",
+        duree: "7 min",
         cestquoi:
           "Tu te souviens : un nom, une description (quand l'utiliser), tes instructions. Tu relis juste pour vérifier que ça te ressemble.",
         attendu: "Un skill que tu as relu et qui te convient.",
@@ -238,13 +235,13 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
     num: "3",
     titre: "Teste-le et fais-le réviser",
     tag: ["Build", "t-build"],
-    dur: "≈ 30 à 40 min",
+    dur: "30 à 40 min",
     obj: "Un skill qui existe mais ne se déclenche jamais ne sert à rien. On vérifie qu'il part au bon moment, et, en option, on le fait réviser par notre skill Improve pour l'améliorer encore.",
     detailPret: true,
     sous: [
       {
         titre: "Lance ton skill et vérifie qu'il part.",
-        duree: "≈ 10 min",
+        duree: "10 min",
         cestquoi:
           "Deux façons de le lancer : tu tapes /nom-du-skill dans la zone où tu écris à Claude Code (comme un message), ou tu fais une demande normale qui correspond à sa description, et l'IA le déclenche toute seule. Ton skill a un nom court, souvent un ou deux mots reliés par un tiret, par exemple mon-style. Si tu ne l'as pas noté en le créant, pas de panique, on le retrouve juste en dessous.",
         attendu: "Ton skill se lance et fait ce que tu attendais.",
@@ -267,7 +264,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
       },
       {
         titre: "Ajuste la description jusqu'à ce qu'il parte au bon moment.",
-        duree: "≈ 10 à 15 min",
+        duree: "10 à 15 min",
         cestquoi:
           "La description, c'est ce qui dit à l'IA QUAND utiliser le skill. Si elle est floue, l'IA ne le déclenche pas. Tu n'ouvres rien toi-même : tu testes, et si besoin tu demandes à Claude Code de la retravailler, jusqu'à ce que ça marche.",
         attendu: "Un skill qui se déclenche tout seul quand la situation s'y prête.",
@@ -293,7 +290,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
       },
       {
         titre: "En option : fais réviser ton skill avec l'Improve (offert).",
-        duree: "≈ 10 à 15 min",
+        duree: "10 à 15 min",
         cestquoi:
           "L'Improve (vrai nom : improve-skill-tools), c'est notre deuxième vrai outil, offert lui aussi. Il lit ton fichier SKILL.md, celui-là même que l'IA regarde pour décider quand lancer ton skill, et il le passe en revue comme un relecteur expert. Il te propose des améliorations, sur le fond (est-ce clair, utile) et sur la technique (le format, la description). Un point important sur sa façon de travailler : l'Improve RELIT, il ne modifie jamais rien lui-même, c'est voulu (un relecteur ne touche pas au texte). Pour appliquer ses remarques, c'est à Claude Code que tu le demandes ensuite.",
         attendu: "Une revue de ton skill avec des pistes concrètes d'amélioration.",
@@ -327,13 +324,13 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
     num: "4",
     titre: "Réutilise-le et fais-le valider",
     tag: ["Ship", "t-ship"],
-    dur: "≈ 20 à 30 min",
+    dur: "20 à 30 min",
     obj: "Le vrai gain est double : ce skill te suit sur tous tes projets, et surtout tu as maintenant le réflexe d'en créer dès que tu répètes quelque chose. On s'en sert pour de vrai, on le fait valider par le juge, et c'est bouclé.",
     detailPret: true,
     sous: [
       {
         titre: "Sers-t'en pour de vrai, sur un vrai projet.",
-        duree: "≈ 15 min",
+        duree: "15 min",
         cestquoi:
           "Là, on ne teste plus, on s'en sert pour de bon. Rouvre un vrai projet dans Claude Code : ton site du module précédent, ou un nouveau dossier. Reprends le cas concret qui t'a donné l'idée du skill, et cette fois laisse-le faire le travail en entier, sans rien lui réexpliquer.",
         attendu: "Ton skill utilisé sur un vrai besoin, dans un vrai projet, du début à la fin.",
@@ -348,7 +345,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
       },
       {
         titre: "Fais valider ton skill par le juge.",
-        duree: "≈ 5 à 10 min (avec la correction éventuelle)",
+        duree: "5 à 10 min (avec la correction éventuelle)",
         cestquoi:
           "Comme pour ton site au module précédent, on te donne un juge, mais pour les skills. Il lit ton fichier SKILL.md et vérifie qu'il est bien formé : un nom, une description qui dit quand l'utiliser, et des instructions. Ce n'est pas une note, juste un coup de main pour finir proprement.",
         attendu: "Ton skill passé au juge, et les points qu'il signale corrigés si besoin.",
@@ -365,7 +362,7 @@ Et si Claude Code s'arrête en disant que tu as atteint ta limite d'utilisation,
       },
       {
         titre: "Garde le réflexe pour tes prochains projets.",
-        duree: "≈ 2 min · rien à faire, juste à retenir",
+        duree: "2 min · à comprendre",
         cestquoi:
           "Ton skill est rangé chez toi, pas dans le dossier de ton site. Du coup il te suit partout : tu pourras l'utiliser sur ton prochain projet sans le recréer. Et surtout, tu as maintenant le réflexe : sur tes prochains produits, tu créeras les skills dont tu as besoin au fur et à mesure, tu sais faire.",
         attendu: "Le réflexe est là : dès que tu répètes quelque chose, tu en fais un skill.",

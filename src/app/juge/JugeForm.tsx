@@ -67,7 +67,7 @@ export default function JugeForm() {
           />
         </label>
         <label className="juge-field">
-          <span>L&apos;adresse de ton repo GitHub (optionnel)</span>
+          <span>L&apos;adresse de ton dépôt GitHub (facultatif)</span>
           <input
             type="text"
             value={repoUrl}
@@ -76,7 +76,7 @@ export default function JugeForm() {
           />
         </label>
         <button type="submit" className="btn" disabled={loading}>
-          {loading ? "Le juge visite ton site…" : "Faire évaluer mon site"}
+          {loading ? "Visite du site en cours" : "Faire évaluer mon site"}
         </button>
       </form>
 

@@ -60,7 +60,7 @@ export default function SkillInstallCopyButton({
   return (
     <span className="skill-copy">
       <button type="button" className={className} aria-live="polite" onClick={copy}>
-        {state === "copied" ? "Copié ✓" : state === "error" ? "Réessaie…" : `Copier le skill`}
+        {state === "copied" ? "Copié ✓" : state === "error" ? "Réessayer" : `Copier le skill`}
       </button>
       {showHint && (
         <span className="skill-copy-hint">

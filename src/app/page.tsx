@@ -22,8 +22,8 @@ export default async function Home() {
           Deviens builder avec l&apos;IA. <em>En partant de zéro.</em>
         </h1>
         <p className="hlead">
-          Le parcours réel de quelqu&apos;un qui n&apos;avait jamais codé, qui construit un vrai
-          produit avec l&apos;IA, et te montre exactement comment refaire la même chose.
+          Je n&apos;avais jamais codé. Ce parcours montre comment j&apos;ai construit un vrai produit
+          avec l&apos;IA, et comment tu peux faire la même chose.
         </p>
         <div className="hcta">
           <Link href="/inscription" className="btn">
@@ -68,8 +68,8 @@ export default async function Home() {
           <div className="hcen-point">
             <strong>Construis pour de vrai</strong>
             <p>
-              Des modules guidés, étape par étape. Chacun se termine par un truc qui existe : ton
-              site en ligne, ton skill qui tourne. Pas un quiz de fin, pas un certificat.
+              Des modules guidés, étape par étape. Chacun se termine par un résultat concret : ton
+              site en ligne ou ton skill qui fonctionne. Pas de quiz final ni de certificat.
             </p>
           </div>
           <div className="hcen-point">

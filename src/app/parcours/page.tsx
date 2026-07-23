@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ParcoursFamilies from "@/components/ParcoursFamilies";
 
-export const metadata = { title: "Le parcours — The Vibe Experience" };
+export const metadata = { title: "Le parcours | The Vibe Experience" };
 
 export default function Parcours() {
   return (
@@ -19,8 +19,8 @@ export default function Parcours() {
           Choisis <em>ce que tu veux faire</em>.
         </h1>
         <p className="pg-lead">
-          Deux façons d&apos;avancer. Apprendre à construire tes propres produits, ou automatiser
-          les tâches qui te bouffent du temps. Commence par celle qui te parle.
+          Deux chemins pour avancer. Tu peux apprendre à construire tes propres produits ou
+          automatiser les tâches qui te bouffent du temps. Commence par celui qui te parle.
         </p>
       </div>
 

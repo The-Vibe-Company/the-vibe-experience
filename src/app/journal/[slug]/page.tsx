@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const entry = await getArticle(slug);
-  return { title: entry ? `${entry.title} — Journal` : "Journal de bord" };
+  return { title: entry ? `${entry.title} | Journal` : "Journal de bord" };
 }
 
 export default async function JournalEntryPage({

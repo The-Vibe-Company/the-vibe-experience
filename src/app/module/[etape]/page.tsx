@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { etapesDetail } from "@/lib/module-faire-un-site";
 import SousEtapes from "./SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
+import EtapeNeeds from "@/components/EtapeNeeds";
+import EtapeSummary from "@/components/EtapeSummary";
 
 export function generateStaticParams() {
   return etapesDetail.map((e) => ({ etape: e.slug }));
@@ -11,7 +13,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ etape: string }> }) {
   const { etape } = await params;
   const e = etapesDetail.find((x) => x.slug === etape);
-  return { title: e ? `Étape ${e.num} · ${e.titre} — The Vibe Experience` : "Étape" };
+  return { title: e ? `Étape ${e.num} · ${e.titre} | The Vibe Experience` : "Étape" };
 }
 
 export default async function EtapePage({ params }: { params: Promise<{ etape: string }> }) {
@@ -41,19 +43,21 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
             <span className="sep">/</span>
             <span>Étape {e.num}</span>
           </div>
-          <div className="etape-head" style={{ marginTop: "1.2rem" }}>
+          <div className="etape-head etape-page-head">
             <span className="etape-num">{e.num}</span>
-            <h1 style={{ fontSize: "clamp(1.8rem,3.4vw,2.6rem)", letterSpacing: "-0.03em", fontWeight: 800, lineHeight: 1.05, flex: 1, margin: 0 }}>
+            <h1 className="etape-page-title">
               {e.titre}
             </h1>
           </div>
-          <div style={{ display: "flex", gap: ".8rem", alignItems: "center", marginTop: ".8rem" }}>
+          <div className="etape-page-meta">
             <span className={`tag ${e.tag[1]}`}>{e.tag[0]}</span>
             <span className="etape-dur">{e.dur}</span>
           </div>
           <p className="etape-obj">{e.obj}</p>
 
-          <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
+          <EtapeNeeds items={e.ceQuilTeFaut} />
+
+          <div className="label etape-substeps-title">
             Les sous-étapes
           </div>
 
@@ -65,16 +69,10 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
             etapeNum={e.num}
           />
 
-          <div className="livret">
-            <div className="livret-row">
-              <span className="se-l">Livrable</span>
-              <p>{e.livrable}</p>
-            </div>
-            <div className="livret-row">
-              <span className="se-l">Réussite</span>
-              <p>{e.reussite}</p>
-            </div>
-          </div>
+          <EtapeSummary
+            livrable={e.livrable}
+            reussite={e.reussite}
+          />
 
           <div className="pager">
             {prev ? (

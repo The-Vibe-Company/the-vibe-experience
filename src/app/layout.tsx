@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "The Vibe Experience",
-  description: "Le parcours The Vibe Experience : apprendre à construire avec l'IA, ou automatiser ton business.",
+  description: "Le parcours The Vibe Experience : apprendre à construire avec l'IA ou automatiser ton business.",
   robots: {
     index: false,
     follow: false,
@@ -30,7 +30,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="fr"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      data-scroll-behavior="smooth"
+    >
       <body>
         <ProgressSync />
         <Nav />
