@@ -1,4 +1,4 @@
-import type { EtapeDetail } from "./module-faire-un-site";
+import type { EtapeDetail, Prerequis } from "./module-faire-un-site";
 
 const F = {
   claudecode: {
@@ -40,6 +40,29 @@ export const skillToolbox: { n: string; d: string; cost: "gratuit" | "gratuit-de
   },
 ];
 
+export const prerequisSkill: Prerequis[] = [
+  {
+    quoi: "Claude Code installé et connecté",
+    niveau: "obligatoire",
+    ou: "Avec son abonnement payant. Si tu as fait le module « Fais ton premier site », tu l'as déjà. Sinon, son étape 0 te guide clic par clic.",
+  },
+  {
+    quoi: "Un dossier de projet à ouvrir",
+    niveau: "obligatoire",
+    ou: "Ton site du module précédent, de préférence : l'étape 1 s'en sert pour repérer ce que tu réexpliques tout le temps. N'importe quel dossier marche aussi, un skill se range chez toi, pas dans un projet.",
+  },
+  {
+    quoi: "Une répétition en tête",
+    niveau: "conseille",
+    ou: "Ce que tu réexpliques sans arrêt à l'IA : ton style visuel, ta vérif avant de publier. On la trouve ensemble à l'étape 1, mais y avoir pensé aide.",
+  },
+  {
+    quoi: "De quoi noter",
+    niveau: "conseille",
+    ou: "Une note sur ton ordi ou un papier : tu vas écrire ta répétition en une phrase, et ça matérialise la décision.",
+  },
+];
+
 export const etapesDetailSkill: EtapeDetail[] = [
   {
     slug: "0",
@@ -58,6 +81,7 @@ export const etapesDetailSkill: EtapeDetail[] = [
         attendu:
           "Claude Code rouvert, comme au module précédent. Le plus simple : rouvre ton dossier de site, l'étape 1 t'y fera repérer tes répétitions. Mais un skill se range chez toi, pas dans un projet précis, donc n'importe quel dossier marcherait aussi.",
         outils: [F.claudecode],
+        prerequis: prerequisSkill,
         ceQueTuDoisVoir:
           "Claude Code s'ouvre et tu retrouves la zone où tu écris tes messages, exactement comme au module précédent. Si l'app te redemande de te connecter, fais-le, c'est normal après une fermeture. Dès que tu vois la zone de discussion, tu es prêt.",
         siCaBloque:

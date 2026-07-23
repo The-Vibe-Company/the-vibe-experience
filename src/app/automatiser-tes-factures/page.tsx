@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { etapesDetailFacture, prerequisFacture } from "@/lib/module-facture";
+import { etapesDetailFacture } from "@/lib/module-facture";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
@@ -54,26 +54,6 @@ export default function ModuleFacture() {
             fait aussi tes factures de zéro.
           </p>
 
-          {/* Volontairement AVANT les étapes : la personne rassemble ses papiers
-              une fois, puis déroule le module sans être coupée au milieu du setup. */}
-          <div className="label mov-sec">Ce qu&apos;il te faut sous la main</div>
-          <p className="mov-toolintro">
-            Rassemble ça avant de commencer. Si tu utilises déjà le skill devis, il récupère la
-            plupart de ces informations tout seul : il ne te restera que les trois premières.
-          </p>
-          <div className="tfilets">
-            {prerequisFacture.map((p) => (
-              <div className="tfilet" key={p.quoi}>
-                <span className="tfilet-name">
-                  {p.quoi}
-                  <span className={p.niveau === "obligatoire" ? "cost cost-payant" : "cost cost-gratuit"}>
-                    {p.niveau === "obligatoire" ? "Obligatoire" : "Conseillé"}
-                  </span>
-                </span>
-                <span className="tfilet-desc">{p.ou}</span>
-              </div>
-            ))}
-          </div>
 
           <ModuleSidePanel
             moduleKey="/automatiser-tes-factures"

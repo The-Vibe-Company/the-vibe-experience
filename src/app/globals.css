@@ -176,6 +176,9 @@ a { color: inherit; text-decoration: none; }
 .ecol .module-side { grid-column: 2; grid-row: 2 / span 10; }
 .ecol.ecol-with-side .module-side { grid-column: 4; }
 .ecol .se-list { grid-column: 1 / -1; }
+/* Page d'étape avec le panneau latéral : la liste des sous-étapes reste dans la
+   colonne de contenu, sinon elle passe SOUS le panneau. */
+.ecol.ecol-with-side .se-list { grid-column: 2; }
 .ecol .etape-obj { color: var(--muted); font-size: 1.05rem; line-height: 1.6; max-width: 42rem; margin-top: 1rem; }
 @media (max-width: 1599px) and (min-width: 1400px) {
   .ecol.ecol-with-side {
@@ -184,6 +187,7 @@ a { color: inherit; text-decoration: none; }
   }
   .ecol.ecol-with-side > * { grid-column: 1; }
   .ecol.ecol-with-side .module-side { grid-column: 2; }
+  .ecol.ecol-with-side .se-list { grid-column: 1; }
 }
 @media (max-width: 1399px) {
   .ecol { grid-template-columns: minmax(0, 820px); }
@@ -192,6 +196,7 @@ a { color: inherit; text-decoration: none; }
   .ecol .module-side { grid-column: 1; grid-row: auto; }
   .ecol.ecol-with-side .module-side { grid-column: 1; grid-row: auto; }
   .ecol .se-list { grid-column: 1; }
+  .ecol.ecol-with-side .se-list { grid-column: 1; }
 }
 /* Rail de progression (design 3a/2a) */
 .erail { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 1.1rem; }

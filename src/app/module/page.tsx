@@ -76,6 +76,7 @@ export default function Module() {
             t&apos;accompagne pas à pas.
           </p>
 
+
           <ModuleSidePanel
             moduleKey="/module"
             basePath="/module"

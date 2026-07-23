@@ -59,6 +59,7 @@ export default function ModuleSkill() {
             réutilise ensuite toute seule, sur tous tes projets.
           </p>
 
+
           <ModuleSidePanel
             moduleKey="/creer-un-skill"
             basePath="/creer-un-skill"

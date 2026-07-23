@@ -53,6 +53,7 @@ export default function ModuleAutomatisation() {
             Rien de neuf à installer : tu branches ce que tu as déjà.
           </p>
 
+
           <ModuleSidePanel
             moduleKey="/automatiser-ton-travail"
             basePath="/automatiser-ton-travail"

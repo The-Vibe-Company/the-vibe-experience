@@ -1,4 +1,4 @@
-import type { EtapeDetail } from "./module-faire-un-site";
+import type { EtapeDetail, Prerequis } from "./module-faire-un-site";
 
 // Module « Automatise tes devis » — famille RÉSULTAT (Automatiser ton business).
 // BROUILLON en review. Premier module de la famille : on n'apprend pas à
@@ -22,9 +22,6 @@ const F = {
 
 // Ce qu'il faut avoir sous la main AVANT de commencer, listé sur la page du
 // module : la personne rassemble tout une fois, puis déroule sans être coupée.
-// Même logique que la boîte à outils, mais pour les papiers.
-export type Prerequis = { quoi: string; niveau: "obligatoire" | "conseille"; ou: string };
-
 export const prerequisDevis: Prerequis[] = [
   {
     quoi: "Ton SIRET",
@@ -67,7 +64,7 @@ export const etapesDetailDevis: EtapeDetail[] = [
   {
     slug: "0",
     num: "0",
-    titre: "Ce qu'il te faut",
+    titre: "Prépare ton poste",
     tag: ["Setup", "t-build"],
     dur: "≈ 5 min (0 si tu as déjà l'app)",
     obj: "Deux choses. Un outil : l'app Claude Code, avec un abonnement payant (l'offre Pro, autour de 20 € par mois, suffit) ; aucun logiciel de devis, aucun abonnement en plus. Et tes papiers : SIRET, situation TVA, assurance décennale si tu es artisan. La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Rassemble-les maintenant, tu ne seras pas coupé au milieu du setup.",
@@ -81,6 +78,7 @@ export const etapesDetailDevis: EtapeDetail[] = [
         attendu: "L'app Claude Code installée, connectée, prête à recevoir un message.",
         lien: { label: "Ouvrir claude.com/claude-code", href: "https://claude.com/claude-code" },
         outils: [F.claudecode],
+        prerequis: prerequisDevis,
         pasAPas: [
           "Tu as déjà l'app (tu as fait un module de la famille « Apprendre à construire ») ? Tu as tout, passe à l'étape 1.",
           "Sinon : crée ton compte sur claude.ai, prends l'abonnement Pro, puis télécharge l'app sur claude.com/claude-code (bouton juste au-dessus) et connecte-toi. L'étape 0 du module « Fais ton premier site » détaille chaque clic si tu veux être pris par la main.",
