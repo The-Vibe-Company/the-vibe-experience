@@ -238,7 +238,7 @@ export const etapesDetail: EtapeDetail[] = [
         titre: "Laisse Claude Code installer Git.",
         duree: "5 min (plus si l'installateur d'Apple se lance)",
         cestquoi:
-          "Pour sauvegarder ton code, il faut l'outil Git. Deux noms qui se ressemblent, deux choses différentes : Git, c'est l'outil qui travaille sur ta machine ; GitHub, le coffre en ligne, arrive à la sous-étape suivante. Bonne nouvelle : tu n'as rien à installer toi-même, et pas besoin du Terminal ici. Tu demandes à Claude Code, il s'en occupe, et ta seule mission est de cliquer « Installer » si une fenêtre d'Apple apparaît.",
+          "Pour sauvegarder ton code, il te faut d'abord Git. Deux noms qui se ressemblent, mais deux choses différentes. Git est l'outil installé sur TA machine, GitHub est le coffre en ligne, il arrive juste après. Git, c'est le moteur des sauvegardes. À chaque fois que tu enregistres, il prend une photo datée de ton projet, garde l'historique de toutes les versions, et sait expédier ces photos vers GitHub. Autrement dit, GitHub range et conserve, mais c'est Git, sur ton ordinateur, qui fabrique les sauvegardes et les envoie. Sans lui, ta machine ne sait ni garder l'historique de ton code ni parler à GitHub, et c'est pour ça qu'on l'installe en premier. Tu n'installes rien à la main et tu n'as pas besoin du Terminal ici. Tu demandes à Claude Code, il s'en occupe, et ta seule mission est de cliquer « Installer » si une fenêtre d'Apple apparaît.",
         attendu: "Git prêt sur ta machine, sans avoir rien installé à la main.",
         prompt:
           "Vérifie si Git est installé sur ma machine. S'il ne l'est pas, installe-le, et dis-moi exactement quoi faire si tu as besoin de moi.",
