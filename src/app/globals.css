@@ -174,16 +174,17 @@ a { color: inherit; text-decoration: none; }
   align-items: start;
 }
 .ecol.ecol-with-side {
-  display: block;
+  display: grid;
   width: 100%;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 940px) minmax(0, 1fr);
+  column-gap: 0;
 }
 .ecol > * { grid-column: 1; min-width: 0; }
 .ecol .se-list { grid-column: 1 / -1; }
 /* Le cours reprend la largeur centrée de l'accueil du module. L'accordéon
    conserve toute la largeur disponible pour déployer son aide contextuelle. */
 .ecol.ecol-with-side > :not(.se-list) {
-  width: min(100%, 940px);
-  margin-inline: auto;
+  grid-column: 2;
 }
 .ecol.ecol-with-side .se-list > .se-item > .se-row {
   width: min(100%, 940px);
