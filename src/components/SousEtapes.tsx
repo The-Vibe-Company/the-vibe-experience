@@ -79,13 +79,18 @@ export default function SousEtapes({
   const router = useRouter();
   const { isDone, setDone, mounted } = useModuleProgress(moduleKey);
   const [open, setOpen] = useState<number | null>(null); // tout fermé au départ
+  const prerequisitesIndex = sous.findIndex((s) => s.prerequis && s.prerequis.length > 0);
   useMarkModuleStarted(moduleKey);
 
   useEffect(() => {
     const openFromHash = () => {
       const prefix = `#sous-etape-${etapeSlug}-`;
-      if (!window.location.hash.startsWith(prefix)) return;
-      const index = Number(window.location.hash.slice(prefix.length)) - 1;
+      const index =
+        window.location.hash === "#prerequis"
+          ? prerequisitesIndex
+          : window.location.hash.startsWith(prefix)
+            ? Number(window.location.hash.slice(prefix.length)) - 1
+            : -1;
       if (index < 0 || index >= sous.length) return;
       setOpen(index);
       window.requestAnimationFrame(() => {
@@ -101,7 +106,7 @@ export default function SousEtapes({
     openFromHash();
     window.addEventListener("hashchange", openFromHash);
     return () => window.removeEventListener("hashchange", openFromHash);
-  }, [etapeSlug, sous.length]);
+  }, [etapeSlug, prerequisitesIndex, sous.length]);
 
   // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
   const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
@@ -312,6 +317,12 @@ export default function SousEtapes({
                         <div className="se-block se-guidance">
                           <span className="se-l">Si ça bloque</span>
                           <GuidanceParagraphs text={s.siCaBloque} />
+                        </div>
+                      )}
+                      {s.encart && (
+                        <div className="se-block se-encart">
+                          <span className="se-l">{s.encart.titre}</span>
+                          <TextParagraphs text={s.encart.texte} />
                         </div>
                       )}
 

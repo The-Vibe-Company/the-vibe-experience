@@ -197,7 +197,8 @@ a { color: inherit; text-decoration: none; }
   .ecol.ecol-with-side .se-list { grid-column: 1 / -1; }
 }
 @media (max-width: 1399px) {
-  .ecol { grid-template-columns: minmax(0, 820px); }
+  .etape-shell { grid-template-columns: clamp(220px, 22vw, 250px) minmax(0, 1fr); }
+  .ecol { grid-column: 2; grid-template-columns: minmax(0, 820px); }
   .ecol.ecol-with-side { grid-template-columns: minmax(0, 820px); }
   .ecol.ecol-with-side > * { grid-column: 1; }
   .ecol .module-side { grid-column: 1; grid-row: auto; }
@@ -560,6 +561,11 @@ a { color: inherit; text-decoration: none; }
 .se-guidance > .se-l { margin-bottom: .7rem; }
 .se-guidance p { max-width: 62ch; font-size: .92rem; line-height: 1.65; }
 .se-guidance .se-shot { margin-top: 1rem; }
+/* Encart « à retenir » : bloc mis en valeur pour le sens profond d'une étape.
+   Accent orange fonctionnel (marque le point clé), pas décoratif. */
+.se-encart { margin-top: 1.3rem; background: var(--orange-bg); border: 1px solid var(--border); border-left: 3px solid var(--orange); border-radius: 12px; padding: 1.05rem 1.25rem 1.15rem; }
+.se-encart > .se-l { color: var(--orange-ink); margin-bottom: .5rem; }
+.se-encart p { max-width: 62ch; color: var(--fg); font-size: .92rem; line-height: 1.65; }
 .se-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .55rem; counter-reset: sesteps; }
 .se-steps li { counter-increment: sesteps; display: flex; gap: .65rem; font-size: .92rem; line-height: 1.6; }
 .se-steps li::before { content: counter(sesteps); font-family: var(--font-geist-mono), monospace; font-size: .7rem; font-weight: 600; color: var(--orange-ink); border: 1px solid var(--border); border-radius: 999px; width: 1.4rem; height: 1.4rem; display: inline-flex; align-items: center; justify-content: center; flex: none; margin-top: .12rem; }
