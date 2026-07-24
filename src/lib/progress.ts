@@ -34,6 +34,10 @@ function readOwner() {
   return window.localStorage.getItem(OWNER_KEY);
 }
 
+export function isAnonymousProgressStore() {
+  return readOwner() === "anonymous";
+}
+
 function write(s: ProgressStore) {
   try {
     window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(s));

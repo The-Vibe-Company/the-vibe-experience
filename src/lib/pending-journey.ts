@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  isAnonymousJourneyState,
   readActiveModule,
   readQuizRecommendation,
   replaceLocalJourneyState,
@@ -8,6 +9,7 @@ import {
   type StoredQuizRecommendation,
 } from "@/lib/journey-state";
 import {
+  isAnonymousProgressStore,
   readProgressStore,
   replaceProgressStore,
   type ProgressStore,
@@ -24,15 +26,21 @@ type PendingJourneySnapshot = {
 };
 
 export function createPendingJourneySnapshot(): PendingJourneySnapshot {
+  const canTransferJourney = isAnonymousJourneyState();
+  const canTransferProgress = isAnonymousProgressStore();
   const moduleKey = readActiveModule();
+  const createdAt = new Date().toISOString();
   return {
     version: 1,
-    createdAt: new Date().toISOString(),
-    recommendation: readQuizRecommendation(),
-    activeModule: moduleKey
-      ? { moduleKey, updatedAt: new Date().toISOString() }
+    createdAt,
+    recommendation: canTransferJourney
+      ? parseRecommendation(readQuizRecommendation())
       : null,
-    progress: readProgressStore(),
+    activeModule:
+      canTransferJourney && moduleKey
+        ? parseActiveModule({ moduleKey, updatedAt: createdAt })
+        : null,
+    progress: canTransferProgress ? parseProgress(readProgressStore()) : {},
   };
 }
 

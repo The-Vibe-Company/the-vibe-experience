@@ -38,6 +38,10 @@ function readOwner() {
   return window.localStorage.getItem(JOURNEY_OWNER_KEY);
 }
 
+export function isAnonymousJourneyState() {
+  return readOwner() === "anonymous";
+}
+
 function setOwner(userId: string | null) {
   if (typeof window === "undefined") return;
   try {
@@ -227,8 +231,12 @@ export async function syncJourneyState(userId: string) {
   const serverTime = serverJourney?.updated_at
     ? new Date(serverJourney.updated_at).getTime()
     : 0;
+  const serverRecommendationTime = serverRecommendation?.updatedAt
+    ? new Date(serverRecommendation.updatedAt).getTime()
+    : 0;
   const serverRecommendationWins =
-    Boolean(serverRecommendation) && (!canMergeLocal || serverTime > localTime);
+    Boolean(serverRecommendation) &&
+    (!canMergeLocal || serverRecommendationTime > localTime);
 
   if (!canMergeLocal) {
     replaceLocalJourneyState(null, null);
