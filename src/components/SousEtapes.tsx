@@ -106,6 +106,23 @@ export default function SousEtapes({
   // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
   const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
 
+  function completeAndAdvance(index: number, id: string) {
+    setDone(id, true);
+    if (index < sous.length - 1) {
+      setOpen(index + 1);
+      window.requestAnimationFrame(() => {
+        document.getElementById(substepAnchor(etapeSlug, index + 1))?.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth",
+          block: "center",
+        });
+      });
+    } else if (nextStep) {
+      router.push(`${nextStep.href}#${substepAnchor(nextStep.slug, 0)}`);
+    }
+  }
+
   return (
     <>
       <p className="substeps-help">
@@ -121,7 +138,7 @@ export default function SousEtapes({
         const done = mounted && isDone(id);
         const isOpen = open === i;
         const label = `${etapeNum}.${i + 1}`;
-        const panelId = `sous-etape-${etapeSlug}-${i}`;
+        const panelId = `sous-etape-panel-${etapeSlug}-${i}`;
         const isLast = i === sous.length - 1;
         // Le panneau de droite regroupe les informations d'accompagnement :
         // préparation, conseil, exemples et vécu. La durée et « ce qu'on
@@ -145,7 +162,10 @@ export default function SousEtapes({
                 className={`se-check ${done ? "checked" : ""}`}
                 aria-label={done ? "Décocher la sous-étape" : "Marquer la sous-étape comme faite"}
                 aria-pressed={done}
-                onClick={() => setDone(id, !done)}
+                onClick={() => {
+                  if (done) setDone(id, false);
+                  else completeAndAdvance(i, id);
+                }}
               >
                 <span className={done ? "" : "se-check-preview"}>✓</span>
               </button>
@@ -299,28 +319,7 @@ export default function SousEtapes({
                         <button
                           type="button"
                           className="btn se-done"
-                          onClick={() => {
-                            setDone(id, true);
-                            if (!isLast) {
-                              setOpen(i + 1);
-                              window.requestAnimationFrame(() => {
-                                document
-                                  .getElementById(substepAnchor(etapeSlug, i + 1))
-                                  ?.scrollIntoView({
-                                    behavior: window.matchMedia(
-                                      "(prefers-reduced-motion: reduce)",
-                                    ).matches
-                                      ? "auto"
-                                      : "smooth",
-                                    block: "center",
-                                  });
-                              });
-                            } else if (nextStep) {
-                              router.push(
-                                `${nextStep.href}#${substepAnchor(nextStep.slug, 0)}`,
-                              );
-                            }
-                          }}
+                          onClick={() => completeAndAdvance(i, id)}
                         >
                           {isLast
                             ? nextStep

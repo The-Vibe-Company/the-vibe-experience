@@ -13,6 +13,11 @@ export type StoredQuizRecommendation = {
   updatedAt: string;
 };
 
+type StoredActiveModule = {
+  moduleKey: string;
+  updatedAt: string;
+};
+
 function readRecommendation() {
   if (typeof window === "undefined") return null;
   try {
@@ -38,18 +43,38 @@ export function dismissQuizRecommendation() {
   saveQuizRecommendation({ ...recommendation, dismissed: true });
 }
 
-export function readActiveModule() {
-  if (typeof window === "undefined") return "";
+function readActiveModuleState(): StoredActiveModule | null {
+  if (typeof window === "undefined") return null;
   try {
-    return window.localStorage.getItem(ACTIVE_MODULE_KEY) ?? "";
+    const raw = window.localStorage.getItem(ACTIVE_MODULE_KEY);
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw) as Partial<StoredActiveModule>;
+      if (typeof parsed.moduleKey === "string") {
+        return {
+          moduleKey: parsed.moduleKey,
+          updatedAt: typeof parsed.updatedAt === "string" ? parsed.updatedAt : "",
+        };
+      }
+    } catch {
+      return { moduleKey: raw, updatedAt: "" };
+    }
+    return null;
   } catch {
-    return "";
+    return null;
   }
 }
 
-export function saveActiveModule(moduleKey: string) {
+export function readActiveModule() {
+  return readActiveModuleState()?.moduleKey ?? "";
+}
+
+export function saveActiveModule(moduleKey: string, updatedAt = new Date().toISOString()) {
   try {
-    window.localStorage.setItem(ACTIVE_MODULE_KEY, moduleKey);
+    window.localStorage.setItem(
+      ACTIVE_MODULE_KEY,
+      JSON.stringify({ moduleKey, updatedAt } satisfies StoredActiveModule),
+    );
     window.dispatchEvent(new CustomEvent("tve-progress"));
   } catch {
     // La progression détaillée reste la source principale.
@@ -94,7 +119,7 @@ async function writeServerJourney(
 export async function syncJourneyState(userId: string) {
   const supabase = createClient();
   const localRecommendation = readRecommendation();
-  const localActiveModule = readActiveModule();
+  const localActiveModule = readActiveModuleState();
   const { data: serverJourney } = await supabase
     .from("progression")
     .select("parcours, module_courant, updated_at")
@@ -117,13 +142,20 @@ export async function syncJourneyState(userId: string) {
   if (serverRecommendation && serverTime > localTime) {
     saveQuizRecommendation(serverRecommendation);
   }
-  if (!localActiveModule && serverJourney?.module_courant) {
-    saveActiveModule(serverJourney.module_courant);
+  const localActiveTime = localActiveModule?.updatedAt
+    ? new Date(localActiveModule.updatedAt).getTime()
+    : 0;
+  const serverActiveWins =
+    Boolean(serverJourney?.module_courant) && serverTime > localActiveTime;
+  if (serverActiveWins && serverJourney?.module_courant) {
+    saveActiveModule(serverJourney.module_courant, serverJourney.updated_at);
   }
 
   const effectiveRecommendation =
     serverRecommendation && serverTime > localTime ? serverRecommendation : localRecommendation;
-  const effectiveActiveModule = localActiveModule || serverJourney?.module_courant || "";
+  const effectiveActiveModule = serverActiveWins
+    ? serverJourney?.module_courant ?? ""
+    : localActiveModule?.moduleKey || serverJourney?.module_courant || "";
   await writeServerJourney(userId, effectiveRecommendation, effectiveActiveModule);
 }
 

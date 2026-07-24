@@ -43,7 +43,7 @@ function ModuleRow({
   starter?: boolean;
   recommended?: boolean;
 }) {
-  const { done, mounted } = useModuleProgress(moduleKey);
+  const { done, mounted, started } = useModuleProgress(moduleKey);
   const etapes: EtapeDetail[] =
     moduleKey === "/module"
       ? etapesDetail
@@ -60,8 +60,8 @@ function ModuleRow({
     titre: e.titre,
     sousCount: e.sous.length,
   }));
-  const stats = computeStats(lite, mounted ? done : []);
-  const cur = mounted && stats.doneCount > 0 && !stats.allDone;
+  const stats = computeStats(lite, mounted ? done : [], mounted && started);
+  const cur = mounted && stats.started && !stats.allDone;
 
   let status = starter || recommended ? "Commence ici →" : idleStatus;
   let statusClass = starter || recommended ? " cur" : "";

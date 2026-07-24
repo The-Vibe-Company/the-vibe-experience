@@ -77,6 +77,7 @@ export default function Quiz() {
     const reco = computeReco(answers);
     const targetHref = reco.hero.cta?.href ?? "/parcours";
     const accountHref = `/inscription?next=${encodeURIComponent(targetHref)}`;
+    const hasReadyModule = Boolean(reco.hero.cta);
     return (
       <div className="quiz-result">
         <div className="reco-tag">Ta recommandation</div>
@@ -105,10 +106,13 @@ export default function Quiz() {
               compte, tu les retrouves partout.
             </p>
             <Link href={accountHref} className="btn">
-              Créer mon compte et commencer →
+              {hasReadyModule
+                ? "Créer mon compte et commencer"
+                : "Créer mon compte et voir les modules"}{" "}
+              →
             </Link>
             <Link href={targetHref} className="quiz-choose">
-              Continuer sans compte →
+              {hasReadyModule ? "Continuer sans compte" : "Voir les modules disponibles"} →
             </Link>
             <button type="button" className="quiz-choose" onClick={chooseMyself}>
               Choisir un autre module
