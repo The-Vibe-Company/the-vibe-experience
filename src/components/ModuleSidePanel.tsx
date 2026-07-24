@@ -33,7 +33,9 @@ export default function ModuleSidePanel({
   // Toujours accessible, dans les trois états et depuis n'importe quelle page
   // d'étape : la liste vit dans la sous-étape 0.1, avec les outils du module.
   const prerequis = (
-    <Link href={`${basePath}/${etapes[0]?.slug}`}>Ce qu&apos;il te faut sous la main →</Link>
+    <Link href={`${basePath}/${etapes[0]?.slug}#prerequis`}>
+      Ce qu&apos;il te faut sous la main →
+    </Link>
   );
 
   if (started && stats.allDone) {

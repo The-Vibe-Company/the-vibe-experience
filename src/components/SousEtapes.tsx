@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { SousEtape } from "@/lib/module-faire-un-site";
 import { useModuleProgress, sousId } from "@/lib/progress";
 import CopyButton from "@/components/CopyButton";
@@ -70,6 +70,19 @@ export default function SousEtapes({
 }) {
   const { isDone, setDone, mounted } = useModuleProgress(moduleKey);
   const [open, setOpen] = useState<number | null>(null); // tout fermé au départ
+  const prerequisitesIndex = sous.findIndex((s) => s.prerequis && s.prerequis.length > 0);
+
+  useEffect(() => {
+    const revealPrerequisites = () => {
+      if (window.location.hash === "#prerequis" && prerequisitesIndex >= 0) {
+        setOpen(prerequisitesIndex);
+      }
+    };
+
+    revealPrerequisites();
+    window.addEventListener("hashchange", revealPrerequisites);
+    return () => window.removeEventListener("hashchange", revealPrerequisites);
+  }, [prerequisitesIndex]);
 
   // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
   const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
@@ -95,6 +108,7 @@ export default function SousEtapes({
 
         return (
           <div
+            id={i === prerequisitesIndex ? "prerequis" : undefined}
             className={`se-item ${isOpen ? "open" : ""} ${open === null && i === currentIdx ? "active-collapsed" : ""}`}
             key={i}
           >
