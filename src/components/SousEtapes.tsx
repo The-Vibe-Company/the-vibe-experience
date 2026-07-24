@@ -83,11 +83,14 @@ export default function SousEtapes({
         const label = `${etapeNum}.${i + 1}`;
         const panelId = `sous-etape-${etapeSlug}-${i}`;
         const isLast = i === sous.length - 1;
-        // Le panneau de droite n'existe que s'il a quelque chose à apporter en
-        // plus de la colonne principale : conseil, exemples, vécu. La durée et
-        // « ce qu'on attend » sont déjà dans la colonne principale.
+        // Le panneau de droite regroupe les informations d'accompagnement :
+        // préparation, conseil, exemples et vécu. La durée et « ce qu'on
+        // attend » restent dans le flux principal.
         const hasSideNotes = Boolean(
-          (s.exemples && s.exemples.length > 0) || s.monExemple || s.conseil,
+          (s.prerequis && s.prerequis.length > 0) ||
+            (s.exemples && s.exemples.length > 0) ||
+            s.monExemple ||
+            s.conseil,
         );
 
         return (
@@ -204,31 +207,6 @@ export default function SousEtapes({
                           </ul>
                         </div>
                       )}
-                      {s.prerequis && s.prerequis.length > 0 && (
-                        <div className="se-block">
-                          <span className="se-l">Ce qu&apos;il te faut sous la main</span>
-                          <ul className="se-ex">
-                            {s.prerequis.map((p) => (
-                              <li key={p.quoi}>
-                                <span className="se-dash">-</span>
-                                <span>
-                                  <strong>{p.quoi}</strong>
-                                  <span
-                                    className={
-                                      p.niveau === "obligatoire"
-                                        ? "cost cost-payant"
-                                        : "cost cost-gratuit"
-                                    }
-                                  >
-                                    {p.niveau === "obligatoire" ? "Obligatoire" : "Conseillé"}
-                                  </span>{" "}
-                                  {p.ou}
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
                       {s.prompt && (
                         <div className="se-prompt">
                           <div className="se-prompt-head">
@@ -291,7 +269,35 @@ export default function SousEtapes({
                     </div>
 
                     {hasSideNotes && (
-                      <aside className="se-aside" aria-label="Exemples et conseils">
+                      <aside
+                        className="se-aside"
+                        aria-label="Préparation, exemples et conseils"
+                      >
+                        {s.prerequis && s.prerequis.length > 0 && (
+                          <div className="se-block">
+                            <span className="se-l">Ce qu&apos;il te faut sous la main</span>
+                            <ul className="se-ex">
+                              {s.prerequis.map((p) => (
+                                <li key={p.quoi}>
+                                  <span className="se-dash">-</span>
+                                  <span>
+                                    <strong>{p.quoi}</strong>
+                                    <span
+                                      className={
+                                        p.niveau === "obligatoire"
+                                          ? "cost cost-payant"
+                                          : "cost cost-gratuit"
+                                      }
+                                    >
+                                      {p.niveau === "obligatoire" ? "Obligatoire" : "Conseillé"}
+                                    </span>{" "}
+                                    {p.ou}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                         {s.conseil && (
                           <div className="se-block">
                             <span className="se-l">Conseil</span>
