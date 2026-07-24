@@ -62,6 +62,8 @@ export default function ModuleFacture() {
             moduleKey="/automatiser-tes-factures"
             basePath="/automatiser-tes-factures"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            completionHref="/parcours"
+            completionLabel="Choisir le prochain module"
           />
 
           <div className="label mov-sec">Les étapes</div>

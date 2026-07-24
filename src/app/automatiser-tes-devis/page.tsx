@@ -64,6 +64,8 @@ export default function ModuleDevis() {
             moduleKey="/automatiser-tes-devis"
             basePath="/automatiser-tes-devis"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            completionHref="/automatiser-tes-factures"
+            completionLabel="Automatiser mes factures"
           />
 
           <div className="label mov-sec">Les étapes</div>

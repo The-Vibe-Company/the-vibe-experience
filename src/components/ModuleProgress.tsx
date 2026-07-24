@@ -8,10 +8,14 @@ export default function ModuleProgress({
   moduleKey,
   basePath,
   etapes,
+  completionHref,
+  completionLabel,
 }: {
   moduleKey: string;
   basePath: string;
   etapes: EtapeLite[];
+  completionHref?: string;
+  completionLabel?: string;
 }) {
   const { done, mounted, started } = useModuleProgress(moduleKey);
   if (!mounted) return null;
@@ -22,7 +26,8 @@ export default function ModuleProgress({
   let cta = "Commencer le module";
   let href = `${basePath}/${etapes[0]?.slug}`;
   if (stats.allDone) {
-    cta = "Revoir le module";
+    href = completionHref ?? href;
+    cta = completionLabel ?? "Revoir le module";
   } else if (t) {
     href = `${basePath}/${t.etapeSlug}`;
     if (stats.doneCount > 0) {

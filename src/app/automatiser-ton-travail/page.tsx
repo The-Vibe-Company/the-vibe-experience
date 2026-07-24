@@ -61,6 +61,8 @@ export default function ModuleAutomatisation() {
             moduleKey="/automatiser-ton-travail"
             basePath="/automatiser-ton-travail"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            completionHref="/juge-automatisation"
+            completionLabel="Faire évaluer mon automatisation"
           />
 
           <div className="label mov-sec">Les étapes</div>

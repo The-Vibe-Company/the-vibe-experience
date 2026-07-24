@@ -54,6 +54,8 @@ export default function Module() {
             moduleKey="/module"
             basePath="/module"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            completionHref="/juge"
+            completionLabel="Faire évaluer mon site"
           />
 
           <div className="label mov-sec">Les étapes</div>

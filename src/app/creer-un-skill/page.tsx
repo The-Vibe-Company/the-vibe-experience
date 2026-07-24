@@ -60,6 +60,8 @@ export default function ModuleSkill() {
             moduleKey="/creer-un-skill"
             basePath="/creer-un-skill"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            completionHref="/juge-skill"
+            completionLabel="Faire évaluer mon skill"
           />
 
           <div className="label mov-sec">Les étapes</div>
