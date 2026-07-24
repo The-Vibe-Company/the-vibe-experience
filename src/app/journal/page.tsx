@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getJournalEntries } from "@/lib/journal";
 
-export const metadata = { title: "Journal de bord — The Vibe Experience" };
+export const metadata = { title: "Journal de bord | The Vibe Experience" };
 export const revalidate = 1800;
 
 export default async function Journal() {

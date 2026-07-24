@@ -68,7 +68,7 @@ export default function JugeSkillForm() {
         </label>
         <div className="juge-actions">
           <button type="submit" className="btn" disabled={loading}>
-            {loading ? "Le juge lit ton skill…" : "Faire évaluer mon skill"}
+            {loading ? "Lecture du skill en cours" : "Faire évaluer mon skill"}
           </button>
           <button
             type="button"

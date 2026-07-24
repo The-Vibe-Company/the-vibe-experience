@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import SkipQuizLink from "@/components/SkipQuizLink";
+import { readActiveModule } from "@/lib/journey-state";
 
 type Props = {
   hasProfile: boolean;
@@ -11,15 +12,21 @@ type Props = {
 function readLocalPathHref() {
   if (typeof window === "undefined") return "";
   try {
-    const raw = localStorage.getItem("tve_quiz_reco");
-    if (raw) {
-      const reco = JSON.parse(raw);
-      if (reco.branche === "construire" || reco.branche === "automatiser") return "/parcours";
-    }
+    const activeModule = readActiveModule();
+    if (activeModule) return activeModule;
 
     const selected = localStorage.getItem("tve_selected_path");
     if (selected === "construire") return "/module";
     if (selected === "automatiser") return "/parcours";
+
+    const raw = localStorage.getItem("tve_quiz_reco");
+    if (raw) {
+      const reco = JSON.parse(raw);
+      if (reco.moduleHref) return reco.moduleHref;
+      if (reco.branche === "construire" || reco.branche === "automatiser") {
+        return "/parcours";
+      }
+    }
     return "";
   } catch {
     return "";
@@ -30,9 +37,11 @@ function subscribePathChoice(callback: () => void) {
   if (typeof window === "undefined") return () => {};
   window.addEventListener("storage", callback);
   window.addEventListener("tve-path-choice", callback);
+  window.addEventListener("tve-progress", callback);
   return () => {
     window.removeEventListener("storage", callback);
     window.removeEventListener("tve-path-choice", callback);
+    window.removeEventListener("tve-progress", callback);
   };
 }
 

@@ -9,6 +9,10 @@ import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import { etapesDetailDevis } from "@/lib/module-devis";
 import { etapesDetailFacture } from "@/lib/module-facture";
 import { computeStats, useAnyModuleStarted, useModuleProgress } from "@/lib/progress";
+import {
+  dismissQuizRecommendation,
+  readQuizRecommendation,
+} from "@/lib/journey-state";
 
 type Branche = "construire" | "automatiser";
 
@@ -19,11 +23,11 @@ type Branche = "construire" | "automatiser";
 
 const businessSoon = [
   {
-    titre: "Tenir ma compta",
+    titre: "Tiens ta compta",
     desc: "Le récap qui sort tout seul, chaque mois, prêt à envoyer au comptable.",
   },
-  { titre: "Gérer mes mails", desc: "Trier, répondre, retrouver, sans y passer ta matinée." },
-  { titre: "Gérer mon agenda", desc: "Tes rendez-vous et tes rappels organisés à ta place." },
+  { titre: "Gère tes mails", desc: "Trie, réponds et retrouve tes messages sans y passer ta matinée." },
+  { titre: "Gère ton agenda", desc: "Tes rendez-vous et tes rappels organisés à ta place." },
 ];
 
 function ModuleRow({
@@ -33,6 +37,7 @@ function ModuleRow({
   desc,
   idleStatus,
   starter = false,
+  recommended = false,
 }: {
   moduleKey: string;
   href: string;
@@ -40,8 +45,9 @@ function ModuleRow({
   desc: string;
   idleStatus: string;
   starter?: boolean;
+  recommended?: boolean;
 }) {
-  const { done, mounted } = useModuleProgress(moduleKey);
+  const { done, mounted, started } = useModuleProgress(moduleKey);
   const etapes: EtapeDetail[] =
     moduleKey === "/module"
       ? etapesDetail
@@ -58,11 +64,11 @@ function ModuleRow({
     titre: e.titre,
     sousCount: e.sous.length,
   }));
-  const stats = computeStats(lite, mounted ? done : []);
-  const cur = mounted && stats.doneCount > 0 && !stats.allDone;
+  const stats = computeStats(lite, mounted ? done : [], mounted && started);
+  const cur = mounted && stats.started && !stats.allDone;
 
-  let status = starter ? "Commence ici →" : idleStatus;
-  let statusClass = starter ? " cur" : "";
+  let status = starter || recommended ? "Commence ici →" : idleStatus;
+  let statusClass = starter || recommended ? " cur" : "";
   if (mounted && stats.allDone) {
     status = "✓ Terminé";
     statusClass = " done";
@@ -84,44 +90,45 @@ function ModuleRow({
 
 export default function ParcoursFamilies() {
   const [reco, setReco] = useState<Branche | null>(null);
+  const [recommendedHref, setRecommendedHref] = useState<string | null>(null);
   const [quizFait, setQuizFait] = useState(false);
   const moduleStarted = useAnyModuleStarted();
 
   // La reco du quiz marque la catégorie conseillée. Elle disparaît dès qu'un
   // module est lancé, ou quand l'utilisateur choisit de passer outre.
   useEffect(() => {
-    queueMicrotask(() => {
-      try {
-        const raw = localStorage.getItem("tve_quiz_reco");
-        if (!raw) return;
-        setQuizFait(true);
-        const r = JSON.parse(raw);
+    const updateRecommendation = () => {
+      const recommendation = readQuizRecommendation();
+      setQuizFait(Boolean(recommendation));
+      if (
+        moduleStarted.started ||
+        !recommendation ||
+        recommendation.dismissed
+      ) {
+        setReco(null);
+        setRecommendedHref(null);
+        return;
+      }
+      setReco(recommendation.branche);
+      setRecommendedHref(recommendation.moduleHref);
+    };
 
-        if (moduleStarted.started) {
-          setReco(null);
-          if (r.branche) {
-            delete r.branche;
-            localStorage.setItem("tve_quiz_reco", JSON.stringify(r));
-          }
-          return;
-        }
-
-        if (r.branche === "construire" || r.branche === "automatiser") setReco(r.branche);
-      } catch {}
-    });
+    queueMicrotask(updateRecommendation);
+    window.addEventListener("storage", updateRecommendation);
+    window.addEventListener("tve-path-choice", updateRecommendation);
+    return () => {
+      window.removeEventListener("storage", updateRecommendation);
+      window.removeEventListener("tve-path-choice", updateRecommendation);
+    };
   }, [moduleStarted.started]);
 
   // « Pas convaincu ? » : on retire le conseil, l'utilisateur choisit seul.
   const ignorerConseil = () => {
     setReco(null);
-    try {
-      const raw = localStorage.getItem("tve_quiz_reco");
-      if (raw) {
-        const r = JSON.parse(raw);
-        delete r.branche;
-        localStorage.setItem("tve_quiz_reco", JSON.stringify(r));
-      }
-    } catch {}
+    setRecommendedHref(null);
+    void dismissQuizRecommendation().catch(() => {
+      // Le choix local reste appliqué et sera retenté lors d'une prochaine synchronisation.
+    });
   };
 
   const colonne = (
@@ -155,16 +162,17 @@ export default function ParcoursFamilies() {
         {colonne(
           "construire",
           "Apprendre à construire",
-          "Tu fabriques tes propres trucs, pas à pas, et tu montes en compétence. Le chemin fait partie de la valeur.",
+          "Tu fabriques tes propres outils, pas à pas, et tu apprends en le faisant.",
           null,
           <>
             <ModuleRow
               moduleKey="/module"
               href="/module"
               title="Faire un site"
-              desc="De ton idée à en ligne : tu construis TON site en apprenant les vrais outils au passage."
+              desc="De ton idée à sa mise en ligne : tu construis ton propre site en découvrant les outils au bon moment."
               idleStatus="Commence ici →"
               starter
+              recommended={recommendedHref === "/module"}
             />
             <ModuleRow
               moduleKey="/creer-un-skill"
@@ -172,20 +180,22 @@ export default function ParcoursFamilies() {
               title="Créer ton premier skill"
               desc="Tu as utilisé des skills tout faits ; celui-ci t'apprend à fabriquer le tien, réutilisable dans ton prochain produit."
               idleStatus="Après le module 1"
+              recommended={recommendedHref === "/creer-un-skill"}
             />
             <ModuleRow
               moduleKey="/automatiser-ton-travail"
               href="/automatiser-ton-travail"
               title="Automatise ton travail"
-              desc="Il ne se passe plus des choses parce que tu demandes, mais parce que c'est déclenché : sauvegardes toutes seules, garde-fous, rendez-vous programmés."
-              idleStatus="En écriture"
+              desc="Des sauvegardes, des garde-fous et des rendez-vous qui se déclenchent au bon moment."
+              idleStatus="Disponible"
+              recommended={recommendedHref === "/automatiser-ton-travail"}
             />
           </>,
         )}
         {colonne(
           "automatiser",
-          "Automatiser ton business",
-          "Tu mets l'IA au travail sur les tâches qui te font perdre du temps. Un résultat, sans devoir tout construire.",
+          "Automatise ton business",
+          "Tu confies à l'IA les tâches qui te font perdre du temps pour obtenir un résultat sans tout construire toi-même.",
           null,
           <>
             <ModuleRow
@@ -193,14 +203,16 @@ export default function ParcoursFamilies() {
               href="/automatiser-tes-devis"
               title="Automatise tes devis"
               desc="« Devis pour Madame Martin : chauffe-eau, 980 euros », et le devis conforme sort, numéroté, prêt en PDF. Un skill offert."
-              idleStatus="En écriture"
+              idleStatus="Disponible"
+              recommended={recommendedHref === "/automatiser-tes-devis"}
             />
             <ModuleRow
               moduleKey="/automatiser-tes-factures"
               href="/automatiser-tes-factures"
               title="Automatise tes factures"
               desc="Ton devis signé devient facture en une phrase : acompte, solde, avoir. Un skill offert, compagnon du skill devis."
-              idleStatus="En écriture"
+              idleStatus="Disponible"
+              recommended={recommendedHref === "/automatiser-tes-factures"}
             />
             {businessSoon.map((m) => (
               <div className="pcat-row soon" key={m.titre}>

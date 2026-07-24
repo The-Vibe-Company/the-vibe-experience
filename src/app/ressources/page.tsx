@@ -1,7 +1,7 @@
 import Link from "next/link";
 import RessourcesList from "@/components/RessourcesList";
 
-export const metadata = { title: "Ressources — The Vibe Experience" };
+export const metadata = { title: "Ressources | The Vibe Experience" };
 
 export default function Ressources() {
   return (
@@ -18,9 +18,9 @@ export default function Ressources() {
         Les outils, les skills et les prompts <em>du parcours</em>.
       </h1>
       <p className="pg-lead">
-        Tout vient des modules : les outils avec leur vrai coût, les skills qu&apos;on te donne, et
-        les prompts exacts qu&apos;on utilise dedans, prêts à copier. Rien d&apos;inventé, et ça
-        grandit à mesure que le parcours avance.
+        Tout vient des modules : les outils avec leur vrai coût, les skills qu&apos;on te donne et
+        les prompts utilisés dans le parcours, prêts à copier. Cette page grandit à mesure que le
+        parcours avance.
       </p>
 
       <RessourcesList />

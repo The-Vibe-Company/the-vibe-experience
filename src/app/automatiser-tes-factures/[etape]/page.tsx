@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { etapesDetailFacture } from "@/lib/module-facture";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
+import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 
 export function generateStaticParams() {
   return etapesDetailFacture.map((e) => ({ etape: e.slug }));
@@ -39,7 +40,7 @@ export default async function EtapeFacturePage({
 
         <div className="ecol ecol-with-side">
           <div className="crumb">
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <Link href="/automatiser-tes-factures">Automatise tes factures</Link>
             <span className="sep">/</span>
@@ -65,6 +66,26 @@ export default async function EtapeFacturePage({
             moduleKey="/automatiser-tes-factures"
             etapeSlug={e.slug}
             etapeNum={e.num}
+            nextStep={
+              next
+                ? {
+                    href: `/automatiser-tes-factures/${next.slug}`,
+                    slug: next.slug,
+                    num: next.num,
+                  }
+                : undefined
+            }
+          />
+          <SaveProgressPrompt
+            moduleKey="/automatiser-tes-factures"
+            currentHref={`/automatiser-tes-factures/${e.slug}`}
+            etapeSlug={e.slug}
+            substepCount={e.sous.length}
+            nextStep={
+              next
+                ? { href: `/automatiser-tes-factures/${next.slug}`, slug: next.slug }
+                : undefined
+            }
           />
 
           <div className="livret">

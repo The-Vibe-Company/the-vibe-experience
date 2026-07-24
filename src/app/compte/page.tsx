@@ -2,11 +2,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "./LogoutButton";
-import ApplyPendingReco from "./ApplyPendingReco";
 import ChangePassword from "./ChangePassword";
 import AccountPathActions from "@/components/AccountPathActions";
 
-export const metadata = { title: "Mon compte — The Vibe Experience" };
+export const metadata = { title: "Mon compte | The Vibe Experience" };
 
 export default async function Compte() {
   const supabase = await createClient();
@@ -26,7 +25,6 @@ export default async function Compte() {
 
   return (
     <div className="nwrap">
-      <ApplyPendingReco hasProfile={!!profile?.niveau} />
       <div className="label">Mon compte</div>
       <h1 className="pg-h1">Ton compte.</h1>
       <p className="pg-lead">

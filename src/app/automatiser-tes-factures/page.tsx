@@ -34,7 +34,7 @@ export default function ModuleFacture() {
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <span>Automatise tes factures</span>
           </div>

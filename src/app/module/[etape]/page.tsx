@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { etapesDetail } from "@/lib/module-faire-un-site";
 import SousEtapes from "./SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
+import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 
 export function generateStaticParams() {
   return etapesDetail.map((e) => ({ etape: e.slug }));
@@ -35,7 +36,7 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
 
         <div className="ecol ecol-with-side">
           <div className="crumb">
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <Link href="/module">Faire un site</Link>
             <span className="sep">/</span>
@@ -61,6 +62,18 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
             moduleKey="/module"
             etapeSlug={e.slug}
             etapeNum={e.num}
+            nextStep={
+              next
+                ? { href: `/module/${next.slug}`, slug: next.slug, num: next.num }
+                : undefined
+            }
+          />
+          <SaveProgressPrompt
+            moduleKey="/module"
+            currentHref={`/module/${e.slug}`}
+            etapeSlug={e.slug}
+            substepCount={e.sous.length}
+            nextStep={next ? { href: `/module/${next.slug}`, slug: next.slug } : undefined}
           />
 
           <div className="livret">

@@ -89,7 +89,12 @@ function firstParagraph(bodyHtml: string): string {
   const m = bodyHtml.match(/<p>([\s\S]*?)<\/p>/i);
   if (!m) return "";
   const text = decodeEntities(m[1].replace(/<[^>]+>/g, "").trim());
-  return text.length > 190 ? text.slice(0, 187).trimEnd() + "…" : text;
+  if (text.length <= 190) return text;
+
+  const excerpt = text.slice(0, 187).trimEnd();
+  const lastSpace = excerpt.lastIndexOf(" ");
+  const cleanCut = lastSpace >= 140 ? excerpt.slice(0, lastSpace) : excerpt;
+  return `${cleanCut.replace(/[,:;.!?]+$/, "")}.`;
 }
 
 async function fetchArticle(slug: string): Promise<JournalEntry | null> {

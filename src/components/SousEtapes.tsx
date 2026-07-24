@@ -1,8 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { SousEtape } from "@/lib/module-faire-un-site";
-import { useModuleProgress, sousId } from "@/lib/progress";
+import {
+  sousId,
+  substepAnchor,
+  useMarkModuleStarted,
+  useModuleProgress,
+} from "@/lib/progress";
 import CopyButton from "@/components/CopyButton";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
@@ -55,46 +61,92 @@ function GuidanceParagraphs({ text }: { text: string }) {
   );
 }
 
+function focusAndScrollToSubstep(
+  etapeSlug: string,
+  index: number,
+  block: ScrollLogicalPosition,
+) {
+  window.requestAnimationFrame(() => {
+    const item = document.getElementById(substepAnchor(etapeSlug, index));
+    item?.querySelector<HTMLButtonElement>(".se-head")?.focus({ preventScroll: true });
+    item?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block,
+    });
+  });
+}
+
 export default function SousEtapes({
   sous,
   detailPret,
   moduleKey,
   etapeSlug,
   etapeNum,
+  nextStep,
 }: {
   sous: SousEtape[];
   detailPret: boolean;
   moduleKey: string;
   etapeSlug: string;
   etapeNum: string;
+  nextStep?: { href: string; slug: string; num: string };
 }) {
+  const router = useRouter();
   const { isDone, setDone, mounted } = useModuleProgress(moduleKey);
   const [open, setOpen] = useState<number | null>(null); // tout fermé au départ
   const prerequisitesIndex = sous.findIndex((s) => s.prerequis && s.prerequis.length > 0);
+  useMarkModuleStarted(moduleKey);
 
   useEffect(() => {
-    const revealPrerequisites = () => {
-      if (window.location.hash === "#prerequis" && prerequisitesIndex >= 0) {
-        setOpen(prerequisitesIndex);
-      }
+    const openFromHash = () => {
+      const prefix = `#sous-etape-${etapeSlug}-`;
+      const index =
+        window.location.hash === "#prerequis"
+          ? prerequisitesIndex
+          : window.location.hash.startsWith(prefix)
+            ? Number(window.location.hash.slice(prefix.length)) - 1
+            : -1;
+      if (index < 0 || index >= sous.length) return;
+      setOpen(index);
+      focusAndScrollToSubstep(etapeSlug, index, "start");
     };
 
-    revealPrerequisites();
-    window.addEventListener("hashchange", revealPrerequisites);
-    return () => window.removeEventListener("hashchange", revealPrerequisites);
-  }, [prerequisitesIndex]);
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [etapeSlug, prerequisitesIndex, sous.length]);
 
   // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
   const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
 
+  function completeAndAdvance(index: number, id: string) {
+    setDone(id, true);
+    if (index < sous.length - 1) {
+      setOpen(index + 1);
+      focusAndScrollToSubstep(etapeSlug, index + 1, "center");
+    } else if (nextStep) {
+      router.push(`${nextStep.href}#${substepAnchor(nextStep.slug, 0)}`);
+    }
+  }
+
   return (
-    <div className="se-list">
-      {sous.map((s, i) => {
+    <>
+      <p className="substeps-help">
+        <span className="substeps-help-check" aria-hidden>
+          ✓
+        </span>
+        Valide chaque sous-étape quand tu l&apos;as terminée. Ta progression sera sauvegardée et la
+        suivante s&apos;ouvrira automatiquement.
+      </p>
+      <div className="se-list">
+        {sous.map((s, i) => {
         const id = sousId(etapeSlug, i);
         const done = mounted && isDone(id);
         const isOpen = open === i;
         const label = `${etapeNum}.${i + 1}`;
-        const panelId = `sous-etape-${etapeSlug}-${i}`;
+        const panelId = `sous-etape-panel-${etapeSlug}-${i}`;
         const isLast = i === sous.length - 1;
         // Le panneau de droite regroupe les informations d'accompagnement :
         // préparation, conseil, exemples et vécu. La durée et « ce qu'on
@@ -108,8 +160,8 @@ export default function SousEtapes({
 
         return (
           <div
-            id={i === prerequisitesIndex ? "prerequis" : undefined}
             className={`se-item ${isOpen ? "open" : ""} ${open === null && i === currentIdx ? "active-collapsed" : ""}`}
+            id={substepAnchor(etapeSlug, i)}
             key={i}
           >
             <div className="se-row">
@@ -118,9 +170,12 @@ export default function SousEtapes({
                 className={`se-check ${done ? "checked" : ""}`}
                 aria-label={done ? "Décocher la sous-étape" : "Marquer la sous-étape comme faite"}
                 aria-pressed={done}
-                onClick={() => setDone(id, !done)}
+                onClick={() => {
+                  if (done) setDone(id, false);
+                  else completeAndAdvance(i, id);
+                }}
               >
-                {done ? "✓" : ""}
+                <span className={done ? "" : "se-check-preview"}>✓</span>
               </button>
               <button
                 type="button"
@@ -278,12 +333,13 @@ export default function SousEtapes({
                         <button
                           type="button"
                           className="btn se-done"
-                          onClick={() => {
-                            setDone(id, true);
-                            if (!isLast) setOpen(i + 1);
-                          }}
+                          onClick={() => completeAndAdvance(i, id)}
                         >
-                          {isLast ? "Fait, étape terminée ✓" : `Fait, je passe à la ${etapeNum}.${i + 2} →`}
+                          {isLast
+                            ? nextStep
+                              ? `Valider et passer à l’étape ${nextStep.num} →`
+                              : "Valider et terminer le module ✓"
+                            : `Valider et passer à la ${etapeNum}.${i + 2} →`}
                         </button>
                       )}
                     </div>
@@ -340,8 +396,9 @@ export default function SousEtapes({
               </div>
             )}
           </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 }

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
+import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 
 export function generateStaticParams() {
   return etapesDetailAutomatisation.map((e) => ({ etape: e.slug }));
@@ -39,7 +40,7 @@ export default async function EtapeAutomatisationPage({
 
         <div className="ecol ecol-with-side">
           <div className="crumb">
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <Link href="/automatiser-ton-travail">Automatise ton travail</Link>
             <span className="sep">/</span>
@@ -65,6 +66,26 @@ export default async function EtapeAutomatisationPage({
             moduleKey="/automatiser-ton-travail"
             etapeSlug={e.slug}
             etapeNum={e.num}
+            nextStep={
+              next
+                ? {
+                    href: `/automatiser-ton-travail/${next.slug}`,
+                    slug: next.slug,
+                    num: next.num,
+                  }
+                : undefined
+            }
+          />
+          <SaveProgressPrompt
+            moduleKey="/automatiser-ton-travail"
+            currentHref={`/automatiser-ton-travail/${e.slug}`}
+            etapeSlug={e.slug}
+            substepCount={e.sous.length}
+            nextStep={
+              next
+                ? { href: `/automatiser-ton-travail/${next.slug}`, slug: next.slug }
+                : undefined
+            }
           />
 
           <div className="livret">
