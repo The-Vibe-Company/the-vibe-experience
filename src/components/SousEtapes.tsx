@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { SousEtape } from "@/lib/module-faire-un-site";
 import { useModuleProgress, sousId } from "@/lib/progress";
 import CopyButton from "@/components/CopyButton";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
 const sentenceSegmenter = new Intl.Segmenter("fr", { granularity: "sentence" });
-type AsideVariant = "a" | "b" | "c";
 
 function splitParagraphs(text: string) {
   const explicit = text
@@ -71,23 +70,6 @@ export default function SousEtapes({
 }) {
   const { isDone, setDone, mounted } = useModuleProgress(moduleKey);
   const [open, setOpen] = useState<number | null>(null); // tout fermé au départ
-  const [asideVariant, setAsideVariant] = useState<AsideVariant>("a");
-
-  useEffect(() => {
-    const syncPreviewVariant = () => {
-      const variant = window.location.hash.match(/^#barre-(a|b|c)$/)?.[1] as
-        | AsideVariant
-        | undefined;
-      if (!variant) return;
-
-      setAsideVariant(variant);
-      setOpen(0);
-    };
-
-    syncPreviewVariant();
-    window.addEventListener("hashchange", syncPreviewVariant);
-    return () => window.removeEventListener("hashchange", syncPreviewVariant);
-  }, []);
 
   // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
   const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
@@ -288,7 +270,7 @@ export default function SousEtapes({
 
                     {hasSideNotes && (
                       <aside
-                        className={`se-aside se-aside-${asideVariant}`}
+                        className="se-aside"
                         aria-label="Préparation, exemples et conseils"
                       >
                         {s.prerequis && s.prerequis.length > 0 && (
