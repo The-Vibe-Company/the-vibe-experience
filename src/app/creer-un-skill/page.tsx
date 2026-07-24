@@ -3,7 +3,7 @@ import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleStartGuide from "@/components/ModuleStartGuide";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Créer ton premier skill — The Vibe Experience" };
@@ -50,30 +50,23 @@ export default function ModuleSkill() {
               fabriques le tien : une compétence que tu apprends une fois à l&apos;IA et qu&apos;elle
               réutilise ensuite toute seule, sur tous tes projets.
             </p>
+            <ModuleStartGuide
+              requirement="Il te faut seulement Claude Code et les deux skills offerts, fournis dans le module."
+              prerequisitesHref={`/creer-un-skill/${cards[0]?.slug}#prerequis`}
+            />
           </header>
 
           <ModuleProgress
             moduleKey="/creer-un-skill"
             basePath="/creer-un-skill"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            completionHref="/juge-skill"
+            completionLabel="Faire évaluer mon skill"
           />
 
           <div className="label mov-sec">Les étapes</div>
           <ModuleEtapes moduleKey="/creer-un-skill" basePath="/creer-un-skill" etapes={cards} />
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/creer-un-skill"
-          basePath="/creer-un-skill"
-          etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
-          facts={[
-            { label: "Livrable", value: "Un skill que Claude Code peut réutiliser" },
-            { label: "Durée", value: "1 h 40 à 2 h environ" },
-            { label: "Outil", value: "Claude Code, plus les deux skills offerts" },
-          ]}
-          jugeHref="/juge-skill"
-          jugeLabel="Fais évaluer ton skill par le juge"
-        />
       </div>
     </section>
   );

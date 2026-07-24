@@ -3,7 +3,7 @@ import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleStartGuide from "@/components/ModuleStartGuide";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Automatise ton travail — The Vibe Experience" };
@@ -51,12 +51,18 @@ export default function ModuleAutomatisation() {
               un garde-fou qui t&apos;empêche de casser, un bilan qui t&apos;attend chaque vendredi.
               Rien de neuf à installer : tu branches ce que tu as déjà.
             </p>
+            <ModuleStartGuide
+              requirement="Tu réutilises Claude Code et les projets déjà préparés dans le parcours."
+              prerequisitesHref={`/automatiser-ton-travail/${cards[0]?.slug}#prerequis`}
+            />
           </header>
 
           <ModuleProgress
             moduleKey="/automatiser-ton-travail"
             basePath="/automatiser-ton-travail"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+            completionHref="/juge-automatisation"
+            completionLabel="Faire évaluer mon automatisation"
           />
 
           <div className="label mov-sec">Les étapes</div>
@@ -66,19 +72,6 @@ export default function ModuleAutomatisation() {
             etapes={cards}
           />
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/automatiser-ton-travail"
-          basePath="/automatiser-ton-travail"
-          etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
-          facts={[
-            { label: "Livrable", value: "Des automatisations qui se déclenchent seules" },
-            { label: "Durée", value: "2 h à 2 h 45" },
-            { label: "Outil", value: "Claude Code, rien de neuf à installer" },
-          ]}
-          jugeHref="/juge-automatisation"
-          jugeLabel="Fais évaluer ton automatisation par le juge"
-        />
       </div>
     </section>
   );
