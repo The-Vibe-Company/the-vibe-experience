@@ -257,6 +257,12 @@ export default function SousEtapes({
                           <GuidanceParagraphs text={s.siCaBloque} />
                         </div>
                       )}
+                      {s.encart && (
+                        <div className="se-block se-encart">
+                          <span className="se-l">{s.encart.titre}</span>
+                          <TextParagraphs text={s.encart.texte} />
+                        </div>
+                      )}
 
                       {!done && (
                         <button
