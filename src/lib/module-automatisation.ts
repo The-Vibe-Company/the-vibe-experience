@@ -30,31 +30,9 @@ const F = {
 };
 
 export const prerequisAutomatisation: Prerequis[] = [
-  {
-    quoi: "Claude Code installé et connecté",
-    niveau: "obligatoire",
-    ou: "Avec son abonnement payant. Tes automatisations vivent dedans, il n'y a rien d'autre à installer.",
-  },
-  {
-    quoi: "Un projet qui tourne déjà",
-    niveau: "obligatoire",
-    ou: "Ton site du module 1, de préférence : c'est lui qu'on automatise (sauvegardes, garde-fou de mise en ligne). Sans projet, les étapes 1 et 2 n'ont rien à protéger.",
-  },
-  {
-    quoi: "Ton Mac allumé aux heures choisies",
-    niveau: "obligatoire",
-    ou: "Les rendez-vous programmés de l'étape 3 tournent sur ta machine. Choisis une heure où elle est vraiment allumée, pas 3 h du matin.",
-  },
-  {
-    quoi: "Un skill à toi",
-    niveau: "conseille",
-    ou: "Celui du module 2. L'usine de l'étape 4 s'en sert pour produire dans ton style. Sans lui, l'étape marche quand même, en un peu moins parlant.",
-  },
-  {
-    quoi: "Une répétition qui t'agace",
-    niveau: "conseille",
-    ou: "Quelque chose que tu relances toujours au même moment. On la cherche ensemble à l'étape 1, mais y avoir pensé aide.",
-  },
+  { quoi: "Claude Code installé et connecté" },
+  { quoi: "Un projet qui fonctionne déjà" },
+  { quoi: "Une tâche répétitive à automatiser" },
 ];
 
 export const etapesDetailAutomatisation: EtapeDetail[] = [

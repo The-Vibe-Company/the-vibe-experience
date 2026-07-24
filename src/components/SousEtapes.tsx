@@ -280,19 +280,7 @@ export default function SousEtapes({
                               {s.prerequis.map((p) => (
                                 <li key={p.quoi}>
                                   <span className="se-dash">-</span>
-                                  <span>
-                                    <strong>{p.quoi}</strong>
-                                    <span
-                                      className={
-                                        p.niveau === "obligatoire"
-                                          ? "cost cost-payant"
-                                          : "cost cost-gratuit"
-                                      }
-                                    >
-                                      {p.niveau === "obligatoire" ? "Obligatoire" : "Conseillé"}
-                                    </span>{" "}
-                                    {p.ou}
-                                  </span>
+                                  <span>{p.quoi}</span>
                                 </li>
                               ))}
                             </ul>
