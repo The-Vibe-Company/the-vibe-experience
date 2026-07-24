@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { etapesDetailDevis } from "@/lib/module-devis";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
 
 export function generateStaticParams() {
   return etapesDetailDevis.map((e) => ({ etape: e.slug }));
@@ -55,18 +54,6 @@ export default async function EtapeDevisPage({
             <span className="etape-dur">{e.dur}</span>
           </div>
           <p className="etape-obj">{e.obj}</p>
-
-          <ModuleSidePanel
-            moduleKey="/automatiser-tes-devis"
-            basePath="/automatiser-tes-devis"
-            etapes={etapesDetailDevis.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
-            facts={[
-              { label: "Livrable", value: "Tes devis conformes, en une phrase" },
-              { label: "Durée", value: "35 min environ" },
-            ]}
-            jugeHref="/automatiser-tes-factures"
-            jugeLabel="Enchaîne : Automatise tes factures"
-          />
 
           <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
             Les sous-étapes

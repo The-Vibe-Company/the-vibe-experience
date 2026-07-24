@@ -181,9 +181,10 @@ a { color: inherit; text-decoration: none; }
 .ecol .module-side { grid-column: 2; grid-row: 2 / span 10; }
 .ecol.ecol-with-side .module-side { grid-column: 4; }
 .ecol .se-list { grid-column: 1 / -1; }
-/* Page d'étape avec le panneau latéral : la liste des sous-étapes reste dans la
-   colonne de contenu, sinon elle passe SOUS le panneau. */
-.ecol.ecol-with-side .se-list { grid-column: 2; }
+/* Dans une étape, le cours reste centré et son aide contextuelle occupe la vraie
+   colonne de droite, libérée du panneau général du module. */
+.ecol.ecol-with-side .se-list { grid-column: 2 / 5; }
+.ecol.ecol-with-side .se-list > .se-item > .se-row { width: min(100%, 820px); }
 .ecol .etape-obj { color: var(--muted); font-size: 1.05rem; line-height: 1.6; max-width: 42rem; margin-top: 1rem; }
 @media (max-width: 1599px) and (min-width: 1400px) {
   .ecol.ecol-with-side {
@@ -192,7 +193,7 @@ a { color: inherit; text-decoration: none; }
   }
   .ecol.ecol-with-side > * { grid-column: 1; }
   .ecol.ecol-with-side .module-side { grid-column: 2; }
-  .ecol.ecol-with-side .se-list { grid-column: 1; }
+  .ecol.ecol-with-side .se-list { grid-column: 1 / -1; }
 }
 @media (max-width: 1399px) {
   .ecol { grid-template-columns: minmax(0, 820px); }
@@ -488,6 +489,7 @@ a { color: inherit; text-decoration: none; }
 .se-tog { font-family: var(--font-geist-mono), monospace; font-size: 1rem; color: var(--muted-2); flex: none; }
 .se-panel { padding: .1rem 0 1.7rem 3.5rem; display: flex; flex-direction: column; gap: 1.2rem; animation: rise .18s ease; }
 .se-panel-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.2rem; align-items: start; }
+.se-panel-layout:not(.has-side) { max-width: calc(820px - 3.5rem); }
 .se-panel-layout.has-side { grid-template-columns: minmax(0, calc(820px - 3.5rem)) minmax(220px, 1fr); column-gap: clamp(1.2rem, 2.1vw, 2.3rem); }
 .se-main, .se-aside { min-width: 0; display: flex; flex-direction: column; gap: 1.2rem; }
 .se-aside {

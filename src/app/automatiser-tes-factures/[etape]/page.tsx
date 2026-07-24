@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { etapesDetailFacture } from "@/lib/module-facture";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
 
 export function generateStaticParams() {
   return etapesDetailFacture.map((e) => ({ etape: e.slug }));
@@ -55,18 +54,6 @@ export default async function EtapeFacturePage({
             <span className="etape-dur">{e.dur}</span>
           </div>
           <p className="etape-obj">{e.obj}</p>
-
-          <ModuleSidePanel
-            moduleKey="/automatiser-tes-factures"
-            basePath="/automatiser-tes-factures"
-            etapes={etapesDetailFacture.map((x) => ({ slug: x.slug, num: x.num, titre: x.titre, sousCount: x.sous.length }))}
-            facts={[
-              { label: "Livrable", value: "Tes factures conformes, en une phrase" },
-              { label: "Durée", value: "30 min environ" },
-            ]}
-            jugeHref="/parcours"
-            jugeLabel="Retourne au parcours choisir la suite"
-          />
 
           <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
             Les sous-étapes
