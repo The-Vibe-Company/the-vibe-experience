@@ -199,6 +199,7 @@ a { color: inherit; text-decoration: none; }
   .etape-shell { grid-template-columns: clamp(220px, 22vw, 250px) minmax(0, 1fr); }
   .ecol { grid-column: 2; grid-template-columns: minmax(0, 820px); }
   .ecol .se-list { grid-column: 1; }
+  .ecol.ecol-with-side .se-list { grid-column: 1 / -1; }
 }
 /* Rail de progression (design 3a/2a) */
 .erail { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 1.1rem; }
@@ -1150,7 +1151,8 @@ a.pcat-row:hover .pcat-row-t { color: var(--orange-ui); }
   .gfilet { grid-template-columns: 1fr; align-items: start; gap: .8rem; }
   .gfilet > .skill-copy { align-items: flex-start; }
   .livret-row { grid-template-columns: 1fr; gap: .25rem; }
-  .se-item.open::before, .se-item.active-collapsed::before { left: -12px; }
+  .ecol.ecol-with-side .se-item.open::before,
+  .ecol.ecol-with-side .se-item.active-collapsed::before { left: -12px; }
   .reco-main::before { left: -12px; }
 }
 
