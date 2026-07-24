@@ -22,6 +22,10 @@ export default function Parcours() {
           Deux chemins pour avancer. Tu peux apprendre à construire tes propres produits ou
           automatiser les tâches qui te bouffent du temps. Commence par celui qui te parle.
         </p>
+        <p className="pg-reassurance">
+          Aucune compétence en IA ou en code n&apos;est nécessaire. Chaque module te guide pas à
+          pas.
+        </p>
       </div>
 
       <ParcoursFamilies />

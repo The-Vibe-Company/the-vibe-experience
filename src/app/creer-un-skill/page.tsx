@@ -3,7 +3,6 @@ import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleStartGuide from "@/components/ModuleStartGuide";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Créer ton premier skill — The Vibe Experience" };
@@ -50,10 +49,6 @@ export default function ModuleSkill() {
               fabriques le tien : une compétence que tu apprends une fois à l&apos;IA et qu&apos;elle
               réutilise ensuite toute seule, sur tous tes projets.
             </p>
-            <ModuleStartGuide
-              requirement="Il te faut seulement Claude Code et les deux skills offerts, fournis dans le module."
-              prerequisitesHref={`/creer-un-skill/${cards[0]?.slug}#prerequis`}
-            />
           </header>
 
           <ModuleProgress

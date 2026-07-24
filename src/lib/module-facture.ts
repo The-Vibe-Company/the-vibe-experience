@@ -37,7 +37,7 @@ export const etapesDetailFacture: EtapeDetail[] = [
     titre: "Prépare ton poste",
     tag: ["Setup", "t-build"],
     dur: "5 min environ (0 si tu as déjà l'app)",
-    obj: "Deux choses. Un outil : l'app Claude Code avec un abonnement payant (Pro, autour de 20 € par mois, suffit). Et tes papiers : IBAN, délai de paiement, numéro de ta dernière facture. La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Si tu utilises déjà le skill devis, il récupère le reste tout seul et le setup sera encore plus court.",
+    obj: "Deux choses. Un outil : l'app Claude Code avec un abonnement payant (Pro, autour de 20 € par mois, suffit). Et tes papiers : IBAN, délai de paiement, numéro de ta dernière facture. La liste complète t'attend juste en dessous, avant la sous-étape 0.1. Si tu utilises déjà le skill devis, il récupère le reste tout seul et le setup sera encore plus court.",
     detailPret: true,
     sous: [
       {
@@ -58,7 +58,7 @@ export const etapesDetailFacture: EtapeDetail[] = [
         siCaBloque:
           "L'installation coince ? L'étape 0 du module « Fais ton premier site » est entièrement guidée, avec les captures et les cas qui bloquent. Fais-la, et reviens.",
         conseil:
-          "Pendant que l'app s'installe, sors tes papiers : la liste « Ce qu'il te faut sous la main » est en haut de la page du module. Et le réflexe du parcours vaut ici aussi : quand quelque chose cloche, décris ton problème à Claude Code en français et discute avec lui.",
+          "Pendant que l'app s'installe, sors les papiers indiqués juste au-dessus des sous-étapes. Et le réflexe du parcours vaut ici aussi : quand quelque chose cloche, décris ton problème à Claude Code en français et discute avec lui.",
       },
     ],
     livrable: "L'app Claude Code prête.",
@@ -113,9 +113,12 @@ export const etapesDetailFacture: EtapeDetail[] = [
         titre: "Sors ce qu'il va te demander.",
         duree: "2 min environ",
         cestquoi:
-          "La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Ce qu'il te faudra vraiment dépend de ton cas : si tu as déjà le skill devis, il récupère ton entreprise, ta TVA et ton carnet de clients, et ne pose que les questions propres aux factures.",
+          "La liste complète est dans l'étape 0, juste avant la sous-étape 0.1. Ce qu'il te faudra vraiment dépend de ton cas : si tu as déjà le skill devis, il récupère ton entreprise, ta TVA et ton carnet de clients, et ne pose que les questions propres aux factures.",
         attendu: "Tes informations à portée de main, avant de commencer.",
-        lien: { label: "Revoir la liste sur la page du module", href: "/automatiser-tes-factures" },
+        lien: {
+          label: "Revoir la liste de préparation",
+          href: "/automatiser-tes-factures/0#prerequis",
+        },
         ceQueTuDoisVoir:
           "Rien à l'écran : cette sous-étape se passe sur ton bureau. Tu es prêt quand tu peux répondre sans aller chercher : ton IBAN, ton délai de paiement, et le numéro de ta dernière facture.",
         siCaBloque:

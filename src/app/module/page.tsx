@@ -3,7 +3,6 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleStartGuide from "@/components/ModuleStartGuide";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Faire un site — The Vibe Experience" };
@@ -44,10 +43,6 @@ export default function Module() {
               Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la
               mise en ligne, en apprenant les vrais outils au passage.
             </p>
-            <ModuleStartGuide
-              requirement="Il te faut seulement un ordinateur et Claude Pro. Tu seras guidé étape par étape."
-              prerequisitesHref={`/module/${cards[0]?.slug}#prerequis`}
-            />
           </header>
 
           <ModuleProgress
