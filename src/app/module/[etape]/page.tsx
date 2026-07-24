@@ -4,10 +4,6 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import SousEtapes from "./SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
 import SaveProgressPrompt from "@/components/SaveProgressPrompt";
-import EtapeNeeds from "@/components/EtapeNeeds";
-import EtapeSummary from "@/components/EtapeSummary";
-import ModuleAfter from "@/components/ModuleAfter";
-import { siteAfter } from "@/lib/module-after-config";
 
 export function generateStaticParams() {
   return etapesDetail.map((e) => ({ etape: e.slug }));
@@ -16,7 +12,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ etape: string }> }) {
   const { etape } = await params;
   const e = etapesDetail.find((x) => x.slug === etape);
-  return { title: e ? `Étape ${e.num} · ${e.titre} | The Vibe Experience` : "Étape" };
+  return { title: e ? `Étape ${e.num} · ${e.titre} — The Vibe Experience` : "Étape" };
 }
 
 export default async function EtapePage({ params }: { params: Promise<{ etape: string }> }) {
@@ -38,7 +34,7 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
           moduleLabel="Faire un site"
         />
 
-        <div className="ecol">
+        <div className="ecol ecol-with-side">
           <div className="crumb">
             <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
@@ -46,51 +42,50 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
             <span className="sep">/</span>
             <span>Étape {e.num}</span>
           </div>
-          <div className="etape-head etape-page-head">
+          <div className="etape-head" style={{ marginTop: "1.2rem" }}>
             <span className="etape-num">{e.num}</span>
-            <h1 className="etape-page-title">
-              {e.titre}
-            </h1>
+            <h1 className="etape-title">{e.titre}</h1>
           </div>
-          <div className="etape-page-meta">
+          <div className="etape-meta">
             <span className={`tag ${e.tag[1]}`}>{e.tag[0]}</span>
             <span className="etape-dur">{e.dur}</span>
           </div>
           <p className="etape-obj">{e.obj}</p>
 
-          <EtapeNeeds items={e.ceQuilTeFaut} />
+          <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
+            Les sous-étapes
+          </div>
 
-          <section className="substeps-section">
-            <div className="label substeps-label">Les sous-étapes</div>
-            <SousEtapes
-              sous={e.sous}
-              detailPret={e.detailPret}
-              moduleKey="/module"
-              etapeSlug={e.slug}
-              etapeNum={e.num}
-              nextStep={
-                next
-                  ? { href: `/module/${next.slug}`, slug: next.slug, num: next.num }
-                  : undefined
-              }
-            />
-            <SaveProgressPrompt
-              moduleKey="/module"
-              currentHref={`/module/${e.slug}`}
-              etapeSlug={e.slug}
-              substepCount={e.sous.length}
-              nextStep={
-                next ? { href: `/module/${next.slug}`, slug: next.slug } : undefined
-              }
-            />
-          </section>
-
-          <EtapeSummary
-            livrable={e.livrable}
-            reussite={e.reussite}
+          <SousEtapes
+            sous={e.sous}
+            detailPret={e.detailPret}
+            moduleKey="/module"
+            etapeSlug={e.slug}
+            etapeNum={e.num}
+            nextStep={
+              next
+                ? { href: `/module/${next.slug}`, slug: next.slug, num: next.num }
+                : undefined
+            }
+          />
+          <SaveProgressPrompt
+            moduleKey="/module"
+            currentHref={`/module/${e.slug}`}
+            etapeSlug={e.slug}
+            substepCount={e.sous.length}
+            nextStep={next ? { href: `/module/${next.slug}`, slug: next.slug } : undefined}
           />
 
-          {!next && <ModuleAfter content={siteAfter} />}
+          <div className="livret">
+            <div className="livret-row">
+              <span className="se-l">Livrable</span>
+              <p>{e.livrable}</p>
+            </div>
+            <div className="livret-row">
+              <span className="se-l">Réussite</span>
+              <p>{e.reussite}</p>
+            </div>
+          </div>
 
           <div className="pager">
             {prev ? (

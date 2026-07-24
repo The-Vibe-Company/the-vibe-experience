@@ -135,7 +135,7 @@ export default function Quiz() {
           </p>
         )}
 
-        <button className="quiz-restart" onClick={restart}>
+        <button type="button" className="quiz-restart" onClick={restart}>
           Refaire le test
         </button>
       </div>
@@ -163,6 +163,7 @@ export default function Quiz() {
       <div className="quiz-options">
         {q.options.map((o) => (
           <button
+            type="button"
             key={o.value}
             className={`quiz-option ${current === o.value ? "selected" : ""}`}
             onClick={() => choose(q.id, o.value)}
@@ -174,7 +175,7 @@ export default function Quiz() {
       </div>
 
       {idx > 0 && (
-        <button className="quiz-back" onClick={() => setStep(idx - 1)}>
+        <button type="button" className="quiz-back" onClick={() => setStep(idx - 1)}>
           ← Revenir
         </button>
       )}

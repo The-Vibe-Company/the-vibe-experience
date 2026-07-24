@@ -30,40 +30,18 @@ const F = {
 };
 
 export const prerequisAutomatisation: Prerequis[] = [
-  {
-    quoi: "Claude Code installé et connecté",
-    niveau: "obligatoire",
-    ou: "Avec son abonnement payant. Tes automatisations vivent dedans, il n'y a rien d'autre à installer.",
-  },
-  {
-    quoi: "Un projet qui tourne déjà",
-    niveau: "obligatoire",
-    ou: "Ton site du module 1, de préférence : c'est lui qu'on automatise (sauvegardes, garde-fou de mise en ligne). Sans projet, les étapes 1 et 2 n'ont rien à protéger.",
-  },
-  {
-    quoi: "Ton Mac allumé aux heures choisies",
-    niveau: "obligatoire",
-    ou: "Les rendez-vous programmés de l'étape 3 tournent sur ta machine. Choisis une heure où elle est vraiment allumée, pas 3 h du matin.",
-  },
-  {
-    quoi: "Un skill à toi",
-    niveau: "conseille",
-    ou: "Celui du module 2. L'usine de l'étape 4 s'en sert pour produire dans ton style. Sans lui, l'étape marche quand même, en un peu moins parlant.",
-  },
-  {
-    quoi: "Une répétition qui t'agace",
-    niveau: "conseille",
-    ou: "Quelque chose que tu relances toujours au même moment. On la cherche ensemble à l'étape 1, mais y avoir pensé aide.",
-  },
+  { quoi: "Claude Code installé et connecté" },
+  { quoi: "Un projet qui fonctionne déjà" },
+  { quoi: "Une tâche répétitive à automatiser" },
 ];
 
 export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "0",
     num: "0",
-    titre: "C'est quoi une automatisation",
+    titre: "Comprends ce qu'est une automatisation",
     tag: ["Comprendre", "t-build"],
-    dur: "15 min · rien à installer",
+    dur: "15 min, rien à installer",
     obj: "Avant d'automatiser quoi que ce soit, comprendre LE déplacement de ce module : jusqu'ici, il se passait des choses parce que tu demandais. Maintenant, il va se passer des choses parce que c'est déclenché. Tu as déjà tous les outils.",
     detailPret: true,
     sous: [
@@ -86,7 +64,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
       },
       {
         titre: "Comprends le mécanisme : déclencheur, action, garde-fou.",
-        duree: "10 min · à comprendre",
+        duree: "10 min, rien à faire, juste à retenir",
         cestquoi:
           "Toute automatisation, du plus petit réflexe aux grosses usines des pros, tient en trois morceaux. Un DÉCLENCHEUR : ce qui la réveille (un événement qui arrive, ou une heure qui sonne). Une ACTION : ce qu'elle fait. Un GARDE-FOU : ce qui l'empêche de faire n'importe quoi. Dans ce module tu vas monter les quatre rangs : le réflexe (dès qu'un événement arrive, une action part), le garde-fou (une automatisation qui te protège), le rendez-vous (à telle heure, chaque semaine), et l'usine (plusieurs briques qui travaillent ensemble et te livrent un résultat fini).",
         attendu:
@@ -94,7 +72,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         exemples: [
           "Réflexe : « à chaque changement validé, envoie mon code sur GitHub ».",
           "Garde-fou : « avant chaque mise en ligne, vérifie que le site marche, sinon bloque ».",
-          "Rendez-vous : « chaque vendredi à 17 h, prépare-moi le bilan de mon site ».",
+          "Rendez-vous : « chaque vendredi à 17h, prépare-moi le bilan de mon site ».",
           "Usine : « chaque lundi, regarde ce qui se dit sur mon sujet et propose-moi du contenu prêt à ajouter ».",
         ],
         ceQueTuDoisVoir:
@@ -109,17 +87,11 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
     ],
     livrable: "Le mécanisme en tête : déclencheur, action, garde-fou. Et Claude Code ouvert sur ton site.",
     reussite: "Tu sais expliquer les trois morceaux avec tes mots.",
-    ceQuilTeFaut: [
-      {
-        n: "Claude Code, ton site et ton skill",
-        d: "Tu réutilises ce que tu as déjà. Rien d'autre à installer.",
-      },
-    ],
   },
   {
     slug: "1",
     num: "1",
-    titre: "Ton premier réflexe automatique",
+    titre: "Crée ta première automatisation",
     tag: ["Hook", "t-build"],
     dur: "30 à 40 min",
     obj: "Installer ton premier hook : une consigne qui se déclenche toute seule quand un événement arrive. Tu vas automatiser la sauvegarde de ton site, la voir partir sans toi, et apprendre à garder le contrôle (lister, retirer).",
@@ -170,7 +142,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         monExemple:
           "Chez moi, un hook enregistre chaque fichier modifié, sur tous mes projets, pour que ma documentation n'oublie rien. Je l'ai décrit une fois, il tourne depuis des semaines sans que j'y pense.",
         conseil:
-          "Décris toujours un hook dans cet ordre : le déclencheur (« à chaque fois que ceci arrive »), puis l'action (« fais cela »). C'est le format qui marche à tous les coups. Et lis sa réponse en entier : c'est là que tu vois ce qu'il a vraiment installé.",
+          "Décris toujours un hook dans cet ordre : le déclencheur (« à chaque fois que... »), puis l'action (« fais... »). C'est le format qui marche à tous les coups. Et lis sa réponse en entier : c'est là que tu vois ce qu'il a vraiment installé, et donc ce qui va partir tout seul à partir de maintenant.",
       },
       {
         titre: "Vois-le vivre, et garde le contrôle.",
@@ -199,15 +171,15 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "2",
     num: "2",
-    titre: "Ton garde-fou",
+    titre: "Installe un garde-fou qui bloque les erreurs",
     tag: ["Sécurité", "t-build"],
     dur: "20 à 30 min",
     obj: "Le deuxième visage de l'automatisation : celle qui ne fait rien à ta place, mais qui t'empêche de casser. Tu vas poser un garde-fou qui bloque la mise en ligne d'un site cassé, et le déclencher exprès pour le voir te protéger.",
     detailPret: true,
     sous: [
       {
-        titre: "L'automatisation qui protège (au lieu de faire).",
-        duree: "5 min · à comprendre",
+        titre: "Comprends l'automatisation qui protège (au lieu de faire).",
+        duree: "5 min, rien à faire, juste à retenir",
         cestquoi:
           "Depuis le module 1, chaque envoi sur GitHub peut mettre ton site en ligne. C'est exactement pour ça qu'il faut une barrière : un garde-fou, c'est un hook dont l'action est de VÉRIFIER et, si besoin, de BLOQUER. Les pros en mettent partout, pas parce qu'ils sont maladroits, mais parce que tout le monde finit par pousser une bêtise un jour.",
         attendu: "Tu as compris qu'un garde-fou est un hook comme un autre, avec une action de blocage.",
@@ -255,22 +227,22 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "3",
     num: "3",
-    titre: "Ton rendez-vous programmé",
+    titre: "Programme une routine chaque semaine",
     tag: ["Routine", "t-product"],
     dur: "25 à 35 min",
     obj: "Le deuxième déclencheur : l'heure. Tu programmes une tâche récurrente qui travaille pour toi à heure fixe, chaque semaine, que tu y penses ou non.",
     detailPret: true,
     sous: [
       {
-        titre: "Choisis ton rendez-vous (quoi, et quand).",
+        titre: "Choisis ta routine (quoi, et quand).",
         duree: "5 à 10 min",
         cestquoi:
           "Une tâche programmée, c'est une consigne avec l'heure comme déclencheur. Le bon candidat : quelque chose d'utile régulièrement, que tu oublierais de faire toi-même. Tu choisis l'action et le rendez-vous.",
         attendu: "Une phrase du type « chaque [jour] à [heure], fais [action] et range le résultat [où] ».",
         outils: [F.routine],
         exemples: [
-          "« Chaque vendredi à 17 h, fais le bilan de mon site : ce qui a changé cette semaine, mes nouveaux inscrits, et une idée d'amélioration. Range-le dans un fichier bilan.md. »",
-          "« Chaque lundi à 9 h, vérifie que mon site en ligne répond bien et dis-moi si quelque chose cloche. »",
+          "« Chaque vendredi à 17h, fais le bilan de mon site : ce qui a changé cette semaine, mes nouveaux inscrits, et une idée d'amélioration. Range-le dans un fichier bilan.md. »",
+          "« Chaque lundi à 9h, vérifie que mon site en ligne répond bien et dis-moi si quelque chose cloche. »",
         ],
         ceQueTuDoisVoir:
           "Ta phrase complète tient les quatre morceaux : le jour, l'heure, l'action, et où se range le résultat. S'il en manque un, la routine sera floue : précise-le avant de programmer.",
@@ -279,7 +251,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         monExemple:
           "Deux vécus, pour être honnête. Ma veille tourne toute seule et la charge mentale a vraiment disparu : je n'y pense plus, ça sort chaque semaine. Mon menu de sujets du vendredi tourne aussi tout seul, mais les propositions, on les retravaille beaucoup ensuite : ça prépare mon travail, ça ne me l'enlève pas. Les deux genres existent, autant le savoir en choisissant.",
         conseil:
-          "Une seule règle à connaître : la tâche tourne sur ton ordinateur, qui doit donc être allumé à l'heure du rendez-vous. Choisis une heure où c'est vraiment le cas, pas 3 h du matin.",
+          "Une seule règle d'honnêteté à connaître : la tâche tourne sur TON Mac, donc il doit être allumé à l'heure du rendez-vous. Choisis une heure où il l'est vraiment (pas 3h du matin).",
       },
       {
         titre: "Programme ta routine (et teste-la dans 2 minutes, pas vendredi).",
@@ -290,7 +262,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         pasAPas: [
           "Envoie le prompt ci-dessous : il programme un passage d'essai dans 2 minutes. Laisse Claude Code ouvert et regarde-le se déclencher tout seul.",
           "Vérifie le résultat (le fichier bilan.md est apparu dans ton projet, avec le contenu attendu).",
-          "Puis dis : « parfait, maintenant programme cette même tâche chaque vendredi à 17 h, et supprime l'essai ».",
+          "Puis dis : « parfait, maintenant programme cette même tâche chaque vendredi à 17h, et supprime l'essai ».",
         ],
         prompt:
           "Programme une tâche d'essai qui se lance dans 2 minutes : fais le bilan de mon site (ce qui a changé récemment, et une idée d'amélioration) et range-le dans un fichier bilan.md à la racine de mon projet. Dis-moi quand c'est programmé, puis quand c'est passé.",
@@ -316,7 +288,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "L'astuce du passage d'essai vaut pour TOUTES tes futures routines : d'abord dans 2 minutes pour voir, ensuite au vrai rythme. Ne programme jamais à l'aveugle.",
       },
       {
-        titre: "Le rendez-vous d'après : laisse-la vivre.",
+        titre: "Laisse ta routine tourner toute seule.",
         duree: "5 min (et rendez-vous vendredi)",
         cestquoi:
           "Une routine se juge sur la durée. Celle-ci va tourner vendredi, puis tous les vendredis. Ton seul travail : lire le bilan, et ajuster la consigne si le résultat ne te plaît pas.",
@@ -331,7 +303,7 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           legende: "Mon bilan du soir, un vrai rendez-vous programmé : il part sans moi, enchaîne son travail et se termine tout seul. Mon app est en anglais, la tienne parlera français.",
         },
         siCaBloque:
-          "Vendredi est passé et tu n'as pas reçu de bilan ? Vérifie d'abord si ton ordinateur était allumé à 17 h. S'il était éteint, déplace l'horaire. S'il était allumé, demande : « pourquoi ma tâche du vendredi n'a pas tourné ? »",
+          "Vendredi est passé et pas de bilan ? Premier réflexe : ton Mac était-il allumé à 17h ? Si non, c'est la limite honnête de la routine locale (déplace l'horaire). Si oui, demande « pourquoi ma tâche du vendredi n'a pas tourné ? ».",
         monExemple:
           "Mon menu de sujets tombe le vendredi. Honnêtement, je le lis souvent le lundi, et c'est très bien comme ça : une routine ne t'impose pas d'être au rendez-vous, le travail t'attend.",
         conseil:
@@ -344,17 +316,17 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
   {
     slug: "4",
     num: "4",
-    titre: "Ta petite usine",
+    titre: "Assemble ta première chaîne automatique",
     tag: ["Assemble", "t-ship"],
     dur: "30 à 45 min",
-    obj: "Le dernier rang : assembler. Une automatisation qui combine ta routine, ton skill du module 2 et ton garde-fou pour te livrer un résultat fini. C'est le même principe que les grosses automatisations des pros, dans une version adaptée à ton projet.",
+    obj: "Le dernier rang : assembler. Une automatisation qui combine ta routine, TON skill du module 2 et ton garde-fou, et qui te livre un résultat fini. C'est le même principe que les grosses automatisations des pros, en version à toi.",
     detailPret: true,
     sous: [
       {
-        titre: "Assemble : une veille qui te propose du contenu prêt à ajouter.",
+        titre: "Branche une veille qui te propose du contenu prêt à ajouter.",
         duree: "20 à 30 min",
         cestquoi:
-          "Jusqu'ici, chaque brique travaillait seule. Une usine, ce sont des briques reliées entre elles : une routine pour le déclenchement, ton skill mon-style du module 2 pour le savoir-faire et ton garde-fou pour la sécurité. Résultat : chaque semaine, tu reçois des propositions de contenu écrites dans ton style et prêtes à valider.",
+          "Jusqu'ici, chaque brique travaillait seule. Une usine, c'est des briques branchées ensemble : une routine (le déclencheur), ton skill mon-style du module 2 (le savoir-faire), et ton garde-fou (la sécurité). Résultat : chaque semaine, des propositions de contenu pour ton site, écrites dans TON style, prêtes à valider.",
         attendu:
           "Une automatisation complète : chaque lundi, des idées de contenu dans ton style t'attendent, et rien ne part en ligne sans toi.",
         pasAPas: [
@@ -362,9 +334,9 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
           "Fais d'abord un passage d'essai dans 2 minutes (l'astuce de l'étape 3) pour voir propositions.md apparaître, puis passe au vrai rythme du lundi.",
         ],
         prompt:
-          "Programme une tâche chaque lundi à 9 h : cherche ce qui est nouveau ou intéressant autour de [le sujet de ton site], choisis les 2 meilleures idées de contenu pour mon site, et rédige un brouillon pour chacune en utilisant mon skill [nom de ton skill du module 2]. Range tout dans un fichier propositions.md. Ne modifie pas mon site directement : je choisis moi-même ce que j'ajoute.",
+          "Programme une tâche chaque lundi à 9h : cherche ce qui est nouveau ou intéressant autour de [le sujet de ton site], choisis les 2 meilleures idées de contenu pour mon site, et rédige un brouillon pour chacune en utilisant mon skill [nom de ton skill du module 2]. Range tout dans un fichier propositions.md. Ne modifie pas mon site directement : je choisis moi-même ce que j'ajoute.",
         ceQueTuDoisVoir:
-          "Même astuce qu'à l'étape 3 : fais d'abord un passage d'essai dans 2 minutes. Tu dois voir la ligne de ton skill s'afficher pendant le travail. Si elle est repliée, déplie le résumé des actions. Puis le fichier propositions.md apparaît avec les brouillons. La dernière phrase du prompt, « je choisis moi-même », sert de garde-fou : l'humain reste à la fin de la chaîne.",
+          "Même astuce qu'à l'étape 3 : fais d'abord un passage d'essai dans 2 minutes. Tu dois voir la ligne de ton skill s'afficher pendant le travail (la preuve qu'il utilise TON style ; déplie la ligne-résumé des actions si tu ne la vois pas), puis propositions.md apparaître avec les brouillons. Note la dernière phrase du prompt : « je choisis moi-même ». C'est ton garde-fou d'usine, l'humain reste à la fin de la chaîne.",
         siCaBloque:
           "Les propositions ne sont pas dans ton style ? Vérifie que ton skill se déclenche (la ligne à son nom) ; sinon, ajoute son nom exact dans la consigne de la tâche. Les idées sont à côté de la plaque ? Précise le sujet dans la consigne : plus il est net, meilleures sont les propositions.",
         monExemple:
@@ -386,14 +358,14 @@ export const etapesDetailAutomatisation: EtapeDetail[] = [
         ceQueTuDoisVoir:
           "Trois lignes cochées : le déclencheur (avec sa famille, un événement ou l'heure), l'action, le garde-fou. Si l'une est rouge, le juge te dit ce qui manque et te renvoie à l'étape à reprendre : tu corriges ta consigne, et tu repasses.",
         siCaBloque:
-          "Tu ne trouves pas le garde-fou ? C'est le plus souvent la phrase de contrôle qui manque dans ta consigne (« ne modifie pas mon site directement », « bloque si ça casse »). Ajoute-la avant de continuer.",
-        conseil: "Cette vérification confirme la solidité de ton automatisation. Son utilité se mesure ensuite en la laissant vivre une semaine ou deux.",
+          "Le juge dit qu'il manque le garde-fou ? C'est le plus souvent la phrase de contrôle qui manque dans ta consigne (« ne modifie pas mon site directement », « bloque si ça casse »). Ajoute-la et repasse.",
+        conseil: "Le juge ne juge pas l'utilité de ton automatisation, seulement sa solidité. L'utilité, c'est toi qui la mesures en la laissant vivre une semaine ou deux.",
       },
       {
         titre: "Garde le réflexe (et regarde un cran plus loin).",
         duree: "5 min",
         cestquoi:
-          "Tu as monté les quatre rangs : le réflexe, le garde-fou, le rendez-vous et l'usine. Garde cette question en tête : « qu'est-ce que je fais à la main avec un déclencheur évident ? » Quand la réponse est claire, tu sais maintenant quoi faire. Il existe aussi des routines qui tournent dans le cloud sans dépendre de ton ordinateur. Et si tu veux du prêt à l'emploi tout de suite, la famille « Automatise ton business » propose déjà ses premiers modules pour tes devis et tes factures.",
+          "Tu as monté les quatre rangs : le réflexe, le garde-fou, le rendez-vous, l'usine. Le réflexe à garder, c'est la question : « qu'est-ce que je fais à la main qui a un déclencheur évident ? ». À chaque oui, tu sais maintenant quoi faire. Et un cran plus loin, il existe des routines qui tournent dans le cloud, sans ton Mac : c'est le monde des automatisations d'équipe. Et si tu veux du prêt à l'emploi tout de suite, la famille « Automatiser ton business » a déjà ses premiers modules : tes devis et tes factures, avec un skill qui fait le travail.",
         attendu: "Le réflexe d'automatiser installé pour de bon, et la suite en vue.",
         ceQueTuDoisVoir:
           "La preuve, c'est ton quotidien de la semaine prochaine : la sauvegarde qui part seule, le garde-fou qui veille, le bilan du vendredi, les propositions du lundi. Quatre choses qui travaillent pendant que tu fais autre chose.",

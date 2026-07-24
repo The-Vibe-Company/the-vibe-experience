@@ -42,20 +42,20 @@ export default function ModuleEtapes({
             href={`${basePath}/${e.slug}`}
             key={e.slug}
           >
-            <span className="met-main">
-              <span className="met-num" aria-hidden>
-                {es.complete ? "✓" : e.num}
+            <span className="met-num" aria-hidden>
+              {es.complete ? "✓" : e.num}
+            </span>
+            <span className="met-title">{e.titre}</span>
+            {mounted && (es.complete || isCurrent) && (
+              <span className="met-status">
+                {es.complete && <span className="met-done">✓ Terminée</span>}
+                {isCurrent && !es.complete && (
+                  <span className="met-cur">
+                    ● En cours · {es.done}/{es.total}
+                  </span>
+                )}
               </span>
-              <span className="met-title">{e.titre}</span>
-            </span>
-            <span className="met-status">
-              {mounted && es.complete && <span className="met-done">✓ Terminée</span>}
-              {mounted && isCurrent && !es.complete && (
-                <span className="met-cur">
-                  ● En cours · {es.done}/{es.total}
-                </span>
-              )}
-            </span>
+            )}
           </Link>
         );
       })}

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { etapesDetail } from "@/lib/module-faire-un-site";
+import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
+import ModuleSidePanel from "@/components/ModuleSidePanel";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
-export const metadata = { title: "Module · Faire un site | The Vibe Experience" };
+export const metadata = { title: "Module · Faire un site — The Vibe Experience" };
 
 export default function Module() {
   const cards = etapesDetail.map((e) => ({
@@ -20,8 +22,10 @@ export default function Module() {
   return (
     <section className="etape-section">
       <MarkSelectedPath path="construire" />
-      <div className="module-overview-shell">
-        <div className="module-overview">
+      <div className="etape-shell module-overview-shell">
+        <ModuleRail etapes={etapesDetail} currentSlug="" basePath="/module" moduleLabel="Faire un site" />
+
+        <div className="ecol module-overview-main">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -30,30 +34,38 @@ export default function Module() {
             <span>Faire un site</span>
           </div>
 
-          <div className="label" style={{ marginTop: "1.1rem" }}>
-            Module · Produit
-          </div>
-          <h1 className="mov-h1">
-            Faire un site, <em>de ton idée à sa mise en ligne</em>.
-          </h1>
-          <p className="mov-meta">6 étapes, 3 à 4 h, niveau débutant.</p>
-          <p className="etape-obj">
-            Tu construis ton propre site, du premier écran sur ta machine jusqu&apos;à sa mise en
-            ligne. Tu découvres les outils au moment où tu en as besoin, avec un accompagnement pas
-            à pas.
-          </p>
+          <header className="module-intro">
+            <div className="label">Module · Produit</div>
+            <h1 className="mov-h1">
+              Crée ton site, <em>de zéro jusqu&apos;à la mise en ligne</em>.
+            </h1>
+            <p className="mov-meta">6 étapes · ≈ 3 à 4 h de travail, souvent en plusieurs fois · Débutant</p>
+            <p className="etape-obj">
+              Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la
+              mise en ligne, en apprenant les vrais outils au passage.
+            </p>
+          </header>
 
           <ModuleProgress
             moduleKey="/module"
             basePath="/module"
             etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
-            completionHref="/juge"
-            completionLabel="Faire évaluer mon site"
           />
 
           <div className="label mov-sec">Les étapes</div>
           <ModuleEtapes moduleKey="/module" basePath="/module" etapes={cards} />
         </div>
+
+        <ModuleSidePanel
+          moduleKey="/module"
+          basePath="/module"
+          etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+          facts={[
+            { label: "Livrable", value: "Un site en ligne, partageable" },
+            { label: "Durée", value: "3 à 4 h, souvent en plusieurs fois" },
+            { label: "Budget", value: "Claude Pro (~20 €/mois), le reste gratuit" },
+          ]}
+        />
       </div>
     </section>
   );

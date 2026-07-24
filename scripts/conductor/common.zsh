@@ -235,8 +235,7 @@ load_branch_credentials() {
           set +a
 
           if [[ -n "${SUPABASE_URL:-}" && -n "${SUPABASE_ANON_KEY:-}" && \
-            -n "${SUPABASE_SERVICE_ROLE_KEY:-}" && \
-            -n "${POSTGRES_URL:-${POSTGRES_URL_NON_POOLING:-}}" ]] && \
+            -n "${SUPABASE_SERVICE_ROLE_KEY:-}" && -n "${POSTGRES_URL_NON_POOLING:-}" ]] && \
             curl -fsS --max-time 10 \
               -H "apikey: $SUPABASE_ANON_KEY" \
               "$SUPABASE_URL/auth/v1/health" \
@@ -269,24 +268,12 @@ ensure_remote_branch() {
   load_branch_credentials
 }
 
-migration_database_url() {
-  if [[ -n "${POSTGRES_URL:-}" ]]; then
-    print -rn -- "$POSTGRES_URL"
-    return
-  fi
-
-  print -rn -- "$POSTGRES_URL_NON_POOLING"
-}
-
 sync_migrations() {
   local deadline
-  local database_url
-
-  database_url="$(migration_database_url)"
 
   print "Synchronisation des migrations avec $SUPABASE_BRANCH_NAME..."
   supabase_cli --log-level error db push \
-    --db-url "$database_url" \
+    --db-url "$POSTGRES_URL_NON_POOLING" \
     --include-all \
     --yes || fail "Les migrations n'ont pas pu etre appliquees a la branche Supabase."
 

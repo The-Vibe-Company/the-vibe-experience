@@ -4,10 +4,6 @@ import { etapesDetailFacture } from "@/lib/module-facture";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
 import SaveProgressPrompt from "@/components/SaveProgressPrompt";
-import ModuleAfter from "@/components/ModuleAfter";
-import ModulePrerequisites from "@/components/ModulePrerequisites";
-import EtapeSummary from "@/components/EtapeSummary";
-import { invoiceAfter } from "@/lib/module-after-config";
 
 export function generateStaticParams() {
   return etapesDetailFacture.map((e) => ({ etape: e.slug }));
@@ -16,7 +12,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ etape: string }> }) {
   const { etape } = await params;
   const e = etapesDetailFacture.find((x) => x.slug === etape);
-  return { title: e ? `Étape ${e.num} · ${e.titre} | The Vibe Experience` : "Étape" };
+  return { title: e ? `Étape ${e.num} · ${e.titre} — The Vibe Experience` : "Étape" };
 }
 
 export default async function EtapeFacturePage({
@@ -42,7 +38,7 @@ export default async function EtapeFacturePage({
           moduleLabel="Automatise tes factures"
         />
 
-        <div className="ecol">
+        <div className="ecol ecol-with-side">
           <div className="crumb">
             <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
@@ -50,52 +46,58 @@ export default async function EtapeFacturePage({
             <span className="sep">/</span>
             <span>Étape {e.num}</span>
           </div>
-          <div className="etape-head etape-page-head">
+          <div className="etape-head" style={{ marginTop: "1.2rem" }}>
             <span className="etape-num">{e.num}</span>
-            <h1 className="etape-page-title">{e.titre}</h1>
+            <h1 className="etape-title">{e.titre}</h1>
           </div>
-          <div className="etape-page-meta">
+          <div className="etape-meta">
             <span className={`tag ${e.tag[1]}`}>{e.tag[0]}</span>
             <span className="etape-dur">{e.dur}</span>
           </div>
           <p className="etape-obj">{e.obj}</p>
 
-          {idx === 0 && <ModulePrerequisites items={e.sous[0]?.prerequis} />}
+          <div className="label" style={{ margin: "2.4rem 0 1rem" }}>
+            Les sous-étapes
+          </div>
 
-          <section className="substeps-section">
-            <div className="label substeps-label">Les sous-étapes</div>
-            <SousEtapes
-              sous={e.sous}
-              detailPret={e.detailPret}
-              moduleKey="/automatiser-tes-factures"
-              etapeSlug={e.slug}
-              etapeNum={e.num}
-              nextStep={
-                next
-                  ? {
-                      href: `/automatiser-tes-factures/${next.slug}`,
-                      slug: next.slug,
-                      num: next.num,
-                    }
-                  : undefined
-              }
-            />
-            <SaveProgressPrompt
-              moduleKey="/automatiser-tes-factures"
-              currentHref={`/automatiser-tes-factures/${e.slug}`}
-              etapeSlug={e.slug}
-              substepCount={e.sous.length}
-              nextStep={
-                next
-                  ? { href: `/automatiser-tes-factures/${next.slug}`, slug: next.slug }
-                  : undefined
-              }
-            />
-          </section>
+          <SousEtapes
+            sous={e.sous}
+            detailPret={e.detailPret}
+            moduleKey="/automatiser-tes-factures"
+            etapeSlug={e.slug}
+            etapeNum={e.num}
+            nextStep={
+              next
+                ? {
+                    href: `/automatiser-tes-factures/${next.slug}`,
+                    slug: next.slug,
+                    num: next.num,
+                  }
+                : undefined
+            }
+          />
+          <SaveProgressPrompt
+            moduleKey="/automatiser-tes-factures"
+            currentHref={`/automatiser-tes-factures/${e.slug}`}
+            etapeSlug={e.slug}
+            substepCount={e.sous.length}
+            nextStep={
+              next
+                ? { href: `/automatiser-tes-factures/${next.slug}`, slug: next.slug }
+                : undefined
+            }
+          />
 
-          <EtapeSummary livrable={e.livrable} reussite={e.reussite} />
-
-          {!next && <ModuleAfter content={invoiceAfter} />}
+          <div className="livret">
+            <div className="livret-row">
+              <span className="se-l">Livrable</span>
+              <p>{e.livrable}</p>
+            </div>
+            <div className="livret-row">
+              <span className="se-l">Réussite</span>
+              <p>{e.reussite}</p>
+            </div>
+          </div>
 
           <div className="pager">
             {prev ? (

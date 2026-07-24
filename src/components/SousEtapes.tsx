@@ -121,12 +121,16 @@ export default function SousEtapes({
         const done = mounted && isDone(id);
         const isOpen = open === i;
         const label = `${etapeNum}.${i + 1}`;
+        const panelId = `sous-etape-${etapeSlug}-${i}`;
         const isLast = i === sous.length - 1;
-        // Le panneau de droite n'existe que s'il a quelque chose à apporter en
-        // plus de la colonne principale : conseil, exemples, vécu. La durée et
-        // « ce qu'on attend » sont déjà dans la colonne principale.
+        // Le panneau de droite regroupe les informations d'accompagnement :
+        // préparation, conseil, exemples et vécu. La durée et « ce qu'on
+        // attend » restent dans le flux principal.
         const hasSideNotes = Boolean(
-          (s.exemples && s.exemples.length > 0) || s.monExemple || s.conseil,
+          (s.prerequis && s.prerequis.length > 0) ||
+            (s.exemples && s.exemples.length > 0) ||
+            s.monExemple ||
+            s.conseil,
         );
 
         return (
@@ -145,7 +149,13 @@ export default function SousEtapes({
               >
                 <span className={done ? "" : "se-check-preview"}>✓</span>
               </button>
-              <button className="se-head" onClick={() => setOpen(isOpen ? null : i)}>
+              <button
+                type="button"
+                className="se-head"
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                onClick={() => setOpen(isOpen ? null : i)}
+              >
                 <span className="se-num">{label}</span>
                 <span className="se-title">{s.titre}</span>
                 <span className="se-tog" aria-hidden>
@@ -155,7 +165,7 @@ export default function SousEtapes({
             </div>
 
             {isOpen && (
-              <div className="se-panel">
+              <div className="se-panel" id={panelId}>
                 {s.duree && <div className="se-pdur">{s.duree}</div>}
                 {!detailPret ? (
                   <p className="se-todo">
@@ -322,7 +332,23 @@ export default function SousEtapes({
                     </div>
 
                     {hasSideNotes && (
-                      <aside className="se-aside" aria-label="Exemples et conseils">
+                      <aside
+                        className="se-aside"
+                        aria-label="Préparation, exemples et conseils"
+                      >
+                        {s.prerequis && s.prerequis.length > 0 && (
+                          <div className="se-block">
+                            <span className="se-l">Ce qu&apos;il te faut sous la main</span>
+                            <ul className="se-ex">
+                              {s.prerequis.map((p) => (
+                                <li key={p.quoi}>
+                                  <span className="se-dash">-</span>
+                                  <span>{p.quoi}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                         {s.conseil && (
                           <div className="se-block">
                             <span className="se-l">Conseil</span>

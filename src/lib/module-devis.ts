@@ -23,41 +23,11 @@ const F = {
 // Ce qu'il faut avoir sous la main AVANT de commencer, listé sur la page du
 // module : la personne rassemble tout une fois, puis déroule sans être coupée.
 export const prerequisDevis: Prerequis[] = [
-  {
-    quoi: "Ton SIRET",
-    niveau: "obligatoire",
-    ou: "Sur ton extrait d'immatriculation, ou en cherchant le nom de ton entreprise sur annuaire-entreprises.data.gouv.fr.",
-  },
-  {
-    quoi: "Ta situation TVA",
-    niveau: "obligatoire",
-    ou: "Tu la factures, ou tu es en franchise (le cas de beaucoup d'auto-entrepreneurs). Si tu la factures, ton taux habituel et ton numéro de TVA.",
-  },
-  {
-    quoi: "Ton adresse d'entreprise",
-    niveau: "obligatoire",
-    ou: "Celle qui doit apparaître sur tes devis, telle que tu l'écris.",
-  },
-  {
-    quoi: "Ton attestation d'assurance décennale",
-    niveau: "obligatoire",
-    ou: "Uniquement si tu es artisan du bâtiment : assureur, coordonnées, zone couverte. C'est une mention obligatoire sur chaque devis.",
-  },
-  {
-    quoi: "Le numéro de ton dernier devis",
-    niveau: "conseille",
-    ou: "Si tu en as déjà fait, écrit exactement comme tu l'écris (par exemple 2026-014). Le skill reprendra la suite au même format.",
-  },
-  {
-    quoi: "Ton capital social et ta ville de RCS",
-    niveau: "conseille",
-    ou: "Uniquement si tu es en société : tout est sur ton Kbis.",
-  },
-  {
-    quoi: "Ton logo, ton IBAN, ton téléphone",
-    niveau: "conseille",
-    ou: "Facultatifs, mais ils rendent tes devis plus pros. Le logo se glisse directement dans la fenêtre de Claude Code.",
-  },
+  { quoi: "Ton SIRET, ton adresse et ta situation TVA" },
+  { quoi: "Le numéro de ton dernier devis (si tu en as un)" },
+  { quoi: "Ton attestation décennale (si tu es artisan du bâtiment)" },
+  { quoi: "Ton capital social et ta ville de RCS (si tu es en société)" },
+  { quoi: "Ton logo, ton IBAN et ton téléphone (facultatif)" },
 ];
 
 export const etapesDetailDevis: EtapeDetail[] = [
@@ -66,13 +36,13 @@ export const etapesDetailDevis: EtapeDetail[] = [
     num: "0",
     titre: "Prépare ton poste",
     tag: ["Setup", "t-build"],
-    dur: "≈ 5 min (0 si tu as déjà l'app)",
+    dur: "5 min environ (0 si tu as déjà l'app)",
     obj: "Deux choses. Un outil : l'app Claude Code, avec un abonnement payant (l'offre Pro, autour de 20 € par mois, suffit) ; aucun logiciel de devis, aucun abonnement en plus. Et tes papiers : SIRET, situation TVA, assurance décennale si tu es artisan. La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». Rassemble-les maintenant, tu ne seras pas coupé au milieu du setup.",
     detailPret: true,
     sous: [
       {
-        titre: "Claude Code prêt, et c'est tout.",
-        duree: "≈ 5 min (0 si tu l'as déjà)",
+        titre: "Vérifie que Claude Code est prêt (c'est tout).",
+        duree: "5 min environ (0 si tu l'as déjà)",
         cestquoi:
           "Le skill vit dans l'app Claude Code : c'est elle qui pose les questions, retient tes réponses et fabrique les fichiers. Il te faut un compte Claude avec un abonnement payant : l'offre Pro, autour de 20 € par mois, suffit pour faire tourner tes devis. Et si un jour tu en fais tellement que tu touches ses limites, le plan au-dessus existe, à toi de voir selon le temps gagné.",
         attendu: "L'app Claude Code installée, connectée, prête à recevoir un message.",
@@ -99,13 +69,13 @@ export const etapesDetailDevis: EtapeDetail[] = [
     num: "1",
     titre: "Installe le skill",
     tag: ["Install", "t-build"],
-    dur: "≈ 2 min",
+    dur: "2 min environ",
     obj: "Le skill s'installe en un copier-coller : tu copies, tu colles dans Claude Code, il range tout et te confirme. Tu ne touches à aucun fichier.",
     detailPret: true,
     sous: [
       {
         titre: "Copie le skill, colle-le, c'est installé.",
-        duree: "≈ 2 min",
+        duree: "2 min environ",
         cestquoi:
           "Un skill, c'est un mode d'emploi qu'on donne une fois à l'IA et qu'elle réutilise ensuite toute seule. Le bouton ci-dessous copie celui des devis en entier. Tu le colles dans Claude Code, il recrée les fichiers au bon endroit chez toi et te confirme. Une seule fois : ensuite, il te suit sur toutes tes conversations.",
         attendu: "Claude Code te confirme que le skill generer-devis est installé et prêt.",
@@ -133,15 +103,15 @@ export const etapesDetailDevis: EtapeDetail[] = [
   {
     slug: "2",
     num: "2",
-    titre: "Le setup : il fait connaissance",
+    titre: "Configure le skill à ton activité",
     tag: ["Setup", "t-product"],
-    dur: "≈ 10 min · une seule fois",
+    dur: "10 min environ, une seule fois",
     obj: "La première fois, le skill te pose une dizaine de questions sur ton entreprise, une par une, et enregistre tout. C'est le seul moment un peu long du module : il absorbe toute la lourdeur le premier jour pour qu'il n'en reste plus jamais.",
     detailPret: true,
     sous: [
       {
         titre: "Sors ce qu'il va te demander.",
-        duree: "≈ 2 min",
+        duree: "2 min environ",
         cestquoi:
           "La liste complète est en haut de la page du module, sous « Ce qu'il te faut sous la main ». C'est le moment de tout rassembler : si tu pars chercher ton SIRET au milieu de la conversation, tu perds le fil.",
         attendu: "Tes informations à portée de main, avant de commencer.",
@@ -155,7 +125,7 @@ export const etapesDetailDevis: EtapeDetail[] = [
       },
       {
         titre: "Dis « fais-moi un devis », et réponds à ses questions.",
-        duree: "≈ 8 min",
+        duree: "8 min environ",
         cestquoi:
           "Tu ne remplis aucun formulaire : tu écris une phrase, et le skill voit qu'il ne te connaît pas encore. Il fait alors connaissance, une question à la fois, en français simple. Tout est enregistré : il ne te redemandera plus jamais rien de cette liste.",
         attendu: "Ta configuration complète, enregistrée une fois pour toutes.",
@@ -181,15 +151,15 @@ export const etapesDetailDevis: EtapeDetail[] = [
   {
     slug: "3",
     num: "3",
-    titre: "Ton premier devis",
+    titre: "Crée ton premier devis",
     tag: ["Résultat", "t-ship"],
-    dur: "≈ 8 min",
+    dur: "8 min environ",
     obj: "À partir de maintenant, un devis c'est une phrase : le client, la prestation, le prix. Il te montre un récapitulatif, tu valides, et tu repars avec un PDF à envoyer.",
     detailPret: true,
     sous: [
       {
-        titre: "Une phrase, un récapitulatif, un devis.",
-        duree: "≈ 5 min (2 à 3 min par devis ensuite)",
+        titre: "Obtiens ton devis en une phrase.",
+        duree: "5 min environ (2 à 3 min par devis ensuite)",
         cestquoi:
           "Tu donnes le client, la prestation et le prix, dans une phrase normale. Pour un nouveau client, il demande sa fiche une fois (son nom et son adresse au minimum) et la garde au carnet : la prochaine fois, son nom suffira. Les totaux et la TVA sont calculés par le skill, jamais de tête, et le numéro avance tout seul.",
         attendu: "Ton premier vrai devis, conforme et numéroté.",
@@ -217,7 +187,7 @@ export const etapesDetailDevis: EtapeDetail[] = [
       },
       {
         titre: "Récupère ton PDF et envoie-le.",
-        duree: "≈ 3 min",
+        duree: "3 min environ",
         cestquoi:
           "Le devis sort en fichier qui s'ouvre dans ton navigateur. Pour en faire un PDF, tu ne télécharges rien : tu l'imprimes, et au lieu de choisir une imprimante, tu choisis « Enregistrer au format PDF ». C'est le geste à connaître, il resservira pour chaque devis.",
         attendu: "Un PDF propre, prêt à envoyer à ton client.",
@@ -240,15 +210,15 @@ export const etapesDetailDevis: EtapeDetail[] = [
   {
     slug: "4",
     num: "4",
-    titre: "Le quotidien (et la suite)",
+    titre: "Gère tes devis au quotidien",
     tag: ["Résultat", "t-ship"],
-    dur: "≈ 8 min · à lire",
+    dur: "8 min environ, à lire",
     obj: "Le skill est un système, pas un coup unique : carnet de clients, plusieurs devis d'un coup, mises à jour en une phrase. Et quand un devis est accepté, son compagnon facture prend le relais.",
     detailPret: true,
     sous: [
       {
-        titre: "Client connu, et plusieurs devis d'un coup.",
-        duree: "≈ 4 min",
+        titre: "Gère un client connu et plusieurs devis d'un coup.",
+        duree: "4 min environ",
         cestquoi:
           "Un client déjà venu ? Son nom suffit, sa fiche est au carnet. Cinq devis à faire ? Donne-les tous d'un coup : un seul récapitulatif, une validation, et les fichiers sortent en série pendant que tu fais autre chose. La numérotation se suit toute seule.",
         attendu: "Un deuxième devis fait sans redonner une seule information sur le client.",
@@ -267,8 +237,8 @@ export const etapesDetailDevis: EtapeDetail[] = [
           "Le mode plusieurs devis d'un coup, c'est dix minutes de réponses pour une matinée de paperasse. Garde-le pour tes journées chargées.",
       },
       {
-        titre: "Ce qui change, et ce qu'il ne fait pas.",
-        duree: "≈ 4 min · à lire",
+        titre: "Retiens ce qui change, et ce qu'il ne fait pas.",
+        duree: "4 min environ, à lire",
         cestquoi:
           "Ta vie d'entreprise bouge : adresse, logo, TVA, une mention à ajouter. Tu le dis comme à un collègue, il met à jour juste ça, sans refaire le setup. Et autant savoir tout de suite ce qu'il ne fait pas, pour ne pas le chercher.",
         attendu: "Tu sais faire évoluer ta configuration, et tu connais les limites du skill.",
