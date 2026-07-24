@@ -174,32 +174,20 @@ a { color: inherit; text-decoration: none; }
   align-items: start;
 }
 .ecol.ecol-with-side {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 820px) minmax(0, 1fr) minmax(240px, 340px);
-  column-gap: 0;
+  display: block;
+  width: min(100%, 940px);
+  justify-self: center;
 }
 .ecol > * { grid-column: 1; min-width: 0; }
-.ecol.ecol-with-side > * { grid-column: 2; }
 .ecol .se-list { grid-column: 1 / -1; }
-/* Dans une étape, le cours reste centré et son aide contextuelle occupe la vraie
-   colonne de droite, libérée du panneau général du module. */
-.ecol.ecol-with-side .se-list { grid-column: 2 / 5; }
-.ecol.ecol-with-side .se-list > .se-item > .se-row { width: min(100%, 820px); }
+/* Les pages d'étape utilisent la même largeur utile que l'accueil du module.
+   L'aide contextuelle reste intégrée à la sous-étape lorsqu'elle est ouverte. */
+.ecol.ecol-with-side .se-list > .se-item > .se-row { width: 100%; }
 .ecol .etape-obj { color: var(--muted); font-size: 1.05rem; line-height: 1.6; max-width: 42rem; margin-top: 1rem; }
-@media (max-width: 1599px) and (min-width: 1400px) {
-  .ecol.ecol-with-side {
-    grid-template-columns: minmax(0, 820px) minmax(240px, 1fr);
-    column-gap: clamp(1.7rem, 3vw, 3rem);
-  }
-  .ecol.ecol-with-side > * { grid-column: 1; }
-  .ecol.ecol-with-side .se-list { grid-column: 1 / -1; }
-}
 @media (max-width: 1399px) {
   .etape-shell { grid-template-columns: clamp(220px, 22vw, 250px) minmax(0, 1fr); }
   .ecol { grid-column: 2; grid-template-columns: minmax(0, 820px); }
-  .ecol.ecol-with-side { grid-template-columns: minmax(0, 820px); }
-  .ecol.ecol-with-side > * { grid-column: 1; }
   .ecol .se-list { grid-column: 1; }
-  .ecol.ecol-with-side .se-list { grid-column: 1; }
 }
 /* Rail de progression (design 3a/2a) */
 .erail { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 1.1rem; }
