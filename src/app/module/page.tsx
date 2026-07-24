@@ -1,12 +1,8 @@
 import Link from "next/link";
 import { etapesDetail } from "@/lib/module-faire-un-site";
-import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
-import ModuleToolbox from "@/components/ModuleToolbox";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
-import { siteOverview } from "@/lib/module-overview-config";
 
 export const metadata = { title: "Module · Faire un site | The Vibe Experience" };
 
@@ -24,10 +20,8 @@ export default function Module() {
   return (
     <section className="etape-section">
       <MarkSelectedPath path="construire" />
-      <div className="etape-shell module-overview-shell">
-        <ModuleRail etapes={etapesDetail} currentSlug="" basePath="/module" moduleLabel="Faire un site" />
-
-        <div className="ecol module-overview-main">
+      <div className="module-overview-shell">
+        <div className="module-overview">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -59,17 +53,7 @@ export default function Module() {
 
           <div className="label mov-sec">Les étapes</div>
           <ModuleEtapes moduleKey="/module" basePath="/module" etapes={cards} />
-          <ModuleToolbox intro={siteOverview.intro} tools={siteOverview.tools} />
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/module"
-          basePath="/module"
-          etapes={cards}
-          facts={siteOverview.facts}
-          finishedHref={siteOverview.finishedHref}
-          finishedLabel={siteOverview.finishedLabel}
-        />
       </div>
     </section>
   );

@@ -3,13 +3,11 @@ import { notFound } from "next/navigation";
 import { etapesDetailDevis } from "@/lib/module-devis";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
 import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 import ModuleAfter from "@/components/ModuleAfter";
 import ModulePrerequisites from "@/components/ModulePrerequisites";
 import EtapeSummary from "@/components/EtapeSummary";
 import { quoteAfter } from "@/lib/module-after-config";
-import { quoteOverview } from "@/lib/module-overview-config";
 
 export function generateStaticParams() {
   return etapesDetailDevis.map((e) => ({ etape: e.slug }));
@@ -36,7 +34,7 @@ export default async function EtapeDevisPage({
 
   return (
     <section className="etape-section">
-      <div className="etape-shell etape-shell-with-context">
+      <div className="etape-shell">
         <ModuleRail
           etapes={etapesDetailDevis}
           currentSlug={e.slug}
@@ -128,20 +126,6 @@ export default async function EtapeDevisPage({
             )}
           </div>
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/automatiser-tes-devis"
-          basePath="/automatiser-tes-devis"
-          etapes={etapesDetailDevis.map(({ slug, num, titre, sous }) => ({
-            slug,
-            num,
-            titre,
-            sousCount: sous.length,
-          }))}
-          facts={quoteOverview.facts}
-          finishedHref={quoteOverview.finishedHref}
-          finishedLabel={quoteOverview.finishedLabel}
-        />
       </div>
     </section>
   );

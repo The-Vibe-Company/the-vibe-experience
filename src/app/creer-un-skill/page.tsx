@@ -1,12 +1,8 @@
 import Link from "next/link";
 import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
-import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
-import ModuleToolbox from "@/components/ModuleToolbox";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
-import { skillOverview } from "@/lib/module-overview-config";
 
 export const metadata = { title: "Module · Créer ton premier skill | The Vibe Experience" };
 
@@ -24,15 +20,8 @@ export default function ModuleSkill() {
   return (
     <section className="etape-section">
       <MarkSelectedPath path="construire" />
-      <div className="etape-shell module-overview-shell">
-        <ModuleRail
-          etapes={etapesDetailSkill}
-          currentSlug=""
-          basePath="/creer-un-skill"
-          moduleLabel="Créer ton premier skill"
-        />
-
-        <div className="ecol module-overview-main">
+      <div className="module-overview-shell">
+        <div className="module-overview">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -64,17 +53,7 @@ export default function ModuleSkill() {
 
           <div className="label mov-sec">Les étapes</div>
           <ModuleEtapes moduleKey="/creer-un-skill" basePath="/creer-un-skill" etapes={cards} />
-          <ModuleToolbox intro={skillOverview.intro} tools={skillOverview.tools} />
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/creer-un-skill"
-          basePath="/creer-un-skill"
-          etapes={cards}
-          facts={skillOverview.facts}
-          finishedHref={skillOverview.finishedHref}
-          finishedLabel={skillOverview.finishedLabel}
-        />
       </div>
     </section>
   );

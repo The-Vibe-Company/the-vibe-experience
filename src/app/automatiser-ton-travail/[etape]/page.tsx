@@ -3,13 +3,11 @@ import { notFound } from "next/navigation";
 import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
 import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 import EtapeNeeds from "@/components/EtapeNeeds";
 import EtapeSummary from "@/components/EtapeSummary";
 import ModuleAfter from "@/components/ModuleAfter";
 import { automationAfter } from "@/lib/module-after-config";
-import { automationOverview } from "@/lib/module-overview-config";
 
 export function generateStaticParams() {
   return etapesDetailAutomatisation.map((e) => ({ etape: e.slug }));
@@ -36,7 +34,7 @@ export default async function EtapeAutomatisationPage({
 
   return (
     <section className="etape-section">
-      <div className="etape-shell etape-shell-with-context">
+      <div className="etape-shell">
         <ModuleRail
           etapes={etapesDetailAutomatisation}
           currentSlug={e.slug}
@@ -133,20 +131,6 @@ export default async function EtapeAutomatisationPage({
             )}
           </div>
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/automatiser-ton-travail"
-          basePath="/automatiser-ton-travail"
-          etapes={etapesDetailAutomatisation.map(({ slug, num, titre, sous }) => ({
-            slug,
-            num,
-            titre,
-            sousCount: sous.length,
-          }))}
-          facts={automationOverview.facts}
-          finishedHref={automationOverview.finishedHref}
-          finishedLabel={automationOverview.finishedLabel}
-        />
       </div>
     </section>
   );

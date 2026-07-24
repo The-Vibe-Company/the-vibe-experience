@@ -1,12 +1,8 @@
 import Link from "next/link";
 import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
-import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
-import ModuleToolbox from "@/components/ModuleToolbox";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
-import { automationOverview } from "@/lib/module-overview-config";
 
 export const metadata = { title: "Module · Automatise ton travail | The Vibe Experience" };
 
@@ -24,15 +20,8 @@ export default function ModuleAutomatisation() {
   return (
     <section className="etape-section">
       <MarkSelectedPath path="construire" />
-      <div className="etape-shell module-overview-shell">
-        <ModuleRail
-          etapes={etapesDetailAutomatisation}
-          currentSlug=""
-          basePath="/automatiser-ton-travail"
-          moduleLabel="Automatise ton travail"
-        />
-
-        <div className="ecol module-overview-main">
+      <div className="module-overview-shell">
+        <div className="module-overview">
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
@@ -69,17 +58,7 @@ export default function ModuleAutomatisation() {
             basePath="/automatiser-ton-travail"
             etapes={cards}
           />
-          <ModuleToolbox intro={automationOverview.intro} tools={automationOverview.tools} />
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/automatiser-ton-travail"
-          basePath="/automatiser-ton-travail"
-          etapes={cards}
-          facts={automationOverview.facts}
-          finishedHref={automationOverview.finishedHref}
-          finishedLabel={automationOverview.finishedLabel}
-        />
       </div>
     </section>
   );

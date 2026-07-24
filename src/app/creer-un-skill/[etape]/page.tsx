@@ -3,13 +3,11 @@ import { notFound } from "next/navigation";
 import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
 import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 import EtapeNeeds from "@/components/EtapeNeeds";
 import EtapeSummary from "@/components/EtapeSummary";
 import ModuleAfter from "@/components/ModuleAfter";
 import { skillAfter } from "@/lib/module-after-config";
-import { skillOverview } from "@/lib/module-overview-config";
 
 export function generateStaticParams() {
   return etapesDetailSkill.map((e) => ({ etape: e.slug }));
@@ -32,7 +30,7 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
 
   return (
     <section className="etape-section">
-      <div className="etape-shell etape-shell-with-context">
+      <div className="etape-shell">
         <ModuleRail
           etapes={etapesDetailSkill}
           currentSlug={e.slug}
@@ -129,20 +127,6 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
             )}
           </div>
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/creer-un-skill"
-          basePath="/creer-un-skill"
-          etapes={etapesDetailSkill.map(({ slug, num, titre, sous }) => ({
-            slug,
-            num,
-            titre,
-            sousCount: sous.length,
-          }))}
-          facts={skillOverview.facts}
-          finishedHref={skillOverview.finishedHref}
-          finishedLabel={skillOverview.finishedLabel}
-        />
       </div>
     </section>
   );

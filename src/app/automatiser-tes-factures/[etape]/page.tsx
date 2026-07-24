@@ -3,13 +3,11 @@ import { notFound } from "next/navigation";
 import { etapesDetailFacture } from "@/lib/module-facture";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
 import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 import ModuleAfter from "@/components/ModuleAfter";
 import ModulePrerequisites from "@/components/ModulePrerequisites";
 import EtapeSummary from "@/components/EtapeSummary";
 import { invoiceAfter } from "@/lib/module-after-config";
-import { invoiceOverview } from "@/lib/module-overview-config";
 
 export function generateStaticParams() {
   return etapesDetailFacture.map((e) => ({ etape: e.slug }));
@@ -36,7 +34,7 @@ export default async function EtapeFacturePage({
 
   return (
     <section className="etape-section">
-      <div className="etape-shell etape-shell-with-context">
+      <div className="etape-shell">
         <ModuleRail
           etapes={etapesDetailFacture}
           currentSlug={e.slug}
@@ -128,20 +126,6 @@ export default async function EtapeFacturePage({
             )}
           </div>
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/automatiser-tes-factures"
-          basePath="/automatiser-tes-factures"
-          etapes={etapesDetailFacture.map(({ slug, num, titre, sous }) => ({
-            slug,
-            num,
-            titre,
-            sousCount: sous.length,
-          }))}
-          facts={invoiceOverview.facts}
-          finishedHref={invoiceOverview.finishedHref}
-          finishedLabel={invoiceOverview.finishedLabel}
-        />
       </div>
     </section>
   );
