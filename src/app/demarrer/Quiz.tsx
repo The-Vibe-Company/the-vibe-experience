@@ -4,6 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { questionFlow, computeReco, type Answers } from "@/lib/quiz";
 import { createClient } from "@/lib/supabase/client";
+import {
+  dismissQuizRecommendation,
+  saveQuizRecommendation,
+  syncJourneyState,
+} from "@/lib/journey-state";
 
 type SaveState = "idle" | "saving" | "saved" | "anon" | "error";
 
@@ -17,15 +22,14 @@ export default function Quiz() {
     if (!done) return;
     (async () => {
       const reco = computeReco(answers);
-      // On garde toujours la branche en local pour personnaliser le parcours,
-      // que la personne soit connectée ou non.
-      try {
-        localStorage.setItem(
-          "tve_quiz_reco",
-          JSON.stringify({ niveau: reco.niveau, objectif: reco.cible, branche: reco.branche }),
-        );
-        window.dispatchEvent(new CustomEvent("tve-path-choice"));
-      } catch {}
+      saveQuizRecommendation({
+        niveau: reco.niveau,
+        objectif: reco.cible,
+        branche: reco.branche,
+        moduleHref: reco.hero.cta?.href ?? null,
+        moduleTitle: reco.hero.titre,
+        updatedAt: new Date().toISOString(),
+      });
       const supabase = createClient();
       const {
         data: { user },
@@ -35,11 +39,12 @@ export default function Quiz() {
         return;
       }
       setSaveState("saving");
-      const { error } = await supabase
-        .from("profiles")
-        .update({ niveau: reco.niveau, objectif: reco.cible })
-        .eq("id", user.id);
-      setSaveState(error ? "error" : "saved");
+      try {
+        await syncJourneyState(user.id);
+        setSaveState("saved");
+      } catch {
+        setSaveState("error");
+      }
     })();
   }, [done, answers]);
 
@@ -61,22 +66,19 @@ export default function Quiz() {
     setSaveState("idle");
   }
 
-  // « Non » : on oublie la reco de branche et on va au parcours neutre, pour
-  // choisir soi-même son module (repasser le quiz n'a pas d'intérêt).
+  // La recommandation reste mémorisée, mais elle ne dirige plus la page des
+  // parcours si la personne préfère choisir elle-même.
   function chooseMyself() {
-    try {
-      const raw = localStorage.getItem("tve_quiz_reco");
-      if (raw) {
-        const r = JSON.parse(raw);
-        delete r.branche;
-        localStorage.setItem("tve_quiz_reco", JSON.stringify(r));
-      }
-    } catch {}
-    window.location.assign("/parcours");
+    void dismissQuizRecommendation().finally(() => {
+      window.location.assign("/parcours");
+    });
   }
 
   if (done) {
     const reco = computeReco(answers);
+    const targetHref = reco.hero.cta?.href ?? "/parcours";
+    const accountHref = `/inscription?next=${encodeURIComponent(targetHref)}`;
+    const hasReadyModule = Boolean(reco.hero.cta);
     return (
       <div className="quiz-result">
         <div className="reco-tag">Ta recommandation</div>
@@ -97,27 +99,40 @@ export default function Quiz() {
           </p>
         </div>
 
-        <div className="quiz-confirm">
-          <span className="quiz-confirm-q">Ça te va ?</span>
-          <Link href="/parcours" className="btn">
-            Oui, voir mon parcours →
-          </Link>
-          <button type="button" className="quiz-choose" onClick={chooseMyself}>
-            Non, je choisis moi-même →
-          </button>
-        </div>
+        {saveState === "anon" ? (
+          <div className="quiz-confirm">
+            <span className="quiz-confirm-q">Sauvegarde ton point de départ</span>
+            <p className="quiz-confirm-copy">
+              Sans compte, ton résultat et ta progression restent sur cet appareil. Avec un
+              compte, tu les retrouves partout.
+            </p>
+            <Link href={accountHref} className="btn">
+              {hasReadyModule
+                ? "Créer mon compte et commencer"
+                : "Créer mon compte et voir les modules"}{" "}
+              →
+            </Link>
+            <Link href={targetHref} className="quiz-choose">
+              {hasReadyModule ? "Continuer sans compte" : "Voir les modules disponibles"} →
+            </Link>
+            <button type="button" className="quiz-choose" onClick={chooseMyself}>
+              Choisir un autre module
+            </button>
+          </div>
+        ) : (
+          <div className="quiz-confirm">
+            <span className="quiz-confirm-q">Ton point de départ est prêt</span>
+            <Link href={targetHref} className="btn">
+              {reco.hero.cta?.label ?? "Voir les modules disponibles"} →
+            </Link>
+            <button type="button" className="quiz-choose" onClick={chooseMyself}>
+              Choisir un autre module
+            </button>
+          </div>
+        )}
 
         {saveState === "saved" && (
           <p className="quiz-saved">✓ Ton parcours est enregistré sur ton compte.</p>
-        )}
-        {saveState === "anon" && (
-          <div className="quiz-anon">
-            <div className="reco-tag">Garde ta progression</div>
-            <p>Crée ton compte pour sauvegarder ton parcours et reprendre là où tu t&apos;arrêtes.</p>
-            <Link href="/inscription" className="btn btn-ghost">
-              Créer mon compte
-            </Link>
-          </div>
         )}
         {saveState === "error" && (
           <p className="quiz-save-err">

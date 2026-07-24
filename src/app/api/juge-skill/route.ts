@@ -183,7 +183,7 @@ export async function POST(request: Request) {
       etape: "3",
       detail: descWhenOk
         ? undefined
-        : "ajoute quand ton skill doit se déclencher (par ex. « à utiliser quand… »)",
+        : "ajoute quand ton skill doit se déclencher, par exemple : « à utiliser quand je prépare un article »",
     },
     {
       key: "instructions",

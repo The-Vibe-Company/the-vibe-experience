@@ -2,7 +2,7 @@ import Link from "next/link";
 import Quiz from "./Quiz";
 import SkipQuizLink from "@/components/SkipQuizLink";
 
-export const metadata = { title: "Démarrer — The Vibe Experience" };
+export const metadata = { title: "Démarrer | The Vibe Experience" };
 
 export default function Demarrer() {
   return (

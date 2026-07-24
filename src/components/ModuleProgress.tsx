@@ -1,17 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useModuleProgress, computeStats, type EtapeLite } from "@/lib/progress";
+import {
+  computeStats,
+  substepAnchor,
+  useModuleProgress,
+  type EtapeLite,
+} from "@/lib/progress";
 
 // Progression et action principale de démarrage ou de reprise du module.
 export default function ModuleProgress({
   moduleKey,
   basePath,
   etapes,
+  completionHref,
+  completionLabel,
 }: {
   moduleKey: string;
   basePath: string;
   etapes: EtapeLite[];
+  completionHref?: string;
+  completionLabel?: string;
 }) {
   const { done, mounted, started } = useModuleProgress(moduleKey);
   if (!mounted) return null;
@@ -23,10 +32,11 @@ export default function ModuleProgress({
   let cta = "Commencer le module";
   let href = `${basePath}/${etapes[0]?.slug}`;
   if (stats.allDone) {
-    cta = "Revoir le module";
+    cta = completionLabel ?? "Revoir le module";
+    href = completionHref ?? href;
   } else if (t) {
-    href = `${basePath}/${t.etapeSlug}`;
-    if (stats.doneCount > 0) {
+    href = `${basePath}/${t.etapeSlug}#${substepAnchor(t.etapeSlug, t.subIndex)}`;
+    if (stats.started) {
       cta = `Reprendre à la sous-étape ${t.etapeNum}.${t.subIndex + 1}`;
     }
   }

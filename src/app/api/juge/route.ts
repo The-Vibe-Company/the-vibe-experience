@@ -277,6 +277,6 @@ export async function POST(request: Request) {
     message,
     // La fonctionnalité (comptes, formulaire) ne se vérifie pas d'une simple visite.
     aTesterToiMeme:
-      "Ta ou tes fonctionnalités (comptes, formulaire…) ne peuvent pas être vérifiées d'une simple visite. Teste-les toi-même de bout en bout sur ton lien en ligne, comme un vrai visiteur (étape 4).",
+      "Tes fonctionnalités, comme les comptes ou les formulaires, ne peuvent pas être vérifiées pendant une simple visite. Teste-les toi-même de bout en bout sur ton lien en ligne, comme un vrai visiteur (étape 4).",
   });
 }

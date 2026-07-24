@@ -1,38 +1,30 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-
-const links = [
-  { href: "/parcours", label: "Parcours" },
-  { href: "/journal", label: "Journal de bord" },
-  { href: "/ressources", label: "Ressources" },
-  { href: "/a-propos", label: "À propos" },
-  { href: "/compte", label: "Mon compte" },
-];
+import NavClient from "@/components/NavClient";
+import type { ProgressCatalog } from "@/components/ContinueLearningLink";
+import { etapesDetail } from "@/lib/module-faire-un-site";
+import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
+import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
+import { etapesDetailDevis } from "@/lib/module-devis";
+import { etapesDetailFacture } from "@/lib/module-facture";
 
 export default function Nav() {
-  const pathname = usePathname();
-  return (
-    <nav className="nav">
-      <div className="wrap nav-inner">
-        <div className="brand">
-          <Link href="/">The Vibe Experience</Link>
-        </div>
-        <div className="nav-links">
-          {links.map((l) => {
-            const active =
-              l.href === "/parcours"
-                ? pathname.startsWith("/parcours") || pathname.startsWith("/module")
-                : pathname.startsWith(l.href);
-            return (
-              <Link key={l.href} href={l.href} className={active ? "active" : ""}>
-                {l.label}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </nav>
+  const entries = {
+    "/module": etapesDetail,
+    "/creer-un-skill": etapesDetailSkill,
+    "/automatiser-ton-travail": etapesDetailAutomatisation,
+    "/automatiser-tes-devis": etapesDetailDevis,
+    "/automatiser-tes-factures": etapesDetailFacture,
+  };
+  const modules: ProgressCatalog = Object.fromEntries(
+    Object.entries(entries).map(([moduleKey, etapes]) => [
+      moduleKey,
+      etapes.map(({ slug, num, titre, sous }) => ({
+        slug,
+        num,
+        titre,
+        sousCount: sous.length,
+      })),
+    ]),
   );
+
+  return <NavClient modules={modules} />;
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import JugeSkillForm from "./JugeSkillForm";
 
-export const metadata = { title: "Le juge des skills — The Vibe Experience" };
+export const metadata = { title: "Le juge des skills | The Vibe Experience" };
 
 export default function JugeSkill() {
   return (

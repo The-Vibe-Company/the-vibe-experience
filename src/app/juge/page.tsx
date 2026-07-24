@@ -1,7 +1,7 @@
 import Link from "next/link";
 import JugeForm from "./JugeForm";
 
-export const metadata = { title: "Le juge — The Vibe Experience" };
+export const metadata = { title: "Le juge | The Vibe Experience" };
 
 export default function Juge() {
   return (

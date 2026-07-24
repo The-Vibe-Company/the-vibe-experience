@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { etapesDetailSkill } from "@/lib/module-creer-un-skill";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
+import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 
 export function generateStaticParams() {
   return etapesDetailSkill.map((e) => ({ etape: e.slug }));
@@ -35,7 +36,7 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
 
         <div className="ecol ecol-with-side">
           <div className="crumb">
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <Link href="/creer-un-skill">Créer ton premier skill</Link>
             <span className="sep">/</span>
@@ -61,6 +62,20 @@ export default async function EtapeSkillPage({ params }: { params: Promise<{ eta
             moduleKey="/creer-un-skill"
             etapeSlug={e.slug}
             etapeNum={e.num}
+            nextStep={
+              next
+                ? { href: `/creer-un-skill/${next.slug}`, slug: next.slug, num: next.num }
+                : undefined
+            }
+          />
+          <SaveProgressPrompt
+            moduleKey="/creer-un-skill"
+            currentHref={`/creer-un-skill/${e.slug}`}
+            etapeSlug={e.slug}
+            substepCount={e.sous.length}
+            nextStep={
+              next ? { href: `/creer-un-skill/${next.slug}`, slug: next.slug } : undefined
+            }
           />
 
           <div className="livret">

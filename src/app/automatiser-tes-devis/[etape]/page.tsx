@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { etapesDetailDevis } from "@/lib/module-devis";
 import SousEtapes from "@/components/SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
+import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 
 export function generateStaticParams() {
   return etapesDetailDevis.map((e) => ({ etape: e.slug }));
@@ -39,7 +40,7 @@ export default async function EtapeDevisPage({
 
         <div className="ecol ecol-with-side">
           <div className="crumb">
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <Link href="/automatiser-tes-devis">Automatise tes devis</Link>
             <span className="sep">/</span>
@@ -65,6 +66,20 @@ export default async function EtapeDevisPage({
             moduleKey="/automatiser-tes-devis"
             etapeSlug={e.slug}
             etapeNum={e.num}
+            nextStep={
+              next
+                ? { href: `/automatiser-tes-devis/${next.slug}`, slug: next.slug, num: next.num }
+                : undefined
+            }
+          />
+          <SaveProgressPrompt
+            moduleKey="/automatiser-tes-devis"
+            currentHref={`/automatiser-tes-devis/${e.slug}`}
+            etapeSlug={e.slug}
+            substepCount={e.sous.length}
+            nextStep={
+              next ? { href: `/automatiser-tes-devis/${next.slug}`, slug: next.slug } : undefined
+            }
           />
 
           <div className="livret">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export const metadata = { title: "À propos — The Vibe Experience" };
+export const metadata = { title: "À propos | The Vibe Experience" };
 
 export default function APropos() {
   return (
@@ -25,9 +25,9 @@ export default function APropos() {
             zéro.
           </p>
           <p className="ap-p">
-            Je regardais les développeurs comme s&apos;ils parlaient une autre langue. Et puis
-            j&apos;ai commencé à construire avec l&apos;IA. Pas à apprendre le code dans un livre, à
-            construire de vraies choses, en discutant avec une IA comme je te parle là.
+            Je regardais les développeurs comme s&apos;ils parlaient une autre langue. Je n&apos;ai
+            pas appris le code dans un livre. J&apos;ai commencé à construire de vraies choses en
+            discutant avec une IA, comme je te parle là.
           </p>
           <p className="ap-p">
             Mon premier site est sorti en quelques heures. Ça a tout changé dans ma tête : ce qui me
@@ -61,8 +61,8 @@ export default function APropos() {
             <span>
               <span className="ap-ptitle">On apprend en construisant</span>
               <p className="ap-ptext">
-                Pas de théorie hors-sol. Tu builds une vraie chose dès le premier jour, et tu repars
-                avec quelque chose en ligne.
+                Pas de théorie hors-sol. Tu construis quelque chose de réel dès le premier jour, et
+                tu repars avec un résultat en ligne.
               </p>
             </span>
           </div>
@@ -71,8 +71,8 @@ export default function APropos() {
             <span>
               <span className="ap-ptitle">On construit en public</span>
               <p className="ap-ptext">
-                Je montre ce qui rate autant que ce qui marche. Le build in public, sans filtre,
-                parce que c&apos;est là qu&apos;on apprend vraiment.
+                Je montre ce qui rate autant que ce qui marche. Je partage le travail en public,
+                sans filtre, parce que c&apos;est là qu&apos;on apprend vraiment.
               </p>
             </span>
           </div>
@@ -82,7 +82,7 @@ export default function APropos() {
               <span className="ap-ptitle">Gratuit et ouvert</span>
               <p className="ap-ptext">
                 Ce que j&apos;ai fait, tu peux le refaire. Le parcours est pensé pour ça : gratuit,
-                ouvert, et fait pour les non-tech.
+                ouvert, et fait pour les personnes qui ne viennent pas de la tech.
               </p>
             </span>
           </div>
