@@ -35,7 +35,7 @@ export default function ModuleEtapes({
     <div className="metapes">
       {etapes.map((e, idx) => {
         const es = stats.etapes[idx];
-        const isCurrent = mounted && e.slug === currentSlug;
+        const isCurrent = mounted && stats.started && e.slug === currentSlug;
         return (
           <Link
             className={`met-row ${isCurrent ? "cur" : ""} ${es.complete ? "fait" : ""}`}

@@ -1,8 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { SousEtape } from "@/lib/module-faire-un-site";
-import { useModuleProgress, sousId } from "@/lib/progress";
+import {
+  sousId,
+  substepAnchor,
+  useMarkModuleStarted,
+  useModuleProgress,
+} from "@/lib/progress";
 import CopyButton from "@/components/CopyButton";
 import SkillInstallCopyButton from "@/components/SkillInstallCopyButton";
 
@@ -61,22 +67,56 @@ export default function SousEtapes({
   moduleKey,
   etapeSlug,
   etapeNum,
+  nextStep,
 }: {
   sous: SousEtape[];
   detailPret: boolean;
   moduleKey: string;
   etapeSlug: string;
   etapeNum: string;
+  nextStep?: { href: string; slug: string; num: string };
 }) {
+  const router = useRouter();
   const { isDone, setDone, mounted } = useModuleProgress(moduleKey);
   const [open, setOpen] = useState<number | null>(null); // tout fermé au départ
+  useMarkModuleStarted(moduleKey);
+
+  useEffect(() => {
+    const openFromHash = () => {
+      const prefix = `#sous-etape-${etapeSlug}-`;
+      if (!window.location.hash.startsWith(prefix)) return;
+      const index = Number(window.location.hash.slice(prefix.length)) - 1;
+      if (index < 0 || index >= sous.length) return;
+      setOpen(index);
+      window.requestAnimationFrame(() => {
+        document.getElementById(substepAnchor(etapeSlug, index))?.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth",
+          block: "start",
+        });
+      });
+    };
+
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [etapeSlug, sous.length]);
 
   // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
   const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
 
   return (
-    <div className="se-list">
-      {sous.map((s, i) => {
+    <>
+      <p className="substeps-help">
+        <span className="substeps-help-check" aria-hidden>
+          ✓
+        </span>
+        Valide chaque sous-étape quand tu l&apos;as terminée. Ta progression sera sauvegardée et la
+        suivante s&apos;ouvrira automatiquement.
+      </p>
+      <div className="se-list">
+        {sous.map((s, i) => {
         const id = sousId(etapeSlug, i);
         const done = mounted && isDone(id);
         const isOpen = open === i;
@@ -92,6 +132,7 @@ export default function SousEtapes({
         return (
           <div
             className={`se-item ${isOpen ? "open" : ""} ${open === null && i === currentIdx ? "active-collapsed" : ""}`}
+            id={substepAnchor(etapeSlug, i)}
             key={i}
           >
             <div className="se-row">
@@ -102,7 +143,7 @@ export default function SousEtapes({
                 aria-pressed={done}
                 onClick={() => setDone(id, !done)}
               >
-                {done ? "✓" : ""}
+                <span className={done ? "" : "se-check-preview"}>✓</span>
               </button>
               <button className="se-head" onClick={() => setOpen(isOpen ? null : i)}>
                 <span className="se-num">{label}</span>
@@ -250,10 +291,32 @@ export default function SousEtapes({
                           className="btn se-done"
                           onClick={() => {
                             setDone(id, true);
-                            if (!isLast) setOpen(i + 1);
+                            if (!isLast) {
+                              setOpen(i + 1);
+                              window.requestAnimationFrame(() => {
+                                document
+                                  .getElementById(substepAnchor(etapeSlug, i + 1))
+                                  ?.scrollIntoView({
+                                    behavior: window.matchMedia(
+                                      "(prefers-reduced-motion: reduce)",
+                                    ).matches
+                                      ? "auto"
+                                      : "smooth",
+                                    block: "center",
+                                  });
+                              });
+                            } else if (nextStep) {
+                              router.push(
+                                `${nextStep.href}#${substepAnchor(nextStep.slug, 0)}`,
+                              );
+                            }
                           }}
                         >
-                          {isLast ? "Fait, étape terminée ✓" : `Fait, je passe à la ${etapeNum}.${i + 2} →`}
+                          {isLast
+                            ? nextStep
+                              ? `Valider et passer à l’étape ${nextStep.num} →`
+                              : "Valider et terminer le module ✓"
+                            : `Valider et passer à la ${etapeNum}.${i + 2} →`}
                         </button>
                       )}
                     </div>
@@ -294,8 +357,9 @@ export default function SousEtapes({
               </div>
             )}
           </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 }

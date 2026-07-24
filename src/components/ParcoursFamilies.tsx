@@ -33,6 +33,7 @@ function ModuleRow({
   desc,
   idleStatus,
   starter = false,
+  recommended = false,
 }: {
   moduleKey: string;
   href: string;
@@ -40,6 +41,7 @@ function ModuleRow({
   desc: string;
   idleStatus: string;
   starter?: boolean;
+  recommended?: boolean;
 }) {
   const { done, mounted } = useModuleProgress(moduleKey);
   const etapes: EtapeDetail[] =
@@ -61,8 +63,8 @@ function ModuleRow({
   const stats = computeStats(lite, mounted ? done : []);
   const cur = mounted && stats.doneCount > 0 && !stats.allDone;
 
-  let status = starter ? "Commence ici →" : idleStatus;
-  let statusClass = starter ? " cur" : "";
+  let status = starter || recommended ? "Commence ici →" : idleStatus;
+  let statusClass = starter || recommended ? " cur" : "";
   if (mounted && stats.allDone) {
     status = "✓ Terminé";
     statusClass = " done";
@@ -84,6 +86,7 @@ function ModuleRow({
 
 export default function ParcoursFamilies() {
   const [reco, setReco] = useState<Branche | null>(null);
+  const [recommendedHref, setRecommendedHref] = useState<string | null>(null);
   const [quizFait, setQuizFait] = useState(false);
   const moduleStarted = useAnyModuleStarted();
 
@@ -99,14 +102,17 @@ export default function ParcoursFamilies() {
 
         if (moduleStarted.started) {
           setReco(null);
-          if (r.branche) {
-            delete r.branche;
-            localStorage.setItem("tve_quiz_reco", JSON.stringify(r));
-          }
+          setRecommendedHref(null);
           return;
         }
 
-        if (r.branche === "construire" || r.branche === "automatiser") setReco(r.branche);
+        if (
+          !r.dismissed &&
+          (r.branche === "construire" || r.branche === "automatiser")
+        ) {
+          setReco(r.branche);
+          setRecommendedHref(typeof r.moduleHref === "string" ? r.moduleHref : null);
+        }
       } catch {}
     });
   }, [moduleStarted.started]);
@@ -114,11 +120,12 @@ export default function ParcoursFamilies() {
   // « Pas convaincu ? » : on retire le conseil, l'utilisateur choisit seul.
   const ignorerConseil = () => {
     setReco(null);
+    setRecommendedHref(null);
     try {
       const raw = localStorage.getItem("tve_quiz_reco");
       if (raw) {
         const r = JSON.parse(raw);
-        delete r.branche;
+        r.dismissed = true;
         localStorage.setItem("tve_quiz_reco", JSON.stringify(r));
       }
     } catch {}
@@ -165,6 +172,7 @@ export default function ParcoursFamilies() {
               desc="De ton idée à sa mise en ligne : tu construis ton propre site en découvrant les outils au bon moment."
               idleStatus="Commence ici →"
               starter
+              recommended={recommendedHref === "/module"}
             />
             <ModuleRow
               moduleKey="/creer-un-skill"
@@ -172,13 +180,15 @@ export default function ParcoursFamilies() {
               title="Créer ton premier skill"
               desc="Tu as utilisé des skills tout faits ; celui-ci t'apprend à fabriquer le tien, réutilisable dans ton prochain produit."
               idleStatus="Après le module 1"
+              recommended={recommendedHref === "/creer-un-skill"}
             />
             <ModuleRow
               moduleKey="/automatiser-ton-travail"
               href="/automatiser-ton-travail"
               title="Automatise ton travail"
               desc="Des sauvegardes, des garde-fous et des rendez-vous qui se déclenchent au bon moment."
-              idleStatus="En préparation"
+              idleStatus="Disponible"
+              recommended={recommendedHref === "/automatiser-ton-travail"}
             />
           </>,
         )}
@@ -193,14 +203,16 @@ export default function ParcoursFamilies() {
               href="/automatiser-tes-devis"
               title="Automatise tes devis"
               desc="« Devis pour Madame Martin : chauffe-eau, 980 euros », et le devis conforme sort, numéroté, prêt en PDF. Un skill offert."
-              idleStatus="En écriture"
+              idleStatus="Disponible"
+              recommended={recommendedHref === "/automatiser-tes-devis"}
             />
             <ModuleRow
               moduleKey="/automatiser-tes-factures"
               href="/automatiser-tes-factures"
               title="Automatise tes factures"
               desc="Ton devis signé devient facture en une phrase : acompte, solde, avoir. Un skill offert, compagnon du skill devis."
-              idleStatus="En écriture"
+              idleStatus="Disponible"
+              recommended={recommendedHref === "/automatiser-tes-factures"}
             />
             {businessSoon.map((m) => (
               <div className="pcat-row soon" key={m.titre}>

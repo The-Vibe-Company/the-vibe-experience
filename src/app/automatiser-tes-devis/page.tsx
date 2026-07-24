@@ -37,13 +37,13 @@ export default function ModuleDevis() {
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <span>Automatise tes devis</span>
           </div>
 
           <ModuleOverviewIntro
-            eyebrow="Module · Résultat · En écriture"
+            eyebrow="Module · Résultat"
             title={<>Automatise tes devis, <em>une phrase, un devis conforme</em>.</>}
             meta="5 étapes · ≈ 35 min (dont 10 de setup, une seule fois) · Débutant"
           >

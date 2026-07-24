@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "./LogoutButton";
-import ApplyPendingReco from "./ApplyPendingReco";
 import ChangePassword from "./ChangePassword";
 import AccountPathActions from "@/components/AccountPathActions";
 
@@ -26,7 +25,6 @@ export default async function Compte() {
 
   return (
     <div className="nwrap">
-      <ApplyPendingReco hasProfile={!!profile?.niveau} />
       <div className="label">Mon compte</div>
       <h1 className="pg-h1">Ton compte.</h1>
       <p className="pg-lead">

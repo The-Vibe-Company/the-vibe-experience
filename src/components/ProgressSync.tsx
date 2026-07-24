@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { hydrateFromServer, stopSync } from "@/lib/progress";
+import { syncJourneyState } from "@/lib/journey-state";
 
 // Monté une fois dans le layout. Quand un compte est connecté (au chargement ou après un login),
 // il réconcilie la progression locale avec celle du compte, puis laisse progress.ts pousser chaque
@@ -12,7 +13,10 @@ export default function ProgressSync() {
     const supabase = createClient();
     // onAuthStateChange émet aussi la session initiale au montage : ça couvre le chargement direct.
     const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.user) void hydrateFromServer(session.user.id);
+      if (session?.user) {
+        void hydrateFromServer(session.user.id);
+        void syncJourneyState(session.user.id);
+      }
       else if (event === "SIGNED_OUT") stopSync();
     });
     return () => sub.subscription.unsubscribe();

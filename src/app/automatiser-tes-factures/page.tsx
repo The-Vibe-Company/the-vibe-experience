@@ -37,13 +37,13 @@ export default function ModuleFacture() {
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <span>Automatise tes factures</span>
           </div>
 
           <ModuleOverviewIntro
-            eyebrow="Module · Résultat · En écriture"
+            eyebrow="Module · Résultat"
             title={<>Automatise tes factures, <em>ton devis signé devient facture</em>.</>}
             meta="5 étapes · ≈ 30 min (setup compris, une seule fois) · Débutant"
           >

@@ -31,7 +31,7 @@ export default function Module() {
           <div className="crumb">
             <Link href="/">Accueil</Link>
             <span className="sep">/</span>
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <span>Faire un site</span>
           </div>

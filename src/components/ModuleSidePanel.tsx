@@ -1,7 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { computeStats, useModuleProgress, type EtapeLite } from "@/lib/progress";
+import {
+  computeStats,
+  substepAnchor,
+  useModuleProgress,
+  type EtapeLite,
+} from "@/lib/progress";
 
 type SideItem = {
   label: string;
@@ -26,7 +31,7 @@ export default function ModuleSidePanel({
   const { done, mounted, started: moduleStarted } = useModuleProgress(moduleKey);
   const stats = computeStats(etapes, mounted ? done : [], mounted && moduleStarted);
   const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
-  const started = mounted && stats.doneCount > 0;
+  const started = mounted && stats.started;
   const prerequisites = (
     <Link href={`${basePath}/${etapes[0]?.slug}#ce-quil-te-faut`}>
       Ce qu&apos;il te faut sous la main →
@@ -57,7 +62,13 @@ export default function ModuleSidePanel({
     return (
       <aside className="module-side" aria-label="Où tu en es dans le module">
         <span className="erail-cap module-side-cap">Où tu en es</span>
-        <Link className="module-side-next" href={`${basePath}/${current.etapeSlug}`}>
+        <Link
+          className="module-side-next"
+          href={`${basePath}/${current.etapeSlug}#${substepAnchor(
+            current.etapeSlug,
+            current.subIndex,
+          )}`}
+        >
           <span>Prochaine action</span>
           <strong>
             Reprendre à la sous-étape {current.etapeNum}.{current.subIndex + 1} →

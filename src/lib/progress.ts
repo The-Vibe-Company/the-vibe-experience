@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useSyncExternalStore } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { readActiveModule, syncActiveModule } from "@/lib/journey-state";
 
 // Progression d'un module, au niveau SOUS-étape.
 // Source immédiate : le navigateur (localStorage), pour que ça marche tout de suite, même sans compte.
@@ -133,9 +134,11 @@ export function hasAnyModuleStarted() {
 export function markModuleStarted(moduleKey: string) {
   const s = read();
   const cur = s[moduleKey] ?? { done: [] };
-  if (cur.started) return;
-  s[moduleKey] = { ...cur, done: cur.done ?? [], started: true };
-  write(s);
+  if (!cur.started) {
+    s[moduleKey] = { ...cur, done: cur.done ?? [], started: true };
+    write(s);
+  }
+  void syncActiveModule(moduleKey, authedUserId);
 }
 
 export function useAnyModuleStarted() {
@@ -145,6 +148,11 @@ export function useAnyModuleStarted() {
     () => "",
   );
   return { started: snapshot === "1", mounted: snapshot !== "" };
+}
+
+export function useActiveModule() {
+  const moduleKey = useSyncExternalStore(subscribeProgress, readActiveModule, () => "");
+  return { moduleKey, mounted: typeof window !== "undefined" };
 }
 
 export function useMarkModuleStarted(moduleKey: string) {
@@ -195,6 +203,10 @@ export function useModuleProgress(moduleKey: string) {
     setDone: setDoneState,
     toggle,
   };
+}
+
+export function substepAnchor(etapeSlug: string, subIndex: number) {
+  return `sous-etape-${etapeSlug}-${subIndex + 1}`;
 }
 
 // Structure minimale d'un module pour calculer les stats de progression.

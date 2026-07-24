@@ -4,6 +4,7 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import SousEtapes from "./SousEtapes";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
+import SaveProgressPrompt from "@/components/SaveProgressPrompt";
 import EtapeNeeds from "@/components/EtapeNeeds";
 import EtapeSummary from "@/components/EtapeSummary";
 import ModuleAfter from "@/components/ModuleAfter";
@@ -41,7 +42,7 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
 
         <div className="ecol">
           <div className="crumb">
-            <Link href="/parcours">Modules</Link>
+            <Link href="/parcours">Parcours</Link>
             <span className="sep">/</span>
             <Link href="/module">Faire un site</Link>
             <span className="sep">/</span>
@@ -69,6 +70,20 @@ export default async function EtapePage({ params }: { params: Promise<{ etape: s
               moduleKey="/module"
               etapeSlug={e.slug}
               etapeNum={e.num}
+              nextStep={
+                next
+                  ? { href: `/module/${next.slug}`, slug: next.slug, num: next.num }
+                  : undefined
+              }
+            />
+            <SaveProgressPrompt
+              moduleKey="/module"
+              currentHref={`/module/${e.slug}`}
+              etapeSlug={e.slug}
+              substepCount={e.sous.length}
+              nextStep={
+                next ? { href: `/module/${next.slug}`, slug: next.slug } : undefined
+              }
             />
           </section>
 

@@ -26,11 +26,11 @@ export default async function Home() {
           avec l&apos;IA, et comment tu peux faire la même chose.
         </p>
         <div className="hcta">
-          <Link href="/inscription" className="btn">
-            Crée ton compte gratuit
+          <Link href="/demarrer" className="btn">
+            Trouver mon point de départ
           </Link>
-          <Link href="/demarrer" className="hcta-link">
-            Ou passe le quiz d&apos;orientation (2 min) →
+          <Link href="/parcours" className="hcta-link">
+            Choisir sans quiz →
           </Link>
         </div>
       </section>
@@ -89,11 +89,11 @@ export default async function Home() {
           tourne sur ta machine.
         </p>
         <div className="hcta">
-          <Link href="/inscription" className="btn">
-            Créer mon compte
+          <Link href="/demarrer" className="btn">
+            Faire le quiz d&apos;orientation
           </Link>
           <Link href="/parcours" className="hcta-link">
-            Découvrir le parcours →
+            Voir tous les modules →
           </Link>
         </div>
       </section>
