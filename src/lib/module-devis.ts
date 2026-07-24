@@ -23,41 +23,11 @@ const F = {
 // Ce qu'il faut avoir sous la main AVANT de commencer, listé sur la page du
 // module : la personne rassemble tout une fois, puis déroule sans être coupée.
 export const prerequisDevis: Prerequis[] = [
-  {
-    quoi: "Ton SIRET",
-    niveau: "obligatoire",
-    ou: "Sur ton extrait d'immatriculation, ou en cherchant le nom de ton entreprise sur annuaire-entreprises.data.gouv.fr.",
-  },
-  {
-    quoi: "Ta situation TVA",
-    niveau: "obligatoire",
-    ou: "Tu la factures, ou tu es en franchise (le cas de beaucoup d'auto-entrepreneurs). Si tu la factures, ton taux habituel et ton numéro de TVA.",
-  },
-  {
-    quoi: "Ton adresse d'entreprise",
-    niveau: "obligatoire",
-    ou: "Celle qui doit apparaître sur tes devis, telle que tu l'écris.",
-  },
-  {
-    quoi: "Ton attestation d'assurance décennale",
-    niveau: "obligatoire",
-    ou: "Uniquement si tu es artisan du bâtiment : assureur, coordonnées, zone couverte. C'est une mention obligatoire sur chaque devis.",
-  },
-  {
-    quoi: "Le numéro de ton dernier devis",
-    niveau: "conseille",
-    ou: "Si tu en as déjà fait, écrit exactement comme tu l'écris (par exemple 2026-014). Le skill reprendra la suite au même format.",
-  },
-  {
-    quoi: "Ton capital social et ta ville de RCS",
-    niveau: "conseille",
-    ou: "Uniquement si tu es en société : tout est sur ton Kbis.",
-  },
-  {
-    quoi: "Ton logo, ton IBAN, ton téléphone",
-    niveau: "conseille",
-    ou: "Facultatifs, mais ils rendent tes devis plus pros. Le logo se glisse directement dans la fenêtre de Claude Code.",
-  },
+  { quoi: "Ton SIRET, ton adresse et ta situation TVA" },
+  { quoi: "Le numéro de ton dernier devis (si tu en as un)" },
+  { quoi: "Ton attestation décennale (si tu es artisan du bâtiment)" },
+  { quoi: "Ton capital social et ta ville de RCS (si tu es en société)" },
+  { quoi: "Ton logo, ton IBAN et ton téléphone (facultatif)" },
 ];
 
 export const etapesDetailDevis: EtapeDetail[] = [

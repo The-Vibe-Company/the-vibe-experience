@@ -20,7 +20,8 @@ export type SousEtape = {
   exemples?: string[];
   outils?: Fiche[];
   // Ce qu'il faut avoir sous la main pour faire le module : un compte, une carte,
-  // des papiers. Porté par la première sous-étape, puis affiché juste avant 0.1.
+  // des papiers. Vit dans la sous-étape qui présente les outils (0.1), au même
+  // endroit que le reste du matériel nécessaire.
   prerequis?: Prerequis[];
   prompt?: string;
   ceQueTuDoisVoir?: string;
@@ -33,10 +34,9 @@ export type SousEtape = {
   conseil?: string;
 };
 
-// Ce qu'il faut avoir sous la main AVANT de commencer un module : un compte, une
-// carte, des papiers. Listé sur la page du module, avant les étapes, et rappelé
-// depuis le panneau latéral. « obligatoire » = sans ça on se fait couper en route.
-export type Prerequis = { quoi: string; niveau: "obligatoire" | "conseille"; ou: string };
+// Checklist courte de ce qu'il faut avoir sous la main avant de commencer.
+// Les explications vivent dans le déroulé du module, pas dans ce rappel.
+export type Prerequis = { quoi: string };
 
 export type EtapeDetail = {
   slug: string;
@@ -63,31 +63,10 @@ const F = {
 };
 
 export const prerequisSite: Prerequis[] = [
-  {
-    quoi: "Un moyen de paiement",
-    niveau: "obligatoire",
-    ou: "L'abonnement Claude Pro (environ 20 € par mois) est indispensable : le plan gratuit ne donne pas accès à Claude Code. Prépare ta carte, tu la sortiras à l'étape 0.",
-  },
-  {
-    quoi: "Une adresse email que tu peux consulter",
-    niveau: "obligatoire",
-    ou: "Trois services t'enverront un lien de confirmation à cliquer : Claude, GitHub à l'étape 2, et Supabase à l'étape 4 si tu ajoutes des comptes. Un email non confirmé bloque la suite.",
-  },
-  {
-    quoi: "Une idée de sujet pour ton site",
-    niveau: "obligatoire",
-    ou: "Ton activité, une passion, une idée en tête. Résumable en une phrase. On la choisit ensemble à l'étape 1, mais y avoir pensé avant fait gagner du temps.",
-  },
-  {
-    quoi: "Deux ou trois heures devant toi",
-    niveau: "conseille",
-    ou: "Le module se fait très bien en plusieurs fois, et l'étape 2 explique comment reprendre. Mais les deux premières étapes s'enchaînent mieux d'une traite.",
-  },
-  {
-    quoi: "Des images ou un logo",
-    niveau: "conseille",
-    ou: "Si tu en as. Ils serviront à l'étape 3, quand ton site prendra son identité. Sinon, ce n'est pas bloquant du tout.",
-  },
+  { quoi: "Une carte bancaire" },
+  { quoi: "Une adresse email valide" },
+  { quoi: "Une idée pour ton site" },
+  { quoi: "Des images ou un logo (facultatif)" },
 ];
 
 export const etapesDetail: EtapeDetail[] = [

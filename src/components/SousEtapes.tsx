@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { SousEtape } from "@/lib/module-faire-un-site";
 import { useModuleProgress, sousId } from "@/lib/progress";
 import CopyButton from "@/components/CopyButton";
@@ -55,14 +55,6 @@ function GuidanceParagraphs({ text }: { text: string }) {
   );
 }
 
-function containsSideNotes(sousEtape: SousEtape) {
-  return Boolean(
-    (sousEtape.exemples && sousEtape.exemples.length > 0) ||
-      sousEtape.monExemple ||
-      sousEtape.conseil,
-  );
-}
-
 export default function SousEtapes({
   sous,
   detailPret,
@@ -78,13 +70,25 @@ export default function SousEtapes({
 }) {
   const { isDone, setDone, mounted } = useModuleProgress(moduleKey);
   const [open, setOpen] = useState<number | null>(null); // tout fermé au départ
+  const prerequisitesIndex = sous.findIndex((s) => s.prerequis && s.prerequis.length > 0);
+
+  useEffect(() => {
+    const revealPrerequisites = () => {
+      if (window.location.hash === "#prerequis" && prerequisitesIndex >= 0) {
+        setOpen(prerequisitesIndex);
+      }
+    };
+
+    revealPrerequisites();
+    window.addEventListener("hashchange", revealPrerequisites);
+    return () => window.removeEventListener("hashchange", revealPrerequisites);
+  }, [prerequisitesIndex]);
 
   // Sous-étape courante (première non faite) : sert de repère quand tout est replié.
   const currentIdx = mounted ? sous.findIndex((_, i) => !isDone(sousId(etapeSlug, i))) : -1;
-  const openHasSideNotes = open !== null && containsSideNotes(sous[open]);
 
   return (
-    <div className={`se-list ${openHasSideNotes ? "has-open-side" : ""}`}>
+    <div className="se-list">
       {sous.map((s, i) => {
         const id = sousId(etapeSlug, i);
         const done = mounted && isDone(id);
@@ -92,13 +96,19 @@ export default function SousEtapes({
         const label = `${etapeNum}.${i + 1}`;
         const panelId = `sous-etape-${etapeSlug}-${i}`;
         const isLast = i === sous.length - 1;
-        // Le panneau de droite n'existe que s'il a quelque chose à apporter en
-        // plus de la colonne principale : conseil, exemples, vécu. La durée et
-        // « ce qu'on attend » sont déjà dans la colonne principale.
-        const hasSideNotes = containsSideNotes(s);
+        // Le panneau de droite regroupe les informations d'accompagnement :
+        // préparation, conseil, exemples et vécu. La durée et « ce qu'on
+        // attend » restent dans le flux principal.
+        const hasSideNotes = Boolean(
+          (s.prerequis && s.prerequis.length > 0) ||
+            (s.exemples && s.exemples.length > 0) ||
+            s.monExemple ||
+            s.conseil,
+        );
 
         return (
           <div
+            id={i === prerequisitesIndex ? "prerequis" : undefined}
             className={`se-item ${isOpen ? "open" : ""} ${open === null && i === currentIdx ? "active-collapsed" : ""}`}
             key={i}
           >
@@ -279,7 +289,23 @@ export default function SousEtapes({
                     </div>
 
                     {hasSideNotes && (
-                      <aside className="se-aside" aria-label="Exemples et conseils">
+                      <aside
+                        className="se-aside"
+                        aria-label="Préparation, exemples et conseils"
+                      >
+                        {s.prerequis && s.prerequis.length > 0 && (
+                          <div className="se-block">
+                            <span className="se-l">Ce qu&apos;il te faut sous la main</span>
+                            <ul className="se-ex">
+                              {s.prerequis.map((p) => (
+                                <li key={p.quoi}>
+                                  <span className="se-dash">-</span>
+                                  <span>{p.quoi}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                         {s.conseil && (
                           <div className="se-block">
                             <span className="se-l">Conseil</span>

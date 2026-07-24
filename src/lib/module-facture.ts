@@ -23,36 +23,11 @@ const F = {
 // module. Deux cas très différents : avec le skill devis déjà configuré, il ne
 // reste presque rien à sortir ; sans lui, c'est la liste complète.
 export const prerequisFacture: Prerequis[] = [
-  {
-    quoi: "Ton IBAN",
-    niveau: "obligatoire",
-    ou: "Tes clients doivent savoir où payer. Il apparaîtra sur chaque facture.",
-  },
-  {
-    quoi: "Ton délai de paiement habituel",
-    niveau: "obligatoire",
-    ou: "30 jours, 45 jours, paiement à réception… C'est lui qui fixe l'échéance affichée.",
-  },
-  {
-    quoi: "Le numéro de ta dernière facture",
-    niveau: "obligatoire",
-    ou: "Si tu en as déjà émis, écrit exactement comme tu l'écris. Ta numérotation doit se suivre sans trou, c'est la loi : ne devine pas, regarde ta dernière facture.",
-  },
-  {
-    quoi: "Ton SIRET, ton adresse, ta situation TVA",
-    niveau: "obligatoire",
-    ou: "Seulement si tu n'as pas déjà le skill devis. Avec lui, tout est récupéré automatiquement et tu ne redonnes rien.",
-  },
-  {
-    quoi: "Ton attestation d'assurance décennale",
-    niveau: "conseille",
-    ou: "Uniquement si tu es artisan du bâtiment, et seulement si tu n'as pas déjà le skill devis : la mention est obligatoire sur tes factures aussi.",
-  },
-  {
-    quoi: "Le numéro d'un devis accepté",
-    niveau: "conseille",
-    ou: "Pour essayer le cas le plus parlant dès la première facture : le devis signé qui devient facture sans rien ressaisir.",
-  },
+  { quoi: "Ton IBAN et ton délai de paiement habituel" },
+  { quoi: "Le numéro de ta dernière facture (si tu en as une)" },
+  { quoi: "Ton SIRET, ton adresse et ta situation TVA (sans le skill devis)" },
+  { quoi: "Ton attestation décennale (si tu es artisan du bâtiment)" },
+  { quoi: "Le numéro d'un devis accepté (facultatif)" },
 ];
 
 export const etapesDetailFacture: EtapeDetail[] = [

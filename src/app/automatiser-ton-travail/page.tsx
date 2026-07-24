@@ -4,9 +4,7 @@ import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
 import ModuleSidePanel from "@/components/ModuleSidePanel";
-import { ModuleOverviewIntro } from "@/components/ModuleIntro";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
-import { automationOverview } from "@/lib/module-overview-config";
 
 export const metadata = { title: "Module · Automatise ton travail — The Vibe Experience" };
 
@@ -41,16 +39,19 @@ export default function ModuleAutomatisation() {
             <span>Automatise ton travail</span>
           </div>
 
-          <ModuleOverviewIntro
-            eyebrow="Module · Savoir-faire · En écriture"
-            title={<>Automatise ton travail, <em>ce qui se répète se fait tout seul</em>.</>}
-            meta="5 étapes · ≈ 2 h à 2 h 45 · Débutant"
-          >
-            Jusqu&apos;ici, il se passait des choses parce que tu demandais. Dans ce module, il va se
-            passer des choses parce que c&apos;est déclenché : une sauvegarde qui part toute seule,
-            un garde-fou qui t&apos;empêche de casser, un bilan qui t&apos;attend chaque vendredi.
-            Rien de neuf à installer : tu branches ce que tu as déjà.
-          </ModuleOverviewIntro>
+          <header className="module-intro">
+            <div className="label">Module · Savoir-faire · En écriture</div>
+            <h1 className="mov-h1">
+              Automatise ton travail, <em>ce qui se répète se fait tout seul</em>.
+            </h1>
+            <p className="mov-meta">5 étapes · ≈ 2 h à 2 h 45 · Débutant</p>
+            <p className="etape-obj">
+              Jusqu&apos;ici, il se passait des choses parce que tu demandais. Dans ce module, il va se
+              passer des choses parce que c&apos;est déclenché : une sauvegarde qui part toute seule,
+              un garde-fou qui t&apos;empêche de casser, un bilan qui t&apos;attend chaque vendredi.
+              Rien de neuf à installer : tu branches ce que tu as déjà.
+            </p>
+          </header>
 
           <ModuleProgress
             moduleKey="/automatiser-ton-travail"
@@ -69,10 +70,14 @@ export default function ModuleAutomatisation() {
         <ModuleSidePanel
           moduleKey="/automatiser-ton-travail"
           basePath="/automatiser-ton-travail"
-          etapes={cards}
-          facts={automationOverview.facts}
-          finishedHref={automationOverview.finishedHref}
-          finishedLabel={automationOverview.finishedLabel}
+          etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
+          facts={[
+            { label: "Livrable", value: "Des automatisations qui se déclenchent seules" },
+            { label: "Durée", value: "2 h à 2 h 45" },
+            { label: "Outil", value: "Claude Code, rien de neuf à installer" },
+          ]}
+          jugeHref="/juge-automatisation"
+          jugeLabel="Fais évaluer ton automatisation par le juge"
         />
       </div>
     </section>
