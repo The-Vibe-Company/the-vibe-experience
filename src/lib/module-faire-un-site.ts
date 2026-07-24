@@ -25,6 +25,9 @@ export type SousEtape = {
   prompt?: string;
   ceQueTuDoisVoir?: string;
   siCaBloque?: string;
+  // Encart « à retenir » : le sens profond d'une étape, mis en valeur dans un
+  // bloc à part (ex. ce que le passage par le Terminal met en place une fois pour toutes).
+  encart?: { titre: string; texte: string };
   visuel?: Visuel;
   monExemple?: string;
   conseil?: string;
@@ -298,6 +301,11 @@ export const etapesDetail: EtapeDetail[] = [
           "La première fois que j'ai collé une ligne dans le Terminal et que ça a marché, la peur est tombée d'un coup. Depuis, ce n'est plus un obstacle.",
         conseil:
           "Tu colles ce qu'on te donne et tu regardes. Cette fenêtre n'a rien de magique : une zone de texte, et des erreurs rouges qui ne cassent rien.",
+        encart: {
+          titre: "Ce que le Terminal met en place",
+          texte:
+            "Ce passage par le Terminal n'est pas une simple formalité, c'est un réglage que tu fais une seule fois. En connectant ta machine à ton compte GitHub, tu autorises ton ordinateur à agir en ton nom, avec le droit de créer, de sauvegarder et d'envoyer ton code. C'est ce qui permet ensuite à Claude Code de faire ces actions pour toi, sans que tu ailles cliquer sur GitHub, et plus tard sur Vercel pour la mise en ligne. Une fois posé, c'est valable pour tous tes prochains projets. Sans ça, il faudrait tout refaire à la main dans le navigateur.",
+        },
       },
       {
         titre: "Automatise les sauvegardes.",
