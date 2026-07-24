@@ -9,6 +9,10 @@ import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import { etapesDetailDevis } from "@/lib/module-devis";
 import { etapesDetailFacture } from "@/lib/module-facture";
 import { computeStats, useAnyModuleStarted, useModuleProgress } from "@/lib/progress";
+import {
+  dismissQuizRecommendation,
+  readQuizRecommendation,
+} from "@/lib/journey-state";
 
 type Branche = "construire" | "automatiser";
 
@@ -93,42 +97,38 @@ export default function ParcoursFamilies() {
   // La reco du quiz marque la catégorie conseillée. Elle disparaît dès qu'un
   // module est lancé, ou quand l'utilisateur choisit de passer outre.
   useEffect(() => {
-    queueMicrotask(() => {
-      try {
-        const raw = localStorage.getItem("tve_quiz_reco");
-        if (!raw) return;
-        setQuizFait(true);
-        const r = JSON.parse(raw);
+    const updateRecommendation = () => {
+      const recommendation = readQuizRecommendation();
+      setQuizFait(Boolean(recommendation));
+      if (
+        moduleStarted.started ||
+        !recommendation ||
+        recommendation.dismissed
+      ) {
+        setReco(null);
+        setRecommendedHref(null);
+        return;
+      }
+      setReco(recommendation.branche);
+      setRecommendedHref(recommendation.moduleHref);
+    };
 
-        if (moduleStarted.started) {
-          setReco(null);
-          setRecommendedHref(null);
-          return;
-        }
-
-        if (
-          !r.dismissed &&
-          (r.branche === "construire" || r.branche === "automatiser")
-        ) {
-          setReco(r.branche);
-          setRecommendedHref(typeof r.moduleHref === "string" ? r.moduleHref : null);
-        }
-      } catch {}
-    });
+    queueMicrotask(updateRecommendation);
+    window.addEventListener("storage", updateRecommendation);
+    window.addEventListener("tve-path-choice", updateRecommendation);
+    return () => {
+      window.removeEventListener("storage", updateRecommendation);
+      window.removeEventListener("tve-path-choice", updateRecommendation);
+    };
   }, [moduleStarted.started]);
 
   // « Pas convaincu ? » : on retire le conseil, l'utilisateur choisit seul.
   const ignorerConseil = () => {
     setReco(null);
     setRecommendedHref(null);
-    try {
-      const raw = localStorage.getItem("tve_quiz_reco");
-      if (raw) {
-        const r = JSON.parse(raw);
-        r.dismissed = true;
-        localStorage.setItem("tve_quiz_reco", JSON.stringify(r));
-      }
-    } catch {}
+    void dismissQuizRecommendation().catch(() => {
+      // Le choix local reste appliqué et sera retenté lors d'une prochaine synchronisation.
+    });
   };
 
   const colonne = (

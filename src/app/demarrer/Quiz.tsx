@@ -39,12 +39,12 @@ export default function Quiz() {
         return;
       }
       setSaveState("saving");
-      const { error } = await supabase
-        .from("profiles")
-        .update({ niveau: reco.niveau, objectif: reco.cible })
-        .eq("id", user.id);
-      if (!error) await syncJourneyState(user.id);
-      setSaveState(error ? "error" : "saved");
+      try {
+        await syncJourneyState(user.id);
+        setSaveState("saved");
+      } catch {
+        setSaveState("error");
+      }
     })();
   }, [done, answers]);
 
@@ -69,8 +69,9 @@ export default function Quiz() {
   // La recommandation reste mémorisée, mais elle ne dirige plus la page des
   // parcours si la personne préfère choisir elle-même.
   function chooseMyself() {
-    dismissQuizRecommendation();
-    window.location.assign("/parcours");
+    void dismissQuizRecommendation().finally(() => {
+      window.location.assign("/parcours");
+    });
   }
 
   if (done) {

@@ -621,6 +621,12 @@ a { color: inherit; text-decoration: none; }
   flex: none;
 }
 .save-progress-actions .btn { font-size: .84rem; padding: .62rem .9rem; }
+.save-progress-actions .quiz-choose {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: .55rem .35rem;
+}
 .livret { display: flex; flex-direction: column; gap: .9rem; margin-top: 1.7rem; padding-top: 0; border-top: none; }
 .livret-row { display: grid; grid-template-columns: 110px 1fr; gap: 1rem; align-items: baseline; }
 .livret-row .se-l { margin: 0; }

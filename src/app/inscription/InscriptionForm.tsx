@@ -4,6 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import SkipQuizLink from "@/components/SkipQuizLink";
+import {
+  createPendingJourneySnapshot,
+  PENDING_JOURNEY_METADATA_KEY,
+} from "@/lib/pending-journey";
 
 export default function InscriptionForm({ nextPath }: { nextPath: string }) {
   const [email, setEmail] = useState("");
@@ -21,7 +25,12 @@ export default function InscriptionForm({ nextPath }: { nextPath: string }) {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: confirmUrl },
+      options: {
+        emailRedirectTo: confirmUrl,
+        data: {
+          [PENDING_JOURNEY_METADATA_KEY]: createPendingJourneySnapshot(),
+        },
+      },
     });
     setLoading(false);
     if (error) {

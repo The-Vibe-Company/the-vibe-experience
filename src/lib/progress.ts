@@ -9,31 +9,48 @@ import { readActiveModule, syncActiveModule } from "@/lib/journey-state";
 // Si l'utilisateur est connecté, on synchronise en plus avec Supabase : la progression est alors
 // gardée sur son compte et se retrouve même s'il change de machine ou vide son navigateur.
 
-const KEY = "tve_progress_v2";
+export const PROGRESS_KEY = "tve_progress_v2";
+const OWNER_KEY = "tve_progress_owner";
 const EVT = "tve-progress";
 
-type Store = Record<string, { done: string[]; started?: boolean }>;
+export type ProgressStore = Record<string, { done: string[]; started?: boolean }>;
 
 // Id stable d'une sous-étape : slug de l'étape + index (0-based).
 export function sousId(etapeSlug: string, i: number): string {
   return `${etapeSlug}.${i}`;
 }
 
-function read(): Store {
+export function readProgressStore(): ProgressStore {
   if (typeof window === "undefined") return {};
   try {
-    return JSON.parse(window.localStorage.getItem(KEY) || "{}") as Store;
+    return JSON.parse(window.localStorage.getItem(PROGRESS_KEY) || "{}") as ProgressStore;
   } catch {
     return {};
   }
 }
 
-function write(s: Store) {
+function readOwner() {
+  if (typeof window === "undefined") return null;
+  return window.localStorage.getItem(OWNER_KEY);
+}
+
+function write(s: ProgressStore) {
   try {
-    window.localStorage.setItem(KEY, JSON.stringify(s));
+    window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(s));
+    if (!authedUserId) window.localStorage.setItem(OWNER_KEY, "anonymous");
     window.dispatchEvent(new CustomEvent(EVT));
   } catch {
     // stockage indisponible : le suivi est juste non persistant.
+  }
+}
+
+export function replaceProgressStore(s: ProgressStore, owner: string | null = null) {
+  write(s);
+  try {
+    if (owner) window.localStorage.setItem(OWNER_KEY, owner);
+    else window.localStorage.removeItem(OWNER_KEY);
+  } catch {
+    // Le stockage peut être indisponible, le suivi reste alors non persistant.
   }
 }
 
@@ -49,16 +66,18 @@ function client() {
 
 // Envoie l'état d'un module vers le compte. Silencieux : si le réseau ou la table manque,
 // le local reste la source de vérité.
-async function pushModule(moduleKey: string, done: string[]) {
+async function pushModule(moduleKey: string, done: string[], strict = false) {
   if (!authedUserId) return;
   try {
-    await client()
+    const { error } = await client()
       .from("module_progress")
       .upsert(
         { user_id: authedUserId, module_key: moduleKey, done, updated_at: new Date().toISOString() },
         { onConflict: "user_id,module_key" },
       );
-  } catch {
+    if (error) throw error;
+  } catch (error) {
+    if (strict) throw error;
     // hors-ligne ou table absente : on garde le local.
   }
 }
@@ -70,23 +89,20 @@ export async function hydrateFromServer(userId: string) {
   authedUserId = userId;
   if (typeof window === "undefined") return;
 
-  let rows: { module_key: string; done: string[] | null }[] = [];
-  try {
-    const { data, error } = await client()
-      .from("module_progress")
-      .select("module_key, done")
-      .eq("user_id", userId);
-    if (error) return;
-    rows = data ?? [];
-  } catch {
-    return;
-  }
+  const { data, error } = await client()
+    .from("module_progress")
+    .select("module_key, done")
+    .eq("user_id", userId);
+  if (error) throw error;
+  const rows: { module_key: string; done: string[] | null }[] = data ?? [];
 
-  const local = read();
+  const owner = readOwner();
+  const canMergeLocal = owner === "anonymous" || owner === userId;
+  const local = canMergeLocal ? readProgressStore() : {};
   const serverByKey = new Map(rows.map((r) => [r.module_key, new Set(r.done ?? [])]));
   const keys = new Set<string>([...Object.keys(local), ...serverByKey.keys()]);
 
-  let localChanged = false;
+  const pushes: Promise<void>[] = [];
   for (const mk of keys) {
     const localDone = new Set(local[mk]?.done ?? []);
     const serverDone = serverByKey.get(mk) ?? new Set<string>();
@@ -94,19 +110,21 @@ export async function hydrateFromServer(userId: string) {
 
     if (merged.size !== localDone.size) {
       local[mk] = { ...local[mk], done: [...merged] };
-      localChanged = true;
     }
     if (merged.size !== serverDone.size) {
-      void pushModule(mk, [...merged]);
+      pushes.push(pushModule(mk, [...merged], true));
     }
   }
 
-  if (localChanged) write(local);
+  await Promise.all(pushes);
+  replaceProgressStore(local, userId);
 }
 
-// Au logout : on arrête de pousser vers le compte. Le local reste, pour ne pas effacer l'écran.
+// Au logout, le compte reste la source durable. On retire sa copie locale pour qu'elle ne puisse
+// jamais être importée dans le compte suivant utilisé dans le même navigateur.
 export function stopSync() {
   authedUserId = null;
+  replaceProgressStore({});
 }
 
 function subscribeProgress(callback: () => void) {
@@ -121,24 +139,26 @@ function subscribeProgress(callback: () => void) {
 
 function readModuleSnapshot(moduleKey: string) {
   if (typeof window === "undefined") return "";
-  const entry = read()[moduleKey];
+  const entry = readProgressStore()[moduleKey];
   return JSON.stringify({ done: entry?.done ?? [], started: Boolean(entry?.started) });
 }
 
 // --- Suivi « module commencé » (pour l'accueil du parcours) -----------------
 export function hasAnyModuleStarted() {
-  const s = read();
+  const s = readProgressStore();
   return Object.values(s).some((entry) => entry.started || (entry.done?.length ?? 0) > 0);
 }
 
 export function markModuleStarted(moduleKey: string) {
-  const s = read();
+  const s = readProgressStore();
   const cur = s[moduleKey] ?? { done: [] };
   if (!cur.started) {
     s[moduleKey] = { ...cur, done: cur.done ?? [], started: true };
     write(s);
   }
-  void syncActiveModule(moduleKey, authedUserId);
+  void syncActiveModule(moduleKey, authedUserId).catch(() => {
+    // Le module actif reste local et sera renvoyé lors de la prochaine synchronisation.
+  });
 }
 
 export function useAnyModuleStarted() {
@@ -176,7 +196,7 @@ export function useModuleProgress(moduleKey: string) {
 
   const setDoneState = useCallback(
     (id: string, value: boolean) => {
-      const s = read();
+      const s = readProgressStore();
       const cur = new Set(s[moduleKey]?.done ?? []);
       if (value) cur.add(id);
       else cur.delete(id);
@@ -189,7 +209,7 @@ export function useModuleProgress(moduleKey: string) {
 
   const toggle = useCallback(
     (id: string) => {
-      const cur = read()[moduleKey]?.done ?? [];
+      const cur = readProgressStore()[moduleKey]?.done ?? [];
       setDoneState(id, !cur.includes(id));
     },
     [moduleKey, setDoneState],

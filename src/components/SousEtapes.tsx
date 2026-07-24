@@ -61,6 +61,23 @@ function GuidanceParagraphs({ text }: { text: string }) {
   );
 }
 
+function focusAndScrollToSubstep(
+  etapeSlug: string,
+  index: number,
+  block: ScrollLogicalPosition,
+) {
+  window.requestAnimationFrame(() => {
+    const item = document.getElementById(substepAnchor(etapeSlug, index));
+    item?.querySelector<HTMLButtonElement>(".se-head")?.focus({ preventScroll: true });
+    item?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block,
+    });
+  });
+}
+
 export default function SousEtapes({
   sous,
   detailPret,
@@ -93,14 +110,7 @@ export default function SousEtapes({
             : -1;
       if (index < 0 || index >= sous.length) return;
       setOpen(index);
-      window.requestAnimationFrame(() => {
-        document.getElementById(substepAnchor(etapeSlug, index))?.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-            ? "auto"
-            : "smooth",
-          block: "start",
-        });
-      });
+      focusAndScrollToSubstep(etapeSlug, index, "start");
     };
 
     openFromHash();
@@ -115,14 +125,7 @@ export default function SousEtapes({
     setDone(id, true);
     if (index < sous.length - 1) {
       setOpen(index + 1);
-      window.requestAnimationFrame(() => {
-        document.getElementById(substepAnchor(etapeSlug, index + 1))?.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-            ? "auto"
-            : "smooth",
-          block: "center",
-        });
-      });
+      focusAndScrollToSubstep(etapeSlug, index + 1, "center");
     } else if (nextStep) {
       router.push(`${nextStep.href}#${substepAnchor(nextStep.slug, 0)}`);
     }

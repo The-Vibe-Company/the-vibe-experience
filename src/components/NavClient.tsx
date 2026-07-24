@@ -27,6 +27,7 @@ const modulePaths = [
 export default function NavClient({ modules }: { modules: ProgressCatalog }) {
   const pathname = usePathname();
   const [accountLabel, setAccountLabel] = useState("Compte");
+  const [loginReturnPath, setLoginReturnPath] = useState(pathname);
 
   useEffect(() => {
     const supabase = createClient();
@@ -38,6 +39,22 @@ export default function NavClient({ modules }: { modules: ProgressCatalog }) {
     });
     return () => subscription.subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const updateReturnPath = () => {
+      setLoginReturnPath(
+        `${window.location.pathname}${window.location.search}${window.location.hash}`,
+      );
+    };
+    updateReturnPath();
+    window.addEventListener("hashchange", updateReturnPath);
+    return () => window.removeEventListener("hashchange", updateReturnPath);
+  }, [pathname]);
+
+  const accountHref =
+    accountLabel === "Mon compte"
+      ? "/compte"
+      : `/connexion?next=${encodeURIComponent(loginReturnPath)}`;
 
   return (
     <nav className="nav">
@@ -60,7 +77,7 @@ export default function NavClient({ modules }: { modules: ProgressCatalog }) {
           })}
           <ContinueLearningLink modules={modules} />
           <Link
-            href={accountLabel === "Mon compte" ? "/compte" : "/connexion"}
+            href={accountHref}
             className={
               pathname.startsWith("/compte") || pathname.startsWith("/connexion")
                 ? "active"

@@ -37,9 +37,11 @@ function subscribePathChoice(callback: () => void) {
   if (typeof window === "undefined") return () => {};
   window.addEventListener("storage", callback);
   window.addEventListener("tve-path-choice", callback);
+  window.addEventListener("tve-progress", callback);
   return () => {
     window.removeEventListener("storage", callback);
     window.removeEventListener("tve-path-choice", callback);
+    window.removeEventListener("tve-progress", callback);
   };
 }
 
