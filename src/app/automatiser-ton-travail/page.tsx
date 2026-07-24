@@ -3,7 +3,6 @@ import { etapesDetailAutomatisation } from "@/lib/module-automatisation";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleStartGuide from "@/components/ModuleStartGuide";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Automatise ton travail — The Vibe Experience" };
@@ -51,10 +50,6 @@ export default function ModuleAutomatisation() {
               un garde-fou qui t&apos;empêche de casser, un bilan qui t&apos;attend chaque vendredi.
               Rien de neuf à installer : tu branches ce que tu as déjà.
             </p>
-            <ModuleStartGuide
-              requirement="Tu réutilises Claude Code et les projets déjà préparés dans le parcours."
-              prerequisitesHref={`/automatiser-ton-travail/${cards[0]?.slug}#prerequis`}
-            />
           </header>
 
           <ModuleProgress

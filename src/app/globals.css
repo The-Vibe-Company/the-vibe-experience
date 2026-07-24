@@ -633,46 +633,6 @@ a { color: inherit; text-decoration: none; }
 .mov-meta { font-family: var(--font-geist-mono), monospace; font-size: .78rem; line-height: 1.5; color: var(--muted-2); margin: 0 0 1rem; }
 .module-intro { margin: 1.1rem 0 1.4rem; }
 .module-intro .etape-obj { margin: 1rem 0 0; }
-.module-start-guide {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: .8rem;
-  align-items: center;
-  margin-top: 1.5rem;
-  padding: 1rem 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.module-start-check {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background: var(--orange-bg);
-  color: var(--orange-ink);
-  font-size: .78rem;
-  font-weight: 800;
-}
-.module-start-guide p {
-  margin: 0;
-  color: var(--muted);
-  font-size: .9rem;
-  line-height: 1.55;
-}
-.module-start-guide strong { color: var(--fg); font-weight: 700; }
-.module-start-guide a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: .75rem 0;
-  color: var(--orange-ink);
-  font-size: .84rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.module-start-guide a:hover { color: var(--orange); }
 .mov-sec { margin: 2.6rem 0 .2rem; }
 .mov-toolintro { font-size: .95rem; color: var(--muted); line-height: 1.55; margin: .5rem 0 1rem; max-width: 42rem; }
 .module-overview-shell {
@@ -704,13 +664,6 @@ a { color: inherit; text-decoration: none; }
   .module-overview-main {
     grid-column: 1;
     grid-row: auto;
-  }
-  .module-start-guide {
-    grid-template-columns: auto minmax(0, 1fr);
-  }
-  .module-start-guide a {
-    grid-column: 2;
-    justify-self: start;
   }
 }
 .cost { font-family: var(--font-geist-mono), monospace; font-size: .6rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; color: var(--muted-2); background: none; padding: 0; border: none; border-radius: 0; }
@@ -833,6 +786,13 @@ a { color: inherit; text-decoration: none; }
 /* Intro centrée au-dessus des deux colonnes du parcours. */
 .pg-head-center { text-align: center; }
 .pg-head-center .pg-lead { margin-left: auto; margin-right: auto; }
+.pg-reassurance {
+  max-width: 40rem;
+  margin: .8rem auto 0;
+  color: var(--muted-2);
+  font-size: .9rem;
+  line-height: 1.55;
+}
 .pg-h1 { font-size: clamp(2rem, 3.6vw, 2.8rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; margin: 1rem 0 0; }
 .pg-h1 em { font-style: normal; color: var(--orange); }
 .pg-lead { font-size: 1.06rem; line-height: 1.62; color: var(--muted); max-width: 40rem; margin: 1.1rem 0 0; }

@@ -3,7 +3,6 @@ import { etapesDetailDevis } from "@/lib/module-devis";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleStartGuide from "@/components/ModuleStartGuide";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Automatise tes devis — The Vibe Experience" };
@@ -54,10 +53,6 @@ export default function ModuleDevis() {
               l&apos;emploi et tu repars avec tes devis en 2 à 3 minutes au lieu de 20 à
               40 à bricoler un vieux fichier Word.
             </p>
-            <ModuleStartGuide
-              requirement="Il te faut seulement un ordinateur, Claude Pro et les informations de ton entreprise."
-              prerequisitesHref={`/automatiser-tes-devis/${cards[0]?.slug}#prerequis`}
-            />
           </header>
 
           <ModuleProgress
