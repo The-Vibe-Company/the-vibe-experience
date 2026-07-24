@@ -3,7 +3,7 @@ import { etapesDetailDevis } from "@/lib/module-devis";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleStartGuide from "@/components/ModuleStartGuide";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Automatise tes devis — The Vibe Experience" };
@@ -54,6 +54,10 @@ export default function ModuleDevis() {
               l&apos;emploi et tu repars avec tes devis en 2 à 3 minutes au lieu de 20 à
               40 à bricoler un vieux fichier Word.
             </p>
+            <ModuleStartGuide
+              requirement="Il te faut seulement un ordinateur, Claude Pro et les informations de ton entreprise."
+              prerequisitesHref={`/automatiser-tes-devis/${cards[0]?.slug}#prerequis`}
+            />
           </header>
 
           <ModuleProgress
@@ -69,19 +73,6 @@ export default function ModuleDevis() {
             etapes={cards}
           />
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/automatiser-tes-devis"
-          basePath="/automatiser-tes-devis"
-          etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
-          facts={[
-            { label: "Livrable", value: "Tes devis conformes, en une phrase" },
-            { label: "Durée", value: "35 min environ" },
-            { label: "Outil", value: "Claude Code + le skill offert" },
-          ]}
-          jugeHref="/automatiser-tes-factures"
-          jugeLabel="Enchaîne : Automatise tes factures"
-        />
       </div>
     </section>
   );

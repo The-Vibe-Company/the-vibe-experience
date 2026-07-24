@@ -3,7 +3,7 @@ import { etapesDetail } from "@/lib/module-faire-un-site";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleStartGuide from "@/components/ModuleStartGuide";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Faire un site — The Vibe Experience" };
@@ -44,6 +44,10 @@ export default function Module() {
               Le module fondateur : tu construis TON site, du premier écran en local jusqu&apos;à la
               mise en ligne, en apprenant les vrais outils au passage.
             </p>
+            <ModuleStartGuide
+              requirement="Il te faut seulement un ordinateur et Claude Pro. Tu seras guidé étape par étape."
+              prerequisitesHref={`/module/${cards[0]?.slug}#prerequis`}
+            />
           </header>
 
           <ModuleProgress
@@ -55,17 +59,6 @@ export default function Module() {
           <div className="label mov-sec">Les étapes</div>
           <ModuleEtapes moduleKey="/module" basePath="/module" etapes={cards} />
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/module"
-          basePath="/module"
-          etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
-          facts={[
-            { label: "Livrable", value: "Un site en ligne, partageable" },
-            { label: "Durée", value: "3 à 4 h, souvent en plusieurs fois" },
-            { label: "Budget", value: "Claude Pro (~20 €/mois), le reste gratuit" },
-          ]}
-        />
       </div>
     </section>
   );

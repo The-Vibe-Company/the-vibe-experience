@@ -178,8 +178,6 @@ a { color: inherit; text-decoration: none; }
 }
 .ecol > * { grid-column: 1; min-width: 0; }
 .ecol.ecol-with-side > * { grid-column: 2; }
-.ecol .module-side { grid-column: 2; grid-row: 2 / span 10; }
-.ecol.ecol-with-side .module-side { grid-column: 4; }
 .ecol .se-list { grid-column: 1 / -1; }
 /* Dans une étape, le cours reste centré et son aide contextuelle occupe la vraie
    colonne de droite, libérée du panneau général du module. */
@@ -192,7 +190,6 @@ a { color: inherit; text-decoration: none; }
     column-gap: clamp(1.7rem, 3vw, 3rem);
   }
   .ecol.ecol-with-side > * { grid-column: 1; }
-  .ecol.ecol-with-side .module-side { grid-column: 2; }
   .ecol.ecol-with-side .se-list { grid-column: 1 / -1; }
 }
 @media (max-width: 1399px) {
@@ -200,8 +197,6 @@ a { color: inherit; text-decoration: none; }
   .ecol { grid-column: 2; grid-template-columns: minmax(0, 820px); }
   .ecol.ecol-with-side { grid-template-columns: minmax(0, 820px); }
   .ecol.ecol-with-side > * { grid-column: 1; }
-  .ecol .module-side { grid-column: 1; grid-row: auto; }
-  .ecol.ecol-with-side .module-side { grid-column: 1; grid-row: auto; }
   .ecol .se-list { grid-column: 1; }
   .ecol.ecol-with-side .se-list { grid-column: 1; }
 }
@@ -234,12 +229,9 @@ a { color: inherit; text-decoration: none; }
 .erail-sub li.scur .erail-ring { border-color: var(--orange); background: var(--orange); }
 .erail-sub li.fait .erail-st { color: var(--muted); }
 
-/* En-tête de progression sur la page d'accueil de module */
-.mprogress { margin-bottom: 1.6rem; }
-.mprogress-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .7rem; }
-.mprogress-count { font-family: var(--font-geist-mono), monospace; font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-.mprogress-bar { height: 2px; background: var(--track); border-radius: 100px; overflow: hidden; }
-.mprogress-fill { height: 100%; background: var(--orange); transition: width .3s ease; }
+/* L'action principale reste seule dans le contenu. La progression est déjà
+   visible dans le rail de gauche. */
+.mprogress { display: flex; justify-content: flex-start; margin-bottom: 1.9rem; }
 
 @media (max-width: 900px) {
   .etape-shell {
@@ -582,12 +574,52 @@ a { color: inherit; text-decoration: none; }
 .mov-h1 { font-size: clamp(2rem, 3.4vw, 2.6rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; margin: 1rem 0 .7rem; }
 .mov-h1 em { font-style: normal; color: var(--orange); }
 .mov-meta { font-family: var(--font-geist-mono), monospace; font-size: .78rem; line-height: 1.5; color: var(--muted-2); margin: 0 0 1rem; }
-.module-intro { margin: 1.1rem 0 2.4rem; }
+.module-intro { margin: 1.1rem 0 1.4rem; }
 .module-intro .etape-obj { margin: 1rem 0 0; }
+.module-start-guide {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: .8rem;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.module-start-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--orange-bg);
+  color: var(--orange-ink);
+  font-size: .78rem;
+  font-weight: 800;
+}
+.module-start-guide p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+.module-start-guide strong { color: var(--fg); font-weight: 700; }
+.module-start-guide a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: .75rem 0;
+  color: var(--orange-ink);
+  font-size: .84rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.module-start-guide a:hover { color: var(--orange); }
 .mov-sec { margin: 2.6rem 0 .2rem; }
 .mov-toolintro { font-size: .95rem; color: var(--muted); line-height: 1.55; margin: .5rem 0 1rem; max-width: 42rem; }
 .module-overview-shell {
-  grid-template-columns: clamp(250px, 18vw, 290px) minmax(0, 1fr) minmax(240px, 340px);
+  grid-template-columns: clamp(250px, 18vw, 290px) minmax(0, 1fr);
   justify-content: stretch;
 }
 .module-overview-shell > .erail {
@@ -599,61 +631,15 @@ a { color: inherit; text-decoration: none; }
   grid-column: 2;
   grid-row: 1;
   display: block;
-  width: min(100%, 820px);
+  width: min(100%, 940px);
   justify-self: center;
 }
-.module-overview-shell > .module-side {
-  grid-column: 3;
-  grid-row: 1;
-}
-.module-side {
-  position: sticky;
-  top: 84px;
-  align-self: start;
-  justify-self: end;
-  width: min(100%, 340px);
-  border-left: 1px solid var(--border);
-  padding-left: 1.4rem;
-  color: var(--muted);
-}
-.module-side h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -.025em; line-height: 1.08; margin: .65rem 0 .55rem; color: var(--fg); }
-.module-side p { font-size: .94rem; line-height: 1.55; margin: 0 0 1.15rem; }
-/* display:flex (pas block) : garde l'espace entre le tiret orange et le texte. */
-.module-side > .label { display: flex; width: fit-content; margin-bottom: .6rem; }
-.module-side-state { font-weight: 650; color: var(--fg); }
-.module-side-list + .module-side-next { border-top: none; }
-.module-side-next { display: flex; flex-direction: column; gap: .25rem; padding: .95rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); color: inherit; }
-.module-side-next span { font-family: var(--font-geist-mono), monospace; font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--orange-ink); }
-.module-side-next strong { font-size: 1rem; line-height: 1.35; color: var(--fg); transition: color .15s; }
-.module-side-next:hover strong { color: var(--orange-ui); }
-.module-side-progress { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
-.module-side-progress span { display: flex; flex-direction: column; gap: .15rem; }
-.module-side-progress strong { font-size: 1.25rem; font-weight: 800; color: var(--fg); letter-spacing: -.025em; }
-.module-side-progress em { font-family: var(--font-geist-mono), monospace; font-size: .62rem; font-style: normal; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-2); }
-.module-side-list { display: flex; flex-direction: column; padding: .65rem 0; border-bottom: 1px solid var(--border); }
-.module-side-row { display: flex; flex-direction: column; gap: .22rem; padding: .45rem 0; }
-.module-side-row span { font-family: var(--font-geist-mono), monospace; font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); }
-.module-side-row strong { font-size: .92rem; line-height: 1.45; color: var(--fg); font-weight: 550; }
-.module-side-reminders { padding: 1rem 0; border-bottom: 1px solid var(--border); }
-.module-side-reminders ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .45rem; }
-.module-side-reminders li { position: relative; padding-left: .9rem; font-size: .9rem; line-height: 1.45; }
-.module-side-reminders li::before { content: ""; position: absolute; left: 0; top: .65em; width: 4px; height: 4px; border-radius: 50%; background: var(--orange); }
-.module-side-links { display: flex; flex-direction: column; gap: .45rem; padding-top: .95rem; }
-.module-side-links a { font-size: .92rem; font-weight: 650; color: var(--orange-ink); transition: color .15s; }
-.module-side-links a:hover { color: var(--orange); }
 @media (max-width: 1399px) {
-  .module-side { position: static; top: auto; justify-self: stretch; width: auto; margin: 1.4rem 0 0; padding: 1rem 0 0; border-left: none; border-top: 1px solid var(--border); }
   .module-overview-shell {
-    grid-template-columns: clamp(250px, 22vw, 290px) minmax(0, 820px);
+    grid-template-columns: clamp(220px, 22vw, 250px) minmax(0, 1fr);
   }
   .module-overview-main {
     grid-column: 2;
-  }
-  .module-overview-shell > .module-side {
-    grid-column: 2;
-    grid-row: 2;
-    width: min(100%, 820px);
-    justify-self: center;
   }
 }
 @media (max-width: 900px) {
@@ -662,9 +648,12 @@ a { color: inherit; text-decoration: none; }
     grid-column: 1;
     grid-row: auto;
   }
-  .module-overview-shell > .module-side {
-    grid-column: 1;
-    grid-row: auto;
+  .module-start-guide {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .module-start-guide a {
+    grid-column: 2;
+    justify-self: start;
   }
 }
 .cost { font-family: var(--font-geist-mono), monospace; font-size: .6rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; color: var(--muted-2); background: none; padding: 0; border: none; border-radius: 0; }

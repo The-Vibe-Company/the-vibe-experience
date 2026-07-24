@@ -17,7 +17,6 @@ export default function ModuleProgress({
   if (!mounted) return null;
 
   const stats = computeStats(etapes, done, started);
-  const pct = stats.total ? Math.round((stats.doneCount / stats.total) * 100) : 0;
   const t = stats.current;
 
   let cta = "Commencer le module";
@@ -33,17 +32,9 @@ export default function ModuleProgress({
 
   return (
     <div className="mprogress">
-      <div className="mprogress-top">
-        <span className="mprogress-count">
-          {stats.doneCount} / {stats.total} sous-étapes faites
-        </span>
-        <Link className="btn" href={href}>
-          {cta} →
-        </Link>
-      </div>
-      <div className="mprogress-bar" aria-hidden>
-        <div className="mprogress-fill" style={{ width: `${pct}%` }} />
-      </div>
+      <Link className="btn" href={href}>
+        {cta} →
+      </Link>
     </div>
   );
 }

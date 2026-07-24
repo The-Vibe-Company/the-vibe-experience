@@ -3,7 +3,7 @@ import { etapesDetailFacture } from "@/lib/module-facture";
 import ModuleRail from "@/components/ModuleRail";
 import ModuleProgress from "@/components/ModuleProgress";
 import ModuleEtapes from "@/components/ModuleEtapes";
-import ModuleSidePanel from "@/components/ModuleSidePanel";
+import ModuleStartGuide from "@/components/ModuleStartGuide";
 import MarkSelectedPath from "@/components/MarkSelectedPath";
 
 export const metadata = { title: "Module · Automatise tes factures — The Vibe Experience" };
@@ -52,6 +52,10 @@ export default function ModuleFacture() {
               tout seul, et l&apos;avoir quand il faut corriger. Et si tu ne fais pas de devis, il
               fait aussi tes factures de zéro.
             </p>
+            <ModuleStartGuide
+              requirement="Il te faut seulement un ordinateur, Claude Pro et les informations de facturation de ton entreprise."
+              prerequisitesHref={`/automatiser-tes-factures/${cards[0]?.slug}#prerequis`}
+            />
           </header>
 
           <ModuleProgress
@@ -67,19 +71,6 @@ export default function ModuleFacture() {
             etapes={cards}
           />
         </div>
-
-        <ModuleSidePanel
-          moduleKey="/automatiser-tes-factures"
-          basePath="/automatiser-tes-factures"
-          etapes={cards.map((c) => ({ slug: c.slug, num: c.num, titre: c.titre, sousCount: c.sousCount }))}
-          facts={[
-            { label: "Livrable", value: "Tes factures conformes, en une phrase" },
-            { label: "Durée", value: "30 min environ" },
-            { label: "Outil", value: "Claude Code + le skill offert" },
-          ]}
-          jugeHref="/parcours"
-          jugeLabel="Retourne au parcours choisir la suite"
-        />
       </div>
     </section>
   );
